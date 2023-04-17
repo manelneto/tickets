@@ -1,244 +1,244 @@
-/* APAGAR */
+PRAGMA foreign_keys = ON;
+
+/* DROP */
 
 
-
-DROP TABLE IF EXISTS HashtagTicket;
-DROP TABLE IF EXISTS AgenteDepartamento;
-DROP TABLE IF EXISTS Mensagem;
+DROP TABLE IF EXISTS TicketTag;
+DROP TABLE IF EXISTS AgentDepartment;
+DROP TABLE IF EXISTS Answer;
+DROP TABLE IF EXISTS Question;
+DROP TABLE IF EXISTS Change;
 DROP TABLE IF EXISTS Ticket;
-DROP TABLE IF EXISTS Prioridade;
-DROP TABLE IF EXISTS Hashtag;
-DROP TABLE IF EXISTS Estado;
-DROP TABLE IF EXISTS Departamento;
 DROP TABLE IF EXISTS FAQ;
-DROP TABLE IF EXISTS Administrador;
-DROP TABLE IF EXISTS Agente;
-DROP TABLE IF EXISTS Cliente;
-DROP TABLE IF EXISTS Utilizador;
+DROP TABLE IF EXISTS Status;
+DROP TABLE IF EXISTS Tag;
+DROP TABLE IF EXISTS Priority;
+DROP TABLE IF EXISTS Department;
+DROP TABLE IF EXISTS Admin;
+DROP TABLE IF EXISTS Agent;
+DROP TABLE IF EXISTS Client;
+DROP TABLE IF EXISTS User;
 
 
-
-/* CRIAR */
-
+/* CREATE */
 
 
-CREATE TABLE Utilizador (
-    idUtilizador INTEGER NOT NULL,
-    nome TEXT NOT NULL,
-    apelido TEXT NOT NULL,
-    email TEXT NOT NULL,
+CREATE TABLE User (
+    idUser INTEGER NOT NULL,
+    firstName TEXT NOT NULL,
+    lastName TEXT NOT NULL,
     username TEXT NOT NULL,
+    emailAddress TEXT NOT NULL,
+    phoneNumber TEXT NOT NULL,
     password TEXT NOT NULL,
-    CONSTRAINT UtilizadorPK PRIMARY KEY (idUtilizador),
-    CONSTRAINT UtilizadorEmailCK UNIQUE (email),
-    CONSTRAINT UtilizadorUsernameCK UNIQUE (username)
+    CONSTRAINT UserPK PRIMARY KEY (idUser),
+    CONSTRAINT UserUsernameCK UNIQUE (username),
+    CONSTRAINT UserEmailAddressCK UNIQUE (emailAddress),
+    CONSTRAINT UserPhoneNumberCK UNIQUE (phoneNumber)
 );
 
-
-CREATE TABLE Cliente (
-    idCliente INTEGER NOT NULL,
-    CONSTRAINT ClientePK PRIMARY KEY (idCliente),
-    CONSTRAINT ClienteUtilizadorFK FOREIGN KEY (idCliente) REFERENCES Utilizador (idUtilizador) ON UPDATE CASCADE ON DELETE CASCADE
+CREATE TABLE Client (
+    idClient INTEGER NOT NULL,
+    CONSTRAINT ClientPK PRIMARY KEY (idClient),
+    CONSTRAINT ClientUserFK FOREIGN KEY (idClient) REFERENCES User (idUser) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
-
-CREATE TABLE Agente (
-    idAgente INTEGER NOT NULL,
-    CONSTRAINT AgentePK PRIMARY KEY (idAgente),
-    CONSTRAINT AgenteClienteFK FOREIGN KEY (idAgente) REFERENCES Cliente (idCliente) ON UPDATE CASCADE ON DELETE CASCADE
+CREATE TABLE Agent (
+    idAgent INTEGER NOT NULL,
+    CONSTRAINT AgentPK PRIMARY KEY (idAgent),
+    CONSTRAINT AgentClientFK FOREIGN KEY (idAgent) REFERENCES Client (idClient) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
-
-CREATE TABLE Administrador (
-    idAdministrador INTEGER NOT NULL,
-    CONSTRAINT AdministradorPK PRIMARY KEY (idAdministrador),
-    CONSTRAINT AdministradorAgenteFK FOREIGN KEY (idAdministrador) REFERENCES Agente (idAgente) ON UPDATE CASCADE ON DELETE CASCADE
+CREATE TABLE Admin (
+    idAdmin INTEGER NOT NULL,
+    CONSTRAINT AdminPK PRIMARY KEY (idAdmin),
+    CONSTRAINT AdminAgentFK FOREIGN KEY (idAdmin) REFERENCES Agent (idAgent) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
+CREATE TABLE Department (
+    idDepartment INTEGER NOT NULL,
+    name TEXT NOT NULL,
+    CONSTRAINT DepartmentPK PRIMARY KEY (idDepartment),
+    CONSTRAINT DepartmentNameCK UNIQUE (name)
+);
+
+CREATE TABLE Priority (
+    idPriority INTEGER NOT NULL,
+    name TEXT NOT NULL,
+    CONSTRAINT PriorityPK PRIMARY KEY (idPriority),
+    CONSTRAINT PriorityNameCK UNIQUE (name)
+);
+
+CREATE TABLE Tag (
+    idTag INTEGER NOT NULL,
+    name TEXT NOT NULL,
+    CONSTRAINT TagPK PRIMARY KEY (idTag),
+    CONSTRAINT TagNameCK UNIQUE (name)
+);
+
+CREATE TABLE Status (
+    idStatus INTEGER NOT NULL,
+    name TEXT NOT NULL,
+    CONSTRAINT StatusPK PRIMARY KEY (idStatus),
+    CONSTRAINT StatusNameCK UNIQUE (name)
+);
 
 CREATE TABLE FAQ (
     idFAQ INTEGER NOT NULL,
-    pergunta TEXT NOT NULL,
-    resposta TEXT NOT NULL,
+    question TEXT NOT NULL,
+    answer TEXT NOT NULL,
     CONSTRAINT FAQPK PRIMARY KEY (idFAQ),
-    CONSTRAINT FAQPerguntaCK UNIQUE (pergunta)
+    CONSTRAINT FAQQuestionCK UNIQUE (question)
 );
-
-
-CREATE TABLE Departamento (
-    idDepartamento INTEGER NOT NULL,
-    nome TEXT NOT NULL,
-    CONSTRAINT DepartamentoPK PRIMARY KEY (idDepartamento),
-    CONSTRAINT DepartamentoNomeCK UNIQUE (nome)
-);
-
-
-CREATE TABLE Estado (
-    idEstado INTEGER NOT NULL,
-    nome TEXT NOT NULL,
-    CONSTRAINT EstadoPK PRIMARY KEY (idEstado),
-    CONSTRAINT EstadoNomeCK UNIQUE (nome)
-);
-
-
-CREATE TABLE Hashtag (
-    idHashtag INTEGER NOT NULL,
-    hashtag TEXT NOT NULL,
-    CONSTRAINT HashtagPK PRIMARY KEY (idHashtag),
-    CONSTRAINT HashtagHashtagCK UNIQUE (hashtag)
-);
-
-
-CREATE TABLE Prioridade (
-    idPrioridade INTEGER NOT NULL,
-    nome TEXT NOT NULL,
-    CONSTRAINT PrioridadePK PRIMARY KEY (idPrioridade),
-    CONSTRAINT PrioridadeNomeCK UNIQUE (nome)
-);
-
 
 CREATE TABLE Ticket (
     idTicket INTEGER NOT NULL,
-    idCliente INTEGER NOT NULL,
-    titulo TEXT NOT NULL,
-    conteudo TEXT NOT NULL,
-    dataAbertura DATE NOT NULL,
-    idEstado INTEGER NOT NULL,
-    idDepartamento INTEGER,
-    idAgente INTEGER,
-    idPrioridade INTEGER,
-    dataFecho DATE,
+    idClient INTEGER NOT NULL,
+    title TEXT NOT NULL,
+    content TEXT NOT NULL,
+    dateOpened DATE NOT NULL,
+    dateDue DATE NOT NULL,
+    dateClosed DATE,
+    idAgent INTEGER,
+    idDepartment INTEGER,
+    idPriority INTEGER,
+    idStatus INTEGER DEFAULT 1,
     idFAQ INTEGER,
     CONSTRAINT TicketPK PRIMARY KEY (idTicket),
-    CONSTRAINT TicketClienteFK FOREIGN KEY (idCliente) REFERENCES Cliente (idCliente) ON UPDATE CASCADE ON DELETE CASCADE,
-    CONSTRAINT TicketEstadoFK FOREIGN KEY (idEstado) REFERENCES Estado (idEstado) ON UPDATE CASCADE ON DELETE CASCADE,
-    CONSTRAINT TicketDepartamentoFK FOREIGN KEY (idDepartamento) REFERENCES Departamento (idDepartamento) ON UPDATE CASCADE ON DELETE CASCADE,
-    CONSTRAINT TicketAgenteFK FOREIGN KEY (idAgente) REFERENCES Agente (idAgente) ON UPDATE CASCADE ON DELETE CASCADE,
-    CONSTRAINT TicketPrioridadeFK FOREIGN KEY (idPrioridade) REFERENCES Prioridade (idPrioridade) ON UPDATE CASCADE ON DELETE CASCADE,
+    CONSTRAINT TicketClientFK FOREIGN KEY (idClient) REFERENCES Client (idClient) ON UPDATE CASCADE ON DELETE CASCADE,
+    CONSTRAINT TicketAgentFK FOREIGN KEY (idAgent) REFERENCES Agent (idAgent) ON UPDATE CASCADE ON DELETE CASCADE,
+    CONSTRAINT TicketDepartmentFK FOREIGN KEY (idDepartment) REFERENCES Department (idDepartment) ON UPDATE CASCADE ON DELETE CASCADE,
+    CONSTRAINT TicketPriorityFK FOREIGN KEY (idPriority) REFERENCES Priority (idPriority) ON UPDATE CASCADE ON DELETE CASCADE,
+    CONSTRAINT TicketStatusFK FOREIGN KEY (idStatus) REFERENCES Status (idStatus) ON UPDATE CASCADE ON DELETE CASCADE,
     CONSTRAINT TicketFAQFK FOREIGN KEY (idFAQ) REFERENCES FAQ (idFAQ) ON UPDATE CASCADE
+    CONSTRAINT TicketCheckDateDue CHECK (dateDue >= dateOpened),
+    CONSTRAINT TicketCheckDateClosed CHECK (dateClosed IS NULL OR dateClosed >= dateOpened)
 );
 
-
-CREATE TABLE Mensagem (
-    idMensagem INTEGER NOT NULL,
-    data DATE NOT NULL,
-    conteudo TEXT NOT NULL,
-    idUtilizador INTEGER NOT NULL,
+CREATE TABLE Change (
+    idChange INTEGER NOT NULL,
+    date DATE NOT NULL,
+    description TEXT NOT NULL,
     idTicket INTEGER NOT NULL,
-    CONSTRAINT MensagemPK PRIMARY KEY (idMensagem),
-    CONSTRAINT MensagemUtilizadorFK FOREIGN KEY (idUtilizador) REFERENCES Utilizador (idUtilizador) ON UPDATE CASCADE ON DELETE CASCADE,
-    CONSTRAINT MensagemTicketFK FOREIGN KEY (idTicket) REFERENCES Ticket (idTicket) ON UPDATE CASCADE ON DELETE CASCADE
+    CONSTRAINT ChangePK PRIMARY KEY (idChange),
+    CONSTRAINT ChangeTicketFK FOREIGN KEY (idTicket) REFERENCES Ticket (idTicket) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
-
-CREATE TABLE AgenteDepartamento (
-    idAgente INTEGER NOT NULL,
-    idDepartamento INTEGER NOT NULL,
-    CONSTRAINT AgenteDepartamentoPK PRIMARY KEY (idAgente, idDepartamento),
-    CONSTRAINT AgenteDepartamentoAgenteFK FOREIGN KEY (idAgente) REFERENCES Agente (idAgente) ON UPDATE CASCADE ON DELETE CASCADE,
-    CONSTRAINT AgenteDepartamentoDepartamentoFK FOREIGN KEY (idDepartamento) REFERENCES Departamento (idDepartamento) ON UPDATE CASCADE ON DELETE CASCADE
-);
-
-
-CREATE TABLE HashtagTicket (
-    idHashtag INTEGER NOT NULL,
+CREATE TABLE Question (
+    idQuestion INTEGER NOT NULL,
+    date DATE NOT NULL,
+    content TEXT NOT NULL,
     idTicket INTEGER NOT NULL,
-    CONSTRAINT HashtagTicketPK PRIMARY KEY (idHashtag, idTicket),
-    CONSTRAINT HashtagTicketHashtagFK FOREIGN KEY (idHashtag) REFERENCES Hashtag (idHashtag) ON UPDATE CASCADE ON DELETE CASCADE,
-    CONSTRAINT HashtagTicketTicketFK FOREIGN KEY (idTicket) REFERENCES Ticket (idTicket) ON UPDATE CASCADE ON DELETE CASCADE
+    CONSTRAINT QuestionPK PRIMARY KEY (idQuestion), 
+    CONSTRAINT QuestionTicketFK FOREIGN KEY (idTicket) REFERENCES Ticket (idTicket) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
+CREATE TABLE Answer (
+    idAnswer INTEGER NOT NULL,
+    date DATE NOT NULL,
+    content TEXT NOT NULL,
+    idQuestion INTEGER NOT NULL,
+    CONSTRAINT AnswerPK PRIMARY KEY (idAnswer),
+    CONSTRAINT AnswerIdQuestionCK UNIQUE (idQuestion),
+    CONSTRAINT AnswerQuestionFK FOREIGN KEY (idQuestion) REFERENCES Question (idQuestion) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+CREATE TABLE AgentDepartment (
+    idAgent INTEGER NOT NULL,
+    idDepartment INTEGER NOT NULL,
+    CONSTRAINT AgentDepartmentPK PRIMARY KEY (idAgent, idDepartment),
+    CONSTRAINT AgentDepartmentAgentFK FOREIGN KEY (idAgent) REFERENCES Agent (idAgent) ON UPDATE CASCADE ON DELETE CASCADE,
+    CONSTRAINT AgentDepartmentDepartmentFK FOREIGN KEY (idDepartment) REFERENCES Department (idDepartment) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+CREATE TABLE TicketTag (
+    idTicket INTEGER NOT NULL,
+    idTag INTEGER NOT NULL,
+    CONSTRAINT TicketTagPK PRIMARY KEY (idTag, idTicket),
+    CONSTRAINT TicketTagTicketFK FOREIGN KEY (idTicket) REFERENCES Ticket (idTicket) ON UPDATE CASCADE ON DELETE CASCADE,
+    CONSTRAINT TicketTagTagFK FOREIGN KEY (idTag) REFERENCES Tag (idTag) ON UPDATE CASCADE ON DELETE CASCADE
+);
 
 
 /* TRIGGERS */
 
 
-CREATE TRIGGER AgenteCliente
-AFTER INSERT ON Agente
+CREATE TRIGGER AgentClient
+AFTER INSERT ON Agent
 FOR EACH ROW
 BEGIN
-    INSERT INTO Cliente VALUES(New.idAgente);
+    INSERT INTO Client VALUES(New.idAgent);
+END;
+
+CREATE TRIGGER AdminAgent
+AFTER INSERT ON Admin
+FOR EACH ROW
+BEGIN
+    INSERT INTO Agent VALUES(New.idAdmin);
 END;
 
 
-CREATE TRIGGER AdministradorAgente
-AFTER INSERT ON Administrador
-FOR EACH ROW
-BEGIN
-    INSERT INTO Agente VALUES(New.idAdministrador);
-END;
+/* INSERT */
 
 
-/* POVOAR */
+INSERT INTO User VALUES(1, 'Joana', 'Marques', 'joanamarques', 'joanamarques@gmail.com', '911111111', 'marquesjoana');
+INSERT INTO User VALUES(2, 'Matilde', 'Simões', 'matildesimoes', 'matildesimoes@gmail.com', '922222222', 'simoesmatilde');
+INSERT INTO User VALUES(3, 'Manel', 'Neto', 'manelneto', 'manelneto@gmail.com', '933333333', 'netomanel');
+INSERT INTO User VALUES(4, 'Client', 'Test', 'client', 'client@test.com', '944444444', 'client');
+INSERT INTO User VALUES(5, 'Agent', 'Test', 'agent', 'agent@test.com', '955555555', 'agent');
+INSERT INTO User VALUES(6, 'Admin', 'Test', 'admin', 'admin@test.com', '966666666', 'admin');
 
+INSERT INTO Client VALUES(4);
+INSERT INTO Client VALUES(3);
 
+INSERT INTO Agent VALUES(5);
+INSERT INTO Agent VALUES(2);
 
-PRAGMA foreign_keys = ON;
+INSERT INTO Admin VALUES(6);
+INSERT INTO Admin VALUES(1);
 
-INSERT INTO Utilizador VALUES(1, 'Joana', 'Marques', 'joanamarques@gmail.com', 'joanamarques', 'marquesjoana');
-INSERT INTO Utilizador VALUES(2, 'Matilde', 'Simões', 'matildesimoes@gmail.com', 'matildesimoes', 'simoesmatilde');
-INSERT INTO Utilizador VALUES(3, 'Manel', 'Neto', 'manelneto@gmail.com', 'manelneto', 'netomanel');
-INSERT INTO Utilizador VALUES(4, 'Benedita', 'Braga', 'beneditabraga@gmail.com', 'beneditabraga', 'bragabenedita');
-INSERT INTO Utilizador VALUES(5, 'Isabel', 'Cabral', 'isabelcabral@gmail.com', 'isabelcabral', 'cabralisabel');
-INSERT INTO Utilizador VALUES(6, 'João', 'Melo', 'joaomelo@gmail.com', 'joaomelo', 'melojoao');
+INSERT INTO Department VALUES(1, 'IT');
+INSERT INTO Department VALUES(2, 'Human Resources');
+INSERT INTO Department VALUES(3, 'Finances');
+INSERT INTO Department VALUES(4, 'Marketing');
 
-INSERT INTO Cliente VALUES(6);
-INSERT INTO Cliente VALUES(5);
+INSERT INTO Priority VALUES(1, 'Low');
+INSERT INTO Priority VALUES(2, 'Medium');
+INSERT INTO Priority VALUES(3, 'High');
+INSERT INTO Priority VALUES(4, 'Critical');
 
-INSERT INTO Agente VALUES(4);
-INSERT INTO Agente VALUES(3);
+INSERT INTO Tag VALUES(1, 'website');
+INSERT INTO Tag VALUES(2, 'password');
+INSERT INTO Tag VALUES(3, 'general');
+INSERT INTO Tag VALUES(4, 'other');
 
-INSERT INTO Administrador VALUES(2);
-INSERT INTO Administrador VALUES(1);
+INSERT INTO Status VALUES(1, 'Open');
+INSERT INTO Status VALUES(2, 'Assigned');
+INSERT INTO Status VALUES(3, 'Closed');
+INSERT INTO Status VALUES(4, 'Overdue');
 
-INSERT INTO FAQ VALUES(1, 'Como usar o site?', 'Usar o menu');
-INSERT INTO FAQ VALUES(2, 'Como recuperar a palavra-passe?', 'Não sei');
-INSERT INTO FAQ VALUES(3, 'Que nota vamos ter no projeto?', '20');
-INSERT INTO FAQ VALUES(4, 'Porto ou Benfica?', 'Porto');
+INSERT INTO FAQ VALUES(1, 'How long do I have to wait for an answer?', 'It depends on the question. On average, one week.');
+INSERT INTO FAQ VALUES(2, 'Where can I see the current status of my ticket?', 'The client can check the ticket status in the Dashboard.');
+INSERT INTO FAQ VALUES(3, 'Where can I submit a new ticket?', 'On the tickets section.');
+INSERT INTO FAQ VALUES(4, 'Where can I change my email address?', 'On your profile section.');
 
-INSERT INTO Departamento VALUES(1, 'Recursos Humanos');
-INSERT INTO Departamento VALUES(2, 'Finanças');
-INSERT INTO Departamento VALUES(3, 'IT');
-INSERT INTO Departamento VALUES(4, 'Marketing');
+INSERT INTO Ticket VALUES(1, 1, 'Received a broken TV', 'The television I ordered from your site was delivered with a cracked screen. I need some replacement.', '2023-04-07', '2023-04-14', NULL, NULL, NULL, NULL, 1, NULL);
+INSERT INTO Ticket VALUES(2, 2, 'Payment failed', 'The payment of my purchase failed. What can I do?', '2023-04-06', '2023-04-13', '2023-04-13', 5, 3, 3, 3, NULL);
+INSERT INTO Ticket VALUES(3, 3, 'Email address change', 'Where can I change my email address?', '2023-04-05', '2023-04-12', '2023-04-10', 6, 1, 1, 3, 4);
 
-INSERT INTO Estado VALUES(1, 'Aberto');
-INSERT INTO Estado VALUES(2, 'À espera');
-INSERT INTO Estado VALUES(3, 'Atribuído');
-INSERT INTO Estado VALUES(4, 'Fechado');
+INSERT INTO Question VALUES(1, '2023-04-17', 'What is the number of your order?', 1);
+INSERT INTO Question VALUES(2, '2023-04-10', 'What is the number of your purchase?', 2);
 
-INSERT INTO Hashtag VALUES(1, 'site');
-INSERT INTO Hashtag VALUES(2, 'password');
-INSERT INTO Hashtag VALUES(3, 'geral');
-INSERT INTO Hashtag VALUES(4, 'outro');
+INSERT INTO Answer VALUES(1, '2023-04-11', 'Purchase Number 123', 2);
 
-INSERT INTO Prioridade VALUES(1, 'Crítico');
-INSERT INTO Prioridade VALUES(2, 'Urgente');
-INSERT INTO Prioridade VALUES(3, 'Normal');
-INSERT INTO Prioridade VALUES(4, 'Não Prioritário');
+INSERT INTO AgentDepartment VALUES(5, 2);
+INSERT INTO AgentDepartment VALUES(5, 4);
+INSERT INTO AgentDepartment VALUES(2, 2);
+INSERT INTO AgentDepartment VALUES(6, 1);
+INSERT INTO AgentDepartment VALUES(6, 3);
+INSERT INTO AgentDepartment VALUES(1, 1);
 
-INSERT INTO Ticket VALUES(1, 6, 'Candeeiro', 'Preciso de um candeeiro novo.', '2023-04-06', 1, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO Ticket VALUES(2, 5, 'Bilhete', 'Onde comprar bilhetes para os Coldplay?', '2023-04-06', 2, 4, NULL, NULL, NULL, NULL);
-INSERT INTO Ticket VALUES(3, 4, 'Computador', 'O meu computador deixou de funcionar!', '2023-06-04', 3, 3, 3, 1, NULL, NULL);
-INSERT INTO Ticket VALUES(4, 3, 'Palavra-Passe', 'Perdi a minha palavra-passe. O que devo fazer?', '2023-01-01', 4, 3, 2, 2, '2023-01-02', 2);
-INSERT INTO Ticket VALUES(5, 2, 'Salário', 'Quero um aumento salarial.', '2023-01-01', 4, 2, 1, 3, '2023-01-10', NULL);
-INSERT INTO Ticket VALUES(6, 1, 'Post-Its', 'Alguém tirou os post-its da minha secretária.', '2022-10-10', 4, 1, 2, 4, '2022-12-25', NULL);
-
-INSERT INTO Mensagem VALUES(1, '2023-01-02', 'Não sabes ler o FAQ?', 2, 4);
-INSERT INTO Mensagem VALUES(2, '2023-01-02', 'Qual é o aumento que queres?', 1, 5);
-INSERT INTO Mensagem VALUES(3, '2023-01-02', '10.000 € no mínimo', 2, 5);
-INSERT INTO Mensagem VALUES(4, '2023-01-02', 'Feliz Natal!', 2, 6);
-
-
-INSERT INTO AgenteDepartamento VALUES(1, 2);
-INSERT INTO AgenteDepartamento VALUES(1, 3);
-INSERT INTO AgenteDepartamento VALUES(2, 1);
-INSERT INTO AgenteDepartamento VALUES(2, 3);
-INSERT INTO AgenteDepartamento VALUES(3, 3);
-INSERT INTO AgenteDepartamento VALUES(4, 4);
-
-INSERT INTO HashtagTicket VALUES(1, 2);
-INSERT INTO HashtagTicket VALUES(1, 4);
-INSERT INTO HashtagTicket VALUES(2, 4);
-INSERT INTO HashtagTicket VALUES(3, 3);
-INSERT INTO HashtagTicket VALUES(3, 5);
-INSERT INTO HashtagTicket VALUES(4, 6);
+INSERT INTO TicketTag VALUES(1, 4);
+INSERT INTO TicketTag VALUES(2, 4);
+INSERT INTO TicketTag VALUES(3, 1);
+INSERT INTO TicketTag VALUES(3, 3);
