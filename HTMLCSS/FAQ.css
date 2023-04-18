@@ -50,12 +50,6 @@ body {
     z-index: -1;
 }
 
-h1{
-    font-family: Arial, sans-serif;
-    font-size: 30px;
-    color: #22216D;
-}
-
 /* Vertical navigation bar */
 .sidenav {
     background-color: #22216D;
@@ -84,27 +78,31 @@ h1{
     margin-left: 200px; /* Same as the width of the sidenav */
     padding: 20px;
 }
-/* Navigation boxes */
- .nav-box {
-    background-color: #f1f1f1;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    padding: 20px;
+
+details {
     margin-bottom: 20px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
+    border: 1px solid #ccc; /* delete this to erase border*/
+    border-radius: 4px;
+  }
+  
+summary {
+    padding: 10px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+details[open] summary {
+    background-color: rgb(144, 204, 239);
+  }
+  
+details[open] > p {
+    display: block;
 }
-.nav-box h2 {
-    font-size: 24px;
-    margin-top: 0;
-    margin-bottom: 10px;
-}
-.nav-box p {
-    font-size: 18px;
-    margin: 0;
-}
+  
+details > p {
+    display: none;
+    padding: 10px;
+  }
 
 footer {
     font-family: Arial, sans-serif;
