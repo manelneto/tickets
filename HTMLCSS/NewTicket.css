@@ -1,0 +1,192 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+/* Top navigation bar */
+.topnav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #e8e3e3;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+}
+/* Left side of top navigation bar */
+.topnav-left {
+    padding: 0 20px;
+    color: #0e0d0f;
+    font-size: 18px;
+    font-weight: bold;
+}
+/* Right side of top navigation bar */
+.topnav-right {
+    padding: 0 20px;
+}
+
+.topnav-right a {
+    text-decoration: none; /* remove the underline */
+    color: #333;
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    position: relative; /* make the circle position relative to the link */
+    margin-left: 20px; /* add some margin to the left of the link */
+    z-index: 1; /* position the link above the circle */
+}
+
+.topnav-right a:before {
+    content: ""; /* add a pseudo-element to create the circle */
+    width: 45px;
+    height: 45px;
+    background-color: rgb(145, 185, 145);
+    border-radius: 100%; /* make it round */
+    display: block;
+    position: absolute;
+    top: 45%;
+    left: -4px; /* position it to the left of the link */
+    transform: translateY(-50%); /* center it vertically */
+    z-index: -1;
+}
+
+/* Vertical navigation bar */
+.sidenav {
+    background-color: #22216D;
+    height: 100%;
+    width: 200px;
+    position: fixed;
+    top: 60px;
+    left: 0;
+    overflow-x: hidden;
+    padding-top: 30px;
+}
+/* Navigation bar links */
+.sidenav a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: #ebebee;
+    font-size: 16px;
+    text-align: left;
+}
+.sidenav a:hover {
+    background-color: #76abe0;
+}
+/* Main content */
+main {
+    margin-top: 50px;
+    margin-left: 250px;
+    padding: 30px;
+    position: static;
+}
+
+
+h1 {
+    font-family: Arial, sans-serif;
+    font-size: 25px;
+    color: #22216D;
+    text-align: left;
+  }
+
+/************************* Choose Category ****************/
+
+#category {
+    /*border: 1px solid rgb(115, 186, 240);*/
+    background-color: #6362b9;
+    padding: 10git commit -ampx;
+    font-size: 16px;
+    color: whitesmoke;
+    cursor: pointer;
+    width: 300px;
+  }
+  
+#category option {
+    background-color: rgb(149, 199, 246);
+    color: rgb(69, 68, 68);
+  }
+
+#category option[value="opt1"] {
+    background-color: #a4a2e4;
+    font-size: 17px;
+    font-weight: 600;
+  }
+
+#category option[value="opt2"] {
+    background-color: #bdbded;
+    font-size: 17px;
+    font-weight: 600;
+  } 
+
+
+/***************************** New Ticket Form ********************/
+
+
+.NewTicket {
+    display: block;
+    justify-content: left;
+    align-items: left;
+    width: 70%;
+    height: 100vh;
+    margin-top: 50px;
+  }
+  
+.NewTicket-form {
+    background-color: rgb(188, 225, 237);
+    padding: 20px;
+  }
+
+form {
+    font-family: Arial, sans-serif;;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+  }
+  
+label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+input {
+    padding: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    width: 90%;
+    
+  }
+
+#department{
+    width: 92%;
+    padding: 3px;
+}
+
+#tags{
+    width: 92%;
+    padding: 3px;
+}
+
+#priority {
+    width: 92%;
+    padding: 3px;
+}
+
+#Question {
+    height: 15vh;
+}
+
+ /************************* FOOTER *********************************/
+
+footer {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    text-align: center;
+    color: black;
+    position: relative;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
