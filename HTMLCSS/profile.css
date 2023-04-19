@@ -1,0 +1,111 @@
+body {
+    margin: 0;
+}
+
+h1{
+    background-color: #22216D;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    align-items: center;
+    height: 5em;
+    font-size: 1em;
+    color: #ffffff;
+    padding-left: 2em;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+}
+
+.left-column {
+    padding-top: 2.5em;
+    vertical-align: middle;
+    list-style-position: inherit;
+}
+
+.right-column {
+    padding-top:2.5em ;
+    border-left: 0.5em solid #22216D;
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+form label input{
+    vertical-align: text-top;
+}
+
+form input{
+    max-width: 60em;
+}
+
+form{
+    display:flex;
+    flex-direction: column;
+    padding-top: 2em;
+    padding-left: 4em;
+    padding-right: 2em;
+}
+
+.container .photo{
+    display:flex;
+    justify-items: center;
+}
+
+.container #cancel {
+    padding: 0.8em;
+    border:none;
+    margin-left: 4.8em;
+    width: 6em;
+}
+
+.container #save {
+    display:inline-block;
+    padding: 0.8em;
+    border:none;
+    width: 6em;
+}
+
+.container #title{
+    padding: 1em;
+    border:none;
+    margin-left: 4.8em;
+    margin-top: 1em;
+}
+
+.container #password{
+    padding: 1em;
+    border: none;
+}
+
+.container #title:hover{
+    background-color: #76abe0;
+} 
+
+.container #password:hover{
+    background-color: #76abe0;   
+}
+
+.container #cancel:hover{
+    background-color: #76abe0;
+} 
+
+.container #save:hover{
+    background-color: #76abe0;   
+}
+
+.container #photo{
+    height: 3em;
+    width: 7em;
+    border: none;
+    margin-top: 25em;
+
+}
+
+.container #photo:hover{
+    background-color: #76abe0;   
+}
+
+
