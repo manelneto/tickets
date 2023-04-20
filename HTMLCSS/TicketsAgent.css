@@ -1,4 +1,3 @@
-
 body {
     margin: 0;
     padding: 0;
@@ -10,19 +9,36 @@ body {
     overflow: hidden;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    /*justify-content: space-between;*/
     height: 60px;
 }
 /* Left side of top navigation bar */
 .topnav-left {
     padding: 0 20px;
-    color: #313032;
+    color: #0e0d0f;
     font-size: 18px;
     font-weight: bold;
+    margin-right: auto;
 }
 /* Right side of top navigation bar */
 .topnav-right {
-    padding: 0 20px;
+    padding: 0 30px;
+}
+
+.topnav-middle {
+    padding: 10px 20px;
+    background-color: rgb(241, 244, 245);
+    margin-left: auto;
+}
+
+.topnav-middle a {
+    text-decoration: none; /* remove the underline */
+    color: #22216D;
+    display: block;
+    align-items: center;
+    font-size: 16px;
+    font-weight: bold;
+   /* position: relative; /* make the circle position relative to the link */
 }
 
 .topnav-right a {
@@ -52,7 +68,7 @@ body {
 
 h1{
     font-family: Arial, sans-serif;
-    font-size: 30px;
+    font-size: 26px;
     color: #22216D;
 }
 
@@ -79,107 +95,39 @@ h1{
 .sidenav a:hover {
     background-color: #76abe0;
 }
-/*********************************************** MAIN ************************************************************/
+/* Main content */
 main {
-    margin-left: 200px;
-    padding: 30px;
-}
-
-.stats-panel {
-    display: flex;
-    justify-content: space-between;
-    background-color: #f2f2f2;
-    box-sizing: border-box;
+    margin-left: 200px; /* Same as the width of the sidenav */
     padding: 20px;
-  }
-
-.stats-panel h1{
-    color:#f2f2f2;
-    font-size: 22px;
-    padding: 0;
-    margin: 0;
 }
-  
-.stats-box {
-    text-align: center;
-    padding: 10px;
-    border-radius: 5px;
-    color: #fff;
-    height: 50px;
-  }
-  
-.Total {
-    background-color: #00bcd4;
-    width: 20%;
-  }
-  
-.Users {
-    background-color: #4caf50;
-    width: 20%;
-  }
-  
-.Rate {
-    background-color: #ff9800;
-    width: 20%;
-  }
-  
-.number {
-    font-size: 22px;
-    margin: 5px 0;
+/* Navigation boxes */
+ .nav-box {
+    background-color: #f1f1f1;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
 }
-
- /************************************* NEW MESSAGES ********************************************/
-h2 {
-    font-size: 19px;
-    color:#4f4f52;
-    padding-bottom: 10px;
-  } 
-
-.New-Messages{
-    color:#4f4f52;
-    font-size:medium;
+.nav-box h2 {
+    font-size: 24px;
+    margin-top: 0;
     margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 10px;
-    max-width: 500px;
-    
-  } 
-  
-  .New-Messages ul {
-    list-style-image:url(email.jpg);
-    list-style-position: inside;
-    padding: 0;
+}
+.nav-box p {
+    font-size: 18px;
     margin: 0;
-  }
-  
-  .New-Messages li {
-    
-    margin-bottom: 15px;
-    border-bottom: 1px solid #ccc;
-    padding-bottom: 10px;
-  }
+}
 
-  .New-Messages h3 {
-    font-size: 16px;
-    margin: 1px;
-  }
-  
-  .New-Messages p {
-    margin: 0;
-  }
-
-  .Announcements{
-    color:#4f4f52;
-    font-size: large;
-  }
-
-  footer {
+footer {
     font-family: Arial, sans-serif;
     font-size: 14px;
     text-align: center;
     color: black;
-    position: relative;
+    position: absolute;
     bottom: 0;
     left: 0;
     right: 0;

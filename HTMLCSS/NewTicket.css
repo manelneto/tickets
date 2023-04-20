@@ -57,7 +57,7 @@ body {
 .sidenav {
     background-color: #22216D;
     height: 100%;
-    width: 200px;
+    width: 170px;
     position: fixed;
     top: 60px;
     left: 0;
@@ -82,6 +82,7 @@ main {
     margin-left: 250px;
     padding: 30px;
     position: static;
+    /*overflow:auto;*/
 }
 
 
@@ -96,7 +97,7 @@ h1 {
 
 #category {
     /*border: 1px solid rgb(115, 186, 240);*/
-    background-color: #6362b9;
+    background-color: #6b6ab7;
     padding: 10px;
     font-size: 16px;
     color: whitesmoke;
@@ -135,8 +136,8 @@ h1 {
   }
   
 .NewTicket-form {
-    background-color: rgb(188, 225, 237);
-    padding: 20px;
+    background-color: white;
+    padding: 0;
   }
 
 form {
@@ -152,26 +153,32 @@ label {
   }
   
 input {
-    padding: 5px;
+    padding: 8px;
     margin-bottom: 10px;
     border: 1px solid #ccc;
-    width: 90%;
-    
+    width: 85%;
+    background-color:#e8e3e3;
   }
 
 #department{
-    width: 92%;
-    padding: 3px;
+    width: 87%;
+    padding: 8px;
+    background-color:#e8e3e3;
+    border: 1px solid #ccc;
 }
 
 #tags{
-    width: 92%;
-    padding: 3px;
+    width: 87%;
+    padding: 8px;
+    background-color:#e8e3e3;
+    border: 1px solid #ccc;
 }
 
 #priority {
-    width: 92%;
-    padding: 3px;
+    width: 87%;
+    padding: 8px;
+    background-color:#e8e3e3;
+    border: 1px solid #ccc;
 }
 
 #Question {
@@ -181,6 +188,7 @@ input {
  /************************* FOOTER *********************************/
 
 footer {
+  padding-top: 4%;
     font-family: Arial, sans-serif;
     font-size: 14px;
     text-align: center;
