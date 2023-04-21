@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Management</title>
+        <link rel="stylesheet" href="Management.css">
+    </head>
+    <body>
+        <section class="topnav">
+            <div class="topnav-left">Management</div>
+            <div class="topnav-right"><a href="#">User</a></div>
+        </section>
+        <section class="sidenav">
+            <a href="Dashboard.html">Dashboard</a>
+            <a href="#">Tickets</a>
+            <a href="FAQ.html">FAQ</a>
+            <a href="Management.html">Management</a>
+        </section>
+        <main>
+            <details>
+                <summary>Create a new configuration</summary>
+                <label for="configuration">Select a configuration</label>
+                <select id="configuration" name="configuration">
+                    <option value="default">Configurations:</option>
+                    <option value="department">Department</option>
+                    <option value="tag">Tag</option>
+                    <option value="status">Status</option>
+                    <option value="priority">Priority</option>
+                </select>
+                <label for="name">Name </label>
+                <input type="text" id="name" name="name">
+            </details>
+            <details>
+                <summary>Assign agent to department</summary>
+                <label for="configuration">Select a configuration</label>
+                <select id="configuration" name="configuration">
+                    <option value="default" hidden>Departments:</option>
+                    <option value="finance">Finance</option>
+                    <option value="it">IT</option>
+                    <option value="human">Human Resources</option>
+                    <option value="marketing">Marketing</option>
+                </select>
+                <label for="agent">Agent Username </label>
+                <input type="text" id="agent" name="agent">
+            </details>
+            <details>
+                <summary>Update Client</summary>
+                <label for="client">Client Username </label>
+                <input type="text" id="client" name="client">
+            </details>
+        </main>
+        <footer>
+            <p> Contacts | Feedback | LTW © 2023 </p>
+        </footer>
+    </body>
+</html>
