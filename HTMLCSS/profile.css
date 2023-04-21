@@ -8,26 +8,26 @@ h1{
     font-family: Arial, sans-serif;
     display: flex;
     align-items: center;
-    height: 5em;
-    font-size: 1em;
+    height: 5rem;
+    font-size: 1rem;
     color: #ffffff;
-    padding-left: 2em;
+    padding-left: 2rem;
 }
 
 .container {
     display: grid;
     grid-template-columns: 2fr 1fr;
+    height: calc(100vh - 5rem);
 }
 
-.left-column {
-    padding-top: 2.5em;
+.leftColumn {
+    margin-top: 5rem;
     vertical-align: middle;
-    list-style-position: inherit;
 }
 
-.right-column {
-    padding-top:2.5em ;
-    border-left: 0.5em solid #22216D;
+.rightColumn {
+    padding-top:2.5rem ;
+    border-left: 0.5rem solid #22216D;
     position: relative;
     display: flex;
     justify-content: center;
@@ -38,15 +38,15 @@ form label input{
 }
 
 form input{
-    max-width: 60em;
+    max-width: 60rem;
 }
 
 form{
     display:flex;
     flex-direction: column;
-    padding-top: 2em;
-    padding-left: 4em;
-    padding-right: 2em;
+    padding-top: 3rem;
+    padding-left: 4rem;
+    padding-right: 2rem;
 }
 
 .container .photo{
@@ -55,29 +55,34 @@ form{
 }
 
 .container #cancel {
-    padding: 0.8em;
+    padding: 0.7rem;
     border:none;
-    margin-left: 4.8em;
-    width: 6em;
+    margin-left: 4rem;
+    margin-top: 1rem;
+    width: 6rem;
 }
 
 .container #save {
     display:inline-block;
-    padding: 0.8em;
+    padding: 0.7rem;
     border:none;
-    width: 6em;
+    width: 6rem;
 }
 
 .container #title{
-    padding: 1em;
-    border:none;
-    margin-left: 4.8em;
-    margin-top: 1em;
+    padding: 0.9rem;
+    background-color: #f0f0f0;
+    margin-left: 4rem;
+}
+
+.leftColumn a {
+    text-decoration: none;
+    color: black;
 }
 
 .container #password{
-    padding: 1em;
-    border: none;
+    padding: 0.9rem;
+    background-color: #f0f0f0;
 }
 
 .container #title:hover{
@@ -97,11 +102,10 @@ form{
 }
 
 .container #photo{
-    height: 3em;
-    width: 7em;
+    height: 3rem;
+    width: 5.5rem;
     border: none;
-    margin-top: 25em;
-
+    margin-top: 25rem;
 }
 
 .container #photo:hover{
