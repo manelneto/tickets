@@ -5,7 +5,7 @@
     $session = new Session();
 
     if ($session->isLoggedIn())
-        header('Location: dashboard.php');
+        header('Location: pages/dashboard.php');
     else
-        header('Location: login.php');
+        header('Location: pages/login.php');
 ?>
