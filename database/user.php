@@ -42,14 +42,14 @@
 
         public static function loginUser(PDO $db, string $username, string $password) : ?User {
             $stmt = $db->prepare('
-                SELECT idUser, firstName, lastName, username, email
+                SELECT idUser, firstName, lastName, username, email, password
                 FROM User
-                WHERE lower(username) = ? AND password = ?
+                WHERE lower(username) = ?
             ');
 
-            $stmt->execute(array(strtolower($username), $password));
+            $stmt->execute(array(strtolower($username)));
 
-            if ($user = $stmt->fetch()) {
+            if ($user = $stmt->fetch() && password_verify($password, $user['password'])) {
                 return new User(
                     (int) $user['idUser'],
                     $user['firstName'],
@@ -61,13 +61,15 @@
         }
 
         public static function registerUser(PDO $db, string $firstName, string $lastName, string $username, string $email, string $password) : ?User {
+            $options = ['cost' => 12];
+                        
             $stmt = $db->prepare('
                 INSERT INTO User (firstName, lastName, username, email, password)
                 VALUES (?, ?, ?, ?, ?)
             ');
 
             try {
-                $stmt->execute(array($firstName, $lastName, $username, $email, $password));
+                $stmt->execute(array($firstName, $lastName, $username, $email, password_hash($password, PASSWORD_DEFAULT, $options)));
             } catch (PDOException $e) {
                 return null;
             }
