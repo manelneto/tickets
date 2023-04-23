@@ -180,12 +180,12 @@ END;
 /* INSERT */
 
 
-INSERT INTO User VALUES(1, 'Joana', 'Marques', 'joanamarques', 'joanamarques@gmail.com', 'marquesjoana');
-INSERT INTO User VALUES(2, 'Matilde', 'Simões', 'matildesimoes', 'matildesimoes@gmail.com', 'simoesmatilde');
-INSERT INTO User VALUES(3, 'Manel', 'Neto', 'manelneto', 'manelneto@gmail.com', 'netomanel');
-INSERT INTO User VALUES(4, 'Client', 'Test', 'client', 'client@test.com', 'client');
-INSERT INTO User VALUES(5, 'Agent', 'Test', 'agent', 'agent@test.com', 'agent');
-INSERT INTO User VALUES(6, 'Admin', 'Test', 'admin', 'admin@test.com', 'admin');
+INSERT INTO User VALUES(1, 'Joana', 'Marques', 'joanamarques', 'joanamarques@gmail.com', '$2y$12$DFNpOjKTVVMhs5DNj54mZOpSsXohNXNaQG4M0nGI/AOa.a4PS84Vy');
+INSERT INTO User VALUES(2, 'Matilde', 'Simões', 'matildesimoes', 'matildesimoes@gmail.com', '$2y$12$OeWSWAOPBapajMhswVhjDerSaOpGNC9iUo6v94uRvg/r.V4xjc.MW');
+INSERT INTO User VALUES(3, 'Manel', 'Neto', 'manelneto', 'manelneto@gmail.com', '$2y$12$nfwMTXK25lqUeUdtSSWDze1ruvRv2igiQMdhrJrmNLxp7XvOhBziW');
+INSERT INTO User VALUES(4, 'Client', 'Test', 'client', 'client@test.com', '$2y$12$zlEzCwPtpRRXdS12ob9ypeajSLmW94dUo5kOmItV791QMOe5Mf5x6');
+INSERT INTO User VALUES(5, 'Agent', 'Test', 'agent', 'agent@test.com', '$2y$12$5TuVO22AK1v3fXUPFuAKVueYh7/lqB9eWm8xgftXVQvtLRMLTRmoC');
+INSERT INTO User VALUES(6, 'Admin', 'Test', 'admin', 'admin@test.com', '$2y$12$MVxJYNX6egxRIQOm6LyGXuscEoF/SOCX7uwmnIGP8inDFncQap6jq');
 
 INSERT INTO Client VALUES(4);
 INSERT INTO Client VALUES(3);
