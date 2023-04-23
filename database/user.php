@@ -48,8 +48,9 @@
             ');
 
             $stmt->execute(array(strtolower($username)));
+            $user = $stmt->fetch();
 
-            if ($user = $stmt->fetch() && password_verify($password, $user['password'])) {
+            if ($user && password_verify($password, $user['password'])) {
                 return new User(
                     (int) $user['idUser'],
                     $user['firstName'],
@@ -65,7 +66,7 @@
                         
             $stmt = $db->prepare('
                 INSERT INTO User (firstName, lastName, username, email, password)
-                VALUES (?, ?, ?, ?, ?)
+                VALUES (?, ?, lower(?), lower(?), ?)
             ');
 
             try {
