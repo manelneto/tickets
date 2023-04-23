@@ -4,17 +4,16 @@
     require_once(__DIR__ . '/../utils/session.php');
 ?>
 
-<?php function drawHeader(Session $session, string $page = 'Tickets Management') { ?>
+<?php function drawHeader(Session $session) { ?>
 <!DOCTYPE html>
 <html lang="en-US">
     <head>
-        <title><?=$page?></title>
+        <title>Tickets Management</title>
         <meta charset="utf-8">
-        <link rel="stylesheet" href="../css/<?=$page?>.css">
     </head>
     <body>
         <header>
-            <h1><a href="../pages/index.php"><?=$page?></a></h1>
+            <h1><a href="../pages/index.php">Tickets Management</a></h1>
             <?php if ($session->isLoggedIn()) { ?>
             <form action="../actions/action_logout.php" method="post" class="logout">
                 <a href="../pages/profile.php"><?=$session->getName()?></a>
