@@ -13,6 +13,7 @@
     if ($user) {
         $session->setId($user->getId());
         $session->setUsername($user->getUsername());
+        $session->setName($user->getName());
         $session->addMessage('success', 'Register successfull!');
         header('Location: ../pages/dashboard.php');
     } else {
