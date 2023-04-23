@@ -1,5 +1,6 @@
 PRAGMA foreign_keys = ON;
 
+
 /* DROP */
 
 
@@ -28,13 +29,11 @@ CREATE TABLE User (
     firstName TEXT NOT NULL,
     lastName TEXT NOT NULL,
     username TEXT NOT NULL,
-    emailAddress TEXT NOT NULL,
-    phoneNumber TEXT NOT NULL,
+    email TEXT NOT NULL,
     password TEXT NOT NULL,
     CONSTRAINT UserPK PRIMARY KEY (idUser),
     CONSTRAINT UserUsernameCK UNIQUE (username),
-    CONSTRAINT UserEmailAddressCK UNIQUE (emailAddress),
-    CONSTRAINT UserPhoneNumberCK UNIQUE (phoneNumber)
+    CONSTRAINT UserEmailCK UNIQUE (email)
 );
 
 CREATE TABLE Client (
@@ -181,12 +180,12 @@ END;
 /* INSERT */
 
 
-INSERT INTO User VALUES(1, 'Joana', 'Marques', 'joanamarques', 'joanamarques@gmail.com', '911111111', 'marquesjoana');
-INSERT INTO User VALUES(2, 'Matilde', 'Simões', 'matildesimoes', 'matildesimoes@gmail.com', '922222222', 'simoesmatilde');
-INSERT INTO User VALUES(3, 'Manel', 'Neto', 'manelneto', 'manelneto@gmail.com', '933333333', 'netomanel');
-INSERT INTO User VALUES(4, 'Client', 'Test', 'client', 'client@test.com', '944444444', 'client');
-INSERT INTO User VALUES(5, 'Agent', 'Test', 'agent', 'agent@test.com', '955555555', 'agent');
-INSERT INTO User VALUES(6, 'Admin', 'Test', 'admin', 'admin@test.com', '966666666', 'admin');
+INSERT INTO User VALUES(1, 'Joana', 'Marques', 'joanamarques', 'joanamarques@gmail.com', 'marquesjoana');
+INSERT INTO User VALUES(2, 'Matilde', 'Simões', 'matildesimoes', 'matildesimoes@gmail.com', 'simoesmatilde');
+INSERT INTO User VALUES(3, 'Manel', 'Neto', 'manelneto', 'manelneto@gmail.com', 'netomanel');
+INSERT INTO User VALUES(4, 'Client', 'Test', 'client', 'client@test.com', 'client');
+INSERT INTO User VALUES(5, 'Agent', 'Test', 'agent', 'agent@test.com', 'agent');
+INSERT INTO User VALUES(6, 'Admin', 'Test', 'admin', 'admin@test.com', 'admin');
 
 INSERT INTO Client VALUES(4);
 INSERT INTO Client VALUES(3);
