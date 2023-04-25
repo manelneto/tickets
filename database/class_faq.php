@@ -32,25 +32,7 @@
             $this->answer = $answer;
         }
 
-        function update($db, string $question, string $answer) : bool {
-            $stmt = $db->prepare('
-                UPDATE FAQ
-                SET question = ?, answer = ?
-                WHERE idFAQ = ?
-            ');
-
-            try {
-                $stmt->execute(array($question, $answer, $this->id));
-            } catch (PDOException $e) {
-                return false;
-            }
-            
-            $this->question = $question;
-            $this->answer = $answer;
-            return true;
-        }
-
-        public static function getFAQs(PDO $db) {
+        public static function getFAQ(PDO $db) {
             $stmt = $db->prepare('
                 SELECT idFAQ, question, answer
                 FROM FAQ
@@ -61,12 +43,12 @@
 
             if (!$result) return null;
 
-            $faqs = array();
+            $faq = array();
 
             foreach ($result as $row)
-                $faqs[] = new FAQ((int) $row['idFAQ'], $row['question'], $row['answer']);
+                $faq[] = new FAQ((int) $row['idFAQ'], $row['question'], $row['answer']);
 
-            return $faqs;
+            return $faq;
         }
     }
 ?>
