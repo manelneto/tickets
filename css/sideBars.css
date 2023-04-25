@@ -86,22 +86,22 @@ footer {
   }
   
   .sidenav a:nth-child(1) {
-    background-image: url('dashboard.png');
+    background-image: url('../assets/dashboard.png');
     background-size: 2.4rem;
   }
   
   .sidenav a:nth-child(2) {
-    background-image: url('ticket.png');
+    background-image: url('../assets/ticket.png');
     background-size: 3rem;
   }
   
   .sidenav a:nth-child(3){
-    background-image: url('faq.png');
+    background-image: url('../assets/faq.png');
     background-size: 2.5rem;
   }
   
   .sidenav a:nth-child(4) {
-    background-image: url('management.png');
+    background-image: url('../assets/management.png');
     background-size: 3rem;
   }
 }
