@@ -9,7 +9,7 @@
     require_once(__DIR__ . '/../database/connection.php');
     $db = getDatabaseConnection();
 
-    require_once(__DIR__ . '/../database/user.php');
+    require_once(__DIR__ . '/../database/class_user.php');
     $user = User::getUser($db, $session->getId());
 
     if ($user && $user->update($db, trim($_POST['firstName']), trim($_POST['lastName']), strtolower(trim($_POST['username'])), trim($_POST['email']))) {

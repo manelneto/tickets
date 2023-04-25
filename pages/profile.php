@@ -7,7 +7,7 @@
     require_once(__DIR__ . '/../database/connection.php');
     $db = getDatabaseConnection();
 
-    require_once(__DIR__ . '/../database/user.php');
+    require_once(__DIR__ . '/../database/class_user.php');
     $user = User::getUser($db, $session->getId());
 
     require_once(__DIR__ . '/../templates/template_common.php');

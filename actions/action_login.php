@@ -7,7 +7,7 @@
     require_once(__DIR__ . '/../database/connection.php');
     $db = getDatabaseConnection();
 
-    require_once(__DIR__ . '/../database/user.php');
+    require_once(__DIR__ . '/../database/class_user.php');
     $user = User::loginUser($db, strtolower(trim($_POST['username'])), $_POST['password']);
 
     if ($user) {
