@@ -1,0 +1,40 @@
+.contentTicket{
+    display: grid;
+    grid-template-columns: [start] 1fr [mid1] 6fr [mid2] 20rem [end];
+    grid-template-rows: [start] auto [mid1] auto [mid2] auto [end];
+}
+
+.sidenav{
+    grid-column: start/mid1;
+    grid-row: start/end;
+}
+
+.ticketContent{
+    grid-column: mid1/mid2;
+    grid-row: start/end;
+}
+
+.deadlines{
+    grid-column: mid2/end;
+    grid-row: start/mid1;
+    background-color: #f5f7f9; 
+}
+
+.properties{
+    grid-column: mid2/end;
+    grid-row: mid1/mid2;
+    background-color: #f5f7f9;
+}
+
+.changes{
+    grid-column: mid2/end;
+    grid-row: mid2/end;
+    background-color: #f5f7f9; 
+}
+
+h1{
+    font-size: 1rem;
+}
+
+
+

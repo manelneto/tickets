@@ -1,0 +1,76 @@
+.contentManagement {
+    display: grid;
+    grid-template-columns: [start] 1fr [mid] 7fr [end]; 
+}
+
+.sidenav{
+    grid-column: start/mid;
+}
+
+.mainInformation details{
+    margin-bottom: 1rem;
+    border: 1px solid #cccccc;
+    margin-left: 5rem;
+    margin-right: 5rem;
+    border-radius: 0.4rem;
+    grid-column: mid;
+}
+
+summary {
+    padding: 1rem;
+    font-weight: bold;
+}
+
+details:nth-child(1){
+    margin-top: 3rem;
+}
+  
+details[open] summary {
+    background-color: rgb(144, 204, 239);
+}
+
+details > label, details > select, details > input {
+    display: block;
+    width: 80%;
+}
+
+details > label{
+    margin-top: 1rem;
+    margin-left: 1rem;
+}
+
+details > select{
+    margin-left: 1rem;
+    margin-top: 0.2rem;
+    padding:0.2rem;
+    max-width: 58rem;
+}
+
+details > input{
+    max-width: 57.5rem;
+    margin-left: 1rem;
+    margin-bottom: 1rem;
+}
+
+details > button{
+    margin-left: 1rem;
+    margin-bottom: 1rem;
+    border:none;
+    padding:0.5rem;
+}
+
+details > button:nth-of-type(1){
+    margin-right: 0rem;
+}
+
+details > button:nth-of-type(2){
+    margin-left: 0rem;
+}
+
+details > button:hover{
+    background-color: rgb(144, 204, 239);
+}
+
+details > button:hover{
+    background-color: rgb(144, 204, 239);
+}
