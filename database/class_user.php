@@ -8,7 +8,7 @@
         private string $username;
         private string $email;
 
-        public function __construct(int $id, string $firstName, string $lastName, string $username, string $email) {
+        public function __construct(PDO $db, int $id, string $firstName, string $lastName, string $username, string $email) {
             $this->id = $id;
             $this->firstName = $firstName;
             $this->lastName = $lastName;
@@ -54,6 +54,30 @@
 
         public function setEmail($email) {
             $this->email = $email;
+        }
+
+        public function isAgent($db) : bool {
+            $stmt = $db->prepare('
+                SELECT *
+                FROM Agent
+                WHERE idAgent = ?
+            ');
+
+            $stmt->execute(array($this->id));
+
+            return (bool) $stmt->fetch();
+        }
+
+        public function isAdmin($db) : bool {
+            $stmt = $db->prepare('
+                SELECT *
+                FROM Admin
+                WHERE idAdmin = ?
+            ');
+
+            $stmt->execute(array($this->id));
+
+            return (bool) $stmt->fetch();
         }
 
         function update($db, string $firstName, string $lastName, string $username, string $email) : bool {
