@@ -16,7 +16,14 @@
             <h1><a href="../pages/index.php">Tickets Management</a></h1>
             <?php if ($session->isLoggedIn()) { ?>
             <form action="../actions/action_logout.php" method="post" class="logout">
-                <a href="../pages/profile.php"><?=$session->getName()?></a>
+                <a href="../pages/profile.php">
+                <?php
+                    echo $session->getName();
+                    if ($session->isAdmin()) echo ' (Admin)';
+                    else if ($session->isAgent()) echo ' (Agent)';
+                    else echo ' (Client)';
+                ?>
+                </a>
                 <button type="submit">Logout</button>
             </form>
             <?php } ?>
