@@ -19,8 +19,8 @@
         $session->setId($user->getId());
         $session->setUsername($user->getUsername());
         $session->setName($user->getName());
-        $session->setAgent($user->isAgent());
-        $session->setAdmin($user->isAdmin());
+        $session->setAgent($user->isAgent($db));
+        $session->setAdmin($user->isAdmin($db));
         header('Location: ../pages/dashboard.php');
     } else {
         header('Location: ../pages/register.php');

@@ -8,7 +8,7 @@
         private string $username;
         private string $email;
 
-        public function __construct(PDO $db, int $id, string $firstName, string $lastName, string $username, string $email) {
+        public function __construct(int $id, string $firstName, string $lastName, string $username, string $email) {
             $this->id = $id;
             $this->firstName = $firstName;
             $this->lastName = $lastName;
