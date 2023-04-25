@@ -1,0 +1,137 @@
+.content{
+    display: grid;
+    grid-template-columns: [start] 1fr [mid1] 6fr [mid2] 1fr [end];
+    grid-template-rows: [start] 4rem [mid1] auto [mid2] auto [end];
+}
+
+.sidenav{
+    grid-column: start/mid1;
+    grid-row: start/end;
+}
+
+.tickets{
+    grid-column: mid1/mid2;
+    grid-row: start/end;
+    height: 10rem;
+}
+
+#ticketOwner > img{
+    width: 2rem;
+    height: 2rem;
+    padding: 0.4rem;
+}
+
+.tickets a{
+    text-decoration: none;
+    color: #000000;
+}
+
+#ticket{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);   
+}
+
+#ticketOwner{
+    display: flex;
+    flex-direction: row;
+}
+
+#ticket:hover{
+    background-color: #f5f7f9; 
+}
+
+#owner, #ticketStatus, #ticketTitle, #ticketDate, #ticketPriority{
+    font-size: 0.8rem;
+    margin-top: 1.1rem;
+}
+
+.tickets #ticket:first-child {
+    margin-top: 1rem;
+}
+
+.filters{
+    grid-column: mid2/end;
+    grid-row: start/end;
+    background-color: #f5f7f9; 
+    min-width: 4rem;
+}
+
+#eachFilter > select{
+    display: block;
+    margin-top: 0.5rem;
+    padding:0.2rem;
+    max-width: 10rem;
+    margin-right: 2rem;
+    margin-bottom: 1rem;
+    margin-top: 0rem;
+    min-width: 1rem;
+}
+
+.filters > p{
+    text-align: center;
+}
+
+.filters label , .filters select{
+    margin-left: 1rem;
+}
+
+.filters button{
+    position: fixed;
+    bottom: 1rem;
+    margin: auto;
+    width: 7rem;
+    background-color: #22216D;
+    color:#ffffff;
+}
+
+@media only screen and (max-width: 70rem) {
+    .content{
+        display: grid;
+        grid-template-columns: [start] 1fr [mid1] 7fr [end];
+        grid-template-rows: [start] 4rem [mid1] 2rem [mid2] auto [end];
+    }
+
+    .tickets{
+        grid-column: mid1/end;
+        grid-row: mid2/end;
+        height: 10rem;
+    }
+    
+    .filters{
+        grid-column: mid1/end;
+        grid-row: start/mid2;
+        background-color: #f5f7f9;
+    }
+
+    .filters p{
+        display: none;
+    }
+    
+    #eachFilter{
+        margin-top: 1rem;
+        display: inline-block;
+        margin-left: 0rem;
+        margin-right: 0rem;
+    }
+
+    #eachFilter > label{
+        font-size: 15px;
+    }
+
+    #eachFilter > select{
+        max-width: 3.5rem;
+        max-height: 1.3rem;
+    }
+
+    .filters button{
+        display: block;
+        position: relative;
+        bottom: 0.3rem;
+        margin: auto;
+        width: 4rem;
+        background-color: #22216D;
+        color:#ffffff;
+    }
+}
