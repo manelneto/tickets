@@ -19,10 +19,10 @@
         $session->setId($user->getId());
         $session->setUsername($user->getUsername());
         $session->setName($user->getName());
-        $session->addMessage('success', 'Login successfull!');
+        $session->setAgent($user->isAgent());
+        $session->setAdmin($user->isAdmin());
         header('Location: ../pages/dashboard.php');
     } else {
-        $session->addMessage('error', 'Login unsuccessfull!');
         header('Location: ../pages/login.php');
     }
 ?>
