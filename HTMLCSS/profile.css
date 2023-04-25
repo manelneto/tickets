@@ -15,7 +15,7 @@ h1{
     font-weight: bold;
 }
 
-.container {
+.profileContent {
     display: grid;
     grid-template-columns: [start] 2fr [mid] 1fr [end];
     height: calc(100vh - 5rem);
@@ -56,7 +56,7 @@ form{
     justify-items: center;
 }
 
-.container #cancel {
+.profileContent #cancel {
     padding: 0.7rem;
     border:none;
     margin-left: 4rem;
@@ -64,14 +64,14 @@ form{
     width: 6rem;
 }
 
-.container #save {
+.profileContent #save {
     display:inline-block;
     padding: 0.7rem;
     border:none;
     width: 6rem;
 }
 
-.container #title{
+.profileContent #title{
     padding: 0.9rem;
     background-color: #f0f0f0;
     margin-left: 4rem;
@@ -82,35 +82,35 @@ form{
     color: black;
 }
 
-.container #password{
+.profileContent #password{
     padding: 0.9rem;
     background-color: #f0f0f0;
 }
 
-.container #title:hover{
+.profileContent #title:hover{
     background-color: #76abe0;
 } 
 
-.container #password:hover{
+.profileContent #password:hover{
     background-color: #76abe0;   
 }
 
-.container #cancel:hover{
+.profileContent #cancel:hover{
     background-color: #76abe0;
 } 
 
-.container #save:hover{
+.profileContent #save:hover{
     background-color: #76abe0;   
 }
 
-.container #photo{
+.profileContent #photo{
     height: 3rem;
     width: 5.5rem;
     border: none;
     margin-top: 25rem;
 }
 
-.container #photo:hover{
+.profileContent #photo:hover{
     background-color: #76abe0;   
 }
 
