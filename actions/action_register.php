@@ -8,7 +8,7 @@
     $db = getDatabaseConnection();
 
     require_once(__DIR__ . '/../database/user.php');
-    $user = User::registerUser($db, $_POST['firstName'], $_POST['lastName'], $_POST['username'], $_POST['email'], $_POST['password']);
+    $user = User::registerUser($db, trim($_POST['firstName']), trim($_POST['lastName']), trim($_POST['username']), trim($_POST['email']), $_POST['password']);
 
     if ($user) {
         $session->setId($user->getId());

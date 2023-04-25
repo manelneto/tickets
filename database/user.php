@@ -66,11 +66,11 @@
                         
             $stmt = $db->prepare('
                 INSERT INTO User (firstName, lastName, username, email, password)
-                VALUES (?, ?, lower(?), lower(?), ?)
+                VALUES (?, ?, ?, ?, ?)
             ');
 
             try {
-                $stmt->execute(array($firstName, $lastName, $username, $email, password_hash($password, PASSWORD_DEFAULT, $options)));
+                $stmt->execute(array($firstName, $lastName, strtolower($username), strtolower($email), password_hash($password, PASSWORD_DEFAULT, $options)));
             } catch (PDOException $e) {
                 return null;
             }

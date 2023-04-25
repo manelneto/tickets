@@ -8,7 +8,7 @@
     $db = getDatabaseConnection();
 
     require_once(__DIR__ . '/../database/user.php');
-    $user = User::loginUser($db, $_POST['username'], $_POST['password']);
+    $user = User::loginUser($db, trim($_POST['username']), $_POST['password']);
 
     if ($user) {
         $session->setId($user->getId());
