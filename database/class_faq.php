@@ -24,11 +24,11 @@
             return $this->answer;
         }
 
-        public function setQuestion($question) {
+        public function setQuestion(string $question) {
             $this->question = $question;
         }
 
-        public function setAnswer($answer) {
+        public function setAnswer(string $answer) {
             $this->answer = $answer;
         }
 
