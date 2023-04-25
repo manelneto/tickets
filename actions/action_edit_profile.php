@@ -15,7 +15,7 @@
     require_once(__DIR__ . '/../database/class_user.php');
     $user = User::getUser($db, $session->getId());
 
-    if ($user && $user->update($db, trim($_POST['firstName']), trim($_POST['lastName']), strtolower(trim($_POST['username'])), strolower(trim($_POST['email'])))) {
+    if ($user && $user->update($db, trim($_POST['firstName']), trim($_POST['lastName']), strtolower(trim($_POST['username'])), strtolower(trim($_POST['email'])))) {
         $session->setUsername($user->getUsername());
         $session->setName($user->getName());
     }
