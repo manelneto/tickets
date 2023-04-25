@@ -5,7 +5,7 @@ body {
 }
 
 .topnav {
-  background-color: #e8e3e3;
+  background-color: #edf1f4;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -46,6 +46,7 @@ body {
 .sidenav {
   background-color: #22216D;
   min-height: calc(100vh - 5rem);
+  min-width: 3rem;
 }
 
 .sidenav a {
