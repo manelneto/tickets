@@ -50,8 +50,8 @@
             $_SESSION['agent'] = $agent;
         }
 
-        public function isAdmin(bool $admin) {
-            $_SESSION['admin'] = $admin;
+        public function setAdmin(bool $agent) {
+            $_SESSION['admin'] = $agent;
         }
     }
 ?>
