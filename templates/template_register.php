@@ -4,7 +4,7 @@
 
 <?php function drawRegister() { ?>
     <section id="register">
-        <h1>Register</h1>
+        <h2>Register</h2>
         <form action="../actions/action_register.php" method="post" class="register">
             <label>
                 First Name<input type="text" name="firstName" placeholder="first">

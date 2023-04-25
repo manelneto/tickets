@@ -4,7 +4,7 @@
 
 <?php function drawLogin() { ?>
     <section id="login">
-        <h1>Login</h1>
+        <h2>Login</h2>
         <form action="../actions/action_login.php" method="post" class="login">
             <label>
                 Username<input type="text" name="username" placeholder="username">
