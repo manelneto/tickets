@@ -4,6 +4,11 @@
     require_once(__DIR__ . '/../utils/session.php');
     $session = new Session();
 
+    if (!$session->isLoggedIn()) {
+        header('Location: ../pages/index.php');
+        die();
+    }
+
     require_once(__DIR__ . '/../templates/template_common.php');
     require_once(__DIR__ . '/../templates/template_dashboard.php');
 
