@@ -67,16 +67,6 @@ body {
   margin-top: 3rem;
 }
 
-.content {
-  display: grid;
-  grid-template-columns: [start] 1fr [mid] 7fr [end]; 
-}
-
-.mainInformation{
-  grid-column: mid;
-  height: 100%;
-}
-
 footer { 
   font-size: 0.8rem;
   width: 100%;
