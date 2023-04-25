@@ -1,4 +1,4 @@
-.content{
+.contentTickets{
     display: grid;
     grid-template-columns: [start] 1fr [mid1] 6fr [mid2] 1fr [end];
     grid-template-rows: [start] 4rem [mid1] auto [mid2] auto [end];
@@ -84,10 +84,11 @@
     width: 7rem;
     background-color: #22216D;
     color:#ffffff;
+    border: none;
 }
 
 @media only screen and (max-width: 70rem) {
-    .content{
+    .contentTickets{
         display: grid;
         grid-template-columns: [start] 1fr [mid1] 7fr [end];
         grid-template-rows: [start] 4rem [mid1] 2rem [mid2] auto [end];
@@ -133,5 +134,6 @@
         width: 4rem;
         background-color: #22216D;
         color:#ffffff;
+        border: none;
     }
 }
