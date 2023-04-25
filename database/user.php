@@ -40,6 +40,63 @@
             return $this->firstName . ' ' . $this->lastName;
         }
 
+        public function setFirstName($firstName) {
+            $this->firstName = $firstName;
+        }
+
+        public function setLastName($lastName) {
+            $this->lastName = $lastName;
+        }
+
+        public function setUsername($username) {
+            $this->username = $username;
+        }
+
+        public function setEmail($email) {
+            $this->email = $email;
+        }
+
+        function update($db, string $firstName, string $lastName, string $username, string $email) : bool {
+            $stmt = $db->prepare('
+                UPDATE User
+                SET firstName = ?, lastName = ?, username = ?, email = ?
+                WHERE idUser = ?
+            ');
+
+            try {
+                $stmt->execute(array($firstName, $lastName, $username, $email, $this->id));
+            } catch (PDOException $e) {
+                return false;
+            }
+            
+            $this->firstName = $firstName;
+            $this->lastName = $lastName;
+            $this->username = $username;
+            $this->email = $email;
+            return true;
+        }
+
+        public static function getUser(PDO $db, int $id) : ?User {
+            $stmt = $db->prepare('
+                SELECT idUser, firstName, lastName, username, email
+                FROM User
+                Where idUser = ?
+            ');
+
+            $stmt->execute(array($id));
+            $user = $stmt->fetch();
+
+            if (!$user) return null;
+
+            return new User(
+                (int) $user['idUser'],
+                $user['firstName'],
+                $user['lastName'],
+                $user['username'],
+                $user['email']
+            );
+        }
+
         public static function loginUser(PDO $db, string $username, string $password) : ?User {
             $stmt = $db->prepare('
                 SELECT idUser, firstName, lastName, username, email, password
@@ -70,7 +127,7 @@
             ');
 
             try {
-                $stmt->execute(array($firstName, $lastName, strtolower($username), strtolower($email), password_hash($password, PASSWORD_DEFAULT, $options)));
+                $stmt->execute(array($firstName, $lastName, $username, $email, password_hash($password, PASSWORD_DEFAULT, $options)));
             } catch (PDOException $e) {
                 return null;
             }

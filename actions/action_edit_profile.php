@@ -12,14 +12,7 @@
     require_once(__DIR__ . '/../database/user.php');
     $user = User::getUser($db, $session->getId());
 
-    if ($user) {
-        $user->setFirstName(trim($_POST['firstName']));
-        $user->setLastName(trim($_POST['lastName']));
-        $user->setUsername(strtolower(trim($_POST['username'])));
-        $user->setEmail(strtolower(trim($_POST['email'])));
-        
-        $user->save($db);
-
+    if ($user && $user->update($db, trim($_POST['firstName']), trim($_POST['lastName']), strtolower(trim($_POST['username'])), trim($_POST['email']))) {
         $session->setUsername($user->getUsername());
         $session->setName($user->getName());
         $session->addMessage('success', 'Edit profile successfull!');
