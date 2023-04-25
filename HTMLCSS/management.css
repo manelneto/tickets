@@ -1,9 +1,19 @@
+.contentManagement {
+    display: grid;
+    grid-template-columns: [start] 1fr [mid] 7fr [end]; 
+}
+
+.sidenav{
+    grid-column: start/mid;
+}
+
 .mainInformation details{
     margin-bottom: 1rem;
     border: 1px solid #cccccc;
     margin-left: 5rem;
     margin-right: 5rem;
     border-radius: 0.4rem;
+    grid-column: mid;
 }
 
 summary {
