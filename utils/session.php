@@ -26,11 +26,11 @@
             return $_SESSION['name'];
         }
 
-        public function isAgent() : bool {
+        public function isAgent() : ?bool {
             return $_SESSION['agent'];
         }
 
-        public function isAdmin() : bool {
+        public function isAdmin() : ?bool {
             return $_SESSION['admin'];
         }
 

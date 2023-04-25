@@ -12,15 +12,15 @@
             $this->answer = $answer;
         }
 
-        public function getId() {
+        public function getId() : int {
             return $this->id;
         }
 
-        public function getQuestion() {
+        public function getQuestion() : string {
             return $this->question;
         }
 
-        public function getAnswer() {
+        public function getAnswer() : string {
             return $this->answer;
         }
 
@@ -32,7 +32,7 @@
             $this->answer = $answer;
         }
 
-        public static function getFAQ(PDO $db) {
+        public static function getFAQ(PDO $db) : ?array {
             $stmt = $db->prepare('
                 SELECT idFAQ, question, answer
                 FROM FAQ
