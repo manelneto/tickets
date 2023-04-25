@@ -10,6 +10,16 @@
     <head>
         <title>Tickets Management</title>
         <meta charset="utf-8">
+        <!--TO BE CHANGED-->
+        <link rel="stylesheet" href="../css/Dashboard.css">
+        <link rel="stylesheet" href="../css/FAQ.css">
+        <link rel="stylesheet" href="../css/Login.css">
+        <link rel="stylesheet" href="../css/NewTicket.css">
+        <link rel="stylesheet" href="../css/Profile.css">
+        <link rel="stylesheet" href="../css/sideBars.css">
+        <link rel="stylesheet" href="../css/SignUp.css">
+        <link rel="stylesheet" href="../css/TicketsAgent.css">
+        <!--TO BE CHANGED-->
     </head>
     <body>
         <header>
