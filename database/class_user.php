@@ -16,47 +16,47 @@
             $this->email = $email;
         }
 
-        public function getId() {
+        public function getId() : int {
             return $this->id;
         }
 
-        public function getFirstName() {
+        public function getFirstName() : string {
             return $this->firstName;
         }
 
-        public function getLastName() {
+        public function getLastName() : string {
             return $this->lastName;
         }
 
-        public function getUsername() {
+        public function getUsername() : string {
             return $this->username;
         }
 
-        public function getEmail() {
+        public function getEmail() : string {
             return $this->email;
         }
 
-        public function getName() {
+        public function getName() : string {
             return $this->firstName . ' ' . $this->lastName;
         }
 
-        public function setFirstName($firstName) {
+        public function setFirstName(string $firstName) {
             $this->firstName = $firstName;
         }
 
-        public function setLastName($lastName) {
+        public function setLastName(string $lastName) {
             $this->lastName = $lastName;
         }
 
-        public function setUsername($username) {
+        public function setUsername(string $username) {
             $this->username = $username;
         }
 
-        public function setEmail($email) {
+        public function setEmail(string $email) {
             $this->email = $email;
         }
 
-        public function isAgent($db) : bool {
+        public function isAgent(PDO $db) : bool {
             $stmt = $db->prepare('
                 SELECT *
                 FROM Agent
@@ -68,7 +68,7 @@
             return (bool) $stmt->fetch();
         }
 
-        public function isAdmin($db) : bool {
+        public function isAdmin(PDO $db) : bool {
             $stmt = $db->prepare('
                 SELECT *
                 FROM Admin
@@ -80,7 +80,7 @@
             return (bool) $stmt->fetch();
         }
 
-        function update($db, string $firstName, string $lastName, string $username, string $email) : bool {
+        function update(PDO $db, string $firstName, string $lastName, string $username, string $email) : bool {
             $stmt = $db->prepare('
                 UPDATE User
                 SET firstName = ?, lastName = ?, username = ?, email = ?
