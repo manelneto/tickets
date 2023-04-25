@@ -2,13 +2,8 @@
     declare(strict_types = 1);
 
     class Session {
-        private array $messages;
-
         public function __construct() {
             session_start();
-
-            $this->messages = isset($_SESSION['messages']) ? $_SESSION['messages'] : array();
-            unset($_SESSION['messages']);
         }
 
         public function isLoggedIn() : bool {
@@ -31,6 +26,14 @@
             return $_SESSION['name'];
         }
 
+        public function isAgent() : ?bool {
+            return $_SESSION['agent'];
+        }
+
+        public function isAdmin() : ?bool {
+            return $_SESSION['admin'];
+        }
+
         public function setId(int $id) {
             $_SESSION['id'] = $id;
         }
@@ -43,12 +46,12 @@
             $_SESSION['name'] = $name;
         }
 
-        public function addMessage(string $type, string $text) {
-            $_SESSION['messages'][] = array('type' => $type, 'text' => $text);
+        public function setAgent(bool $agent) {
+            $_SESSION['agent'] = $agent;
         }
 
-        public function getMessages() {
-            return $this->messages;
+        public function setAdmin(bool $agent) {
+            $_SESSION['admin'] = $agent;
         }
     }
 ?>

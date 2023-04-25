@@ -4,7 +4,7 @@
     require_once(__DIR__ . '/../utils/session.php');
     $session = new Session();
 
-    if ($session->isLoggedIn()) {
+    if (!$session->isLoggedIn()) {
         header('Location: ../pages/index.php');
         die();
     }
@@ -13,16 +13,12 @@
     $db = getDatabaseConnection();
 
     require_once(__DIR__ . '/../database/class_user.php');
-    $user = User::loginUser($db, strtolower(trim($_POST['username'])), $_POST['password']);
+    $user = User::getUser($db, $session->getId());
 
-    if ($user) {
-        $session->setId($user->getId());
+    if ($user && $user->update($db, trim($_POST['firstName']), trim($_POST['lastName']), strtolower(trim($_POST['username'])), strtolower(trim($_POST['email'])))) {
         $session->setUsername($user->getUsername());
         $session->setName($user->getName());
-        $session->setAgent($user->isAgent($db));
-        $session->setAdmin($user->isAdmin($db));
-        header('Location: ../pages/dashboard.php');
-    } else {
-        header('Location: ../pages/login.php');
     }
+
+    header('Location: ../pages/profile.php');
 ?>

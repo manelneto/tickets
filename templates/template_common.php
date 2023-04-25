@@ -10,24 +10,41 @@
     <head>
         <title>Tickets Management</title>
         <meta charset="utf-8">
+        <!--TO BE CHANGED-->
+        <link rel="stylesheet" href="../css/Dashboard.css">
+        <link rel="stylesheet" href="../css/FAQ.css">
+        <link rel="stylesheet" href="../css/Login.css">
+        <link rel="stylesheet" href="../css/NewTicket.css">
+        <link rel="stylesheet" href="../css/Profile.css">
+        <link rel="stylesheet" href="../css/sideBars.css">
+        <link rel="stylesheet" href="../css/SignUp.css">
+        <link rel="stylesheet" href="../css/TicketsAgent.css">
+        <!--TO BE CHANGED-->
     </head>
     <body>
         <header>
             <h1><a href="../pages/index.php">Tickets Management</a></h1>
             <?php if ($session->isLoggedIn()) { ?>
             <form action="../actions/action_logout.php" method="post" class="logout">
-                <a href="../pages/profile.php"><?=$session->getName()?></a>
+                <a href="../pages/profile.php"><?php
+                    echo $session->getName();
+                    if ($session->isAdmin()) echo ' (Admin)';
+                    else if ($session->isAgent()) echo ' (Agent)';
+                    else echo ' (Client)';
+                ?></a>
                 <button type="submit">Logout</button>
             </form>
-            <nav id="menu">
-                <ul>
-                    <li><a href="../pages/dashboard.php">Dashboard</a></li>
-                    <li><a href="../pages/tickets.php">Tickets</a></li>
-                    <li><a href="../pages/faq.php">FAQ</a></li>
-                </ul>
-            </nav>
             <?php } ?>
         </header>
+        <?php if ($session->isLoggedIn()) { ?>
+        <nav id="menu">
+            <ul>
+                <li><a href="../pages/dashboard.php">Dashboard</a></li>
+                <li><a href="../pages/tickets.php">Tickets</a></li>
+                <li><a href="../pages/faq.php">FAQ</a></li>
+            </ul>
+        </nav>
+        <?php } ?>
         <main>
 <?php } ?>
 
