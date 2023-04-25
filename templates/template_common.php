@@ -19,15 +19,17 @@
                 <a href="../pages/profile.php"><?=$session->getName()?></a>
                 <button type="submit">Logout</button>
             </form>
-            <nav id="menu">
-                <ul>
-                    <li><a href="../pages/dashboard.php">Dashboard</a></li>
-                    <li><a href="../pages/tickets.php">Tickets</a></li>
-                    <li><a href="../pages/faq.php">FAQ</a></li>
-                </ul>
-            </nav>
             <?php } ?>
         </header>
+        <?php if ($session->isLoggedIn()) { ?>
+        <nav id="menu">
+            <ul>
+                <li><a href="../pages/dashboard.php">Dashboard</a></li>
+                <li><a href="../pages/tickets.php">Tickets</a></li>
+                <li><a href="../pages/faq.php">FAQ</a></li>
+            </ul>
+        </nav>
+        <?php } ?>
         <main>
 <?php } ?>
 
