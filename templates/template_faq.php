@@ -2,7 +2,7 @@
     declare(strict_types = 1);
 ?>
 
-<?php function drawFAQ($faqs) { ?>
+<?php function drawFAQ(array $faqs) { ?>
     <section id="faq">
     <?php foreach($faqs as $faq) { ?>
     <details>
