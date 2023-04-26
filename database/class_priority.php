@@ -1,7 +1,7 @@
 <?php
     declare(strict_types = 1);
 
-    class Department {
+    class Priority {
         private int $id;
         private string $name;
 
