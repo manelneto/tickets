@@ -21,5 +21,45 @@
         public function setName(string $name) {
             $this->name = $name;
         }
+
+        public static function getTags(PDO $db) : ?array {
+            $stmt = $db->prepare('
+                SELECT idTag, name
+                FROM Tag
+            ');
+
+            $stmt->execute();
+            $result = $stmt->fetchAll();
+
+            if (!$result) return null;
+
+            $tags = array();
+
+            foreach ($result as $row)
+                $tags[] = new Tag(
+                    (int) $row['idTag'],
+                    $row['name']
+                );
+
+            return $tags;
+        }
+        
+        public static function getTag(PDO $db, int $id) : ?Tag {
+            $stmt = $db->prepare('
+                SELECT idTag, name
+                FROM Tag
+                Where idTag = ?
+            ');
+
+            $stmt->execute(array($id));
+            $tag = $stmt->fetch();
+
+            if (!$tag) return null;
+
+            return new Tag(
+                (int) $tag['idTag'],
+                $tag['name']
+            );
+        }
     }
 ?>
