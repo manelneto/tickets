@@ -3,5 +3,7 @@
 ?>
 
 <?php function drawTickets() { ?>
-    
+    <section id="tickets">
+        
+    </section>
 <?php } ?>

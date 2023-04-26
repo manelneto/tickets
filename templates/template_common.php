@@ -41,7 +41,7 @@
             <ul>
                 <li><a href="../pages/dashboard.php">Dashboard</a></li>
                 <li><a href="../pages/tickets.php">Tickets</a></li>
-                <li><a href="../pages/faq.php">FAQ</a></li>
+                <li><a href="../pages/faqs.php">FAQ</a></li>
             </ul>
         </nav>
         <?php } ?>
