@@ -42,6 +42,7 @@
                 <li><a href="../pages/dashboard.php">Dashboard</a></li>
                 <li><a href="../pages/tickets.php">Tickets</a></li>
                 <li><a href="../pages/faqs.php">FAQ</a></li>
+                <?php if ($session->isAdmin()) { ?><li><a href="../pages/management.php">Management</a><?php }?></li>
             </ul>
         </nav>
         <?php } ?>
