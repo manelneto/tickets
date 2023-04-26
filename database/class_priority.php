@@ -21,5 +21,45 @@
         public function setName(string $name) {
             $this->name = $name;
         }
+
+        public static function getPriorities(PDO $db) : ?array {
+            $stmt = $db->prepare('
+                SELECT idPriority, name
+                FROM Priority
+            ');
+
+            $stmt->execute();
+            $result = $stmt->fetchAll();
+
+            if (!$result) return null;
+
+            $priorities = array();
+
+            foreach ($result as $row)
+                $priorities[] = new Priority(
+                    (int) $row['idPriority'],
+                    $row['name']
+                );
+
+            return $priorities;
+        }
+
+        public static function getPriority(PDO $db, int $id) : ?Priority {
+            $stmt = $db->prepare('
+                SELECT idPriority, name
+                FROM Priority
+                Where idPriority = ?
+            ');
+
+            $stmt->execute(array($id));
+            $priority = $stmt->fetch();
+
+            if (!$priority) return null;
+
+            return new Priority(
+                (int) $priority['idPriority'],
+                $priority['name']
+            );
+        }
     }
 ?>
