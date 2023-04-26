@@ -100,6 +100,39 @@
             return true;
         }
 
+        public function updatePassword(PDO $db, string $current, string $new) : bool {
+            $stmt = $db->prepare('
+                SELECT password
+                FROM User
+                WHERE idUser = ?
+            ');
+
+            try {
+                $stmt->execute(array($this->id));
+            } catch (PDOException $e) {
+                return false;
+            }
+
+            $password = $stmt->fetch();
+
+            if (!password_verify($current, $password['password']))
+                return false;
+            
+            $update = $db->prepare('
+                UPDATE User
+                SET password = ?
+                WHERE idUser = ?
+            ');
+            
+            try {
+                $update->execute(array(password_hash($new, PASSWORD_DEFAULT, ['cost' => 12]), $this->id));
+            } catch (PDOException $e) {
+                return false;
+            }
+
+            return true;
+        }
+
         public static function getUser(PDO $db, int $id) : ?User {
             $stmt = $db->prepare('
                 SELECT idUser, firstName, lastName, username, email
