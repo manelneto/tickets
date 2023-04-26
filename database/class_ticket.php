@@ -13,157 +13,115 @@
         private string $dateClosed;
         private User $agent;
         private Department $department;
-        private Priority $prioriy
+        private Priority $priority;
+        private Status $status;
+        private FAQ $faq;
 
-        public function __construct(int $id, string $firstName, string $lastName, string $username, string $email) {
+        public function __construct(int $id, User $client, string $title, string $content, string $dateOpened, string $dateDue, string $dateClosed, User $agent, Department $department, Priority $priority, Status $status, FAQ $faq) {
             $this->id = $id;
-            $this->firstName = $firstName;
-            $this->lastName = $lastName;
-            $this->username = $username;
-            $this->email = $email;
+            $this->client = $client;
+            $this->title = $title;
+            $this->content = $content;
+            $this->dateOpened = $dateOpened;
+            $this->dateDue = $dateDue;
+            $this->dateClosed = $dateClosed;
+            $this->agent = $agent;
+            $this->department = $department;
+            $this->priority = $priority;
+            $this->status = $status;
+            $this->faq = $faq;
         }
 
         public function getId() : int {
             return $this->id;
         }
 
-        public function getFirstName() : string {
-            return $this->firstName;
+        public function getClient() : User {
+            return $this->client;
         }
 
-        public function getLastName() : string {
-            return $this->lastName;
+        public function getTitle() : string {
+            return $this->title;
         }
 
-        public function getUsername() : string {
-            return $this->username;
+        public function getContent() : string {
+            return $this->content;
         }
 
-        public function getEmail() : string {
-            return $this->email;
+        public function getDateOpened() : string {
+            return $this->dateOpened;
         }
 
-        public function getName() : string {
-            return $this->firstName . ' ' . $this->lastName;
+        public function getDateDue() : string {
+            return $this->dateDue;
         }
 
-        public function setFirstName(string $firstName) {
-            $this->firstName = $firstName;
+        public function getDateClosed() : ?string {
+            return $this->dateClosed;
         }
 
-        public function setLastName(string $lastName) {
-            $this->lastName = $lastName;
+        public function getAgent() : ?User {
+            return $this->agent;
         }
 
-        public function setUsername(string $username) {
-            $this->username = $username;
+        public function getDepartment() : ?Department {
+            return $this->department;
         }
 
-        public function setEmail(string $email) {
-            $this->email = $email;
+        public function getPriority() : ?Priority {
+            return $this->priority;
         }
 
-        public function isAgent(PDO $db) : bool {
-            $stmt = $db->prepare('
-                SELECT *
-                FROM Agent
-                WHERE idAgent = ?
-            ');
-
-            $stmt->execute(array($this->id));
-
-            return (bool) $stmt->fetch();
+        public function getStatus() : ?Status {
+            return $this->status;
         }
 
-        public function isAdmin(PDO $db) : bool {
-            $stmt = $db->prepare('
-                SELECT *
-                FROM Admin
-                WHERE idAdmin = ?
-            ');
-
-            $stmt->execute(array($this->id));
-
-            return (bool) $stmt->fetch();
+        public function getFAQ() : ?FAQ {
+            return $this->faq;
         }
 
-        function update(PDO $db, string $firstName, string $lastName, string $username, string $email) : bool {
-            $stmt = $db->prepare('
-                UPDATE User
-                SET firstName = ?, lastName = ?, username = ?, email = ?
-                WHERE idUser = ?
-            ');
-
-            try {
-                $stmt->execute(array($firstName, $lastName, $username, $email, $this->id));
-            } catch (PDOException $e) {
-                return false;
-            }
-            
-            $this->firstName = $firstName;
-            $this->lastName = $lastName;
-            $this->username = $username;
-            $this->email = $email;
-            return true;
+        public function setClient(User $client) {
+            $this->client = $client;
         }
 
-        public static function getUser(PDO $db, int $id) : ?User {
-            $stmt = $db->prepare('
-                SELECT idUser, firstName, lastName, username, email
-                FROM User
-                Where idUser = ?
-            ');
-
-            $stmt->execute(array($id));
-            $user = $stmt->fetch();
-
-            if (!$user) return null;
-
-            return new User(
-                (int) $user['idUser'],
-                $user['firstName'],
-                $user['lastName'],
-                $user['username'],
-                $user['email']
-            );
+        public function setTitle(string $title) {
+            $this->title = $title;
         }
 
-        public static function loginUser(PDO $db, string $username, string $password) : ?User {
-            $stmt = $db->prepare('
-                SELECT idUser, firstName, lastName, username, email, password
-                FROM User
-                WHERE lower(username) = ?
-            ');
-
-            $stmt->execute(array(strtolower($username)));
-            $user = $stmt->fetch();
-
-            if ($user && password_verify($password, $user['password'])) {
-                return new User(
-                    (int) $user['idUser'],
-                    $user['firstName'],
-                    $user['lastName'],
-                    $user['username'],
-                    $user['email']
-                );
-            } else return null;
+        public function setContent(string $content) {
+            $this->content = $content;
         }
 
-        public static function registerUser(PDO $db, string $firstName, string $lastName, string $username, string $email, string $password) : ?User {
-            $options = ['cost' => 12];
-                        
-            $stmt = $db->prepare('
-                INSERT INTO User (firstName, lastName, username, email, password)
-                VALUES (?, ?, ?, ?, ?)
-            ');
+        public function setDateOpened(string $dateOpened) {
+            $this->dateOpened = $dateOpened;
+        }
 
-            try {
-                $stmt->execute(array($firstName, $lastName, $username, $email, password_hash($password, PASSWORD_DEFAULT, $options)));
-            } catch (PDOException $e) {
-                return null;
-            }
+        public function setDateDue(string $dateDue) {
+            $this->dateDue = $dateDue;
+        }
 
-            return User::loginUser($db, $username, $password);
+        public function setDateClosed(string $dateClosed) {
+            $this->dateClosed = $dateClosed;
+        }
+
+        public function setAgent(User $agent) {
+            $this->agent = $agent;
+        }
+
+        public function setDepartment(Department $department) {
+            $this->department = $department;
+        }
+
+        public function setPriority(Priority $priority) {
+            $this->priority = $priority;
+        }
+
+        public function setStatus(Status $status) {
+            $this->status = $status;
+        }
+
+        public function setFAQ(FAQ $faq) {
+            $this->faq = $faq;
         }
     }
 ?>
