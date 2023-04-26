@@ -22,6 +22,6 @@
     require_once(__DIR__ . '/../templates/template_tickets.php');
 
     drawHeader($session);
-    drawTickets($tickets, $statuses, $priorities, $departments);
+    drawTickets($session, $tickets, $statuses, $priorities, $departments);
     drawFooter();
 ?>

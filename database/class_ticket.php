@@ -14,14 +14,14 @@
         private string $content;
         private string $dateOpened;
         private string $dateDue;
-        private string $dateClosed;
-        private User $agent;
-        private Department $department;
-        private Priority $priority;
-        private Status $status;
-        private FAQ $faq;
+        private ?string $dateClosed;
+        private ?User $agent;
+        private ?Department $department;
+        private ?Priority $priority;
+        private ?Status $status;
+        private ?FAQ $faq;
 
-        public function __construct(int $id, User $client, string $title, string $content, string $dateOpened, string $dateDue, string $dateClosed, User $agent, Department $department, Priority $priority, Status $status, FAQ $faq) {
+        public function __construct(int $id, User $client, string $title, string $content, string $dateOpened, string $dateDue, ?string $dateClosed, ?User $agent, ?Department $department, ?Priority $priority, ?Status $status, ?FAQ $faq) {
             $this->id = $id;
             $this->client = $client;
             $this->title = $title;
