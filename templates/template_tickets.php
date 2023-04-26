@@ -32,21 +32,21 @@
         <label for="date">Date</label>
         <input type="date" name="date">
         <label for="status">Status</label>
-        <select name="status" id="status" >
+        <select name="status" id="status">
             <option value="all">All</option>
             <?php foreach ($statuses as $status) { ?>
             <option value=<?=strtolower($status->getName())?>><?=$status->getName()?></option>
             <?php } ?>
         </select>
         <label for="priority">Priority</label>
-        <select name="priority" id="priority" >
+        <select name="priority" id="priority">
             <option value="all">All</option>
             <?php foreach ($priorities as $priority) { ?>
             <option value=<?=strtolower($priority->getName())?>><?=$priority->getName()?></option>
             <?php } ?>
         </select>
         <label for="department">Department</label>
-        <select name="department" id="department" >
+        <select name="department" id="department">
             <option value="all">All</option>
             <?php foreach ($departments as $department) { ?>
             <option value=<?=strtolower($department->getName())?>><?=$department->getName()?></option>

@@ -3,13 +3,8 @@
 ?>
 
 <?php function drawManagemnt() { ?>
-    <section id="faqs">
-        <h2>FAQ</h2>
-        <?php foreach($faqs as $faq) { ?>
-        <details class="faq">
-            <summary class="question"><?=$faq->getQuestion()?></summary>
-            <p class="answer"><?=$faq->getAnswer()?></p>
-        </details>
-        <?php } ?>
+    <section id="management">
+        <h2>Management</h2>
+        
     </section>
 <?php } ?>
