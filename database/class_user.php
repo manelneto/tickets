@@ -80,7 +80,7 @@
             return (bool) $stmt->fetch();
         }
 
-        function update(PDO $db, string $firstName, string $lastName, string $username, string $email) : bool {
+        public function update(PDO $db, string $firstName, string $lastName, string $username, string $email) : bool {
             $stmt = $db->prepare('
                 UPDATE User
                 SET firstName = ?, lastName = ?, username = ?, email = ?
