@@ -2,6 +2,10 @@
     declare(strict_types = 1);
 
     require_once(__DIR__ . '/../database/class_user.php');
+    require_once(__DIR__ . '/../database/class_department.php');
+    require_once(__DIR__ . '/../database/class_priority.php');
+    require_once(__DIR__ . '/../database/class_status.php');
+    require_once(__DIR__ . '/../database/class_faq.php');
 
     class Ticket {
         private int $id;
@@ -122,6 +126,39 @@
 
         public function setFAQ(FAQ $faq) {
             $this->faq = $faq;
+        }
+
+        public function getTickets(PDO $db, int $id) : ?array {
+            $stmt = $db->prepare('
+                SELECT idTicket, idClient, title, content, dateOpened, dateDue, dateClosed, idAgent, idDepartment, idPriority, idStatus, idFAQ
+                FROM Ticket
+                WHERE idClient = ?
+            ');
+
+            $stmt->execute(array($id));
+            $result = $stmt->fetchAll();
+
+            if (!$result) return null;
+
+            $tickets = array();
+
+            foreach ($result as $row)
+                $tickets[] = new Ticket(
+                    (int) $row['idTicket'],
+                    User::getUser($db, (int) $row['idClient']),
+                    $row['title'],
+                    $row['content'],
+                    $row['dateOpened'],
+                    $row['dateDue'],
+                    $row['dateClosed'],
+                    User::getUser($db, (int) $row['idAgent']),
+                    Department::getDepartment($db, (int) $row['idDepartment']),
+                    Priority::getPriority($db, (int) $row['idPriority']),
+                    Status::getStatus($db, (int) $row['idStatus']),
+                    FAQ::getFAQ($db, (int) $row['idFAQ'])
+                );
+            
+            return $tickets;
         }
     }
 ?>
