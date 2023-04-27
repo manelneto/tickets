@@ -22,7 +22,7 @@
             $this->name = $name;
         }
 
-        public static function getStatuses(PDO $db) : ?array {
+        public static function getStatuses(PDO $db) : array {
             $stmt = $db->prepare('
                 SELECT idStatus, name
                 FROM Status
@@ -30,8 +30,6 @@
 
             $stmt->execute();
             $result = $stmt->fetchAll();
-
-            if (!$result) return null;
 
             $statuses = array();
 

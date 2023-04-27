@@ -32,7 +32,7 @@
             $this->answer = $answer;
         }
 
-        public static function getFAQs(PDO $db) : ?array {
+        public static function getFAQs(PDO $db) : array {
             $stmt = $db->prepare('
                 SELECT idFAQ, question, answer
                 FROM FAQ
@@ -40,8 +40,6 @@
 
             $stmt->execute();
             $result = $stmt->fetchAll();
-
-            if (!$result) return null;
 
             $faqs = array();
 

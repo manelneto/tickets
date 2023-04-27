@@ -22,7 +22,7 @@
             $this->name = $name;
         }
 
-        public static function getPriorities(PDO $db) : ?array {
+        public static function getPriorities(PDO $db) : array {
             $stmt = $db->prepare('
                 SELECT idPriority, name
                 FROM Priority
@@ -30,8 +30,6 @@
 
             $stmt->execute();
             $result = $stmt->fetchAll();
-
-            if (!$result) return null;
 
             $priorities = array();
 

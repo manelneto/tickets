@@ -22,7 +22,7 @@
             $this->name = $name;
         }
 
-        public static function getTags(PDO $db) : ?array {
+        public static function getTags(PDO $db) : array {
             $stmt = $db->prepare('
                 SELECT idTag, name
                 FROM Tag
@@ -30,8 +30,6 @@
 
             $stmt->execute();
             $result = $stmt->fetchAll();
-
-            if (!$result) return null;
 
             $tags = array();
 

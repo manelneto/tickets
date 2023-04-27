@@ -128,7 +128,7 @@
             $this->faq = $faq;
         }
 
-        public function getTickets(PDO $db, int $id) : ?array {
+        public function getTickets(PDO $db, int $id) : array {
             $stmt = $db->prepare('
                 SELECT idTicket, idClient, title, content, dateOpened, dateDue, dateClosed, idAgent, idDepartment, idPriority, idStatus, idFAQ
                 FROM Ticket
@@ -137,8 +137,6 @@
 
             $stmt->execute(array($id));
             $result = $stmt->fetchAll();
-
-            if (!$result) return null;
 
             $tickets = array();
 

@@ -22,7 +22,7 @@
             $this->name = $name;
         }
 
-        public static function getDepartments(PDO $db) : ?array {
+        public static function getDepartments(PDO $db) : array {
             $stmt = $db->prepare('
                 SELECT idDepartment, name
                 FROM Department
@@ -30,8 +30,6 @@
 
             $stmt->execute();
             $result = $stmt->fetchAll();
-
-            if (!$result) return null;
 
             $departments = array();
 
