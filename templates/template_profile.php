@@ -5,6 +5,7 @@
 <?php function drawProfile(User $user) { ?>
     <section id="profile">
         <h2>My Profile</h2>
+        <a href="../pages/password.php">Change Password</a>
         <form action="../actions/action_edit_profile.php" method="post" class="profile">
             <label>
                 First Name<input type="text" name="firstName" value="<?=$user->getFirstName()?>">

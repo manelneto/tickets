@@ -4,7 +4,7 @@
     require_once(__DIR__ . '/../utils/session.php');
     $session = new Session();
 
-    if (!$session->isLoggedIn()) {
+    if (!$session->isAdmin()) {
         header('Location: ../pages/index.php');
         die();
     }
@@ -12,16 +12,17 @@
     require_once(__DIR__ . '/../database/connection.php');
     $db = getDatabaseConnection();
 
-    require_once(__DIR__ . '/../database/class_ticket.php');
-    $tickets = Ticket::getTickets($db, $session->getId());
-    $statuses = Status::getStatuses($db);
-    $priorities = Priority::getPriorities($db);
+    require_once(__DIR__ . '/../database/class_user.php');
+    $clients = User::getClients($db);
+    $agents = User::getAgents($db);
+
+    require_once(__DIR__ . '/../database/class_department.php');
     $departments = Department::getDepartments($db);
 
     require_once(__DIR__ . '/../templates/template_common.php');
-    require_once(__DIR__ . '/../templates/template_tickets.php');
+    require_once(__DIR__ . '/../templates/template_management.php');
 
     drawHeader($session);
-    drawTickets($session, $tickets, $statuses, $priorities, $departments);
+    drawManagement($clients, $departments, $agents);
     drawFooter();
 ?>

@@ -32,7 +32,7 @@
             $this->answer = $answer;
         }
 
-        public static function getFAQ(PDO $db) : ?array {
+        public static function getFAQs(PDO $db) : array {
             $stmt = $db->prepare('
                 SELECT idFAQ, question, answer
                 FROM FAQ
@@ -41,14 +41,35 @@
             $stmt->execute();
             $result = $stmt->fetchAll();
 
-            if (!$result) return null;
-
-            $faq = array();
+            $faqs = array();
 
             foreach ($result as $row)
-                $faq[] = new FAQ((int) $row['idFAQ'], $row['question'], $row['answer']);
+                $faqs[] = new FAQ(
+                    (int) $row['idFAQ'],
+                    $row['question'],
+                    $row['answer']
+                );
 
-            return $faq;
+            return $faqs;
+        }
+
+        public static function getFAQ(PDO $db, int $id) : ?FAQ {
+            $stmt = $db->prepare('
+                SELECT idFAQ, question, answer
+                FROM FAQ
+                Where idFAQ = ?
+            ');
+
+            $stmt->execute(array($id));
+            $faq = $stmt->fetch();
+
+            if (!$faq) return null;
+
+            return new FAQ(
+                (int) $faq['idFAQ'],
+                $faq['question'],
+                $faq['answer']
+            );
         }
     }
 ?>

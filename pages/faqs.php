@@ -13,12 +13,12 @@
     $db = getDatabaseConnection();
 
     require_once(__DIR__ . '/../database/class_faq.php');
-    $faq = FAQ::getFAQ($db);
+    $faqs = FAQ::getFAQs($db);
 
     require_once(__DIR__ . '/../templates/template_common.php');
-    require_once(__DIR__ . '/../templates/template_faq.php');
+    require_once(__DIR__ . '/../templates/template_faqs.php');
 
     drawHeader($session);
-    drawFAQ($faq);
+    drawFAQs($faqs);
     drawFooter();
 ?>

@@ -10,7 +10,7 @@
     <head>
         <title>Tickets Management</title>
         <meta charset="utf-8">
-        <!--TO BE CHANGED-->
+        <!--TO BE CHANGED>
         <link rel="stylesheet" href="../css/Dashboard.css">
         <link rel="stylesheet" href="../css/FAQ.css">
         <link rel="stylesheet" href="../css/Login.css">
@@ -19,7 +19,7 @@
         <link rel="stylesheet" href="../css/sideBars.css">
         <link rel="stylesheet" href="../css/SignUp.css">
         <link rel="stylesheet" href="../css/TicketsAgent.css">
-        <!--TO BE CHANGED-->
+        <TO BE CHANGED-->
     </head>
     <body>
         <header>
@@ -41,7 +41,8 @@
             <ul>
                 <li><a href="../pages/dashboard.php">Dashboard</a></li>
                 <li><a href="../pages/tickets.php">Tickets</a></li>
-                <li><a href="../pages/faq.php">FAQ</a></li>
+                <li><a href="../pages/faqs.php">FAQ</a></li>
+                <?php if ($session->isAdmin()) { ?><li><a href="../pages/management.php">Management</a><?php }?></li>
             </ul>
         </nav>
         <?php } ?>
