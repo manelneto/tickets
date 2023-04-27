@@ -59,5 +59,20 @@
                 $status['name']
             );
         }
+
+        public static function addStatus(PDO $db, string $name) : bool {
+            $stmt = $db->prepare('
+                INSERT INTO Status (name)
+                VALUES (?)
+            ');
+
+            try {
+                $stmt->execute(array($name));
+            } catch (PDOException e) {
+                return false;
+            }
+            
+            return true;
+        }
     }
 ?>
