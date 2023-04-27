@@ -59,5 +59,20 @@
                 $department['name']
             );
         }
+
+        public static function addDepartment(PDO $db, string $name) : bool {
+            $stmt = $db->prepare('
+                INSERT INTO Department (name)
+                VALUES (?)
+            ');
+
+            try {
+                $stmt->execute(array($name));
+            } catch (PDOException e) {
+                return false;
+            }
+            
+            return true;
+        }
     }
 ?>
