@@ -2,7 +2,7 @@
     declare(strict_types = 1);
 ?>
 
-<?php function drawManagemnt(array $clients, array $departments, array $agents) { ?>
+<?php function drawManagement(array $clients, array $departments, array $agents) { ?>
     <section id="management">
         <h2>Management</h2>
         <form action="../actions/action_upgrade_client.php" method="post" class="upgrade">
