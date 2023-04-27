@@ -254,5 +254,35 @@
 
             return true;
         }
+
+        public function upgradeToAgent(PDO $db) : bool {
+            $stmt = $db->prepare('
+                INSERT INTO Agent (idAgent)
+                VALUES (?)
+            ');
+
+            try {
+                $stmt->execute(array($this->id));
+            } catch (PDOException $e) {
+                return false;
+            }
+
+            return true;
+        }
+
+        public function upgradeToAdmin(PDO $db) : bool {
+            $stmt = $db->prepare('
+                INSERT INTO Admin (idAdmin)
+                VALUES (?)
+            ');
+
+            try {
+                $stmt->execute(array($this->id));
+            } catch (PDOException $e) {
+                return false;
+            }
+
+            return true;
+        }
     }
 ?>
