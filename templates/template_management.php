@@ -14,10 +14,10 @@
                 <?php } ?>
             </select>
             <label>To agent
-                <input type="radio" name="agent" value="agent">
+                <input type="radio" name="role" value="agent">
             </label>
             <label>To admin
-                <input type="radio" name="admin" value="admin">
+                <input type="radio" name="role" value="admin">
             </label>
             <button type="submit" id="add">Upgrade</button>
         </form>
