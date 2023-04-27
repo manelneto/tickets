@@ -13,9 +13,9 @@
     $db = getDatabaseConnection();
 
     require_once(__DIR__ . '/../database/class_user.php');
-    $agent = User::getUser($db, $_POST['agent']);
+    $agent = User::getUser($db, (int) $_POST['agent']);
 
-    if ($agent && User::isAgent($db, $agent) && $agent->assignToDepartment($db, $_POST['department']))
+    if ($agent && $agent->isAgent($db) && $agent->assignToDepartment($db, (int) $_POST['department']))
         header('Location: ../pages/dashboard.php');
     else
         header('Location: ../pages/management.php');

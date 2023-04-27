@@ -239,5 +239,20 @@
 
             return User::loginUser($db, $username, $password);
         }
+
+        public function assignToDepartment(PDO $db, int $department) : bool {
+            $stmt = $db->prepare('
+                INSERT INTO AgentDepartment (idAgent, idDepartment)
+                VALUES (?, ?)
+            ');
+
+            try {
+                $stmt->execute(array($this->id, $department));
+            } catch (PDOException $e) {
+                return false;
+            }
+
+            return true;
+        }
     }
 ?>
