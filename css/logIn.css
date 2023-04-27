@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
-
 body {
     background-color: #22216D;
     background-size: cover;
@@ -9,7 +7,7 @@ body {
 
 header {
     text-align: center;
-    padding: 15px;
+    padding: 20px;
     max-width: 700px;
     margin: 0 auto;
   }
@@ -22,18 +20,19 @@ header h1 {
     padding: 5px 5px;
   }
 
-.SignUp {
+.login {
     display: flex;
     justify-content: center;
-    align-items: left;
-    height: 100vh;
+    align-items: center;
+    height: 80vh;
   }
   
-  .SignUp-box {
+  .login-box {
     background-color: white;
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
   }
   
  
@@ -41,23 +40,23 @@ header h1 {
     font-family: "Roboto";
     display: flex;
     flex-direction: column;
-    align-items: left;
+    align-items: center;
   }
   
   label {
+    font-family: "Roboto";
     display: block;
     margin-bottom: 5px;
   }
   
   input {
+    font-family: "Roboto";
     padding: 5px;
     margin-bottom: 10px;
     border-radius: 5px;
     border: 1px solid #ccc;
     width: 100%;
-    max-width: 300px;
   }
-
   
   button {
     padding: 5px;
