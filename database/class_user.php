@@ -56,6 +56,54 @@
             $this->email = $email;
         }
 
+        public static function getClients(PDO $db) : array {
+            $stmt = $db->prepare('
+                SELECT idClient, firstName, lastName, username, email
+                FROM User, Client
+                WHERE idUser = idClient
+            ');
+
+            $stmt->execute();
+            $result = $stmt->fetchAll();
+
+            $clients = array();
+
+            foreach ($result as $row)
+                $clients[] = new User(
+                    (int) $row['idClient'],
+                    $row['firstName'],
+                    $row['lastName'],
+                    $row['username'],
+                    $row['email'],  
+                );
+
+            return $clients
+        }
+
+        public static function getAgents(PDO $db) : array {
+            $stmt = $db->prepare('
+                SELECT idAgent, firstName, lastName, username, email
+                FROM User, Agent
+                WHERE idUser = idAgent
+            ');
+
+            $stmt->execute();
+            $result = $stmt->fetchAll();
+
+            $agents = array();
+
+            foreach ($result as $row)
+                $agents[] = new User(
+                    (int) $row['idAgent'],
+                    $row['firstName'],
+                    $row['lastName'],
+                    $row['username'],
+                    $row['email'],  
+                );
+
+            return $agents
+        }
+
         public function isAgent(PDO $db) : bool {
             $stmt = $db->prepare('
                 SELECT *
