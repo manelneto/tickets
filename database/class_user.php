@@ -77,7 +77,7 @@
                     $row['email'],  
                 );
 
-            return $clients
+            return $clients;
         }
 
         public static function getAgents(PDO $db) : array {
@@ -101,7 +101,7 @@
                     $row['email'],  
                 );
 
-            return $agents
+            return $agents;
         }
 
         public function isAgent(PDO $db) : bool {
