@@ -59,5 +59,20 @@
                 $tag['name']
             );
         }
+
+        public static function addTag(PDO $db, string $name) : bool {
+            $stmt = $db->prepare('
+                INSERT INTO Tag (name)
+                VALUES (?)
+            ');
+
+            try {
+                $stmt->execute(array($name));
+            } catch (PDOException e) {
+                return false;
+            }
+            
+            return true;
+        }
     }
 ?>
