@@ -9,7 +9,7 @@
             <h3>Upgrade a client</h3>
             <label for="client">Select a client</label>
             <select id="client" name="client">
-                <?php for ($clients as $client) { ?>
+                <?php foreach ($clients as $client) { ?>
                 <option value="<?=$client->getId()?>"><?=$client->getUsername()?></option>
                 <?php } ?>
             </select>
@@ -38,13 +38,13 @@
             <h3>Assign agent to department</h3>
             <label for="departmnt">Select a department</label>
             <select id="department" name="department">
-                <?php for ($departments as $department) { ?>
+                <?php foreach ($departments as $department) { ?>
                 <option value="<?=$department->getId()?>"><?=$department->getName()?></option>
                 <?php } ?>
             </select>
             <label for="agent">Select an agent</label>
             <select id="agent" name="agent">
-                <?php for ($agents as $agent) { ?>
+                <?php foreach ($agents as $agent) { ?>
                 <option value="<?=$agent->getId()?>"><?=$agent->getUsername()?></option>
                 <?php } ?>
             </select>
