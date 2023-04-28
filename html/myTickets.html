@@ -109,15 +109,17 @@
                     <p id="ticketDate">Ticket Date</p>
                 </div>
             </section>
-            <button type="button" id="back">Back</button>
-            <button type="button" id="next">Next</button>
+            <div class="paging"> <!--o que meter sem ser div?-->
+                <button type="button" id="back">Back</button>
+                <button type="button" id="next">Next</button>
+            </div> 
             <section class="filters">
                 <p>Filters</p>
                 <div class="eachFilter"> <!--o que meter sem ser div?-->
                     <label for="date">Date</label>
                     <select id="date" name="date">
-                        <option value="default">Ascending</option>
-                        <option value="descending">Descending</option>
+                        <option value="default">Descending</option>
+                        <option value="ascending">Ascending</option>
                     </select>
                 </div>
                 <div class="eachFilter">
