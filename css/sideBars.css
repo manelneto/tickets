@@ -1,7 +1,6 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  display: grid;
 }
 
 .topnav {
@@ -43,10 +42,24 @@ body {
   z-index: -1;
 }
 
+.topnav-middle {
+  padding: 10px 20px;
+  background-color: rgb(241, 244, 245);
+  margin-left: auto;
+}
+
+.topnav-middle a {
+  text-decoration: none; 
+  color: #22216D;
+  display: block;
+  align-items: center;
+  font-size: 16px;
+  font-weight: bold;
+}
+
 .sidenav {
   background-color: #22216D;
   min-height: calc(100vh - 5rem);
-  min-width: 3rem;
 }
 
 .sidenav a {
@@ -76,7 +89,8 @@ footer {
   margin:auto;
 }
 
-@media only screen and (max-width: 70rem) {
+@media only screen and (max-width: 1120px) {
+
   .sidenav a {
     display: block;
     background-repeat: no-repeat;
