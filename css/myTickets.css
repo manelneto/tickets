@@ -1,7 +1,7 @@
 .contentTickets{
     display: grid;
     grid-template-columns: [start] 1fr [mid1] 6fr [mid2] 1fr [end];
-    grid-template-rows: [start] 4rem [mid1] auto [mid2] auto [mid3] 3rem [end];
+    grid-template-rows: [start] 4rem [mid1] auto [mid2] auto [mid3] 2rem [end];
 }
 
 .sidenav{
@@ -14,16 +14,10 @@
     grid-row: start/mid3;
 }
 
-.tickets #next{
+.paging{
     grid-column: mid1/mid2;
     grid-row: mid3/end;
 }
-
-.tickets #back{
-    grid-column: mid1/mid2;
-    grid-row: mid3/end;
-}
-
 
 #ticketOwner > img{
     width: 2rem;
@@ -109,18 +103,41 @@
     margin-bottom: 1rem;
 }
 
+.paging{
+    background-color: #f5f7f9; 
+    display: flex;
+    flex-direction: row;
+}
+
+.paging #back, .paging #next{
+    border:none;
+    background-color: #f5f7f9;
+    margin-top: 0.5rem;
+}
+
+.paging #back{
+    margin-left: auto;
+}
+
+.paging #next{
+    margin-right: 2rem;
+}
+
 @media only screen and (max-width: 1120px){
     .contentTickets{
         display: grid;
-        grid-template-columns: [start] 1fr [mid1] 7fr [end];
-        grid-template-rows: [start] 4rem [mid1] 1rem [mid2] auto [end];
+        grid-template-columns: [start] 10% [mid1] 90% [end];
+        grid-template-rows: [start] 4rem [mid1] auto [mid2] auto [mid3] 2rem [end];
     }
 
     .tickets{
-        grid-column: mid1/end;
-        grid-row: mid2/end;
-        overflow-y: scroll;
-        height: calc(100vh - 10rem);
+        grid-column: mid1/mid2;
+        grid-row: start/mid3;
+    }
+    
+    .paging{
+        grid-column: mid1/mid2;
+        grid-row: mid3/end;
     }
     
     .filters{
