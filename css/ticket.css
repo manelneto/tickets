@@ -1,7 +1,7 @@
 .contentTicket{
     display: grid;
     grid-template-columns: [start] 1fr [mid1] 6fr [mid2] 20rem [end];
-    grid-template-rows: [start] auto [mid1] auto [mid2] auto [end];
+    grid-template-rows: [start] 10rem [mid1] auto [mid2] auto [end];
 }
 
 .sidenav{
@@ -36,5 +36,10 @@ h1{
     font-size: 1rem;
 }
 
+
+.properties{
+    display: flex;
+    flex-direction: column;
+}
 
 
