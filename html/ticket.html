@@ -21,46 +21,52 @@
                 <p>ahsadgjsdhwg</p>
             </section>
             <section class="deadlines">
-                <h1>Open</h1>
-                <p>Date</p> <!-- database -->
-                <h1>Resolution Due</h1>
-                <p>Date</p>  <!-- database -->
+                <div id="openDate">
+                    <p>Open</p>
+                    <p>Date</p> <!-- database -->
+                </div>
+                <div id="resolutionDate">
+                    <p>Resolution Due</p>
+                    <p>Date</p>  <!-- database -->
+                </div>
             </section>
             <section class="properties">
                 <h1>Properties</h1>
-                <label for="status">Status</label>
-                <select id="status" name="status">
-                    <option value="default"> -- </option>
-                    <option value="open">Open</option>
-                    <option value="assigned">Assigned</option>
-                    <option value="closed">Closed</option>
-                    <option value="overdue">Overdue</option>    
-                </select>
-                <label for="priority">Choose priority</label>
-                <select id="priority" name="priority">
-                    <option value="default"> -- </option>
-                    <option value="high">High</option>
-                    <option value="medium">Medium</option>
-                    <option value="low">Low</option>
-                </select>
-                <label for="department">Department</label>
-                <select id="department" name="department">
-                    <option value="default"> -- </option>
-                    <option value="finance">Finance</option>
-                    <option value="it">IT</option>
-                    <option value="human">Human Resources</option>
-                    <option value="marketing">Marketing</option>
-                </select>
-                <label for="assignedTo">Assigned to</label> <!-- autocomplete tambem? -->
-                <p>Tags</p>
-                <input type="text" id="tags" name="tags" placeholder="Tags">
-                <button type="submit" id="apply">Apply</button>
-            </section>
-            <section class="changes">
-                <h1>Changes</h1>
-                <p>change1</p> 
-                <p>change2</p>
-            </section>
+                <form>
+                    <label for="status">Status</label>
+                    <select id="status" name="status">
+                        <option value="default"> -- </option>
+                        <option value="open">Open</option>
+                        <option value="assigned">Assigned</option>
+                        <option value="closed">Closed</option>
+                        <option value="overdue">Overdue</option>    
+                    </select>
+                    <label for="priority">Choose priority</label>
+                    <select id="priority" name="priority">
+                        <option value="default"> -- </option>
+                        <option value="high">High</option>
+                        <option value="medium">Medium</option>
+                        <option value="low">Low</option>
+                    </select>
+                    <label for="department">Department</label>
+                    <select id="department" name="department">
+                        <option value="default"> -- </option>
+                        <option value="finance">Finance</option>
+                        <option value="it">IT</option>
+                        <option value="human">Human Resources</option>
+                        <option value="marketing">Marketing</option>
+                    </select>
+                    <label for="assignedTo">Assigned to</label> <!-- autocomplete tambem? -->
+                    <p>Tags</p>
+                    <input type="text" id="tags" name="tags" placeholder="Tags">
+                    <button type="submit" id="apply">Apply</button>
+                </section>
+                <section class="changes">
+                    <h1>Changes</h1>
+                    <p>change1</p> 
+                    <p>change2</p>
+                </section>
+            </form>
             <footer>
                 <p> LTW © 2023 </p>
             </footer>
