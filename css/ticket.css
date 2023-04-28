@@ -1,7 +1,7 @@
 .contentTicket{
     display: grid;
     grid-template-columns: [start] 1fr [mid1] 6fr [mid2] 20rem [end];
-    grid-template-rows: [start] 10rem [mid1] auto [mid2] auto [end];
+    grid-template-rows: [start] 4rem [mid1] auto [mid2] auto [end];
 }
 
 .sidenav{
@@ -24,6 +24,8 @@
     grid-column: mid2/end;
     grid-row: mid1/mid2;
     background-color: #f5f7f9;
+    display: flex;
+    flex-direction: column;
 }
 
 .changes{
@@ -36,10 +38,28 @@ h1{
     font-size: 1rem;
 }
 
-
-.properties{
-    display: flex;
-    flex-direction: column;
+.deadlines p:first-child{
+    font-weight: bold;
 }
+
+.deadlines #openDate, .deadlines #resolutionDate{
+    display: flex;
+    flex-direction: row;
+    height: 1.5rem;
+    margin-left: 1rem;
+}
+
+.deadlines p:nth-child(2){
+    margin-left: 1rem;
+}
+
+.properties {
+
+}
+    
+
+
+
+
 
 
