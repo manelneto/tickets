@@ -4,14 +4,15 @@
     require_once(__DIR__ . '/../utils/session.php');
 ?>
 
-<?php function drawHeader(Session $session) { ?>
+<?php function drawHeader(Session $session, string $temp) { ?>
 <!DOCTYPE html>
 <html lang="en-US">
     <head>
         <title>Tickets Management</title>
         <meta charset="utf-8">
-        <link rel="stylesheet" href="../css/login-new.css">
-        <link rel="stylesheet" href="../css/register-new.css">
+        <?php if ($temp === 'login') { ?> <link rel="stylesheet" href="../css/login-new.css"> <?php } ?>
+        <?php if ($temp === 'register') { ?> <link rel="stylesheet" href="../css/register-new.css"> <?php } ?>
+        <?php if ($temp === 'profile') { ?> <link rel="stylesheet" href="../css/profile-new.css"> <?php } ?>
         <!--TO BE CHANGED>
         <link rel="stylesheet" href="../css/Dashboard.css">
         <link rel="stylesheet" href="../css/FAQ.css">

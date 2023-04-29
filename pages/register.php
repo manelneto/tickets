@@ -12,7 +12,7 @@
     require_once(__DIR__ . '/../templates/template_common.php');
     require_once(__DIR__ . '/../templates/template_register.php');
 
-    drawHeader($session);
+    drawHeader($session, 'register');
     drawRegister();
     drawFooter();
 ?>

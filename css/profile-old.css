@@ -2,7 +2,7 @@ body {
     margin: 0;
 }
 
-h1{
+h1 {
     background-color: #22216D;
     margin: 0;
     font-family: Arial, sans-serif;
@@ -28,50 +28,50 @@ h1{
 
 .editPhoto {
     grid-column: mid/end;
-    padding-top:2.5rem ;
+    padding-top: 2.5rem;
     border-left: 0.5rem solid #22216D;
     position: relative;
     display: flex;
     justify-content: center;
 }
 
-form label input{
+form label input {
     vertical-align: text-top;
 }
 
-form input{
+form input {
     max-width: 50rem;
 }
 
-form{
-    display:flex;
+form {
+    display: flex;
     flex-direction: column;
     padding-top: 3rem;
     padding-left: 4rem;
     padding-right: 2rem;
 }
 
-#container #photo{
-    display:flex;
+#container #photo {
+    display: flex;
     justify-items: center;
 }
 
 .profileContent #cancel {
     padding: 0.7rem;
-    border:none;
+    border: none;
     margin-left: 4rem;
     margin-top: 1rem;
     width: 6rem;
 }
 
 .profileContent #save {
-    display:inline-block;
+    display: inline-block;
     padding: 0.7rem;
-    border:none;
+    border: none;
     width: 6rem;
 }
 
-.profileContent #title{
+.profileContent #title {
     padding: 0.9rem;
     background-color: #f0f0f0;
     margin-left: 4rem;
@@ -82,36 +82,34 @@ form{
     color: black;
 }
 
-.profileContent #password{
+.profileContent #password {
     padding: 0.9rem;
     background-color: #f0f0f0;
 }
 
-.profileContent #title:hover{
+.profileContent #title:hover {
     background-color: #76abe0;
-} 
-
-.profileContent #password:hover{
-    background-color: #76abe0;   
 }
 
-.profileContent #cancel:hover{
+.profileContent #password:hover {
     background-color: #76abe0;
-} 
-
-.profileContent #save:hover{
-    background-color: #76abe0;   
 }
 
-.profileContent #photo{
+.profileContent #cancel:hover {
+    background-color: #76abe0;
+}
+
+.profileContent #save:hover {
+    background-color: #76abe0;
+}
+
+.profileContent #photo {
     height: 3rem;
     width: 5.5rem;
     border: none;
     margin-top: 25rem;
 }
 
-.profileContent #photo:hover{
-    background-color: #76abe0;   
+.profileContent #photo:hover {
+    background-color: #76abe0;
 }
-
-

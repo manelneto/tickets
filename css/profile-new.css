@@ -1,0 +1,116 @@
+body {
+    margin: 0;
+}
+
+h1 {
+    background-color: #22216D;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    align-items: center;
+    height: 5rem;
+    font-size: 1.3rem;
+    color: #ffffff;
+    padding-left: 2rem;
+    font-weight: bold;
+}
+
+main {
+    display: grid;
+    grid-template-columns: [start] 2fr [mid] 1fr [end];
+    height: calc(100vh - 5rem);
+}
+
+#profile {
+    grid-column: start/mid;
+    margin-top: 5rem;
+}
+/*
+.editPhoto {
+    grid-column: mid/end;
+    padding-top: 2.5rem;
+    border-left: 0.5rem solid #22216D;
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+*/
+form label input {
+    vertical-align: text-top;
+}
+
+form input {
+    max-width: 50rem;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    padding-top: 3rem;
+    padding-left: 4rem;
+    padding-right: 2rem;
+}
+/*
+#container #photo {
+    display: flex;
+    justify-items: center;
+}
+
+.profileContent #cancel {
+    padding: 0.7rem;
+    border: none;
+    margin-left: 4rem;
+    margin-top: 1rem;
+    width: 6rem;
+}
+*/
+main button {
+    display: inline-block;
+    padding: 0.7rem;
+    border: none;
+    width: 6rem;
+}
+
+main h2 {
+    padding: 0.9rem;
+    background-color: #f0f0f0;
+    margin-left: 4rem;
+}
+
+#profile a {
+    text-decoration: none;
+    color: black;
+}
+
+main a {
+    padding: 0.9rem;
+    background-color: #f0f0f0;
+}
+
+main #title:hover {
+    background-color: #76abe0;
+}
+
+main a:hover {
+    background-color: #76abe0;
+}
+/*
+.profileContent #cancel:hover {
+    background-color: #76abe0;
+}
+*/
+main button:hover {
+    background-color: #76abe0;
+}
+/*
+.profileContent #photo {
+    height: 3rem;
+    width: 5.5rem;
+    border: none;
+    margin-top: 25rem;
+}
+*//*
+.profileContent #photo:hover {
+    background-color: #76abe0;
+}
+*/
