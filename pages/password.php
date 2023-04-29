@@ -18,7 +18,7 @@
     require_once(__DIR__ . '/../templates/template_common.php');
     require_once(__DIR__ . '/../templates/template_password.php');
 
-    drawHeader($session, 'password');
+    drawHeader($session);
     drawPassword($user);
     drawFooter();
 ?>
