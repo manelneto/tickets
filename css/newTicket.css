@@ -1,24 +1,24 @@
 main {
-    margin-top: 3.125rem;
-    margin-left: 15.625rem;
-    padding: 1.875rem;
+    margin-top: 3rem;
+    margin-left: 16rem;
+    padding: 1.9rem;
     position: static;
 }
 
 h1 {
     font-family: Arial, sans-serif;
-    font-size: 1.563rem;
+    font-size: 1.6rem;
     color: #22216D;
     text-align: left;
 }
 
 #category {
     background-color: #6b6ab7;
-    padding: 0.625rem;
+    padding: 0.6rem;
     font-size: 1rem;
     color: whitesmoke;
     cursor: pointer;
-    width: 18.75rem;
+    width: 18.8rem;
 }
   
 #category option {
@@ -29,13 +29,11 @@ h1 {
 #category option[value="opt1"] {
     background-color: #a4a2e4;
     font-size: 1rem;
-    font-weight: 600;
 }
 
 #category option[value="opt2"] {
     background-color: #bdbded;
     font-size: 1rem;
-    font-weight: 600;
 } 
 
 .NewTicket {
@@ -44,7 +42,7 @@ h1 {
     align-items: left;
     width: 70%;
     height: 100vh;
-    margin-top: 3.125rem;
+    margin-top: 3rem;
 }
   
 .NewTicket-form {
@@ -61,12 +59,12 @@ form {
   
 label {
     display: block;
-    margin-bottom: 0.313rem;
+    margin-bottom: 0.3rem;
 }
   
 input {
     padding: 0.5rem;
-    margin-bottom: 0.625rem;
+    margin-bottom: 0.6rem;
     border: 1px solid #ccc;
     width: 85%;
     background-color:#e8e3e3;
