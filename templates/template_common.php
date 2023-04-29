@@ -15,14 +15,11 @@
         <?php if ($temp === 'profile') { ?> <link rel="stylesheet" href="../css/profile-new.css"> <?php } ?>
         <?php if ($temp === 'tickets') { ?> <link rel="stylesheet" href="../css/tickets-new.css"> <?php } ?>
         <?php if ($temp === 'faqs') { ?> <link rel="stylesheet" href="../css/faqs-new.css"> <?php } ?>
+        <?php if ($temp === 'password') { ?> <link rel="stylesheet" href="../css/profile-new.css"> <?php } ?>
         <!--TO BE CHANGED>
         <link rel="stylesheet" href="../css/Dashboard.css">
-        <link rel="stylesheet" href="../css/FAQ.css">
-        <link rel="stylesheet" href="../css/Login.css">
         <link rel="stylesheet" href="../css/NewTicket.css">
-        <link rel="stylesheet" href="../css/Profile.css">
         <link rel="stylesheet" href="../css/sideBars.css">
-        <link rel="stylesheet" href="../css/SignUp.css">
         <link rel="stylesheet" href="../css/TicketsAgent.css">
         <TO BE CHANGED-->
     </head>
