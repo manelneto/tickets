@@ -1,98 +1,23 @@
-body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-}
-/* Top navigation bar */
-.topnav {
-    background-color: #e8e3e3;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 60px;
-}
-/* Left side of top navigation bar */
-.topnav-left {
-    padding: 0 20px;
-    color: #0e0d0f;
-    font-size: 18px;
-    font-weight: bold;
-}
-/* Right side of top navigation bar */
-.topnav-right {
-    padding: 0 20px;
-}
-
-.topnav-right a {
-    text-decoration: none; /* remove the underline */
-    color: #333;
-    display: flex;
-    align-items: center;
-    font-size: 16px;
-    position: relative; /* make the circle position relative to the link */
-    margin-left: 20px; /* add some margin to the left of the link */
-    z-index: 1; /* position the link above the circle */
-}
-
-.topnav-right a:before {
-    content: ""; /* add a pseudo-element to create the circle */
-    width: 45px;
-    height: 45px;
-    background-color: rgb(145, 185, 145);
-    border-radius: 100%; /* make it round */
-    display: block;
-    position: absolute;
-    top: 45%;
-    left: -4px; /* position it to the left of the link */
-    transform: translateY(-50%); /* center it vertically */
-    z-index: -1;
-}
-
-/* Vertical navigation bar */
-.sidenav {
-    background-color: #22216D;
-    height: 100%;
-    width: 170px;
-    position: fixed;
-    top: 60px;
-    left: 0;
-    overflow-x: hidden;
-    padding-top: 30px;
-}
-/* Navigation bar links */
-.sidenav a {
-    display: block;
-    padding: 10px;
-    text-decoration: none;
-    color: #ebebee;
-    font-size: 16px;
-    text-align: left;
-}
-.sidenav a:hover {
-    background-color: #76abe0;
-}
-/* Main content */
 main {
-    margin-left: 200px; /* Same as the width of the sidenav */
-    padding: 20px;
+    margin-left: 12.5rem; 
+    padding: 1.3rem;
 }
 
 details {
-    margin-bottom: 20px;
-    border: 1px solid #ccc; /* delete this to erase border*/
-    border-radius: 4px;
-  }
+    margin-bottom: 1.3rem;
+    border: 1px solid #ccc; 
+    border-radius: 0.3rem;
+}
   
 summary {
-    padding: 10px;
+    padding: 0.6rem;
     font-weight: bold;
     cursor: pointer;
-  }
+}
   
 details[open] summary {
     background-color: rgb(144, 204, 239);
-  }
+}
   
 details[open] > p {
     display: block;
@@ -100,16 +25,16 @@ details[open] > p {
   
 details > p {
     display: none;
-    padding: 10px;
-  }
+    padding: 0.6rem;
+}
 
 footer {
     font-family: Arial, sans-serif;
-    font-size: 14px;
+    font-size: 0.9rem;
     text-align: center;
     color: black;
     position: absolute;
     bottom: 0;
     left: 0;
     right: 0;
-  }
+}

@@ -18,13 +18,13 @@ body {
 }
 
 .topnavRight {
-  padding: 0 1.25rem;
+  padding: 0 1.3rem;
 }
 
 .topnavRight a {
   text-decoration: none; 
   color: #000000;
-  font-size: 16px;
+  font-size: 1rem;
   position: relative;
   z-index: 1;
 }
