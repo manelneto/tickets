@@ -128,7 +128,7 @@
             $this->faq = $faq;
         }
 
-        public function getTickets(PDO $db, int $id) : array {
+        public static function getTickets(PDO $db, int $id) : array {
             $stmt = $db->prepare('
                 SELECT idTicket, idClient, title, content, dateOpened, dateDue, dateClosed, idAgent, idDepartment, idPriority, idStatus, idFAQ
                 FROM Ticket
@@ -157,6 +157,19 @@
                 );
             
             return $tickets;
+        }
+
+        public static function getTicketsCountByStatus(PDO $db, int $id, int $status) : int {
+            $stmt = $db->prepare('
+                SELECT idTicket
+                FROM Ticket
+                WHERE idClient = ? AND idStatus = ?
+            ');
+
+            $stmt->execute(array($id, $status));
+            $result = $stmt->fetchAll();
+
+            return count($result);
         }
     }
 ?>
