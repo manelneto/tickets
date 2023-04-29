@@ -1,130 +1,42 @@
-body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-}
-/* Top navigation bar */
-.topnav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background-color: #e8e3e3;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 60px;
-}
-/* Left side of top navigation bar */
-.topnav-left {
-    padding: 0 20px;
-    color: #0e0d0f;
-    font-size: 18px;
-    font-weight: bold;
-}
-/* Right side of top navigation bar */
-.topnav-right {
-    padding: 0 20px;
-}
-
-.topnav-right a {
-    text-decoration: none; /* remove the underline */
-    color: #333;
-    display: flex;
-    align-items: center;
-    font-size: 16px;
-    position: relative; /* make the circle position relative to the link */
-    margin-left: 20px; /* add some margin to the left of the link */
-    z-index: 1; /* position the link above the circle */
-}
-
-.topnav-right a:before {
-    content: ""; /* add a pseudo-element to create the circle */
-    width: 45px;
-    height: 45px;
-    background-color: rgb(145, 185, 145);
-    border-radius: 100%; /* make it round */
-    display: block;
-    position: absolute;
-    top: 45%;
-    left: -4px; /* position it to the left of the link */
-    transform: translateY(-50%); /* center it vertically */
-    z-index: -1;
-}
-
-/* Vertical navigation bar */
-.sidenav {
-    background-color: #22216D;
-    height: 100%;
-    width: 170px;
-    position: fixed;
-    top: 60px;
-    left: 0;
-    overflow-x: hidden;
-    padding-top: 30px;
-}
-/* Navigation bar links */
-.sidenav a {
-    display: block;
-    padding: 10px;
-    text-decoration: none;
-    color: #ebebee;
-    font-size: 16px;
-    text-align: left;
-}
-.sidenav a:hover {
-    background-color: #76abe0;
-}
-/* Main content */
 main {
-    margin-top: 50px;
-    margin-left: 250px;
-    padding: 30px;
+    margin-top: 3.125rem;
+    margin-left: 15.625rem;
+    padding: 1.875rem;
     position: static;
-    /*overflow:auto;*/
 }
-
 
 h1 {
     font-family: Arial, sans-serif;
-    font-size: 25px;
+    font-size: 1.563rem;
     color: #22216D;
     text-align: left;
-  }
-
-/************************* Choose Category ****************/
+}
 
 #category {
-    /*border: 1px solid rgb(115, 186, 240);*/
     background-color: #6b6ab7;
-    padding: 10px;
-    font-size: 16px;
+    padding: 0.625rem;
+    font-size: 1rem;
     color: whitesmoke;
     cursor: pointer;
-    width: 300px;
-  }
+    width: 18.75rem;
+}
   
 #category option {
     background-color: rgb(149, 199, 246);
     color: rgb(69, 68, 68);
-  }
+}
 
 #category option[value="opt1"] {
     background-color: #a4a2e4;
-    font-size: 17px;
+    font-size: 1rem;
     font-weight: 600;
-  }
+}
 
 #category option[value="opt2"] {
     background-color: #bdbded;
-    font-size: 17px;
+    font-size: 1rem;
     font-weight: 600;
-  } 
-
-
-/***************************** New Ticket Form ********************/
-
+} 
 
 .NewTicket {
     display: block;
@@ -132,51 +44,37 @@ h1 {
     align-items: left;
     width: 70%;
     height: 100vh;
-    margin-top: 50px;
-  }
+    margin-top: 3.125rem;
+}
   
 .NewTicket-form {
     background-color: white;
     padding: 0;
-  }
+}
 
 form {
     font-family: Arial, sans-serif;;
     display: flex;
     flex-direction: column;
     align-items: left;
-  }
+}
   
 label {
     display: block;
-    margin-bottom: 5px;
-  }
+    margin-bottom: 0.313rem;
+}
   
 input {
-    padding: 8px;
-    margin-bottom: 10px;
+    padding: 0.5rem;
+    margin-bottom: 0.625rem;
     border: 1px solid #ccc;
     width: 85%;
     background-color:#e8e3e3;
-  }
-
-#department{
-    width: 87%;
-    padding: 8px;
-    background-color:#e8e3e3;
-    border: 1px solid #ccc;
 }
 
-#tags{
+#department, #tags, #priority {
     width: 87%;
-    padding: 8px;
-    background-color:#e8e3e3;
-    border: 1px solid #ccc;
-}
-
-#priority {
-    width: 87%;
-    padding: 8px;
+    padding: 0.5rem;
     background-color:#e8e3e3;
     border: 1px solid #ccc;
 }
@@ -185,16 +83,14 @@ input {
     height: 15vh;
 }
 
- /************************* FOOTER *********************************/
-
 footer {
-  padding-top: 4%;
+    padding-top: 0.5rem;
     font-family: Arial, sans-serif;
-    font-size: 14px;
+    font-size: 0.9rem;
     text-align: center;
     color: black;
     position: relative;
     bottom: 0;
     left: 0;
     right: 0;
-  }
+}
