@@ -1,20 +1,20 @@
 h1{
     font-family: Arial, sans-serif;
-    font-size: 1.625rem;
+    font-size: 1.6rem;
     color: #22216D;
 }
 
 main {
     margin-left: 12.5rem; 
-    padding: 1.25rem;
+    padding: 1.3rem;
 }
 
 .nav-box {
     background-color: #f1f1f1;
     border: 1px solid #ddd;
-    border-radius: 0.25rem;
-    padding: 1.25rem;
-    margin-bottom: 1.25rem;
+    border-radius: 0.3rem;
+    padding: 1.3rem;
+    margin-bottom: 1.3rem;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -24,17 +24,17 @@ main {
 .nav-box h2 {
     font-size: 1.5rem;
     margin-top: 0;
-    margin-bottom: 0.625rem;
+    margin-bottom: 0.6rem;
 }
 
 .nav-box p {
-    font-size: 1.125rem;
+    font-size: 1rem;
     margin: 0;
 }
 
 footer {
     font-family: Arial, sans-serif;
-    font-size: 0.875rem;
+    font-size: 1rem;
     text-align: center;
     color: black;
     position: absolute;
