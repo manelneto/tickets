@@ -1,0 +1,40 @@
+main {
+    margin-left: 12.5rem; 
+    padding: 1.3rem;
+}
+
+details {
+    margin-bottom: 1.3rem;
+    border: 1px solid #ccc; 
+    border-radius: 0.3rem;
+}
+  
+summary {
+    padding: 0.6rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+  
+details[open] summary {
+    background-color: rgb(144, 204, 239);
+}
+  
+details[open] > p {
+    display: block;
+}
+  
+details > p {
+    display: none;
+    padding: 0.6rem;
+}
+
+footer {
+    font-family: Arial, sans-serif;
+    font-size: 0.9rem;
+    text-align: center;
+    color: black;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}

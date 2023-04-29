@@ -14,6 +14,7 @@
         <?php if ($temp === 'register') { ?> <link rel="stylesheet" href="../css/register-new.css"> <?php } ?>
         <?php if ($temp === 'profile') { ?> <link rel="stylesheet" href="../css/profile-new.css"> <?php } ?>
         <?php if ($temp === 'tickets') { ?> <link rel="stylesheet" href="../css/tickets-new.css"> <?php } ?>
+        <?php if ($temp === 'faqs') { ?> <link rel="stylesheet" href="../css/faqs-new.css"> <?php } ?>
         <!--TO BE CHANGED>
         <link rel="stylesheet" href="../css/Dashboard.css">
         <link rel="stylesheet" href="../css/FAQ.css">
