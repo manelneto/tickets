@@ -38,6 +38,9 @@
             <?php } ?>
         </header>
         <?php if ($session->isLoggedIn()) { ?>
+        <?php if (!strpos(__FILE__, 'newTicket')) { ?>
+        <a class="newTicket" href="../pages/newTicket.html">New Ticket</a>
+        <?php } ?>
         <nav id="menu">
             <ul>
                 <li><a href="../pages/dashboard.php">Dashboard</a></li>
