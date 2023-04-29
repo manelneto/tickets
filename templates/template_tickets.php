@@ -12,22 +12,20 @@
             <header class="author">
                 <img src="../assets/perfilIcon.png" alt="Perfil Icon">
                 <h3><?=$ticket->getClient()->getName()?></h3>
-                <h4><?=$ticket->getTitle()?></h4>
             </header>
+            <h4><?=$ticket->getTitle()?></h4>
             <p class="status"><?=$ticket->getStatus()->getName()?></p>
             <p class="opened"><?=$ticket->getDateOpened()?></p>
             <p class="due"><?=$ticket->getDateDue()?></p>
-            <p class="closed"><?php if ($ticket->getDateClosed() !== null) echo $ticket->getDateClosed(); else echo ''; ?></p>
-            <?php if ($session->isAgent() || $session->isAdmin()) { ?>
-            <p class="agent"><?php if ($ticket->getAgent() !== null) echo $ticket->getAgent()->getName(); else echo ''; ?></p>
-            <p class="department"><?php if ($ticket->getDepartment() !== null) echo $ticket->getDepartment()->getName(); else echo ''; ?></p>
-            <p class="priority"><?php if ($ticket->getPriority() !== null) echo $ticket->getPriority()->getName(); else echo ''; ?></p>
-            <?php } ?>
+            <p class="closed"><?php if ($ticket->getDateClosed() !== null) echo $ticket->getDateClosed(); ?></p>
+            <p class="agent"><?php if ($ticket->getAgent() !== null) echo $ticket->getAgent()->getName(); ?></p>
+            <p class="priority"><?php if ($ticket->getPriority() !== null) echo $ticket->getPriority()->getName(); ?></p>
+            <p class="department"><?php if ($ticket->getDepartment() !== null) echo $ticket->getDepartment()->getName(); ?></p>
         </article>
         <?php } ?>
     </section>
     <?php if ($session->isAgent() || $session->isAdmin()) { ?>
-    <form class="filters">
+    <form action="../actions/action_filter.php" method="post" class="filters">
         <h3>Filters</h3>
         <label for="date">Date</label>
         <input type="date" name="date">
