@@ -7,8 +7,8 @@ body {
 
 header {
     text-align: center;
-    padding: 15px;
-    max-width: 700px;
+    padding: 0.938rem;
+    max-width: 43.75rem;
     margin: 0 auto;
   }
   
@@ -17,7 +17,7 @@ header h1 {
     font-size: 2em;
     color: white;
     display: inline-block;
-    padding: 5px 5px;
+    padding: 0.313rem 0.313rem;
   }
 
 .SignUp {
@@ -25,39 +25,38 @@ header h1 {
     justify-content: center;
     align-items: left;
     height: 100vh;
-  }
+}
   
-  .SignUp-box {
+.SignUp-box {
     background-color: white;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-  }
-  
- 
-  form {
+    padding: 1.25rem;
+    border-radius: 0.313rem;
+    box-shadow: 0px 0px 0.625rem rgba(0, 0, 0, 0.2);
+}
+
+form {
     font-family: "Roboto";
     display: flex;
     flex-direction: column;
     align-items: left;
-  }
-  
-  label {
+}
+
+label {
     display: block;
     margin-bottom: 5px;
-  }
-  
-  input {
-    padding: 5px;
-    margin-bottom: 10px;
-    border-radius: 5px;
+}
+
+input {
+    padding: 0.313rem;
+    margin-bottom: 0.625rem;
+    border-radius: 0.313rem;
     border: 1px solid #ccc;
     width: 100%;
-    max-width: 300px;
-  }
+    max-width: 18.75rem;
+}
 
-  
-  button {
+
+button {
     padding: 5px;
     background-color: #008CBA;
     color: white;
@@ -66,19 +65,19 @@ header h1 {
     cursor: pointer;
     width: 100%;
     margin-bottom: 10px;
-  }
-  
-  a {
+}
+
+a {
     color: #008CBA;
     text-decoration: none;
-  }
-  
-  a:hover {
-    text-decoration: underline;
-  }
+}
 
-  footer {
+a:hover {
+    text-decoration: underline;
+}
+
+footer {
     font-family: "Roboto";
     text-align: center;
     color: white;
-  }
+}
