@@ -21,7 +21,7 @@
     require_once(__DIR__ . '/../templates/template_common.php');
     require_once(__DIR__ . '/../templates/template_tickets.php');
 
-    drawHeader($session);
+    drawHeader($session, 'tickets');
     drawTickets($session, $tickets, $statuses, $priorities, $departments);
     drawFooter();
 ?>

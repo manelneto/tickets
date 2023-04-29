@@ -1,75 +1,79 @@
-.contentTickets{
+main {
     display: grid;
     grid-template-columns: [start] 1fr [mid1] 6fr [mid2] 1fr [end];
     grid-template-rows: [start] 4rem [mid1] auto [mid2] auto [mid3] 2rem [end];
 }
-
-.sidenav{
+/*
+.sidenav {
     grid-column: start/mid1;
     grid-row: start/end;
 }
-
-.tickets{
+*/
+#tickets {
     grid-column: mid1/mid2;
     grid-row: start/mid3;
 }
-
-.paging{
+/*
+.paging {
     grid-column: mid1/mid2;
     grid-row: mid3/end;
 }
-
-#ticketOwner > img{
+*/
+.author > img {
     width: 2rem;
     height: 2rem;
     padding: 0.4rem;
 }
 
-.tickets a{
+#tickets a {
     text-decoration: none;
     color: #000000;
 }
 
-.ticket{
+.ticket {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    height: 4rem;  
-    align-items: center; 
+    height: 4rem;
+    align-items: center;
 }
 
-#ticketOwner{
+.author {
     display: flex;
     flex-direction: row;
 }
 
-.ticket:hover{
-    background-color: #f5f7f9; 
+.ticket:hover {
+    background-color: #f5f7f9;
 }
 
-#owner, #ticketStatus, #ticketTitle, #ticketDate, #ticketPriority{
+.author h3,
+.status,
+.author h4,
+.opened,
+.priority {
     font-size: 0.8rem;
     margin-top: 1.1rem;
 }
 
-.tickets .ticket:first-child {
+#tickets .ticket:first-child {
     margin-top: 1rem;
 }
 
-.filters{
+.filters {
     grid-column: mid2/end;
     grid-row: start/end;
-    background-color: #f5f7f9; 
+    background-color: #f5f7f9;
     display: flex;
     align-items: center;
     flex-direction: column;
 }
 
-.eachFilter > select{
+.filter > select {
     display: block;
     margin-top: 0.5rem;
-    padding:0.2rem;
+    padding: 0.2rem;
     max-width: 10rem;
     margin-right: 2rem;
     margin-bottom: 1rem;
@@ -77,70 +81,72 @@
     min-width: 1rem;
 }
 
-.eachFilter{
+.filter {
     width: 100%;
 }
 
-.eachFilter > p{
+.filter > p {
     text-align: center;
 }
 
-.eachFilter label , .eachFilter select{
+.filter label,
+.filter select {
     margin-left: 1rem;
 }
 
-.eachFilter select{
+.filter select {
     width: 9rem;
 }
 
-.filters button{
-    margin-top:auto;
+.filters button {
+    margin-top: auto;
     width: 7rem;
     height: 1.5rem;
     background-color: #22216D;
-    color:#ffffff;
+    color: #ffffff;
     border: none;
     margin-bottom: 1rem;
 }
-
-.paging{
-    background-color: #f5f7f9; 
+/*
+.paging {
+    background-color: #f5f7f9;
     display: flex;
     flex-direction: row;
 }
 
-.paging #back, .paging #next{
-    border:none;
+.paging #back,
+.paging #next {
+    border: none;
     background-color: #f5f7f9;
     margin-top: 0.5rem;
 }
 
-.paging #back{
+.paging #back {
     margin-left: auto;
 }
 
-.paging #next{
+.paging #next {
     margin-right: 2rem;
 }
-
-@media only screen and (max-width: 1120px){
-    .contentTickets{
+*/
+@media only screen and (max-width: 1120px) {
+    .main {
         display: grid;
         grid-template-columns: [start] 10% [mid1] 90% [end];
         grid-template-rows: [start] 4rem [mid1] auto [mid2] auto [mid3] 2rem [end];
     }
 
-    .tickets{
+    #tickets {
         grid-column: mid1/mid2;
         grid-row: start/mid3;
     }
-    
-    .paging{
+/*
+    .paging {
         grid-column: mid1/mid2;
         grid-row: mid3/end;
     }
-    
-    .filters{
+*/
+    .filters {
         grid-column: mid1/end;
         grid-row: start/mid2;
         background-color: #f5f7f9;
@@ -150,35 +156,34 @@
         justify-content: space-between;
     }
 
-    .filters p{
+    .filters p {
         display: none;
     }
-    
-    .eachFilter{
+
+    .filter {
         margin-top: 1rem;
         display: inline-block;
         margin-left: 0rem;
         margin-right: 0rem;
     }
 
-    .eachFilter > label{
+    .filter > label {
         font-size: 15px;
     }
 
-    .eachFilter > select{
-        max-width: 4rem;  
+    .filter > select {
+        max-width: 4rem;
         height: 1.5rem;
     }
 
-    .filters button{
+    .filters button {
         margin-bottom: 0rem;
         margin-top: 1.1rem;
         width: 4rem;
         height: 1.5rem;
         background-color: #22216D;
-        color:#ffffff;
+        color: #ffffff;
         border: none;
         margin-right: 1.5rem;
     }
 }
-

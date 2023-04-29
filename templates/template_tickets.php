@@ -10,7 +10,7 @@
         <?php foreach ($tickets as $ticket) { ?>
         <article class="ticket">
             <header class="author">
-                <img src="perfilIcon.png" alt="Perfil Icon">
+                <img src="../assets/perfilIcon.png" alt="Perfil Icon">
                 <h3><?=$ticket->getClient()->getName()?></h3>
                 <h4><?=$ticket->getTitle()?></h4>
             </header>
