@@ -24,7 +24,7 @@
     </head>
     <body>
         <header>
-            <h1><a href="../pages/index.php">Tickets Management</a></h1>
+            <!--<h1><a href="../pages/index.php">Tickets Management</a></h1>-->
             <?php if ($session->isLoggedIn()) { ?>
             <form action="../actions/action_logout.php" method="post" class="logout">
                 <a href="../pages/profile.php"><?php

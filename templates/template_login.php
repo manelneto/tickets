@@ -3,6 +3,7 @@
 ?>
 
 <?php function drawLogin() { ?>
+    <h1><a href="../pages/index.php">Tickets Management</a></h1>
     <section id="login">
         <h2>Login</h2>
         <form action="../actions/action_login.php" method="post" class="login">
