@@ -20,5 +20,4 @@
 
     drawHeader($session);
     drawProfile($user);
-    drawFooter();
 ?>

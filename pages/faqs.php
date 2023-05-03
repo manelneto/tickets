@@ -20,5 +20,4 @@
 
     drawHeader($session);
     drawFAQs($faqs);
-    drawFooter();
 ?>

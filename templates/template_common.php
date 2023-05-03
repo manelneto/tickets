@@ -53,11 +53,3 @@
         <main>
 <?php } ?>
 
-<?php function drawFooter() { ?>
-        </main>
-        <footer>
-            LTW &copy; 2023
-        </footer>
-    </body>
-</html>
-<?php } ?>
