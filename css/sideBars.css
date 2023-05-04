@@ -42,13 +42,13 @@ body {
   z-index: -1;
 }
 
-.topnav-middle {
+.newTicket {
   padding: 10px 20px;
   background-color: rgb(241, 244, 245);
   margin-left: auto;
 }
 
-.topnav-middle a {
+.newTicket a {
   text-decoration: none; 
   color: #22216D;
   display: block;
@@ -57,12 +57,12 @@ body {
   font-weight: bold;
 }
 
-.sidenav {
+#menu {
   background-color: #22216D;
   min-height: calc(100vh - 5rem);
 }
 
-.sidenav a {
+#menu a {
   display: block;
   padding-left: 2rem;
   padding-top: 0.8rem;  
@@ -72,7 +72,11 @@ body {
   font-size: 1rem;
 }
 
-.sidenav a:hover {
+#menu ul{
+  list-style-type: none;
+}
+
+#menu li:hover {
   background-color: #76abe0;
 }
 
