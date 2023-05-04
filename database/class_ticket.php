@@ -6,6 +6,7 @@
     require_once(__DIR__ . '/../database/class_priority.php');
     require_once(__DIR__ . '/../database/class_status.php');
     require_once(__DIR__ . '/../database/class_faq.php');
+    require_once(__DIR__ . '/../database/class_tag.php');
 
     class Ticket {
         private int $id;
@@ -170,6 +171,36 @@
             $result = $stmt->fetchAll();
 
             return count($result);
+        }
+
+        public static function addTicket(PDO $db, int $idClient, string $title, string $content, string $dateOpened, string $dateDue) : bool {
+            $stmt = $db->prepare('
+                INSERT INTO Ticket (idClient, title, content, dateOpened, dateDue)
+                VALUES (?, ?, ?, ?, ?)
+            ');
+
+            try {
+                $stmt->execute(array($idClient, $title, $content, $dateOpened, $dateDue));
+            } catch (PDOException $e) {
+                return false;
+            }
+            
+            return true;
+        }
+
+        public static function addTicket(PDO $db, int $idClient, string $title, string $content, string $dateOpened, string $dateDue, Department $department) : bool {
+            $stmt = $db->prepare('
+                INSERT INTO Ticket (idClient, title, content, dateOpened, dateDue, idDepartment)
+                VALUES (?, ?, ?, ?, ?, ?)
+            ');
+
+            try {
+                $stmt->execute(array($idClient, $title, $content, $dateOpened, $dateDue, $department->getId()));
+            } catch (PDOException $e) {
+                return false;
+            }
+            
+            return true;
         }
     }
 ?>

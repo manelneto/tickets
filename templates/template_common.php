@@ -39,7 +39,7 @@
         </header>
         <?php if ($session->isLoggedIn()) { ?>
         <?php if (!strpos(__FILE__, 'newTicket')) { ?>
-        <a class="newTicket" href="../pages/newTicket.html">New Ticket</a>
+        <a class="newTicket" href="../pages/new_ticket.php">New Ticket</a>
         <?php } ?>
         <nav id="menu">
             <ul>
