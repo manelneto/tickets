@@ -33,13 +33,14 @@
                     else if ($session->isAgent()) echo ' (Agent)';
                     else echo ' (Client)';
                 ?></a>
+                <a class="newTicket" href="../pages/newTicket.html">New Ticket</a>
                 <button type="submit">Logout</button>
             </form>
             <?php } ?>
         </header>
         <?php if ($session->isLoggedIn()) { ?>
         <?php if (!strpos(__FILE__, 'newTicket')) { ?>
-        <a class="newTicket" href="../pages/newTicket.html">New Ticket</a>
+        
         <?php } ?>
         <nav id="menu">
             <ul>
