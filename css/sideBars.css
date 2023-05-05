@@ -1,70 +1,60 @@
-body {
+body{
+  display: grid;
+  grid-template-columns: [start] 13% [mid1] 87% [end];
+  grid-template-rows: [start] 13% [mid1] 87% [end];
   margin: 0;
   font-family: Arial, sans-serif;
 }
 
-.header {
-  background-color: #edf1f4;
+header{
+  grid-column: start/end;
+  grid-row: start/mid1;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 5rem;
+  background-color: #edf1f4;
 }
 
-.topnavLeft {
-  padding-left: 2rem;
+#menu{
+  grid-column: start/mid1;
+  grid-row: mid1/end;
+}
+
+header h1{
+  margin-left: 2rem;
   font-size: 1.3rem;
-  font-weight: bold;
 }
 
-.topnavRight {
-  padding: 0 1.3rem;
-}
-
-.topnavRight a {
-  text-decoration: none; 
-  color: #000000;
-  font-size: 1rem;
-  position: relative;
-  z-index: 1;
-}
-
-.topnavRight a:before {
-  content: "";
-  width: 3rem;
-  height: 3rem;
-  background-color: rgb(145, 185, 145);
-  border-radius: 100%;
-  position: absolute;
-  top: 45%;
-  left: -0.4rem;
-  transform: translateY(-50%); 
-  z-index: -1;
-}
-
-.newTicket {
-  padding: 10px 20px;
-  background-color: rgb(241, 244, 245);
-  margin-left: auto;
-}
-
-.newTicket a {
-  text-decoration: none; 
-  color: #22216D;
-  display: block;
+.logout, header h1{
   align-items: center;
-  font-size: 16px;
-  font-weight: bold;
+}
+
+.logout a, .logout button{
+  display: block;
+}
+
+.logout a{
+  text-decoration: none;
+  color:black;
+  margin-right: 1rem;
+  text-align: center;
+}
+
+.logout button{
+  background-color: #22216D;
+  border: none;
+  color: #ffffff;
+  padding: 0.3rem;
+  margin-left: 3rem;
 }
 
 #menu {
   background-color: #22216D;
-  min-height: calc(100vh - 5rem);
+  min-height: calc(100vh - 5.5rem);
 }
 
 #menu a {
   display: block;
-  padding-left: 2rem;
   padding-top: 0.8rem;  
   padding-bottom: 0.8rem;
   text-decoration: none;
@@ -74,51 +64,53 @@ body {
 
 #menu ul{
   list-style-type: none;
+  padding-left: 0;
+}
+
+#menu li{
+  padding-left: 2rem;
 }
 
 #menu li:hover {
   background-color: #76abe0;
 }
 
-.sidenav a:nth-of-type(1) {
-  margin-top: 3rem;
-}
-
-footer { 
-  font-size: 0.8rem;
-  width: 100%;
-  text-align: center;
-  bottom: 0;
-  position: fixed;
-  margin:auto;
+#menu li:nth-of-type(1){
+  margin-top: 1rem;
 }
 
 @media only screen and (max-width: 1120px) {
 
-  .sidenav a {
+  /*meter as imagens no php*/
+  #menu li {
     display: block;
     background-repeat: no-repeat;
     background-position: center;
     background-color: transparent;
-    text-indent: 100%;
+    text-indent: -9999em;
   }
   
-  .sidenav a:nth-child(1) {
+  #menu li:nth-of-type(1) {
     background-image: url('../assets/dashboard.png');
     background-size: 2.4rem;
   }
   
-  .sidenav a:nth-child(2) {
+  #menu li:nth-of-type(2) {
     background-image: url('../assets/ticket.png');
     background-size: 3rem;
   }
   
-  .sidenav a:nth-child(3){
+  #menu li:nth-of-type(3){
     background-image: url('../assets/faq.png');
     background-size: 2.5rem;
   }
+
+  #menu li:nth-of-type(4){
+    background-image: url('../assets/newTicket.png');
+    background-size: 2.5rem;
+  }
   
-  .sidenav a:nth-child(4) {
+  #menu li:nth-of-type(5) {
     background-image: url('../assets/management.png');
     background-size: 3rem;
   }
