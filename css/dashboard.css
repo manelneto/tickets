@@ -1,13 +1,39 @@
+.dashboard-tickets{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-top: 2rem;
+}
+
 .opened, .assigned, .closed, .overdue{
-    background-color: #edf1f4;
-    display: inline-flex;
     border-radius: 10%;
-    padding: 2rem;
-    justify-content: space-between;
+    transition: transform 0.8s;
+    position: relative;
+    text-align: center;     
+    background-color: #edf1f4;
 }
 
 .opened:hover, .assigned:hover, .closed:hover, .overdue:hover {
     transform: rotateY(180deg);
-    transform-origin: center;
 }
 
+.opened h2, .assigned h2, .closed h2, .overdue h2 {
+    backface-visibility: hidden;
+    opacity: 1; 
+}
+
+.opened p, .assigned p, .closed p, .overdue p {
+    visibility: hidden;
+    opacity: 0;
+    transform: rotateY(180deg);
+}
+
+.opened:hover h2, .assigned:hover h2, .closed:hover h2, .overdue:hover h2 {
+    opacity: 0;
+}
+
+.opened:hover p, .assigned:hover p, .closed:hover p, .overdue:hover p {
+    visibility: visible;
+    opacity: 1;
+}
