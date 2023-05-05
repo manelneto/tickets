@@ -129,6 +129,34 @@
             $this->faq = $faq;
         }
 
+        public static function getTicket(PDO $db, int $id) : ?Ticket {
+            $stmt = $db->prepare('
+                SELECT idTicket, idClient, title, content, dateOpened, dateDue, dateClosed, idAgent, idDepartment, idPriority, idStatus, idFAQ
+                FROM Ticket
+                WHERE idTicket = ?
+            ');
+
+            $stmt->execute(array($id));
+            $ticket = $stmt->fetch();
+
+            if (!$ticket) return null;
+
+            return new Ticket(
+                (int) $ticket['idTicket'],
+                User::getUser($db, (int) $ticket['idClient']),
+                $ticket['title'],
+                $ticket['content'],
+                $ticket['dateOpened'],
+                $ticket['dateDue'],
+                $ticket['dateClosed'],
+                User::getUser($db, (int) $ticket['idAgent']),
+                Department::getDepartment($db, (int) $ticket['idDepartment']),
+                Priority::getPriority($db, (int) $ticket['idPriority']),
+                Status::getStatus($db, (int) $ticket['idStatus']),
+                FAQ::getFAQ($db, (int) $ticket['idFAQ'])
+            );
+        }
+
         public static function getTickets(PDO $db, int $id) : array {
             $stmt = $db->prepare('
                 SELECT idTicket, idClient, title, content, dateOpened, dateDue, dateClosed, idAgent, idDepartment, idPriority, idStatus, idFAQ
