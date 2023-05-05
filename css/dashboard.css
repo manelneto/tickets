@@ -1,13 +1,13 @@
-h1{
+/*h1{
     font-family: Arial, sans-serif;
     font-size: 1.6rem;
     color: #22216D;
-}
+}*/
 
-main {
+/*main {
     margin-left: 12.5rem; 
     padding: 1.3rem;
-}
+}*/
 
 .nav-box {
     background-color: #f1f1f1;
@@ -30,15 +30,4 @@ main {
 .nav-box p {
     font-size: 1rem;
     margin: 0;
-}
-
-footer {
-    font-family: Arial, sans-serif;
-    font-size: 1rem;
-    text-align: center;
-    color: black;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
 }

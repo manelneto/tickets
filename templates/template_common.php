@@ -19,21 +19,22 @@
         <link rel="stylesheet" href="../css/register-new.css">
         <link rel="stylesheet" href="../css/sideBars.css">
         <link rel="stylesheet" href="../css/ticket.css">
-        <link rel="stylesheet" href="../css/tickets-new.css">
+        <link rel="stylesheet" href="../css/tickets-new.css">   
         <link rel="stylesheet" href="../css/ticketsNumber.css">
     </head>
     <body>
         <header>
             <!--<h1><a href="../pages/index.php">Tickets Management</a></h1>-->
+            <h1>Dashboard</h1>
             <?php if ($session->isLoggedIn()) { ?>
             <form action="../actions/action_logout.php" method="post" class="logout">
+            <a class="newTicket" href="../pages/newTicket.html">New Ticket</a> 
                 <a href="../pages/profile.php"><?php
                     echo $session->getName();
                     if ($session->isAdmin()) echo ' (Admin)';
                     else if ($session->isAgent()) echo ' (Agent)';
                     else echo ' (Client)';
                 ?></a>
-                <a class="newTicket" href="../pages/newTicket.html">New Ticket</a>
                 <button type="submit">Logout</button>
             </form>
             <?php } ?>

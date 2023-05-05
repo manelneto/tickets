@@ -3,7 +3,7 @@ body {
   font-family: Arial, sans-serif;
 }
 
-.topnav {
+.header {
   background-color: #edf1f4;
   display: flex;
   align-items: center;
