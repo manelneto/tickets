@@ -20,5 +20,4 @@
 
     drawHeader($session);
     drawPassword($user);
-    drawFooter();
 ?>

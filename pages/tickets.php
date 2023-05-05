@@ -23,5 +23,4 @@
 
     drawHeader($session);
     drawTickets($session, $tickets, $statuses, $priorities, $departments);
-    drawFooter();
 ?>

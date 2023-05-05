@@ -6,6 +6,7 @@
     require_once(__DIR__ . '/../database/class_priority.php');
     require_once(__DIR__ . '/../database/class_status.php');
     require_once(__DIR__ . '/../database/class_faq.php');
+    require_once(__DIR__ . '/../database/class_tag.php');
 
     class Ticket {
         private int $id;
@@ -128,7 +129,35 @@
             $this->faq = $faq;
         }
 
-        public function getTickets(PDO $db, int $id) : array {
+        public static function getTicket(PDO $db, int $id) : ?Ticket {
+            $stmt = $db->prepare('
+                SELECT idTicket, idClient, title, content, dateOpened, dateDue, dateClosed, idAgent, idDepartment, idPriority, idStatus, idFAQ
+                FROM Ticket
+                WHERE idTicket = ?
+            ');
+
+            $stmt->execute(array($id));
+            $ticket = $stmt->fetch();
+
+            if (!$ticket) return null;
+
+            return new Ticket(
+                (int) $ticket['idTicket'],
+                User::getUser($db, (int) $ticket['idClient']),
+                $ticket['title'],
+                $ticket['content'],
+                $ticket['dateOpened'],
+                $ticket['dateDue'],
+                $ticket['dateClosed'],
+                User::getUser($db, (int) $ticket['idAgent']),
+                Department::getDepartment($db, (int) $ticket['idDepartment']),
+                Priority::getPriority($db, (int) $ticket['idPriority']),
+                Status::getStatus($db, (int) $ticket['idStatus']),
+                FAQ::getFAQ($db, (int) $ticket['idFAQ'])
+            );
+        }
+
+        public static function getTickets(PDO $db, int $id) : array {
             $stmt = $db->prepare('
                 SELECT idTicket, idClient, title, content, dateOpened, dateDue, dateClosed, idAgent, idDepartment, idPriority, idStatus, idFAQ
                 FROM Ticket
@@ -157,6 +186,49 @@
                 );
             
             return $tickets;
+        }
+
+        public static function getTicketsCountByStatus(PDO $db, int $id, int $status) : int {
+            $stmt = $db->prepare('
+                SELECT idTicket
+                FROM Ticket
+                WHERE idClient = ? AND idStatus = ?
+            ');
+
+            $stmt->execute(array($id, $status));
+            $result = $stmt->fetchAll();
+
+            return count($result);
+        }
+
+        public static function addTicketWithDepartment(PDO $db, int $idClient, string $title, string $content, string $dateOpened, string $dateDue, int $departmentId) : bool {
+            $stmt = $db->prepare('
+                INSERT INTO Ticket (idClient, title, content, dateOpened, dateDue, idDepartment)
+                VALUES (?, ?, ?, ?, ?, ?)
+            ');
+
+            try {
+                $stmt->execute(array($idClient, $title, $content, $dateOpened, $dateDue, $departmentId));
+            } catch (PDOException $e) {
+                return false;
+            }
+            
+            return true;
+        }
+
+        public static function addTicketWithoutDepartment(PDO $db, int $idClient, string $title, string $content, string $dateOpened, string $dateDue) : bool {
+            $stmt = $db->prepare('
+                INSERT INTO Ticket (idClient, title, content, dateOpened, dateDue)
+                VALUES (?, ?, ?, ?, ?)
+            ');
+
+            try {
+                $stmt->execute(array($idClient, $title, $content, $dateOpened, $dateDue));
+            } catch (PDOException $e) {
+                return false;
+            }
+            
+            return true;
         }
     }
 ?>

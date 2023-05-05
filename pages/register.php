@@ -14,5 +14,4 @@
 
     drawHeader($session);
     drawRegister();
-    drawFooter();
 ?>

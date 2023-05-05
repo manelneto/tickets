@@ -13,14 +13,17 @@
     $db = getDatabaseConnection();
 
     require_once(__DIR__ . '/../database/class_ticket.php');
-    $opened = Ticket::getTicketsCountByStatus($db, $session->getId(), 1);
-    $assigned = Ticket::getTicketsCountByStatus($db, $session->getId(), 2);
-    $closed = Ticket::getTicketsCountByStatus($db, $session->getId(), 3);
-    $overdue = Ticket::getTicketsCountByStatus($db, $session->getId(), 4);
+    $ticket = Ticket::getTicket($db, (int) $_GET['id']);
+
+    // sanity checks
+
+    $statuses = Status::getStatuses($db);
+    $priorities = Priority::getPriorities($db);
+    $departments = Department::getDepartments($db);
 
     require_once(__DIR__ . '/../templates/template_common.php');
-    require_once(__DIR__ . '/../templates/template_dashboard.php');
+    require_once(__DIR__ . '/../templates/template_ticket.php');
 
     drawHeader($session);
-    drawDashboard($opened, $assigned, $closed, $overdue);
+    drawTicket($session, $ticket, $statuses, $priorities, $departments);
 ?>

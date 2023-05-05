@@ -10,20 +10,21 @@
     <head>
         <title>Tickets Management</title>
         <meta charset="utf-8">
-        <!--TO BE CHANGED>
-        <link rel="stylesheet" href="../css/Dashboard.css">
-        <link rel="stylesheet" href="../css/FAQ.css">
-        <link rel="stylesheet" href="../css/Login.css">
-        <link rel="stylesheet" href="../css/NewTicket.css">
-        <link rel="stylesheet" href="../css/Profile.css">
+        <link rel="stylesheet" href="../css/dashboard.css">
+        <link rel="stylesheet" href="../css/faqs-new.css">
+        <link rel="stylesheet" href="../css/login-new.css">
+        <link rel="stylesheet" href="../css/management.css">
+        <link rel="stylesheet" href="../css/newTicket.css">
+        <link rel="stylesheet" href="../css/profile-new.css">
+        <link rel="stylesheet" href="../css/register-new.css">
         <link rel="stylesheet" href="../css/sideBars.css">
-        <link rel="stylesheet" href="../css/SignUp.css">
-        <link rel="stylesheet" href="../css/TicketsAgent.css">
-        <TO BE CHANGED-->
+        <link rel="stylesheet" href="../css/ticket.css">
+        <link rel="stylesheet" href="../css/tickets-new.css">
+        <link rel="stylesheet" href="../css/ticketsNumber.css">
     </head>
     <body>
         <header>
-            <h1><a href="../pages/index.php">Tickets Management</a></h1>
+            <!--<h1><a href="../pages/index.php">Tickets Management</a></h1>-->
             <?php if ($session->isLoggedIn()) { ?>
             <form action="../actions/action_logout.php" method="post" class="logout">
                 <a href="../pages/profile.php"><?php
@@ -37,6 +38,9 @@
             <?php } ?>
         </header>
         <?php if ($session->isLoggedIn()) { ?>
+        <?php if (!strpos(__FILE__, 'newTicket')) { ?>
+        <a class="newTicket" href="../pages/new_ticket.php">New Ticket</a>
+        <?php } ?>
         <nav id="menu">
             <ul>
                 <li><a href="../pages/dashboard.php">Dashboard</a></li>
@@ -47,13 +51,4 @@
         </nav>
         <?php } ?>
         <main>
-<?php } ?>
-
-<?php function drawFooter() { ?>
-        </main>
-        <footer>
-            LTW &copy; 2023
-        </footer>
-    </body>
-</html>
 <?php } ?>

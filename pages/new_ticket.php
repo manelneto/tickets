@@ -12,12 +12,13 @@
     require_once(__DIR__ . '/../database/connection.php');
     $db = getDatabaseConnection();
 
-    require_once(__DIR__ . '/../database/class_user.php');
-    $user = User::getUser($db, $session->getId());
+    require_once(__DIR__ . '/../database/class_ticket.php');
+    $departments = Department::getDepartments($db);
+    $tags = Tag::getTags($db);
 
     require_once(__DIR__ . '/../templates/template_common.php');
-    require_once(__DIR__ . '/../templates/template_profile.php');
+    require_once(__DIR__ . '/../templates/template_new_ticket.php');
 
     drawHeader($session);
-    drawProfile($user);
+    drawNewTicket($session, $departments, $tags);
 ?>
