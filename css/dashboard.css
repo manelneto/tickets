@@ -1,33 +1,13 @@
-/*h1{
-    font-family: Arial, sans-serif;
-    font-size: 1.6rem;
-    color: #22216D;
-}*/
-
-/*main {
-    margin-left: 12.5rem; 
-    padding: 1.3rem;
-}*/
-
-.nav-box {
-    background-color: #f1f1f1;
-    border: 1px solid #ddd;
-    border-radius: 0.3rem;
-    padding: 1.3rem;
-    margin-bottom: 1.3rem;
-    display: flex;
-    flex-wrap: wrap;
+.opened, .assigned, .closed, .overdue{
+    background-color: #edf1f4;
+    display: inline-flex;
+    border-radius: 10%;
+    padding: 2rem;
     justify-content: space-between;
-    align-items: center;
 }
 
-.nav-box h2 {
-    font-size: 1.5rem;
-    margin-top: 0;
-    margin-bottom: 0.6rem;
+.opened:hover, .assigned:hover, .closed:hover, .overdue:hover {
+    transform: rotateY(180deg);
+    transform-origin: center;
 }
 
-.nav-box p {
-    font-size: 1rem;
-    margin: 0;
-}
