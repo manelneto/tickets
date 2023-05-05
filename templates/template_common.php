@@ -28,7 +28,6 @@
             <h1>Dashboard</h1>
             <?php if ($session->isLoggedIn()) { ?>
             <form action="../actions/action_logout.php" method="post" class="logout">
-            <a class="newTicket" href="../pages/newTicket.html">New Ticket</a> 
                 <a href="../pages/profile.php"><?php
                     echo $session->getName();
                     if ($session->isAdmin()) echo ' (Admin)';
@@ -48,6 +47,7 @@
                 <li><a href="../pages/dashboard.php">Dashboard</a></li>
                 <li><a href="../pages/tickets.php">Tickets</a></li>
                 <li><a href="../pages/faqs.php">FAQ</a></li>
+                <li><a href="../pages/new_ticket.php">New Ticket</a></li>
                 <?php if ($session->isAdmin()) { ?><li><a href="../pages/management.php">Management</a><?php }?></li>
             </ul>
         </nav>
