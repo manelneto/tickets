@@ -11,16 +11,15 @@
         <title>Tickets Management</title>
         <meta charset="utf-8">
         <link rel="stylesheet" href="../css/dashboard.css">
-        <link rel="stylesheet" href="../css/faqs-new.css">
-        <link rel="stylesheet" href="../css/login-new.css">
+        <link rel="stylesheet" href="../css/faqs.css">
+        <link rel="stylesheet" href="../css/login.css">
         <link rel="stylesheet" href="../css/management.css">
         <link rel="stylesheet" href="../css/newTicket.css">
-        <link rel="stylesheet" href="../css/profile-new.css">
-        <link rel="stylesheet" href="../css/register-new.css">
+        <link rel="stylesheet" href="../css/profile.css">
+        <link rel="stylesheet" href="../css/register.css">
         <link rel="stylesheet" href="../css/sideBars.css">
         <link rel="stylesheet" href="../css/ticket.css">
-        <link rel="stylesheet" href="../css/tickets-new.css">   
-        <link rel="stylesheet" href="../css/ticketsNumber.css">
+        <link rel="stylesheet" href="../css/tickets.css">   
     </head>
     <body>
         <header>
