@@ -173,14 +173,14 @@
             return count($result);
         }
 
-        public static function addTicket(PDO $db, int $idClient, string $title, string $content, string $dateOpened, string $dateDue) : bool {
+        public static function addTicketWithDepartment(PDO $db, int $idClient, string $title, string $content, string $dateOpened, string $dateDue, int $departmentId) : bool {
             $stmt = $db->prepare('
-                INSERT INTO Ticket (idClient, title, content, dateOpened, dateDue)
-                VALUES (?, ?, ?, ?, ?)
+                INSERT INTO Ticket (idClient, title, content, dateOpened, dateDue, idDepartment)
+                VALUES (?, ?, ?, ?, ?, ?)
             ');
 
             try {
-                $stmt->execute(array($idClient, $title, $content, $dateOpened, $dateDue));
+                $stmt->execute(array($idClient, $title, $content, $dateOpened, $dateDue, $departmentId));
             } catch (PDOException $e) {
                 return false;
             }
@@ -188,14 +188,14 @@
             return true;
         }
 
-        public static function addTicket(PDO $db, int $idClient, string $title, string $content, string $dateOpened, string $dateDue, Department $department) : bool {
+        public static function addTicketWithoutDepartment(PDO $db, int $idClient, string $title, string $content, string $dateOpened, string $dateDue) : bool {
             $stmt = $db->prepare('
-                INSERT INTO Ticket (idClient, title, content, dateOpened, dateDue, idDepartment)
-                VALUES (?, ?, ?, ?, ?, ?)
+                INSERT INTO Ticket (idClient, title, content, dateOpened, dateDue)
+                VALUES (?, ?, ?, ?, ?)
             ');
 
             try {
-                $stmt->execute(array($idClient, $title, $content, $dateOpened, $dateDue, $department->getId()));
+                $stmt->execute(array($idClient, $title, $content, $dateOpened, $dateDue));
             } catch (PDOException $e) {
                 return false;
             }

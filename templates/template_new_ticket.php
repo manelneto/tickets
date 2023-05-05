@@ -13,12 +13,13 @@
             </label>
             <label for="department">Department</label>
             <select name="department" id="department">
+                <option value="0"></option>
                 <?php foreach ($departments as $department) { ?>
-                <option value=<?=strtolower($department->getName())?>><?=$department->getName()?></option>
+                <option value=<?=$department->getId()?>><?=$department->getName()?></option>
                 <?php } ?>
             </select>
             <label for="content">Content</label>
-            <textarea name="content">What is your question?</textarea>
+            <textarea name="content" id="content">What is your question?</textarea>
             <button type="submit">Submit</button>
         </form>
     </section>
