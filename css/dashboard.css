@@ -6,7 +6,10 @@
     margin-top: 2rem;
 }
 
-.opened, .assigned, .closed, .overdue{
+.opened, 
+.assigned, 
+.closed, 
+.overdue{
     border-radius: 10%;
     transition: transform 0.8s;
     position: relative;
@@ -14,26 +17,41 @@
     background-color: #edf1f4;
 }
 
-.opened:hover, .assigned:hover, .closed:hover, .overdue:hover {
+.opened:hover, 
+.assigned:hover, 
+.closed:hover, 
+.overdue:hover {
     transform: rotateY(180deg);
 }
 
-.opened h2, .assigned h2, .closed h2, .overdue h2 {
+.opened h2, 
+.assigned h2, 
+.closed h2, 
+.overdue h2 {
     backface-visibility: hidden;
     opacity: 1; 
 }
 
-.opened p, .assigned p, .closed p, .overdue p {
+.opened p, 
+.assigned p, 
+.closed p, 
+.overdue p {
     visibility: hidden;
     opacity: 0;
     transform: rotateY(180deg);
 }
 
-.opened:hover h2, .assigned:hover h2, .closed:hover h2, .overdue:hover h2 {
+.opened:hover h2, 
+.assigned:hover h2, 
+.closed:hover h2, 
+.overdue:hover h2 {
     opacity: 0;
 }
 
-.opened:hover p, .assigned:hover p, .closed:hover p, .overdue:hover p {
+.opened:hover p, 
+.assigned:hover p, 
+.closed:hover p, 
+.overdue:hover p {
     visibility: visible;
     opacity: 1;
 }
