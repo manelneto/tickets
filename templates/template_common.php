@@ -39,7 +39,6 @@
         </header>
         <?php if ($session->isLoggedIn()) { ?>
         <?php if (!strpos(__FILE__, 'newTicket')) { ?>
-        
         <?php } ?>
         <nav id="menu">
             <ul>
@@ -54,5 +53,3 @@
         <main>
         <!--falta fechar cenas-->
 <?php } ?>
-
-
