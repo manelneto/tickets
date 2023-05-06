@@ -27,10 +27,12 @@
         <?php } ?>
     </section>
     <?php if ($session->isAgent() || $session->isAdmin()) { ?>
-    <form action="../actions/action_filter.php" method="post" class="filters">
+    <form action="../pages/tickets.php" method="post" class="filters">
         <h3>Filters</h3>
-        <label for="date">Date</label>
-        <input type="date" name="date">
+        <label for="after">After</label>
+        <input type="date" name="after" id="after">
+        <label for="before">Before</label>
+        <input type="date" name="before" id="before">
         <label for="status">Status</label>
         <select name="status" id="status">
             <option value="all">All</option>

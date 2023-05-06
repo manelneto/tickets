@@ -13,7 +13,8 @@
     $db = getDatabaseConnection();
 
     require_once(__DIR__ . '/../database/class_ticket.php');
-    $tickets = Ticket::getTickets($db, $session->getId());
+
+    $tickets = Ticket::getTickets($db, $session->getId(), $_POST['after'], $_POST['before'], (int) $_POST['priority'], (int) $_POST['status'], (int) $_POST['department']);
     $statuses = Status::getStatuses($db);
     $priorities = Priority::getPriorities($db);
     $departments = Department::getDepartments($db);

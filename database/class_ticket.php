@@ -157,14 +157,19 @@
             );
         }
 
-        public static function getTickets(PDO $db, int $id) : array {
-            $stmt = $db->prepare('
+        public static function getTickets(PDO $db, int $id, ?string $after, ?string $before, ?int $priority, ?int $status, ?int $department) : array {
+            $stmt = $db->prepare("
                 SELECT idTicket, idClient, title, content, dateOpened, dateDue, dateClosed, idAgent, idDepartment, idPriority, idStatus, idFAQ
                 FROM Ticket
-                WHERE idClient = ?
-            ');
+                WHERE (idClient = ? OR idAgent = ?) 
+                AND (? = '' OR dateOpened > ?) 
+                AND (? = '' OR dateOpened < ?) 
+                AND (? = '0' OR idPriority = ?) 
+                AND (? = '0' OR idStatus = ?) 
+                AND (? = '0' OR idDepartment = ?)
+            ");
 
-            $stmt->execute(array($id));
+            $stmt->execute(array($id, $id, $after, $after, $before, $before, $priority, $priority, $status, $status, $department, $department));
             $result = $stmt->fetchAll();
 
             $tickets = array();
