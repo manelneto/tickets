@@ -4,7 +4,7 @@
     require_once(__DIR__ . '/../utils/session.php');
 ?>
 
-<?php function drawTickets(Session $session, ?array $tickets, array $statuses, array $priorities, array $departments) { ?>
+<?php function drawTickets(Session $session, ?array $tickets, int $page, int $remaining, ?array $statuses, ?array $priorities, ?array $departments) { ?>
     <section id="tickets">
         <h2>My Tickets</h2>
         <?php foreach ($tickets as $ticket) { ?>
@@ -26,11 +26,20 @@
         </article>
         <?php } ?>
     </section>
-    <?php if ($session->isAgent() || $session->isAdmin()) { ?>
-    <form action="../actions/action_filter.php" method="post" class="filters">
+    <div class="paging">
+        <?php if ($page > 1) { ?>
+        <a href="../pages/tickets.php?page=<?=$page - 1?>">Previous</a>
+        <?php } ?>
+        <?php if ($remaining > 0) { ?>
+        <a href="../pages/tickets.php?page=<?=$page + 1?>">Next</a>
+        <?php } ?>
+    </div>
+    <form action="../pages/tickets.php" method="post" class="filters">
         <h3>Filters</h3>
-        <label for="date">Date</label>
-        <input type="date" name="date">
+        <label for="after">After</label>
+        <input type="date" name="after" id="after">
+        <label for="before">Before</label>
+        <input type="date" name="before" id="before">
         <label for="status">Status</label>
         <select name="status" id="status">
             <option value="all">All</option>
@@ -54,5 +63,4 @@
         </select>
         <button type="submit">Filter</button>
     </form>
-    <?php } ?>
 <?php } ?>
