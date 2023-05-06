@@ -4,7 +4,7 @@
     require_once(__DIR__ . '/../utils/session.php');
     $session = new Session();
 
-    if (!$session->isLoggedIn()) {
+    if (!$session->isAgent()) {
         header('Location: ../pages/index.php');
         die();
     }
@@ -13,14 +13,12 @@
     $db = getDatabaseConnection();
 
     require_once(__DIR__ . '/../database/class_faq.php');
-    $faqs = FAQ::getFAQs($db);
+    $faq = FAQ::getFAQ($db, (int) $_POST['id']);
 
-    require_once(__DIR__ . '/../templates/template_common.php');
-    require_once(__DIR__ . '/../templates/template_faqs.php');
-
-    drawHeader($session);
-    if ($session->isAgent())
-        drawFAQsAgent($faqs);
+    if ($faq && $faq->edit($db, trim($_POST['question']), trim($_POST['answer'])))
+        header('Location: ../pages/faqs.php');
     else
-        drawFAQsClient($faqs);
+        header('Location: ../pages/faqs.php');
+
+    /* if-else para depois adicionarmos mensagens de erro/sucesso */
 ?>
