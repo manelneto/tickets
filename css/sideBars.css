@@ -25,11 +25,13 @@ header h1{
   font-size: 1.3rem;
 }
 
-.logout, header h1{
+.logout, 
+header h1{
   align-items: center;
 }
 
-.logout a, .logout button{
+.logout a, 
+.logout button{
   display: block;
 }
 
