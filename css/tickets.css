@@ -1,8 +1,8 @@
-main {
+/*main {
     display: grid;
     grid-template-columns: [start] 1fr [mid1] 6fr [mid2] 1fr [end];
     grid-template-rows: [start] 4rem [mid1] auto [mid2] auto [mid3] 2rem [end];
-}
+}*/
 /*
 .sidenav {
     grid-column: start/mid1;
@@ -48,14 +48,14 @@ main {
     background-color: #f5f7f9;
 }
 
-.author h3,
+/*.author h3,
 .status,
 .author h4,
 .opened,
 .priority {
     font-size: 0.8rem;
     margin-top: 1.1rem;
-}
+}*/
 
 #tickets .ticket:first-child {
     margin-top: 1rem;

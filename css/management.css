@@ -16,7 +16,7 @@
     grid-column: mid;
 }
 
-summary {
+/*summary {
     padding: 1rem;
     font-weight: bold;
 }
@@ -73,4 +73,4 @@ details > button:hover{
 
 details > button:hover{
     background-color: rgb(144, 204, 239);
-}
+}*/

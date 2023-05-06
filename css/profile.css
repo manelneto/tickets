@@ -1,4 +1,4 @@
-body {
+/*body {
     margin: 0;
 }
 
@@ -15,17 +15,17 @@ h1 {
     font-weight: bold;
 }
 
-.profileContent {
+main {
     display: grid;
     grid-template-columns: [start] 2fr [mid] 1fr [end];
     height: calc(100vh - 5rem);
-}
+}*/
 
-.editProfile {
+#profile {
     grid-column: start/mid;
     margin-top: 5rem;
 }
-
+/*
 .editPhoto {
     grid-column: mid/end;
     padding-top: 2.5rem;
@@ -49,8 +49,8 @@ form {
     padding-top: 3rem;
     padding-left: 4rem;
     padding-right: 2rem;
-}
-
+}*/
+/*
 #container #photo {
     display: flex;
     justify-items: center;
@@ -64,34 +64,34 @@ form {
     width: 6rem;
 }
 
-.profileContent #save {
+main button {
     display: inline-block;
     padding: 0.7rem;
     border: none;
     width: 6rem;
 }
 
-.profileContent #title {
+main h2 {
     padding: 0.9rem;
     background-color: #f0f0f0;
     margin-left: 4rem;
 }
 
-.editProfile a {
+#profile a {
     text-decoration: none;
     color: black;
 }
 
-.profileContent #password {
+main a {
     padding: 0.9rem;
     background-color: #f0f0f0;
 }
 
-.profileContent #title:hover {
+main #title:hover {
     background-color: #76abe0;
 }
 
-.profileContent #password:hover {
+main a:hover {
     background-color: #76abe0;
 }
 
@@ -99,7 +99,7 @@ form {
     background-color: #76abe0;
 }
 
-.profileContent #save:hover {
+main button:hover {
     background-color: #76abe0;
 }
 
@@ -113,3 +113,4 @@ form {
 .profileContent #photo:hover {
     background-color: #76abe0;
 }
+*/

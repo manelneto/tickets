@@ -1,0 +1,34 @@
+#faqs {
+    margin-left: 3rem; 
+    margin-top:2rem;
+    margin-right: 3rem;
+}
+
+#faqs h2{
+    display: none;
+}
+
+.faq {
+    margin-bottom: 1rem;
+    border: 1px solid #ccc; 
+    border-radius: 0.3rem;
+    max-width: 70rem;
+}
+
+.question {
+    padding: 0.8rem;
+    font-weight: bold;
+}
+  
+.faq[open] .question {
+    background-color: rgb(144, 204, 239);
+}
+  
+.faq[open] > p {
+    display: block;
+}
+  
+.faq > p {
+    display: none;
+    padding-left: 0.8rem;
+}

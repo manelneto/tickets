@@ -1,100 +1,39 @@
-main {
-    margin-left: 12.5rem;
-    padding: 2rem;
-}
-
-.stats-panel {
+.dashboard-tickets{
     display: flex;
-    justify-content: space-between;
-    background-color: #f2f2f2;
-    box-sizing: border-box;
-    padding: 1.3rem;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-top: 2rem;
 }
 
-.stats-panel h1{
-    color:#f2f2f2;
-    font-size: 1.4rem;
-    padding: 0;
-    margin: 0;
-}
-  
-.stats-box {
-    text-align: center;
-    padding: 0.6rem;
-    border-radius: 0.3rem;
-    color: #fff;
-    height: 3rem;
-}
-  
-.Total {
-    background-color: #00bcd4;
-    width: 20%;
-}
-  
-.Users {
-    background-color: #4caf50;
-    width: 20%;
-}
-  
-.Rate {
-    background-color: #ff9800;
-    width: 20%;
-}
-  
-.number {
-    font-size: 1.4rem;
-    margin: 0.3rem 0;
-}
-
-h2 {
-    font-size: 1rem;
-    color:#4f4f52;
-    padding-bottom: 0.6rem;
-} 
-
-.New-Messages{
-    color:#4f4f52;
-    font-size:medium;
-    margin-bottom: 0.6rem;
-    border: 1px solid #ccc;
-    border-radius: 0.3rem;
-    padding: 0.6rem;
-    max-width: 30rem;
-} 
-  
-.New-Messages ul {
-    list-style-image:url(email.jpg);
-    list-style-position: inside;
-    padding: 0;
-    margin: 0;
-}
-  
-.New-Messages li { 
-    margin-bottom: 1rem;
-    border-bottom: 1px solid #ccc;
-    padding-bottom: 0.6rem;
-}
-
-.New-Messages h3 {
-    font-size: 1rem;
-}
-
-.New-Messages p {
-    margin: 0;
-}
-
-.Announcements{
-    color:#4f4f52;
-    font-size: large;
-}
-
-footer {
-    font-family: Arial, sans-serif;
-    font-size: 1rem;
-    text-align: center;
-    color: black;
+.opened, .assigned, .closed, .overdue{
+    border-radius: 10%;
+    transition: transform 0.8s;
     position: relative;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    text-align: center;     
+    background-color: #edf1f4;
+}
+
+.opened:hover, .assigned:hover, .closed:hover, .overdue:hover {
+    transform: rotateY(180deg);
+}
+
+.opened h2, .assigned h2, .closed h2, .overdue h2 {
+    backface-visibility: hidden;
+    opacity: 1; 
+}
+
+.opened p, .assigned p, .closed p, .overdue p {
+    visibility: hidden;
+    opacity: 0;
+    transform: rotateY(180deg);
+}
+
+.opened:hover h2, .assigned:hover h2, .closed:hover h2, .overdue:hover h2 {
+    opacity: 0;
+}
+
+.opened:hover p, .assigned:hover p, .closed:hover p, .overdue:hover p {
+    visibility: visible;
+    opacity: 1;
 }

@@ -1,4 +1,4 @@
-main {
+/*main {
     margin-top: 3rem;
     margin-left: 16rem;
     padding: 1.9rem;
@@ -10,7 +10,7 @@ h1 {
     font-size: 1.6rem;
     color: #22216D;
     text-align: left;
-}
+}*/
 
 #category {
     background-color: #6b6ab7;
@@ -50,7 +50,7 @@ h1 {
     padding: 0;
 }
 
-form {
+/*form {
     font-family: Arial, sans-serif;;
     display: flex;
     flex-direction: column;
@@ -68,7 +68,7 @@ input {
     border: 1px solid #ccc;
     width: 85%;
     background-color:#e8e3e3;
-}
+}*/
 
 #department, #tags, #priority {
     width: 87%;
@@ -79,16 +79,4 @@ input {
 
 #Question {
     height: 15vh;
-}
-
-footer {
-    padding-top: 0.5rem;
-    font-family: Arial, sans-serif;
-    font-size: 0.9rem;
-    text-align: center;
-    color: black;
-    position: relative;
-    bottom: 0;
-    left: 0;
-    right: 0;
 }
