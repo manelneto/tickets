@@ -1,25 +1,28 @@
-/*main {
+.ticketsPage {
     display: grid;
-    grid-template-columns: [start] 1fr [mid1] 6fr [mid2] 1fr [end];
-    grid-template-rows: [start] 4rem [mid1] auto [mid2] auto [mid3] 2rem [end];
-}*/
-/*
-.sidenav {
-    grid-column: start/mid1;
-    grid-row: start/end;
+    grid-template-columns: [start] 13% [mid1] 67% [mid2] 20%[end];
+    grid-template-rows: [start] 95% [mid1] 5% [end];
 }
-*/
+
 #tickets {
     grid-column: mid1/mid2;
-    grid-row: start/mid3;
+    grid-row: start/mid1;
 }
-/*
-.paging {
-    grid-column: mid1/mid2;
-    grid-row: mid3/end;
+
+#tickets h2{
+    display:none;
 }
-*/
-.author > img {
+
+.filters {
+    grid-column: mid2/end;
+    grid-row: start/end;
+    background-color: #f5f7f9;
+    /*display: flex;
+    align-items: center;
+    flex-direction: column;*/
+}
+
+/*.author > img {
     width: 2rem;
     height: 2rem;
     padding: 0.4rem;
@@ -28,9 +31,9 @@
 #tickets a {
     text-decoration: none;
     color: #000000;
-}
+}*/
 
-.ticket {
+/*.ticket {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -48,29 +51,21 @@
     background-color: #f5f7f9;
 }
 
-/*.author h3,
+.author h3,
 .status,
 .author h4,
 .opened,
 .priority {
     font-size: 0.8rem;
     margin-top: 1.1rem;
-}*/
+}
 
 #tickets .ticket:first-child {
     margin-top: 1rem;
-}
+}*/
 
-.filters {
-    grid-column: mid2/end;
-    grid-row: start/end;
-    background-color: #f5f7f9;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-}
 
-.filter > select {
+/*.filter > select {
     display: block;
     margin-top: 0.5rem;
     padding: 0.2rem;
@@ -107,7 +102,7 @@
     border: none;
     margin-bottom: 1rem;
 }
-/*
+
 .paging {
     background-color: #f5f7f9;
     display: flex;
@@ -129,6 +124,8 @@
     margin-right: 2rem;
 }
 */
+
+/*
 @media only screen and (max-width: 1120px) {
     .main {
         display: grid;
@@ -140,12 +137,12 @@
         grid-column: mid1/mid2;
         grid-row: start/mid3;
     }
-/*
+
     .paging {
         grid-column: mid1/mid2;
         grid-row: mid3/end;
     }
-*/
+
     .filters {
         grid-column: mid1/end;
         grid-row: start/mid2;
@@ -186,4 +183,4 @@
         border: none;
         margin-right: 1.5rem;
     }
-}
+*/
