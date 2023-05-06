@@ -11,9 +11,8 @@
         <title>Tickets Management</title>
         <meta charset="utf-8">
         <link rel="stylesheet" href="../css/dashboard.css">
-        <link rel="stylesheet" href="../css/faqs.css">
+        <link rel="stylesheet" href="../css/faqs-management.css">
         <link rel="stylesheet" href="../css/login.css">
-        <link rel="stylesheet" href="../css/management.css">
         <link rel="stylesheet" href="../css/newTicket.css">
         <link rel="stylesheet" href="../css/profile.css">
         <link rel="stylesheet" href="../css/register.css">
