@@ -3,7 +3,6 @@
 
     require_once(__DIR__ . '/../utils/session.php');
 ?>
-
 <?php function drawTickets(Session $session, ?array $tickets, array $statuses, array $priorities, array $departments) { ?>
     <div class ="ticketsPage">
         <section id="tickets">
