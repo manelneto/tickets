@@ -1,0 +1,76 @@
+#faqs, 
+#management {
+    margin-left: 3rem; 
+    margin-top:2rem;
+    margin-right: 3rem;
+}
+
+#faqs h2, 
+#management h2{
+    display: none;
+}
+
+.faq, 
+.upgrade, 
+.entity, 
+.assign{
+    margin-bottom: 1rem;
+    border: 1px solid #ccc; 
+    border-radius: 0.3rem;
+    max-width: 70rem;
+}
+
+.question {
+    padding: 0.8rem;
+    font-weight: bold;
+}
+
+.faq > p{
+    padding-left: 0.8rem;
+}
+  
+.faq[open] .question, 
+.upgrade[open] .question, 
+.entity[open] .question, 
+.assign[open] .question {
+    background-color: rgb(144, 204, 239);
+}
+
+.upgradeInfo, 
+.entityInfo, 
+.assignInfo{
+    margin: 1rem;
+}
+
+.upgrade[open] select, 
+.entity[open] select, 
+.assign[open] select{
+    padding:0.2rem;
+    margin-left: 0.5rem;
+}
+
+.upgrade[open] button, 
+.entity[open] button, 
+.assign[open] button{
+    border:none;
+    padding:0.5rem;
+    display:block;
+    background-color: #edf1f4;
+}
+
+.upgrade[open] button:hover, 
+.entity[open] button:hover, 
+.assign[open] button:hover{
+    background-color: rgb(144, 204, 239);
+}
+
+.updateRole, 
+.entityName, 
+.assignAgent{
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    display:block;
+}
+
+
+
