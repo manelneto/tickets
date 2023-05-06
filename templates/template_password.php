@@ -6,6 +6,7 @@
     <section id="password">
         <h2>Change Password</h2>
         <a href="../pages/profile.php">Edit Profile</a>
+        <a href="../pages/password.php">Change Password</a>
         <form action="../actions/action_edit_password.php" method="post" class="profile">
             <label>
                 Current Password<input type="password" name="current">
