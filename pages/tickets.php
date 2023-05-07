@@ -35,6 +35,6 @@
 
     $remaining = Ticket::getTicketsCount($db, $session->getId()) - $limit * $page;
 
-    drawHeader($session);
+    drawHeader($session, 'My Tickets');
     drawTickets($session, $tickets, $page, $remaining, $statuses, $priorities, $departments);
 ?>

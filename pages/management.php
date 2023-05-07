@@ -22,6 +22,6 @@
     require_once(__DIR__ . '/../templates/template_common.php');
     require_once(__DIR__ . '/../templates/template_management.php');
 
-    drawHeader($session);
+    drawHeader($session, 'Management');
     drawManagement($clients, $departments, $agents);
 ?>

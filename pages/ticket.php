@@ -24,6 +24,6 @@
     require_once(__DIR__ . '/../templates/template_common.php');
     require_once(__DIR__ . '/../templates/template_ticket.php');
 
-    drawHeader($session);
+    drawHeader($session, "Ticket #$_GET['id']");
     drawTicket($session, $ticket, $statuses, $priorities, $departments);
 ?>

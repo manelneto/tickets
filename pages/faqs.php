@@ -18,7 +18,7 @@
     require_once(__DIR__ . '/../templates/template_common.php');
     require_once(__DIR__ . '/../templates/template_faqs.php');
 
-    drawHeader($session);
+    drawHeader($session, 'FAQ');
     if ($session->isAgent())
         drawFAQsAgent($faqs);
     else
