@@ -21,4 +21,5 @@
 
     drawHeader($session, 'New Ticket');
     drawNewTicket($session, $departments, $tags);
+    drawFooter();
 ?>

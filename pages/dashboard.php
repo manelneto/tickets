@@ -23,4 +23,5 @@
 
     drawHeader($session, 'Dashboard');
     drawDashboard($opened, $assigned, $closed, $overdue);
+    drawFooter();
 ?>

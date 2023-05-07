@@ -37,4 +37,5 @@
 
     drawHeader($session, 'My Tickets');
     drawTickets($session, $tickets, $page, $remaining, $statuses, $priorities, $departments);
+    drawFooter();
 ?>

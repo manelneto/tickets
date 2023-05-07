@@ -23,4 +23,5 @@
         drawFAQsAgent($faqs);
     else
         drawFAQsClient($faqs);
+    drawFooter();
 ?>

@@ -24,4 +24,5 @@
 
     drawHeader($session, 'Management');
     drawManagement($clients, $departments, $agents);
+    drawFooter();
 ?>

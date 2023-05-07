@@ -26,4 +26,5 @@
 
     drawHeader($session, "Ticket #$_GET['id']");
     drawTicket($session, $ticket, $statuses, $priorities, $departments);
+    drawFooter();
 ?>

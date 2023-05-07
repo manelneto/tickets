@@ -20,4 +20,5 @@
 
     drawHeader($session, 'My Profile');
     drawPassword($user);
+    drawFooter();
 ?>

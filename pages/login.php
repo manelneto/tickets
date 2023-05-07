@@ -14,4 +14,5 @@
 
     drawHeader($session, 'Tickets Management');
     drawLogin();
+    drawFooter();
 ?>
