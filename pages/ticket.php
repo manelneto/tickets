@@ -12,10 +12,15 @@
     require_once(__DIR__ . '/../database/connection.php');
     $db = getDatabaseConnection();
 
-    require_once(__DIR__ . '/../database/class_ticket.php');
-    $ticket = Ticket::getTicket($db, (int) $_GET['id']);
+    $id = (int) $_GET['id'];
 
-    // sanity checks
+    require_once(__DIR__ . '/../database/class_ticket.php');
+    $ticket = Ticket::getTicket($db, $id);
+
+    if ($session->getId() !== $ticket->getClient()->getId() && !$session->isAgent()) {
+        header('Location: ../pages/index.php');
+        die();
+    }
 
     $statuses = Status::getStatuses($db);
     $priorities = Priority::getPriorities($db);
@@ -24,7 +29,7 @@
     require_once(__DIR__ . '/../templates/template_common.php');
     require_once(__DIR__ . '/../templates/template_ticket.php');
 
-    drawHeader($session, "Ticket #$_GET['id']");
+    drawHeader($session, "Ticket #$id");
     drawTicket($session, $ticket, $statuses, $priorities, $departments);
     drawFooter();
 ?>

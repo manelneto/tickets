@@ -250,5 +250,23 @@
             
             return true;
         }
+
+        public function edit(PDO $db, string $title, string $content) : bool {
+            $stmt = $db->prepare('
+                UPDATE Ticket
+                SET title = ?, content = ?
+                WHERE idTicket = ?
+            ');
+
+            try {
+                $stmt->execute(array($title, $content, $this->id));
+            } catch (PDOException $e) {
+                return false;
+            }
+            
+            $this->title = $title;
+            $this->content = $content;
+            return true;
+        }
     }
 ?>
