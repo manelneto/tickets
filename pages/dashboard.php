@@ -21,6 +21,7 @@
     require_once(__DIR__ . '/../templates/template_common.php');
     require_once(__DIR__ . '/../templates/template_dashboard.php');
 
-    drawHeader($session);
+    drawHeader($session, 'Dashboard');
     drawDashboard($opened, $assigned, $closed, $overdue);
+    drawFooter();
 ?>

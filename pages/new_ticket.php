@@ -19,6 +19,7 @@
     require_once(__DIR__ . '/../templates/template_common.php');
     require_once(__DIR__ . '/../templates/template_new_ticket.php');
 
-    drawHeader($session);
+    drawHeader($session, 'New Ticket');
     drawNewTicket($session, $departments, $tags);
+    drawFooter();
 ?>

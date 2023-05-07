@@ -18,6 +18,7 @@
     require_once(__DIR__ . '/../templates/template_common.php');
     require_once(__DIR__ . '/../templates/template_profile.php');
 
-    drawHeader($session);
+    drawHeader($session, 'My Profile');
     drawProfile($user);
+    drawFooter();
 ?>

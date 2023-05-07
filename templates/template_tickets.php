@@ -3,7 +3,8 @@
 
     require_once(__DIR__ . '/../utils/session.php');
 ?>
-<?php function drawTickets(Session $session, ?array $tickets, array $statuses, array $priorities, array $departments) { ?>
+
+<?php function drawTickets(Session $session, ?array $tickets, int $page, int $remaining, ?array $statuses, ?array $priorities, ?array $departments) { ?>
     <div class ="ticketsPage">
         <section id="tickets">
             <h2>My Tickets</h2>
@@ -26,6 +27,14 @@
             </article>
             <?php } ?>
         </section>
+        <div class="paging">
+            <?php if ($page > 1) { ?>
+            <a href="../pages/tickets.php?page=<?=$page - 1?>">Previous</a>
+            <?php } ?>
+            <?php if ($remaining > 0) { ?>
+            <a href="../pages/tickets.php?page=<?=$page + 1?>">Next</a>
+            <?php } ?>
+        </div>
         <?php if ($session->isAgent() || $session->isAdmin()) { ?>
         <form action="../actions/action_filter.php" method="post" class="filters">
             <h3>Filters</h3>
