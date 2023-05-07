@@ -4,19 +4,20 @@
     require_once(__DIR__ . '/../utils/session.php');
 ?>
 
-<?php function drawTicket(Session $session, Ticket $ticket, array $statuses, array $priorities, array $departments) { ?>
+<?php function drawTicket(Session $session, Ticket $ticket, array $statuses, array $priorities, array $departments, array $agents) { ?>
     <article id="ticket">
         <?php $paragraphs = explode('\n', $ticket->getContent()); ?>
         <?php if ($session->getId() === $ticket->getClient()->getId()) { ?>
             <form action="../actions/action_edit_ticket.php" method="post" class="edit-ticket">
-                <input type="hidden" name="id" value="<?=$ticket->getId()?>">
                 <header>
                     <h2 class="title">
                         <input type="text" name="title" value="<?=$ticket->getTitle()?>">
                     </h2>
                 </header>
                 <textarea class="content" name="content"><?php foreach ($paragraphs as $paragraph) echo $paragraph; ?></textarea>
+                <input type="hidden" name="id" value="<?=$ticket->getId()?>">
                 <button type="submit">Edit</button>
+            </form>
         <?php } else { ?>
             <header>    
                 <h2><?=$ticket->getTitle()?></h2>
@@ -44,7 +45,7 @@
             <?php if ($session->isAgent()) {
                 foreach ($statuses as $status) { 
                     if ($status->getId() !== $ticket->getStatus()->getId()) { ?>
-                    <option value="<?=$ticket->getStatus()->getId()?>"><?=$status->getName()?></option>
+                    <option value="<?=$status->getId()?>"><?=$status->getName()?></option>
                 <?php }
                 } 
             } ?>
@@ -55,7 +56,7 @@
             <?php if ($session->isAgent()) {
                 foreach ($priorities as $priority) {
                     if ($priority->getId() !== $ticket->getPriority()->getId()) { ?>
-                    <option value="<?=$ticket->getPriority()->getId()?>"><?=$priority->getName()?></option>
+                    <option value="<?=$priority->getId()?>"><?=$priority->getName()?></option>
                 <?php }
                 } 
             } ?>
@@ -66,28 +67,30 @@
             <?php if ($session->isAgent()) {
                 foreach ($departments as $department) {
                     if ($department->getId() !== $ticket->getDepartment()->getId()) { ?>
-                    <option value="<?=$ticket->getDepartment()->getId()?>"><?=$department->getName()?></option>
+                    <option value="<?=$department->getId()?>"><?=$department->getName()?></option>
                 <?php }
                 } 
             } ?>
         </select>
-        <?php if ($ticket->getAgent() !== null) { ?>
         <label for="agent">Agent</label>
         <select name="agent" id="agent">
+            <?php if ($ticket->getAgent() !== null) { ?>
             <option value="<?=$ticket->getAgent()->getId()?>"><?=$ticket->getAgent()->getName()?></option>
+            <?php } ?>
             <?php if ($session->isAgent()) {
                 foreach ($agents as $agent) { 
-                    if ($agent->getId() !== $ticket->getAgent()->getId()) { ?>
-                <option value="<?=$ticket->getAgent()->getId()?>"><?=$agent->getName()?></option>
+                    if ($agent->getId() !== $ticket->getAgent()->getId()) {?>
+                    <option value="<?=$agent->getId()?>"><?=$agent->getName()?></option>
                 <?php }
                 }
             } ?>
         </select>
-        <?php } /* ?>
+        <?php /* ?>
         <h4>Tags</h4>
         <?php foreach ($ticket->getTags() as $tag) { ?>
             <p><?=$tag->getName()?></p>
         <?php } */ ?>
+        <input type="hidden" name="id" value="<?=$ticket->getId()?>">
         <button type="submit" id="apply">Apply</button>
     </form>
     <aside class="changes">

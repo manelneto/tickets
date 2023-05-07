@@ -25,11 +25,12 @@
     $statuses = Status::getStatuses($db);
     $priorities = Priority::getPriorities($db);
     $departments = Department::getDepartments($db);
+    $agents = User::getAgents($db);
 
     require_once(__DIR__ . '/../templates/template_common.php');
     require_once(__DIR__ . '/../templates/template_ticket.php');
 
     drawHeader($session, "Ticket #$id");
-    drawTicket($session, $ticket, $statuses, $priorities, $departments);
+    drawTicket($session, $ticket, $statuses, $priorities, $departments, $agents);
     drawFooter();
 ?>

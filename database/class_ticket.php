@@ -268,5 +268,25 @@
             $this->content = $content;
             return true;
         }
+
+        public function editProperties(PDO $db, int $status, int $priority, int $department, int $agent) : bool {
+            $stmt = $db->prepare('
+                UPDATE Ticket
+                SET idStatus = ?, idPriority = ?, idDepartment = ?, idAgent = ?
+                WHERE idTicket = ?
+            ');
+
+            try {
+                $stmt->execute(array($status, $priority, $department, $agent, $this->id));
+            } catch (PDOException $e) {
+                return false;
+            }
+            
+            $this->status = Status::getStatus($db, $status);
+            $this->priority = Priority::getPriority($db, $priority);
+            $this->department = Department::getDepartment($db, $department);
+            $this->agent = User::getUser($db, $agent);
+            return true;
+        }
     }
 ?>

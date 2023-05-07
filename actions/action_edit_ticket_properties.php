@@ -12,13 +12,15 @@
     require_once(__DIR__ . '/../database/connection.php');
     $db = getDatabaseConnection();
 
-    require_once(__DIR__ . '/../database/class_ticket.php');
-    $ticket = Ticket::getTicket($db, (int) $_GET['id']);
+    $id = (int) $_POST['id'];
 
-    if ($ticket && $ticket->editProperties($db, trim($_POST['title']), trim($_POST['content'])))
-        header("Location: ../pages/ticket?id=$_GET['id'].php");
+    require_once(__DIR__ . '/../database/class_ticket.php');
+    $ticket = Ticket::getTicket($db, (int) $id);
+
+    if ($ticket && $ticket->editProperties($db, (int) $_POST['status'], (int) $_POST['priority'], (int) $_POST['department'], (int) $_POST['agent']))
+        header("Location: ../pages/ticket.php?id=$id");
     else
-        header("Location: ../pages/ticket?id=$_GET['id'].php");
+        header("Location: ../pages/ticket.php?id=$id");
 
     /* if-else para depois adicionarmos mensagens de erro/sucesso */
 ?>
