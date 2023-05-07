@@ -32,7 +32,8 @@
 .faq[open] .question, 
 .upgrade[open] .question, 
 .entity[open] .question, 
-.assign[open] .question {
+.assign[open] .question,
+.faq[open] .question input{
     background-color: rgb(144, 204, 239);
 }
 
@@ -71,6 +72,50 @@
     margin-bottom: 0.5rem;
     display:block;
 }
+
+.question input{
+    min-width: 22.7rem;
+    border:none;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+#faqs form{
+    margin: 1rem;
+}
+.faq-buttons, 
+.add-faqs button{
+    display:block;
+}
+
+.faq-buttons button, 
+.add-faqs button{
+    border:none;
+    background-color: #22216D;
+    color: #ffffff
+}
+
+.faq-buttons button:hover, 
+.add-faqs button:hover{
+    background-color: rgb(144, 204, 239);
+}
+
+.add-faqs{
+    margin: 1rem;
+}
+
+.faq-questions-agent .answer, .add-faqs .answer{
+    width: 20rem;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.add-faqs label:nth-last-of-type(1){
+    display:block;
+    margin-top: 0.5rem;
+}
+
+
 
 
 
