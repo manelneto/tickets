@@ -1,19 +1,14 @@
-#faqs, 
-#management {
+#faqs, #management {
     margin-left: 3rem; 
     margin-top:2rem;
     margin-right: 3rem;
 }
 
-#faqs h2, 
-#management h2{
+#faqs h2, #management h2 {
     display: none;
 }
 
-.faq, 
-.upgrade, 
-.entity, 
-.assign{
+.faq, .management {
     margin-bottom: 1rem;
     border: 1px solid #ccc; 
     border-radius: 0.3rem;
@@ -25,97 +20,76 @@
     font-weight: bold;
 }
 
-.faq > p{
+.faq > p {
     padding-left: 0.8rem;
 }
-  
-.faq[open] .question, 
-.upgrade[open] .question, 
-.entity[open] .question, 
-.assign[open] .question,
-.faq[open] .question input{
+
+.faq[open] .question, .management[open] .question, .faq[open] .question input {
     background-color: rgb(144, 204, 239);
 }
 
-.upgradeInfo, 
-.entityInfo, 
-.assignInfo{
+.management form {
     margin: 1rem;
 }
 
-.upgrade[open] select, 
-.entity[open] select, 
-.assign[open] select{
-    padding:0.2rem;
+.management select {
+    padding: 0.2rem;
     margin-left: 0.5rem;
 }
 
-.upgrade[open] button, 
-.entity[open] button, 
-.assign[open] button{
-    border:none;
-    padding:0.5rem;
-    display:block;
+.management button {
+    border: none;
+    padding: 0.5rem;
+    display: block;
     background-color: #edf1f4;
 }
 
-.upgrade[open] button:hover, 
-.entity[open] button:hover, 
-.assign[open] button:hover{
+.management[open] button:hover {
     background-color: rgb(144, 204, 239);
 }
 
-.updateRole, 
-.entityName, 
-.assignAgent{
+.updateRole, .entityName, .assignAgent {
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
     display:block;
 }
 
-.question input{
+.question input {
     min-width: 22.7rem;
-    border:none;
+    border: none;
     font-weight: bold;
     font-size: 1rem;
 }
 
-#faqs form{
+#faqs form {
     margin: 1rem;
 }
-.faq-buttons, 
-.add-faqs button{
-    display:block;
+
+.faq-buttons, .add-faqs button {
+    display: block;
 }
 
-.faq-buttons button, 
-.add-faqs button{
-    border:none;
+.faq-buttons button, .add-faqs button {
+    border: none;
     background-color: #22216D;
     color: #ffffff
 }
 
-.faq-buttons button:hover, 
-.add-faqs button:hover{
+.faq-buttons button:hover, .add-faqs button:hover {
     background-color: rgb(144, 204, 239);
 }
 
-.add-faqs{
+.add-faqs {
     margin: 1rem;
 }
 
-.faq-questions-agent .answer, .add-faqs .answer{
+.faq-questions-agent .answer, .add-faqs .answer {
     width: 20rem;
     margin-bottom: 0.5rem;
     display: block;
 }
 
-.add-faqs label:nth-last-of-type(1){
+.add-faqs label:nth-last-of-type(1) {
     display:block;
     margin-top: 0.5rem;
 }
-
-
-
-
-
