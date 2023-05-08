@@ -157,21 +157,19 @@
             );
         }
 
-        public static function getTickets(PDO $db, int $id, string $after, string $before, int $priority, int $status, int $department, int $limit, int $offset) : array {
+        public static function getTickets(PDO $db, int $id, string $after, string $before, int $department, int $priority, int $status) : array {
             $stmt = $db->prepare("
                 SELECT idTicket, idClient, title, content, dateOpened, dateDue, dateClosed, idAgent, idDepartment, idPriority, idStatus, idFAQ
                 FROM Ticket
                 WHERE (idClient = ? OR idAgent = ?) 
-                AND (? = '' OR dateOpened <> ?) 
-                AND (? = '' OR dateOpened < ?) 
+                AND (? = '' OR dateOpened > ?) 
+                AND (? = '' OR dateOpened < ?)
+                AND (? = '0' OR idDepartment = ?) 
                 AND (? = '0' OR idPriority = ?) 
                 AND (? = '0' OR idStatus = ?) 
-                AND (? = '0' OR idDepartment = ?)
-                LIMIT ?
-                OFFSET ?
             ");
 
-            $stmt->execute(array($id, $id, $after, $after, $before, $before, $priority, $priority, $status, $status, $department, $department, $limit, $offset));
+            $stmt->execute(array($id, $id, $after, $after, $before, $before, $department, $department, $priority, $priority, $status, $status));
             $result = $stmt->fetchAll();
 
             $tickets = array();
@@ -193,19 +191,6 @@
                 );
             
             return $tickets;
-        }
-
-        public static function getTicketsCount(PDO $db, int $id) : int {
-            $stmt = $db->prepare('
-                SELECT idTicket
-                FROM Ticket
-                WHERE idClient = ? OR idAgent = ?
-            ');
-
-            $stmt->execute(array($id, $id));
-            $result = $stmt->fetchAll();
-
-            return count($result);
         }
 
         public static function getTicketsCountByStatus(PDO $db, int $id, int $status) : int {

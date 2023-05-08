@@ -14,28 +14,25 @@
 
     require_once(__DIR__ . '/../database/class_ticket.php');
 
-    $page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
-
     $id = $session->getId();
-    $after = isset($_POST['after']) ? $_POST['after'] : '';
-    $before = isset($_POST['before']) ? $_POST['before'] : '';
-    $priority = isset($_POST['priority']) ? (int) $_POST['priorirty'] : 0;
-    $status = isset($_POST['status']) ? (int) $_POST['status'] : 0;
-    $department = isset($_POST['department']) ? (int) $_POST['department'] : 0;
-    $limit = 2;
-    $offset = $limit * ($page - 1);
+    $after = $_POST['after'] ?? '';
+    $before = $_POST['before'] ?? '';
+    $department = (int) $_POST['department'] ?? 0;
+    $priority = (int) $_POST['priority'] ?? 0;
+    $status = (int) $_POST['status'] ?? 0;
 
-    $tickets = Ticket::getTickets($db, $session->getId(), $after, $before, $priority, $status, $department, $limit, $offset);
-    $statuses = Status::getStatuses($db);
-    $priorities = Priority::getPriorities($db);
+    $tickets = Ticket::getTickets($db, $session->getId(), $after, $before, $department, $priority, $status);
     $departments = Department::getDepartments($db);
+    $priorities = Priority::getPriorities($db);
+    $statuses = Status::getStatuses($db);
 
     require_once(__DIR__ . '/../templates/template_common.php');
     require_once(__DIR__ . '/../templates/template_tickets.php');
 
-    $remaining = Ticket::getTicketsCount($db, $session->getId()) - $limit * $page;
+    $limit = 2;
+    $offset = isset($_POST['offset']) ? (int) max($_POST['offset'], 0) : 0;
 
     drawHeader($session, 'My Tickets');
-    drawTickets($session, $tickets, $page, $remaining, $statuses, $priorities, $departments);
+    drawTickets($session, $tickets, $limit, $offset, $after, $before, Status::getStatus($db, $status), Priority::getPriority($db, $priority), Department::getDepartment($db, $department), $statuses, $priorities, $departments);
     drawFooter();
 ?>
