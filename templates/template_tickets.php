@@ -4,11 +4,11 @@
     require_once(__DIR__ . '/../utils/session.php');
 ?>
 
-<?php function drawTickets(Session $session, ?array $tickets, int $page, int $remaining, ?array $statuses, ?array $priorities, ?array $departments) { ?>
+<?php function drawTickets(Session $session, ?array $tickets, int $limit, int $offset, string $after, string $before, ?Status $status, ?Priority $priority, ?Department $department, array $statuses, array $priorities, array $departments) { ?>
     <div class ="ticketsPage">
         <section id="tickets">
             <h2>My Tickets</h2>
-            <?php foreach ($tickets as $ticket) { ?>
+            <?php for ($i = 0; $i < $limit && $i + $offset < count($tickets); $i++) { $ticket = $tickets[$i + $offset]; ?>
             <article class="ticket">
                 <a href="../pages/ticket.php?id=<?=$ticket->getId()?>">
                     <header class="author">
@@ -28,37 +28,85 @@
             <?php } ?>
         </section>
         <div class="paging">
-            <?php if ($page > 1) { ?>
-            <a href="../pages/tickets.php?page=<?=$page - 1?>">Previous</a>
+            <?php if ($offset > 0) { ?>
+            <form action="../pages/tickets.php" method="post" class="previous">
+                <input type="hidden" name="after" <?php if ($after !== '') echo "value=$after"; ?>>
+                <input type="hidden" name="before" <?php if ($before !== '') echo "value=$before"; ?>>
+                <input type="hidden" name="status" <?php if ($status) echo 'value=' . $status->getId(); ?>>
+                <input type="hidden" name="priority" <?php if ($priority) echo 'value=' . $priority->getId(); ?>>
+                <input type="hidden" name="department" <?php if ($department) echo 'value=' . $department->getId(); ?>>
+                <input type="hidden" name="offset" value="<?=$offset - $limit?>">
+                <button type="submit">Previous</button>
+            </form>
             <?php } ?>
-            <?php if ($remaining > 0) { ?>
-            <a href="../pages/tickets.php?page=<?=$page + 1?>">Next</a>
+            <?php if ($offset + $limit < count($tickets)) { ?>
+            <form action="../pages/tickets.php" method="post" class="next">
+                <input type="hidden" name="after" <?php if ($after !== '') echo "value=$after"; ?>>
+                <input type="hidden" name="before" <?php if ($before !== '') echo "value=$before"; ?>>
+                <input type="hidden" name="status" <?php if ($status) echo 'value=' . $status->getId(); ?>>
+                <input type="hidden" name="priority" <?php if ($priority) echo 'value=' . $priority->getId(); ?>>
+                <input type="hidden" name="department" <?php if ($department) echo 'value=' . $department->getId(); ?>>
+                <input type="hidden" name="offset" value="<?=$offset + $limit?>">
+                <button type="submit">Next</button>
+            </form>
             <?php } ?>
         </div>
-        <?php if ($session->isAgent() || $session->isAdmin()) { ?>
-        <form action="../actions/action_filter.php" method="post" class="filters">
+    <?php if ($session->isAgent() || $session->isAdmin()) { ?>
+        <form action="../pages/tickets.php" method="post" class="filters">
             <h3>Filters</h3>
-            <label for="date">Date</label>
-            <input type="date" name="date">
+            <label for="after">After</label>
+            <input type="date" name="after" id="after" <?php if ($after !== '') echo "value=$after"; ?>>
+            <label for="before">Before</label>
+            <input type="date" name="before" id="before" <?php if ($before !== '') echo "value=$before"; ?>>
             <label for="status">Status</label>
             <select name="status" id="status">
-                <option value="all">All</option>
-                <?php foreach ($statuses as $status) { ?>
-                <option value="<?=$status->getId()?>"><?=$status->getName()?></option>
+                <?php if (!$status) { ?>
+                    <option value="0">All</option>
+                    <?php foreach ($statuses as $s) { ?>
+                        <option value="<?=$s->getId()?>"><?=$s->getName()?></option>
+                    <?php } ?>
+                <?php } else { ?>
+                    <option value="<?=$status->getId()?>"><?=$status->getName()?></option>
+                    <option value="0">All</option>
+                    <?php foreach ($statuses as $s) { ?>
+                        <?php if ($s->getId() !== $status->getId()) { ?>
+                            <option value="<?=$s->getId()?>"><?=$s->getName()?></option>
+                        <?php } ?>
+                    <?php } ?>
                 <?php } ?>
             </select>
             <label for="priority">Priority</label>
             <select name="priority" id="priority">
-                <option value="all">All</option>
-                <?php foreach ($priorities as $priority) { ?>
-                <option value="<?=$priority->getId()?>"><?=$priority->getName()?></option>
+                <?php if (!$priority) { ?>
+                    <option value="0">All</option>
+                    <?php foreach ($priorities as $p) { ?>
+                        <option value="<?=$p->getId()?>"><?=$p->getName()?></option>
+                    <?php } ?>
+                <?php } else { ?>
+                    <option value="<?=$priority->getId()?>"><?=$priority->getName()?></option>
+                    <option value="0">All</option>
+                    <?php foreach ($priorities as $p) { ?>
+                        <?php if ($p->getId() !== $priority->getId()) { ?>
+                            <option value="<?=$p->getId()?>"><?=$p->getName()?></option>
+                        <?php } ?>
+                    <?php } ?>
                 <?php } ?>
             </select>
             <label for="department">Department</label>
             <select name="department" id="department">
-                <option value="all">All</option>
-                <?php foreach ($departments as $department) { ?>
-                <option value="<?=$department->getId()?>"><?=$department->getName()?></option>
+                <?php if (!$department) { ?>
+                    <option value="0">All</option>
+                    <?php foreach ($departments as $d) { ?>
+                        <option value="<?=$d->getId()?>"><?=$d->getName()?></option>
+                    <?php } ?>
+                <?php } else { ?>
+                    <option value="<?=$department->getId()?>"><?=$department->getName()?></option>
+                    <option value="0">All</option>
+                    <?php foreach ($departments as $d) { ?>
+                        <?php if ($d->getId() !== $department->getId()) { ?>
+                            <option value="<?=$d->getId()?>"><?=$d->getName()?></option>
+                        <?php } ?>
+                    <?php } ?>
                 <?php } ?>
             </select>
             <button type="submit">Filter</button>
