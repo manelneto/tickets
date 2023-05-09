@@ -6,25 +6,40 @@
 
 <?php function drawTickets(Session $session, ?array $tickets, int $limit, int $offset, string $after, string $before, ?Status $status, ?Priority $priority, ?Department $department, array $statuses, array $priorities, array $departments) { ?>
     <div class ="ticketsPage">
-        <section id="tickets">
+        <section class="tickets">
             <h2>My Tickets</h2>
             <?php for ($i = 0; $i < $limit && $i + $offset < count($tickets); $i++) { $ticket = $tickets[$i + $offset]; ?>
-            <article class="ticket">
-                <a href="../pages/ticket.php?id=<?=$ticket->getId()?>">
-                    <header class="author">
-                        <img src="../assets/perfilIcon.png" alt="Perfil Icon">
-                        <h3><?=$ticket->getClient()->getName()?></h3>
-                    </header>
-                    <h4><?=$ticket->getTitle()?></h4>
-                    <p class="status"><?=$ticket->getStatus()->getName()?></p>
-                    <p class="date-opened"><?=$ticket->getDateOpened()?></p>
-                    <p class="date-due"><?=$ticket->getDateDue()?></p>
-                    <p class="date-closed"><?php if ($ticket->getDateClosed() !== null) echo $ticket->getDateClosed(); ?></p>
-                    <p class="agent"><?php if ($ticket->getAgent() !== null) echo $ticket->getAgent()->getName(); ?></p>
-                    <p class="priority"><?php if ($ticket->getPriority() !== null) echo $ticket->getPriority()->getName(); ?></p>
-                    <p class="department"><?php if ($ticket->getDepartment() !== null) echo $ticket->getDepartment()->getName(); ?></p>
-                </a>
-            </article>
+                <article class="ticket">
+                    <a href="../pages/ticket.php?id=<?=$ticket->getId()?>">
+                        <header class="author">
+                            <img src="../assets/perfilIcon.png" alt="Perfil Icon">
+                            <h3><?=$ticket->getClient()->getName()?></h3>
+                        </header>
+                        <h4><?=$ticket->getTitle()?></h4>
+                        <p class="status"><?=$ticket->getStatus()->getName()?></p>
+                        <p class="date-opened"><?=$ticket->getDateOpened()?></p>
+                        <?php 
+                        $priority = $ticket->getPriority();
+                        $priorityName = $priority ? $priority->getName() : null;
+                        $class = '';
+                        if ($priorityName === 'Critical') {
+                            $class = 'priority-critical';
+                        } 
+                        elseif ($priorityName === 'High') {
+                            $class = 'priority-high';
+                        } 
+                        elseif ($priorityName === 'Medium') {
+                            $class = 'priority-medium';
+                        } 
+                        elseif ($priorityName === 'Low') {
+                            $class = 'priority-low';
+                        }
+                        ?>
+                        <p class="priority <?php echo $class; ?>">
+                        <?php echo $priorityName; ?>
+                        </p>
+                    </a>
+                </article>
             <?php } ?>
         </section>
         <div class="paging">
