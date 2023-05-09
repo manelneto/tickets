@@ -10,18 +10,18 @@
     <head>
         <title>Tickets Management</title>
         <meta charset="utf-8">
+        <link rel="stylesheet" href="../css/sideBars.css">
         <link rel="stylesheet" href="../css/dashboard.css">
         <link rel="stylesheet" href="../css/faqs-management.css">
         <link rel="stylesheet" href="../css/login.css">
         <link rel="stylesheet" href="../css/newTicket.css">
         <link rel="stylesheet" href="../css/profile.css">
         <link rel="stylesheet" href="../css/register.css">
-        <link rel="stylesheet" href="../css/sideBars.css">
         <link rel="stylesheet" href="../css/ticket.css">
         <link rel="stylesheet" href="../css/tickets.css">   
     </head>
     <body>
-        <header>
+        <header class="mainHeader">
             <h1><?=$title?></h1>
             <?php if ($session->isLoggedIn()) { ?>
             <form action="../actions/action_logout.php" method="post" class="logout">
