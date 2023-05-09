@@ -87,6 +87,22 @@
     border: 2px solid #008000;
 }
 
+.paging {
+    grid-column: ticketsStart/ticketsMid1;
+    grid-row: ticketsMid1/ticketsEnd;
+    background-color: #f5f7f9;
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+    align-items: center;
+}
+
+.paging button {
+    border: none;
+    background-color: #f5f7f9;
+    margin-right: 1rem;
+}
+
 .filters {
     grid-column: ticketsMid1/ticketsEnd;
     grid-row: ticketsStart/ticketsEnd;
@@ -97,63 +113,29 @@
     width: 100%;
 }
 
-.filters  select {
+.filters label {
     display: block;
-    margin-top: 0.5rem;
-    padding: 0.2rem;
-    max-width: 10rem;
-    margin-right: 2rem;
-    margin-bottom: 1rem;
-    margin-top: 0rem;
-    min-width: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 0.2rem;
 }
 
-.filters > p {
-    text-align: center;
+.filters select{
+    width: 7rem;
 }
 
-.filters label,
-.filters select {
-    margin-left: 1rem;
-}
-
-.filters select {
-    width: 9rem;
+.filters label input{
+    vertical-align:super;
 }
 
 .filters button {
     margin-top: auto;
-    width: 7rem;
+    width: 5rem;
     height: 1.5rem;
     background-color: #22216D;
     color: #ffffff;
     border: none;
     margin-bottom: 1rem;
 }
-
-.paging {
-    grid-column: ticketsStart/ticketsMid1;
-    grid-row: ticketsMid1/ticketsEnd;
-    background-color: #f5f7f9;
-    display: flex;
-    flex-direction: row;
-}
-
-.paging #back,
-.paging #next {
-    border: none;
-    background-color: #f5f7f9;
-    margin-top: 0.5rem;
-}
-
-.paging .previous button {
-    margin-left: auto;
-}
-
-.paging .next button {
-    margin-right: 2rem;
-}
-
 
 /*
 @media only screen and (max-width: 1120px) {
