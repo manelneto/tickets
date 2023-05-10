@@ -50,11 +50,9 @@
             <h1><?=$title?></h1>
         </header>
         <?php } ?>
-        <main>
 <?php } ?>
 
 <?php function drawFooter() { ?>
-        </main>
     </body>
 </html>
 <?php } ?>
