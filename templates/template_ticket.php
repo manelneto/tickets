@@ -4,7 +4,7 @@
     require_once(__DIR__ . '/../utils/session.php');
 ?>
 
-<?php function drawTicket(Session $session, Ticket $ticket, array $statuses, array $priorities, array $departments, array $agents) { ?>
+<?php function drawTicket(Session $session, Ticket $ticket, array $statuses, array $priorities, array $departments, array $agents, array $tags) { ?>
     <article id="ticket">
         <?php $paragraphs = explode('\n', $ticket->getContent()); ?>
         <?php if ($session->getId() === $ticket->getClient()->getId()) { ?>
@@ -85,11 +85,10 @@
                 }
             } ?>
         </select>
-        <?php /* ?>
         <h4>Tags</h4>
-        <?php foreach ($ticket->getTags() as $tag) { ?>
+        <?php foreach ($tags as $tag) { ?>
             <p><?=$tag->getName()?></p>
-        <?php } */ ?>
+        <?php } ?>
         <input type="hidden" name="id" value="<?=$ticket->getId()?>">
         <button type="submit" id="apply">Apply</button>
     </form>

@@ -41,7 +41,7 @@
 
             return $tags;
         }
-        
+
         public static function getTagById(PDO $db, int $id) : ?Tag {
             $stmt = $db->prepare('
                 SELECT idTag, name

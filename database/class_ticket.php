@@ -287,5 +287,19 @@
             $this->agent = User::getUser($db, $agent);
             return true;
         }
+
+        public function getTags(PDO $db) : ?array {
+            $stmt = $db->prepare('
+                SELECT idTag, name
+                FROM TicketTag NATURAL JOIN Tag
+                WHERE idTicket = ?
+            ');
+
+            $stmt->execute(array($this->id));
+
+            $tags = $stmt->fetchAll();
+
+            return $tags;
+        }
     }
 ?>
