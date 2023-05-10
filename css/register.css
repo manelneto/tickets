@@ -22,6 +22,16 @@ main {
     height: 100vh;
 }*/
 
+
+.authenticationHeader{
+    color: darkblue;
+    text-align: center;
+    padding: 5px;
+    margin: 0 auto;
+    font-family: "Roboto";
+    text-shadow: #008CBA;
+}
+
 #register {
     background: rgb(34,33,109);
     background: linear-gradient(0deg, rgba(34,33,109,1) 52%, rgba(28,159,186,1) 100%);
