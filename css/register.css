@@ -23,55 +23,76 @@ main {
 }*/
 
 #register {
-    background-color: white;
-    padding: 1.3rem;
+    background: rgb(34,33,109);
+    background: linear-gradient(0deg, rgba(34,33,109,1) 52%, rgba(28,159,186,1) 100%);
+    display: block;
+    padding: 2.3rem;
     border-radius: 0.3rem;
     box-shadow: 0px 0px 0.6rem rgba(0, 0, 0, 0.2);
+    display: block;
+    height: 85vh;
+    width: 40%;
+    margin-top: 2.5rem;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-/*form {
+#register h2{
+    font-size:xx-large;
+    font-family: "Roboto";
+    color: white;
+    text-align: center;
+}
+
+#register form {
     font-family: "Roboto";
     display: flex;
     flex-direction: column;
-    align-items: left;
 }
 
-label {
-    display: block;
-    margin-bottom: 0.3rem;
-}
+#register label {
+    font-family: "Roboto";
+    color: white;
+    margin-left: 1.7rem;
+    margin-top: 0.4rem;
+}    
 
-input {
+#register input {
+    align-self: center;
+    font-family: "Roboto";
     padding: 0.3rem;
+    margin-top: 0.3rem;
     margin-bottom: 0.6rem;
     border-radius: 0.3rem;
     border: 1px solid #ccc;
-    width: 100%;
-    max-width: 18.8rem;
+    width: 87%;
 }
 
-button {
-    padding: 0.3rem;
+#register button {
+    align-self: center;
+    padding: 0.4rem;
     background-color: #008CBA;
     color: white;
     border: none;
     border-radius: 0.3rem;
     cursor: pointer;
-    width: 100%;
+    width: 36%;
+    margin-top: 3.5rem;
     margin-bottom: 0.6rem;
 }
 
-a {
+#register p{
+    font-family: "Roboto";
+    color: white;
+    text-align: center;
+}
+
+#register a {
     color: #008CBA;
     text-decoration: none;
 }
 
-a:hover {
+#register a:hover {
     text-decoration: underline;
 }*/
 
-footer {
-    font-family: "Roboto";
-    text-align: center;
-    color: white;
-}
