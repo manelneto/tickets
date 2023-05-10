@@ -1,12 +1,12 @@
 /*body{
   display: grid;
-  grid-template-columns: [start] 13% [mid1] 87% [end];
-  grid-template-rows: [start] 13% [mid1] 87% [end];
+  grid-template-columns: [start] 13% [mid1] auto [end];
+  grid-template-rows: [start] 5.5rem [mid1] auto [end];
   margin: 0;
   font-family: Arial, sans-serif;
 }*/
 
-header{
+.mainHeader{
   grid-column: start/end;
   grid-row: start/mid1;
   display: flex;
@@ -20,13 +20,13 @@ header{
   grid-row: mid1/end;
 }
 
-header h1{
+.mainHeader h1{
   margin-left: 2rem;
   font-size: 1.3rem;
 }
 
 .logout, 
-header h1{
+.mainHeader h1{
   align-items: center;
 }
 
@@ -52,7 +52,7 @@ header h1{
 
 #menu {
   background-color: #22216D;
-  min-height: calc(100vh - 5.5rem);
+  min-height: calc(100vh - 5.5em);
 }
 
 #menu a {
