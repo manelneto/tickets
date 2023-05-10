@@ -1,6 +1,6 @@
 .ticketsPage {
     display: grid;
-    grid-template-columns: [ticketsStart] auto [ticketsMid1] 17%[ticketsEnd];
+    grid-template-columns: [ticketsStart] auto [ticketsMid1] 17% [ticketsEnd];
     grid-template-rows: [ticketsStart] auto [ticketsMid1] 3rem [ticketsEnd];
     height:100%;
 }

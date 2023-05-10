@@ -103,5 +103,5 @@
                 <p><?=$change->getDate()?> - <?=$change->getDescription()?></p>
             <?php } */ ?>-->
         </aside>
-    <div class="ticketPage">
+    </div>
 <?php } ?>
