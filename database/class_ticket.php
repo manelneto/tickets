@@ -206,33 +206,47 @@
             return count($result);
         }
 
-        public static function addTicketWithDepartment(PDO $db, int $idClient, string $title, string $content, string $dateOpened, string $dateDue, int $departmentId) : bool {
-            $stmt = $db->prepare('
-                INSERT INTO Ticket (idClient, title, content, dateOpened, dateDue, idDepartment)
-                VALUES (?, ?, ?, ?, ?, ?)
-            ');
-
-            try {
-                $stmt->execute(array($idClient, $title, $content, $dateOpened, $dateDue, $departmentId));
-            } catch (PDOException $e) {
-                return false;
+        public static function addTicket(PDO $db, int $idClient, string $title, string $content, string $dateOpened, string $dateDue, int $departmentId, array $tags) : bool {
+            if ($departmentId !== 0) {
+                $stmt = $db->prepare('
+                    INSERT INTO Ticket (idClient, title, content, dateOpened, dateDue, idDepartment)
+                    VALUES (?, ?, ?, ?, ?, ?)
+                ');
+                try {
+                    $stmt->execute(array($idClient, $title, $content, $dateOpened, $dateDue, $departmentId));
+                } catch (PDOException $e) {
+                    return false;
+                }
+            } else {
+                $stmt = $db->prepare('
+                    INSERT INTO Ticket (idClient, title, content, dateOpened, dateDue)
+                    VALUES (?, ?, ?, ?, ?)
+                ');
+                try {
+                    $stmt->execute(array($idClient, $title, $content, $dateOpened, $dateDue));
+                } catch (PDOException $e) {
+                    return false;
+                }
             }
-            
-            return true;
-        }
 
-        public static function addTicketWithoutDepartment(PDO $db, int $idClient, string $title, string $content, string $dateOpened, string $dateDue) : bool {
             $stmt = $db->prepare('
-                INSERT INTO Ticket (idClient, title, content, dateOpened, dateDue)
-                VALUES (?, ?, ?, ?, ?)
+                SELECT last_insert_rowid()
+                FROM Ticket    
             ');
+            $id = $stmt->execute();
 
-            try {
-                $stmt->execute(array($idClient, $title, $content, $dateOpened, $dateDue));
-            } catch (PDOException $e) {
-                return false;
+            foreach ($tags as $tag) {
+                $stmt = $db->prepare('
+                    INSERT INTO TicketTag (idTicket, idTag)
+                    VALUES (?, ?)
+                ');
+                try {
+                    $stmt->execute(array($id, $tag->getId()));
+                } catch (PDOException $e) {
+                    return false;
+                }
             }
-            
+
             return true;
         }
 

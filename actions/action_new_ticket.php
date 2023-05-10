@@ -16,8 +16,13 @@
     $dateOpened = date('Y-m-d');
     $dateDue = date('Y-m-d', strtotime($dateOpened . ' + 10 days'));
 
-    if (($_POST['department'] !== 0 && Ticket::addTicketWithDepartment($db, $session->getId(), trim($_POST['title']), trim($_POST['content']), $dateOpened, $dateDue, (int) $_POST['department']))
-    || ($_POST['department'] === 0 && Ticket::addTicketWithoutDepartment($db, $session->getId(), trim($_POST['title']), trim($_POST['content']), $dateOpened, $dateDue)))
+    $departmentId = (int) $_POST['department'];
+    $tags = array();
+
+    foreach ($tags as $tag)
+        $tags[] = Tags::getTagByName($db, $tag);
+
+    if (Ticket::addTicket($db, $session->getId(), trim($_POST['title']), trim($_POST['content']), $dateOpened, $dateDue, $departmentId, $tags))
         header('Location: ../pages/tickets.php');
     else
         header('Location: ../pages/new_ticket.php');

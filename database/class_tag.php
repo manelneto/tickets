@@ -42,7 +42,7 @@
             return $tags;
         }
         
-        public static function getTag(PDO $db, int $id) : ?Tag {
+        public static function getTagById(PDO $db, int $id) : ?Tag {
             $stmt = $db->prepare('
                 SELECT idTag, name
                 FROM Tag
@@ -50,6 +50,24 @@
             ');
 
             $stmt->execute(array($id));
+            $tag = $stmt->fetch();
+
+            if (!$tag) return null;
+
+            return new Tag(
+                (int) $tag['idTag'],
+                $tag['name']
+            );
+        }
+
+        public static function getTagByName(PDO $db, string $name) : ?Tag {
+            $stmt = $db->prepare('
+                SELECT idTag, name
+                FROM Tag
+                Where name = ?
+            ');
+
+            $stmt->execute(array($name));
             $tag = $stmt->fetch();
 
             if (!$tag) return null;
