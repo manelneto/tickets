@@ -21,9 +21,9 @@
         <link rel="stylesheet" href="../css/tickets.css">   
     </head>
     <body>
+        <?php if ($session->isLoggedIn()) { ?>
         <header class="mainHeader">
             <h1><?=$title?></h1>
-            <?php if ($session->isLoggedIn()) { ?>
             <form action="../actions/action_logout.php" method="post" class="logout">
                 <a href="../pages/profile.php"><?php
                     echo $session->getName();
@@ -33,9 +33,7 @@
                 ?></a>
                 <button type="submit">Logout</button>
             </form>
-            <?php } ?>
         </header>
-        <?php if ($session->isLoggedIn()) { ?>
         <nav id="menu">
             <ul>
                 <li><a href="../pages/dashboard.php">Dashboard</a></li>
@@ -47,6 +45,10 @@
                 <?php } ?>
             </ul>
         </nav>
+        <?php } else { ?>
+        <header class="authenticationHeader">
+            <h1><?=$title?></h1>
+        </header>
         <?php } ?>
         <main>
 <?php } ?>
