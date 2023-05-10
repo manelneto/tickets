@@ -1,10 +1,10 @@
-/*body{
+body{
   display: grid;
   grid-template-columns: [start] 13% [mid1] auto [end];
   grid-template-rows: [start] 5.5rem [mid1] auto [end];
   margin: 0;
   font-family: Arial, sans-serif;
-}*/
+}
 
 .mainHeader{
   grid-column: start/end;

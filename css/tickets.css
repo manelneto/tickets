@@ -36,7 +36,8 @@
     display: inline-flex;
 }
 
-.author h3, .ticket h4{
+.author h3, 
+.ticket h4{
     font-weight: 100;
 }
 
