@@ -18,26 +18,9 @@
                         <h4><?=$ticket->getTitle()?></h4>
                         <p class="status"><?=$ticket->getStatus()->getName()?></p>
                         <p class="date-opened"><?=$ticket->getDateOpened()?></p>
-                        <?php 
-                        $priority = $ticket->getPriority();
-                        $priorityName = $priority ? $priority->getName() : null;
-                        $class = '';
-                        if ($priorityName === 'Critical') {
-                            $class = 'priority-critical';
-                        } 
-                        elseif ($priorityName === 'High') {
-                            $class = 'priority-high';
-                        } 
-                        elseif ($priorityName === 'Medium') {
-                            $class = 'priority-medium';
-                        } 
-                        elseif ($priorityName === 'Low') {
-                            $class = 'priority-low';
-                        }
-                        ?>
-                        <p class="priority <?php echo $class; ?>">
-                        <?php echo $priorityName; ?>
-                        </p>
+                        <?php if ($ticket->getPriority()) { ?>
+                        <p class="priority <?=$ticket->getPriority()->getName()?>"><?=$ticket->getPriority()->getName()?></p>
+                        <?php } ?>
                     </a>
                 </article>
             <?php } ?>

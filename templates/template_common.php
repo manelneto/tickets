@@ -37,9 +37,9 @@
         <nav id="menu">
             <ul>
                 <li><a href="../pages/dashboard.php">Dashboard</a></li>
+                <li><a href="../pages/new_ticket.php">New Ticket</a></li>
                 <li><a href="../pages/tickets.php">Tickets</a></li>
                 <li><a href="../pages/faqs.php">FAQ</a></li>
-                <li><a href="../pages/new_ticket.php">New Ticket</a></li>
                 <?php if ($session->isAdmin()) { ?>
                 <li><a href="../pages/management.php">Management</a></li>
                 <?php } ?>
