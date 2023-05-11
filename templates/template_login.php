@@ -2,7 +2,7 @@
     declare(strict_types = 1);
 ?>
 
-<?php function drawLogin() { ?>
+<?php function drawLogin() : void { ?>
     <main>
         <section id="login">
             <h2>Login</h2>
