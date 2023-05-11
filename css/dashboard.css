@@ -1,4 +1,4 @@
-#dashboard{
+#dashboard {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
@@ -6,12 +6,16 @@
     margin-top: 2rem;
 }
 
+#dashboard h2 {
+    display: none;
+}
+
 .card {
     border-radius: 10%;
     transition: transform 0.8s;
     position: relative;
     text-align: center;     
-    background-color: #edf1f4;
+    background-color: var(--light-gray);
 }
 
 .card:hover {
