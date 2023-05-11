@@ -6,7 +6,7 @@
     <main>
         <section id="new-ticket">
             <h2>How can we help you?</h2>
-            <form action="../actions/action_new_ticket.php" method="post" class="new-ticket">
+            <form action="../actions/action_new_ticket.php" method="post" class="new-ticket" novalidate>
                 <label for="title">Title</label>
                 <input id="title" type="text" name="title" placeholder="title" required>
                 <label for="department">Department</label>
@@ -17,7 +17,7 @@
                     <?php } ?>
                 </select>
                 <label for="tags">Tags</label>
-                <input id="tags" type="email" name="tags" placeholder="#tags" list="tags-list" multiple autocomplete>
+                <input id="tags" type="email" name="tags" placeholder="#tags" list="tags-list" multiple autocomplete formnovalidate>
                 <datalist id="tags-list">
                     <?php foreach ($tags as $tag) { ?>
                     <option value="<?=$tag->getName()?>"><?=$tag->getName()?></option>

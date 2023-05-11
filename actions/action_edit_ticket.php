@@ -22,7 +22,7 @@
         die();
     }
 
-    if ($ticket && $ticket->edit($db, trim($_POST['title']), trim($_POST['content'])))
+    if ($ticket && $ticket->edit($db, trim($_POST['title']), trim($_POST['description'])))
         header("Location: ../pages/ticket.php?id=$id");
     else
         header("Location: ../pages/ticket.php?id=$id");
