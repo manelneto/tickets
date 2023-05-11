@@ -6,7 +6,7 @@ body{
   font-family: Arial, sans-serif;
 }
 
-.mainHeader{
+#main-header{
   grid-column: start/end;
   grid-row: start/mid1;
   display: flex;
@@ -20,13 +20,13 @@ body{
   grid-row: mid1/end;
 }
 
-.mainHeader h1{
+#main-header h1{
   margin-left: 2rem;
   font-size: 1.3rem;
 }
 
 .logout, 
-.mainHeader h1{
+#main-header h1{
   align-items: center;
 }
 

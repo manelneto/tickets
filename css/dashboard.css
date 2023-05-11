@@ -1,4 +1,4 @@
-.dashboard-tickets{
+#dashboard{
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
@@ -6,10 +6,7 @@
     margin-top: 2rem;
 }
 
-.opened, 
-.assigned, 
-.closed, 
-.overdue{
+.card {
     border-radius: 10%;
     transition: transform 0.8s;
     position: relative;
@@ -17,41 +14,26 @@
     background-color: #edf1f4;
 }
 
-.opened:hover, 
-.assigned:hover, 
-.closed:hover, 
-.overdue:hover {
+.card:hover {
     transform: rotateY(180deg);
 }
 
-.opened h2, 
-.assigned h2, 
-.closed h2, 
-.overdue h2 {
+.card h3 {
     backface-visibility: hidden;
     opacity: 1; 
 }
 
-.opened p, 
-.assigned p, 
-.closed p, 
-.overdue p {
+.card p {
     visibility: hidden;
     opacity: 0;
     transform: rotateY(180deg);
 }
 
-.opened:hover h2, 
-.assigned:hover h2, 
-.closed:hover h2, 
-.overdue:hover h2 {
+.card:hover h3 {
     opacity: 0;
 }
 
-.opened:hover p, 
-.assigned:hover p, 
-.closed:hover p, 
-.overdue:hover p {
+.card:hover p {
     visibility: visible;
     opacity: 1;
 }
