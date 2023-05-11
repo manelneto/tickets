@@ -92,11 +92,10 @@
                             }
                         } ?>
                     </select>
-                    <?php /* ?>
                     <h4>Tags</h4>
-                    <?php foreach ($ticket->getTags() as $tag) { ?>
+                    <?php foreach ($tags as $tag) { ?>
                         <p><?=$tag->getName()?></p>
-                    <?php } */ ?>
+                    <?php } ?>
                     <input type="hidden" name="id" value="<?=$ticket->getId()?>">
                     <button type="submit" id="apply">Apply</button>
                 </details>

@@ -17,10 +17,12 @@
     $dateDue = date('Y-m-d', strtotime($dateOpened . ' + 10 days'));
 
     $departmentId = (int) $_POST['department'];
+    $tagsInput = explode(',', $_POST['tags']);
+
     $tags = array();
 
-    foreach ($tags as $tag)
-        $tags[] = Tags::getTagByName($db, $tag);
+    foreach ($tagsInput as $tagInput)
+        $tags[] = Tag::getTagByName($db, $tagInput);
 
     if (Ticket::addTicket($db, $session->getId(), trim($_POST['title']), trim($_POST['content']), $dateOpened, $dateDue, $departmentId, $tags))
         header('Location: ../pages/tickets.php');

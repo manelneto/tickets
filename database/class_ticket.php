@@ -230,10 +230,12 @@
             }
 
             $stmt = $db->prepare('
-                SELECT last_insert_rowid()
-                FROM Ticket    
+                SELECT max(idTicket)
+                FROM Ticket
             ');
-            $id = $stmt->execute();
+            $stmt->execute();
+            $result = $stmt->fetch();
+            $id = (int) $result['max(idTicket)'];
 
             foreach ($tags as $tag) {
                 $stmt = $db->prepare('
@@ -297,7 +299,15 @@
 
             $stmt->execute(array($this->id));
 
-            $tags = $stmt->fetchAll();
+            $result = $stmt->fetchAll();
+
+            $tags = array();
+
+            foreach ($result as $row)
+                $tags[] = new Tag(
+                    (int) $row['idTag'],
+                    $row['name'],
+                );
 
             return $tags;
         }
