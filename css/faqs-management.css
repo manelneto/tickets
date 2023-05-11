@@ -100,7 +100,7 @@
     margin-top: 0.5rem;
 }
 
-.faq .add-question + input {
+.faq #add-question + input {
     margin-top: 0.5rem;
 }
 
