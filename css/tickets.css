@@ -68,22 +68,22 @@
     padding: 0.3rem;
 }
 
-.priority-critical{
+.Critical{
     color: #ff0000;
     border: 2px solid #ff0000;
 }
 
-.priority-high{
+.High{
     color: #FFA500;
     border: 2px solid #FFA500;
 }
 
-.priority-medium{
+.Medium{
     color: #FFFF00;
     border: 2px solid #FFFF00;
 }
 
-.priority-low{
+.Low{
     color: #008000;
     border: 2px solid #008000;
 }
