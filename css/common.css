@@ -1,6 +1,6 @@
 :root {
   --dark-blue: #22216d;
-  --light-blue: #76abe0;
+  --blue: #76abe0;
   --light-gray: #edf1f4;
 }
 
@@ -78,7 +78,7 @@ body {
 }
 
 #menu li:hover {
-  background-color: var(--light-blue);
+  background-color: var(--blue);
 }
 
 @media only screen and (max-width: 1120px) {

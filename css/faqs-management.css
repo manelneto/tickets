@@ -1,24 +1,25 @@
-#faqs, 
-#management {
+:root {
+    --light-blue: rgb(144, 204, 239);
+}
+
+#faqs, #management {
     margin-left: 3rem; 
-    margin-top:2rem;
+    margin-top: 2rem;
     margin-right: 3rem;
 }
 
-#faqs h2, 
-#management h2 {
+#faqs h2, #management h2 {
     display: none;
 }
 
-.faq, 
-.management {
+.faq, .management {
     margin-bottom: 1rem;
     border: 1px solid #ccc; 
     border-radius: 0.3rem;
     max-width: 70rem;
 }
 
-.question {
+.question, .action {
     padding: 0.8rem;
     font-weight: bold;
 }
@@ -27,10 +28,8 @@
     padding-left: 0.8rem;
 }
 
-.faq[open] .question, 
-.management[open] .question, 
-.faq[open] .question input {
-    background-color: rgb(144, 204, 239);
+.faq[open] .question, .faq[open] .question input, .management[open] .action {
+    background-color: var(--light-blue);
 }
 
 .management form {
@@ -46,19 +45,17 @@
     border: none;
     padding: 0.5rem;
     display: block;
-    background-color: #edf1f4;
+    background-color: var(--light-gray);
 }
 
 .management[open] button:hover {
-    background-color: rgb(144, 204, 239);
+    background-color: var(--light-blue);
 }
 
-.updateRole, 
-.entityName, 
-.assignAgent {
+#upgrade-role, .field {
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
-    display:block;
+    display: block;
 }
 
 .question input {
@@ -72,55 +69,48 @@
     margin: 1rem;
 }
 
-.faq-buttons, 
-.add-faqs button {
+.faq-buttons, .add-faq button {
     display: block;
 }
 
-.faq-buttons button, 
-.add-faqs button {
+.faq-buttons button, .add-faq button {
     border: none;
-    background-color: #22216D;
-    color: #ffffff
+    background-color: var(--dark-blue);
+    color: white;
 }
 
-.faq-buttons button:hover, 
-.add-faqs button:hover {
-    background-color: rgb(144, 204, 239);
+.faq-buttons button:hover, .add-faq button:hover {
+    background-color: var(--light-blue);
 }
 
-.add-faqs {
+.add-faq {
     margin: 1rem;
 }
 
-.faq-buttons,
-.add-faqs button {
+.faq-buttons, .add-faq button {
     margin-bottom: 0.5rem;
     margin-left: 0.5rem;
 } 
 
-.answer,
-.add-faqs label{
+.answer, .add-faq label {
     margin-left: 0.5rem;
 }
 
-.answer{
+.answer {
     margin-top: 0.5rem;
 }
 
-.faq .add-faqs-question + input{
+.faq .add-question + input {
     margin-top: 0.5rem;
 }
 
-.faq-questions-agent .answer, 
-.add-faqs .answer {
+.faq-questions-agent .answer, .add-faq .answer {
     width: 20rem;
     margin-bottom: 0.5rem;
     display: block;
 }
 
-.add-faqs label:nth-last-of-type(1) {
-    display:block;
+.add-faq label:nth-last-of-type(1) {
+    display: block;
     margin-top: 0.5rem;
 }
-
