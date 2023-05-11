@@ -1,57 +1,61 @@
-body{
+:root {
+  --dark-blue: #22216d;
+  --light-blue: #76abe0;
+  --light-gray: #edf1f4;
+}
+
+body {
   display: grid;
-  grid-template-columns: [start] 13% [mid1] auto [end];
-  grid-template-rows: [start] 5.5rem [mid1] auto [end];
+  grid-template-columns: [start] 13% [mid] auto [end];
+  grid-template-rows: [start] 5.5rem [mid] auto [end];
   margin: 0;
   font-family: Arial, sans-serif;
 }
 
-#main-header{
+#main-header {
   grid-column: start/end;
-  grid-row: start/mid1;
+  grid-row: start/mid;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #edf1f4;
+  background-color: var(--light-gray);
 }
 
-#menu{
-  grid-column: start/mid1;
-  grid-row: mid1/end;
+#menu {
+  grid-column: start/mid;
+  grid-row: mid/end;
 }
 
-#main-header h1{
+#main-header h1 {
   margin-left: 2rem;
   font-size: 1.3rem;
 }
 
-.logout, 
-#main-header h1{
+.logout, #main-header h1 {
   align-items: center;
 }
 
-.logout a, 
-.logout button{
+.logout a, .logout button {
   display: block;
 }
 
-.logout a{
+.logout a {
   text-decoration: none;
-  color:black;
+  color: black;
   margin-right: 1rem;
   text-align: center;
 }
 
-.logout button{
-  background-color: #22216D;
+.logout button {
+  background-color: var(--dark-blue);
   border: none;
-  color: #ffffff;
+  color: white;
   padding: 0.3rem;
   margin-left: 3rem;
 }
 
 #menu {
-  background-color: #22216D;
+  background-color: var(--dark-blue);
   min-height: calc(100vh - 5.5em);
 }
 
@@ -60,30 +64,24 @@ body{
   padding-top: 0.8rem;  
   padding-bottom: 0.8rem;
   text-decoration: none;
-  color: #ffffff;
+  color: white;
   font-size: 1rem;
 }
 
-#menu ul{
+#menu ul {
   list-style-type: none;
   padding-left: 0;
 }
 
-#menu li{
+#menu li {
   padding-left: 2rem;
 }
 
 #menu li:hover {
-  background-color: #76abe0;
-}
-
-#menu li:nth-of-type(1){
-  margin-top: 1rem;
+  background-color: var(--light-blue);
 }
 
 @media only screen and (max-width: 1120px) {
-
-  /*meter as imagens no php*/
   #menu li {
     display: block;
     background-repeat: no-repeat;
@@ -97,8 +95,8 @@ body{
     background-size: 2.4rem;
   }
 
-  #menu li:nth-of-type(2){
-    background-image: url('../assets/newTicket.png');
+  #menu li:nth-of-type(2) {
+    background-image: url('../assets/new_ticket.png');
     background-size: 2.5rem;
   }
   
@@ -107,7 +105,7 @@ body{
     background-size: 3rem;
   }
   
-  #menu li:nth-of-type(4){
+  #menu li:nth-of-type(4) {
     background-image: url('../assets/faq.png');
     background-size: 2.5rem;
   }
@@ -117,9 +115,3 @@ body{
     background-size: 3rem;
   }
 }
-
-
-
-
-
-
