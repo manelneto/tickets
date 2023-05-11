@@ -10,11 +10,12 @@
     <head>
         <title>Tickets Management</title>
         <meta charset="utf-8">
-        <link rel="stylesheet" href="../css/sideBars.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../css/common.css">
         <link rel="stylesheet" href="../css/dashboard.css">
         <link rel="stylesheet" href="../css/faqs-management.css">
         <link rel="stylesheet" href="../css/login.css">
-        <link rel="stylesheet" href="../css/newTicket.css">
+        <link rel="stylesheet" href="../css/new_ticket.css">
         <link rel="stylesheet" href="../css/profile.css">
         <link rel="stylesheet" href="../css/register.css">
         <link rel="stylesheet" href="../css/ticket.css">
