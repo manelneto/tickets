@@ -2,7 +2,7 @@
     declare(strict_types = 1);
 ?>
 
-<?php function drawFAQsClient(array $faqs) { ?>
+<?php function drawFAQsClient(array $faqs) : void { ?>
     <main>
         <section id="faqs">
             <h2>FAQ</h2>

@@ -3,18 +3,21 @@
 ?>
 
 <?php function drawDashboard(int $opened, int $assigned, int $closed) : void { ?>
-    <main id="dashboard">
-        <section class="card">
-            <h2>Opened</h2>
-            <p>You have <?=$opened?> tickets opened!</p>
-        </section>
-        <section class="card">
-            <h2>Assigned</h2>
-            <p>You have <?=$assigned?> tickets assigned!</p>
-        </section>
-        <section class="card">
-            <h2>Closed</h2>
-            <p>You have <?=$closed?> tickets closed!</p>
+    <main>
+        <section id="dashboard">
+            <h2>Dashboard</h2>
+            <article class="card">
+                <h3>Opened</h3>
+                <p>You have <?=$opened?> tickets opened!</p>
+            </article>
+            <article class="card">
+                <h3>Assigned</h3>
+                <p>You have <?=$assigned?> tickets assigned!</p>
+            </article>
+            <article class="card">
+                <h3>Closed</h3>
+                <p>You have <?=$closed?> tickets closed!</p>
+            </article>
         </section>
     </main>
 <?php } ?>
