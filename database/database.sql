@@ -6,8 +6,7 @@ PRAGMA foreign_keys = ON;
 
 DROP TABLE IF EXISTS TicketTag;
 DROP TABLE IF EXISTS AgentDepartment;
-DROP TABLE IF EXISTS Answer;
-DROP TABLE IF EXISTS Question;
+DROP TABLE IF EXISTS Message;
 DROP TABLE IF EXISTS Change;
 DROP TABLE IF EXISTS Ticket;
 DROP TABLE IF EXISTS FAQ;
@@ -94,9 +93,8 @@ CREATE TABLE Ticket (
     idTicket INTEGER NOT NULL,
     idClient INTEGER NOT NULL,
     title TEXT NOT NULL,
-    content TEXT NOT NULL,
+    description TEXT NOT NULL,
     dateOpened DATE NOT NULL,
-    dateDue DATE NOT NULL,
     dateClosed DATE,
     idAgent INTEGER,
     idDepartment INTEGER,
@@ -109,8 +107,7 @@ CREATE TABLE Ticket (
     CONSTRAINT TicketDepartmentFK FOREIGN KEY (idDepartment) REFERENCES Department (idDepartment) ON UPDATE CASCADE ON DELETE CASCADE,
     CONSTRAINT TicketPriorityFK FOREIGN KEY (idPriority) REFERENCES Priority (idPriority) ON UPDATE CASCADE ON DELETE CASCADE,
     CONSTRAINT TicketStatusFK FOREIGN KEY (idStatus) REFERENCES Status (idStatus) ON UPDATE CASCADE ON DELETE CASCADE,
-    CONSTRAINT TicketFAQFK FOREIGN KEY (idFAQ) REFERENCES FAQ (idFAQ) ON UPDATE CASCADE
-    CONSTRAINT TicketCheckDateDue CHECK (dateDue >= dateOpened),
+    CONSTRAINT TicketFAQFK FOREIGN KEY (idFAQ) REFERENCES FAQ (idFAQ) ON UPDATE CASCADE,
     CONSTRAINT TicketCheckDateClosed CHECK (dateClosed IS NULL OR dateClosed >= dateOpened)
 );
 
@@ -123,23 +120,15 @@ CREATE TABLE Change (
     CONSTRAINT ChangeTicketFK FOREIGN KEY (idTicket) REFERENCES Ticket (idTicket) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
-CREATE TABLE Question (
-    idQuestion INTEGER NOT NULL,
+CREATE TABLE Message (
+    idMessage INTEGER NOT NULL,
     date DATE NOT NULL,
     content TEXT NOT NULL,
     idTicket INTEGER NOT NULL,
-    CONSTRAINT QuestionPK PRIMARY KEY (idQuestion), 
-    CONSTRAINT QuestionTicketFK FOREIGN KEY (idTicket) REFERENCES Ticket (idTicket) ON UPDATE CASCADE ON DELETE CASCADE
-);
-
-CREATE TABLE Answer (
-    idAnswer INTEGER NOT NULL,
-    date DATE NOT NULL,
-    content TEXT NOT NULL,
-    idQuestion INTEGER NOT NULL,
-    CONSTRAINT AnswerPK PRIMARY KEY (idAnswer),
-    CONSTRAINT AnswerIdQuestionCK UNIQUE (idQuestion),
-    CONSTRAINT AnswerQuestionFK FOREIGN KEY (idQuestion) REFERENCES Question (idQuestion) ON UPDATE CASCADE ON DELETE CASCADE
+    idUser INTEGER NOT NULL,
+    CONSTRAINT MessagePK PRIMARY KEY (idMessage),
+    CONSTRAINT MessageTicketFK FOREIGN KEY (idTicket) REFERENCES Ticket (idTicket) ON UPDATE CASCADE ON DELETE CASCADE,
+    CONSTRAINT MessageUserFK FOREIGN KEY (idUser) REFERENCES User (idUser) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE AgentDepartment (
@@ -225,14 +214,13 @@ INSERT INTO FAQ VALUES(2, 'Where can I see the current status of my ticket?', 'T
 INSERT INTO FAQ VALUES(3, 'Where can I submit a new ticket?', 'On the tickets section.');
 INSERT INTO FAQ VALUES(4, 'Where can I change my email address?', 'On your profile section.');
 
-INSERT INTO Ticket VALUES(1, 1, 'Received a broken TV', 'The television I ordered from your site was delivered with a cracked screen. I need some replacement.', '2023-04-07', '2023-04-14', NULL, NULL, NULL, NULL, 1, NULL);
-INSERT INTO Ticket VALUES(2, 2, 'Payment failed', 'The payment of my purchase failed. What can I do?', '2023-04-06', '2023-04-13', '2023-04-13', 5, 3, 3, 3, NULL);
-INSERT INTO Ticket VALUES(3, 3, 'Email address change', 'Where can I change my email address?', '2023-04-05', '2023-04-12', '2023-04-10', 6, 1, 1, 3, 4);
+INSERT INTO Ticket VALUES(1, 1, 'Received a broken TV', 'The television I ordered from your site was delivered with a cracked screen. I need some replacement.', '2023-04-07', NULL, NULL, NULL, NULL, 1, NULL);
+INSERT INTO Ticket VALUES(2, 2, 'Payment failed', 'The payment of my purchase failed. What can I do?', '2023-04-06', '2023-04-13', 5, 3, 3, 3, NULL);
+INSERT INTO Ticket VALUES(3, 3, 'Email address change', 'Where can I change my email address?', '2023-04-05', '2023-04-10', 6, 1, 1, 3, 4);
 
-INSERT INTO Question VALUES(1, '2023-04-17', 'What is the number of your order?', 1);
-INSERT INTO Question VALUES(2, '2023-04-10', 'What is the number of your purchase?', 2);
-
-INSERT INTO Answer VALUES(1, '2023-04-11', 'Purchase Number 123', 2);
+INSERT INTO Message VALUES(1, '2023-04-17', 'Forget it. I fixed the screen myself!', 1, 1);
+INSERT INTO Message VALUES(2, '2023-04-10', 'What is the number of your purchase?', 2, 5);
+INSERT INTO Message VALUES(3, '2023-04-11', 'Purchase Number 123', 2, 2);
 
 INSERT INTO AgentDepartment VALUES(5, 2);
 INSERT INTO AgentDepartment VALUES(5, 4);
