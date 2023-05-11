@@ -15,14 +15,12 @@
         <link rel="stylesheet" href="../css/common.css">
         <link rel="stylesheet" href="../css/dashboard.css">
         <link rel="stylesheet" href="../css/faqs-management.css">
-        <!--link rel="stylesheet" href="../css/login.css"-->
         <link rel="stylesheet" href="../css/new_ticket.css">
         <link rel="stylesheet" href="../css/profile.css">
-        <!--link rel="stylesheet" href="../css/register.css"-->
         <link rel="stylesheet" href="../css/ticket.css">
         <link rel="stylesheet" href="../css/tickets.css">   
     </head>
-    <body>
+    <body <?php if (!$session->isLoggedIn()) echo "id=\"authentication\""?>>
         <?php if ($session->isLoggedIn()) { ?>
         <header id="main-header">
             <h1><?=$title?></h1>

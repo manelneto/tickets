@@ -3,8 +3,8 @@ declare(strict_types = 1);
 ?>
 
 <?php function drawLogin() : void { ?>
-    <main id="authentication">
-        <section id="login">
+    <main>
+        <section id="login" class="authentication">
             <h2>Login</h2>
             <form action="../actions/action_login.php" method="post" class="login">
                 <label for="username">Username</label>
@@ -19,8 +19,8 @@ declare(strict_types = 1);
 <?php } ?>
 
 <?php function drawRegister() : void { ?>
-    <main id="authentication">
-        <section id="register">
+    <main>
+        <section id="register" class="authentication">
             <h2>Register</h2>
             <form action="../actions/action_register.php" method="post" class="register">
                 <label for="first">First Name</label>
@@ -32,7 +32,7 @@ declare(strict_types = 1);
                 <label for="email">Email</label>
                 <input id="email" type="email" name="email" placeholder="Email" required>
                 <label for="password">Password</label>
-                <input id="pass" type="password" name="password" placeholder="Password" required>
+                <input id="password" type="password" name="password" placeholder="Password" required>
                 <button type="submit">Register</button>
             </form>
             <p>Already have an account? <a href="../pages/login.php">Log in</a></p>
