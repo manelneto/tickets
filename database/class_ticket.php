@@ -12,9 +12,8 @@
         private int $id;
         private User $client;
         private string $title;
-        private string $content;
+        private string $description;
         private string $dateOpened;
-        private string $dateDue;
         private ?string $dateClosed;
         private ?User $agent;
         private ?Department $department;
@@ -22,13 +21,12 @@
         private ?Status $status;
         private ?FAQ $faq;
 
-        public function __construct(int $id, User $client, string $title, string $content, string $dateOpened, string $dateDue, ?string $dateClosed, ?User $agent, ?Department $department, ?Priority $priority, ?Status $status, ?FAQ $faq) {
+        public function __construct(int $id, User $client, string $title, string $description, string $dateOpened, ?string $dateClosed, ?User $agent, ?Department $department, ?Priority $priority, ?Status $status, ?FAQ $faq) {
             $this->id = $id;
             $this->client = $client;
             $this->title = $title;
-            $this->content = $content;
+            $this->description = $description;
             $this->dateOpened = $dateOpened;
-            $this->dateDue = $dateDue;
             $this->dateClosed = $dateClosed;
             $this->agent = $agent;
             $this->department = $department;
@@ -49,16 +47,12 @@
             return $this->title;
         }
 
-        public function getContent() : string {
-            return $this->content;
+        public function getDescription() : string {
+            return $this->description;
         }
 
         public function getDateOpened() : string {
             return $this->dateOpened;
-        }
-
-        public function getDateDue() : string {
-            return $this->dateDue;
         }
 
         public function getDateClosed() : ?string {
@@ -93,16 +87,12 @@
             $this->title = $title;
         }
 
-        public function setContent(string $content) {
-            $this->content = $content;
+        public function setDescription(string $description) {
+            $this->description = $description;
         }
 
         public function setDateOpened(string $dateOpened) {
             $this->dateOpened = $dateOpened;
-        }
-
-        public function setDateDue(string $dateDue) {
-            $this->dateDue = $dateDue;
         }
 
         public function setDateClosed(string $dateClosed) {
@@ -131,7 +121,7 @@
 
         public static function getTicket(PDO $db, int $id) : ?Ticket {
             $stmt = $db->prepare('
-                SELECT idTicket, idClient, title, content, dateOpened, dateDue, dateClosed, idAgent, idDepartment, idPriority, idStatus, idFAQ
+                SELECT idTicket, idClient, title, description, dateOpened, dateClosed, idAgent, idDepartment, idPriority, idStatus, idFAQ
                 FROM Ticket
                 WHERE idTicket = ?
             ');
@@ -145,9 +135,8 @@
                 (int) $ticket['idTicket'],
                 User::getUser($db, (int) $ticket['idClient']),
                 $ticket['title'],
-                $ticket['content'],
+                $ticket['description'],
                 $ticket['dateOpened'],
-                $ticket['dateDue'],
                 $ticket['dateClosed'],
                 User::getUser($db, (int) $ticket['idAgent']),
                 Department::getDepartment($db, (int) $ticket['idDepartment']),
@@ -159,7 +148,7 @@
 
         public static function getTickets(PDO $db, int $id, string $after, string $before, int $department, int $priority, int $status) : array {
             $stmt = $db->prepare("
-                SELECT idTicket, idClient, title, content, dateOpened, dateDue, dateClosed, idAgent, idDepartment, idPriority, idStatus, idFAQ
+                SELECT idTicket, idClient, title, description, dateOpened, dateClosed, idAgent, idDepartment, idPriority, idStatus, idFAQ
                 FROM Ticket
                 WHERE (idClient = ? OR idAgent = ?) 
                 AND (? = '' OR dateOpened > ?) 
@@ -179,9 +168,8 @@
                     (int) $row['idTicket'],
                     User::getUser($db, (int) $row['idClient']),
                     $row['title'],
-                    $row['content'],
+                    $row['description'],
                     $row['dateOpened'],
-                    $row['dateDue'],
                     $row['dateClosed'],
                     User::getUser($db, (int) $row['idAgent']),
                     Department::getDepartment($db, (int) $row['idDepartment']),
@@ -206,24 +194,24 @@
             return count($result);
         }
 
-        public static function addTicket(PDO $db, int $idClient, string $title, string $content, string $dateOpened, string $dateDue, int $departmentId, array $tags) : bool {
+        public static function addTicket(PDO $db, int $idClient, string $title, string $description, string $dateOpened, int $departmentId, array $tags) : bool {
             if ($departmentId !== 0) {
                 $stmt = $db->prepare('
-                    INSERT INTO Ticket (idClient, title, content, dateOpened, dateDue, idDepartment)
+                    INSERT INTO Ticket (idClient, title, description, dateOpened, idDepartment)
                     VALUES (?, ?, ?, ?, ?, ?)
                 ');
                 try {
-                    $stmt->execute(array($idClient, $title, $content, $dateOpened, $dateDue, $departmentId));
+                    $stmt->execute(array($idClient, $title, $description, $dateOpened, $departmentId));
                 } catch (PDOException $e) {
                     return false;
                 }
             } else {
                 $stmt = $db->prepare('
-                    INSERT INTO Ticket (idClient, title, content, dateOpened, dateDue)
+                    INSERT INTO Ticket (idClient, title, description, dateOpened)
                     VALUES (?, ?, ?, ?, ?)
                 ');
                 try {
-                    $stmt->execute(array($idClient, $title, $content, $dateOpened, $dateDue));
+                    $stmt->execute(array($idClient, $title, $description, $dateOpened));
                 } catch (PDOException $e) {
                     return false;
                 }
@@ -252,21 +240,21 @@
             return true;
         }
 
-        public function edit(PDO $db, string $title, string $content) : bool {
+        public function edit(PDO $db, string $title, string $description) : bool {
             $stmt = $db->prepare('
                 UPDATE Ticket
-                SET title = ?, content = ?
+                SET title = ?, description = ?
                 WHERE idTicket = ?
             ');
 
             try {
-                $stmt->execute(array($title, $content, $this->id));
+                $stmt->execute(array($title, $description, $this->id));
             } catch (PDOException $e) {
                 return false;
             }
             
             $this->title = $title;
-            $this->content = $content;
+            $this->description = $description;
             return true;
         }
 
