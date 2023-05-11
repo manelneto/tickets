@@ -4,7 +4,7 @@
     require_once(__DIR__ . '/../utils/session.php');
 ?>
 
-<?php function drawHeader(Session $session, string $title) { ?>
+<?php function drawHeader(Session $session, string $title) : void { ?>
 <!DOCTYPE html>
 <html lang="en-US">
     <head>
@@ -23,7 +23,7 @@
     </head>
     <body>
         <?php if ($session->isLoggedIn()) { ?>
-        <header class="mainHeader">
+        <header id="main-header">
             <h1><?=$title?></h1>
             <form action="../actions/action_logout.php" method="post" class="logout">
                 <a href="../pages/profile.php"><?php
@@ -47,13 +47,13 @@
             </ul>
         </nav>
         <?php } else { ?>
-        <header class="authenticationHeader">
+        <header id="authentication-header">
             <h1><?=$title?></h1>
         </header>
         <?php } ?>
 <?php } ?>
 
-<?php function drawFooter() { ?>
+<?php function drawFooter() : void { ?>
     </body>
 </html>
 <?php } ?>
