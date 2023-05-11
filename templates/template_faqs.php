@@ -20,7 +20,7 @@
         <form action="../actions/action_add_faq.php" method="post" class="add-faqs">
             <details class="faq">
                 <summary class="question">Add a new FAQ</summary>
-                <label for="question">Question</label>
+                <label class="add-faqs-question" for="question">Question</label>
                 <input type="text" name="question" placeholder="question">
                 <label for="answer">Answer</label>
                 <textarea name="answer" placeholder="answer" class="answer"></textarea>
