@@ -1,7 +1,5 @@
 <?php
     declare(strict_types = 1);
-
-    require_once(__DIR__ . '/../database/class_user.php');
 ?>
 
 <?php function drawProfile(User $user) : void { ?>

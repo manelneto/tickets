@@ -1,8 +1,5 @@
 <?php
     declare(strict_types = 1);
-
-    require_once(__DIR__ . '/../database/class_user.php');
-    require_once(__DIR__ . '/../database/class_department.php');
 ?>
 
 <?php function drawManagement(array $clients, array $departments, array $agents) : void { ?>

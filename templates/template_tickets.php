@@ -1,7 +1,5 @@
 <?php
     declare(strict_types = 1);
-
-    require_once(__DIR__ . '/../utils/session.php');
 ?>
 
 <?php function drawTickets(Session $session, ?array $tickets, int $limit, int $offset, string $after, string $before, ?Status $status, ?Priority $priority, ?Department $department, array $statuses, array $priorities, array $departments) { ?>

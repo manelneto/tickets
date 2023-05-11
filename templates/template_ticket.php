@@ -1,20 +1,16 @@
 <?php
     declare(strict_types = 1);
-
-    require_once(__DIR__ . '/../utils/session.php');
 ?>
 
 <?php function drawTicket(Session $session, Ticket $ticket, array $statuses, array $priorities, array $departments, array $agents, array $tags) { ?>
     <main class="ticket-page">
         <article id="ticket">
-            <?php $paragraphs = explode('\n', $ticket->getContent()); ?>
+            <?php $paragraphs = explode('\n', $ticket->getDescription()); ?>
             <?php if ($session->getId() === $ticket->getClient()->getId()) { ?>
                 <form action="../actions/action_edit_ticket.php" method="post" class="edit-ticket">
-                    <header id="header-ticket">
-                        <img src="../assets/ticket.jpg" alt="ticketTileIcon">
-                        <h2 class="title">
-                            <input type="text" name="title" value="<?=$ticket->getTitle()?>">
-                        </h2>
+                    <header id="ticket-header">
+                        <img src="../assets/ticket.jpg" alt="Ticket">
+                        <h2 class="title"><input type="text" name="title" required value="<?=$ticket->getTitle()?>"></h2>
                     </header>
                     <div id="author-edit">
                         <div id="author-information">
@@ -35,7 +31,7 @@
                 <?php }
             } ?>
         </article>
-        <aside class="ticket-information">
+        <aside class="information">
             <section id="date-opened">
                 <h3>Opened</h3>
                 <p><?=$ticket->getDateOpened()?></p>
