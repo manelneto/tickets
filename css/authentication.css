@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
 
 #login {
+    all: revert;
     background: var(--dark-blue);
     background: linear-gradient(0deg, var(--dark-blue) 52%, var(--blue) 100%);
     display: block;

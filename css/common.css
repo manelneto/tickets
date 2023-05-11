@@ -4,7 +4,7 @@
   --light-gray: #edf1f4;
 }
 
-body {
+main:not(#authentication) {
   display: grid;
   grid-template-columns: [start] 13% [mid] auto [end];
   grid-template-rows: [start] 5.5rem [mid] auto [end];
