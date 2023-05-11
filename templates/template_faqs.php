@@ -16,17 +16,17 @@
     </main>
 <?php } ?>
 
-<?php function drawFAQsAgent(array $faqs) { ?>
+<?php function drawFAQsAgent(array $faqs) : void { ?>
 <main>
     <section id="faqs">
         <h2>FAQ</h2>
-        <form action="../actions/action_add_faq.php" method="post" class="add-faqs">
+        <form action="../actions/action_add_faq.php" method="post" class="add-faq">
             <details class="faq">
                 <summary class="question">Add a new FAQ</summary>
-                <label class="add-faqs-question" for="question">Question</label>
-                <input type="text" name="question" placeholder="question">
-                <label for="answer">Answer</label>
-                <textarea name="answer" placeholder="answer" class="answer"></textarea>
+                <label id="add-question" for="question">Question</label>
+                <input id="question" type="text" name="question" placeholder="question" required>
+                <label id="add-answer" for="answer">Answer</label>
+                <textarea id="answer" class="answer" name="answer" placeholder="answer" required></textarea>
                 <button type="submit">Add</button>
             </details>
         </form>
