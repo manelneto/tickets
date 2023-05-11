@@ -1,0 +1,155 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+
+#login {
+    background: var(--dark-blue);
+    background: linear-gradient(0deg, var(--dark-blue) 50%, var(--light-blue) 100%);
+    display: block;
+    padding: 2.3rem;
+    border-radius: 0.3rem;
+    box-shadow: 0 0 0.6rem rgba(0, 0, 0, 0.2);
+    height: 60vh;
+    width: 40%;
+    margin-top: 2.5rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#login h2 {
+    font-size: xx-large;
+    font-family: "Roboto";
+    color: white;
+    text-align: center;
+}
+
+#login form {
+    font-family: "Roboto";
+    display: flex;
+    flex-direction: column;
+    /*align-items: center;*/
+}
+
+#login label {
+    font-family: "Roboto";
+    color: white;
+    margin-left: 1.7rem;
+    margin-top: 0.4rem;
+}
+
+#login input {
+    align-self: center;
+    font-family: "Roboto";
+    padding: 0.3rem;
+    margin-top: 0.3rem;
+    margin-bottom: 0.6rem;
+    border-radius: 0.3rem;
+    border: 1px solid #ccc;
+    width: 87%;
+}
+
+#login button { /*Log In*/
+    align-self: center;
+    padding: 0.4rem;
+    background-color: #008CBA;
+    color: white;
+    border: none;
+    border-radius: 0.3rem;
+    cursor: pointer;
+    width: 36%;
+    margin-top: 3.5rem;
+    margin-bottom: 0.6rem;
+}
+
+#login p{
+    font-family: "Roboto";
+    color: white;
+    text-align: center;
+}
+
+#login a {  /*Sign up */
+    font-family: "Roboto";
+    color: lightskyblue;
+    text-decoration: none;
+}
+
+#authentication-header{
+    color: darkblue;
+    text-align: center;
+    padding: 5px;
+    margin: 0 auto;
+    font-family: "Roboto";
+    text-shadow: #008CBA;
+}
+
+#register {
+    background: rgb(34,33,109);
+    background: linear-gradient(0deg, rgba(34,33,109,1) 52%, rgba(28,159,186,1) 100%);
+    display: block;
+    padding: 2.3rem;
+    border-radius: 0.3rem;
+    box-shadow: 0px 0px 0.6rem rgba(0, 0, 0, 0.2);
+    display: block;
+    height: 85vh;
+    width: 40%;
+    margin-top: 2.5rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#register h2{
+    font-size:xx-large;
+    font-family: "Roboto";
+    color: white;
+    text-align: center;
+}
+
+#register form {
+    font-family: "Roboto";
+    display: flex;
+    flex-direction: column;
+}
+
+#register label {
+    font-family: "Roboto";
+    color: white;
+    margin-left: 1.7rem;
+    margin-top: 0.4rem;
+}
+
+#register input {
+    align-self: center;
+    font-family: "Roboto";
+    padding: 0.3rem;
+    margin-top: 0.3rem;
+    margin-bottom: 0.6rem;
+    border-radius: 0.3rem;
+    border: 1px solid #ccc;
+    width: 87%;
+}
+
+#register button {
+    align-self: center;
+    padding: 0.4rem;
+    background-color: #008CBA;
+    color: white;
+    border: none;
+    border-radius: 0.3rem;
+    cursor: pointer;
+    width: 36%;
+    margin-top: 3.5rem;
+    margin-bottom: 0.6rem;
+}
+
+#register p{
+    font-family: "Roboto";
+    color: white;
+    text-align: center;
+}
+
+#register a {
+    color: #008CBA;
+    text-decoration: none;
+}
+
+#register a:hover {
+    text-decoration: underline;
+}
