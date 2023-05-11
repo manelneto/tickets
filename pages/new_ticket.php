@@ -20,6 +20,6 @@
     require_once(__DIR__ . '/../templates/template_new_ticket.php');
 
     drawHeader($session, 'New Ticket');
-    drawNewTicket($session, $departments, $tags);
+    drawNewTicket($departments, $tags);
     drawFooter();
 ?>
