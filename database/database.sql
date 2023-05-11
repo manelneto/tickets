@@ -207,7 +207,6 @@ INSERT INTO Tag VALUES(4, 'other');
 INSERT INTO Status VALUES(1, 'Open');
 INSERT INTO Status VALUES(2, 'Assigned');
 INSERT INTO Status VALUES(3, 'Closed');
-INSERT INTO Status VALUES(4, 'Overdue');
 
 INSERT INTO FAQ VALUES(1, 'How long do I have to wait for an answer?', 'It depends on the question. On average, one week.');
 INSERT INTO FAQ VALUES(2, 'Where can I see the current status of my ticket?', 'The client can check the ticket status in the Dashboard.');
