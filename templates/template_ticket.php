@@ -5,20 +5,20 @@
 ?>
 
 <?php function drawTicket(Session $session, Ticket $ticket, array $statuses, array $priorities, array $departments, array $agents, array $tags) { ?>
-    <main class="ticketPage">
+    <main class="ticket-page">
         <article id="ticket">
             <?php $paragraphs = explode('\n', $ticket->getContent()); ?>
             <?php if ($session->getId() === $ticket->getClient()->getId()) { ?>
                 <form action="../actions/action_edit_ticket.php" method="post" class="edit-ticket">
                     <header id="header-ticket">
-                        <img src="../assets/titleTicketIcon.jpg" alt="ticketTileIcon">
+                        <img src="../assets/ticket.jpg" alt="ticketTileIcon">
                         <h2 class="title">
                             <input type="text" name="title" value="<?=$ticket->getTitle()?>">
                         </h2>
                     </header>
                     <div id="author-edit">
                         <div id="author-information">
-                            <img src="../assets/perfilIcon.png" alt="Perfil Icon">
+                            <img src="../assets/profile.png" alt="Perfil Icon">
                             <h3><?=$ticket->getClient()->getName()?></h3>
                         </div>
                         <button type="submit" id="edit-ticket-button">Edit</button>

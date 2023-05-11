@@ -101,7 +101,7 @@ body:not(#authentication) {
   }
   
   #menu li:nth-of-type(3) {
-    background-image: url('../assets/ticket.png');
+    background-image: url('tickets.png');
     background-size: 3rem;
   }
   

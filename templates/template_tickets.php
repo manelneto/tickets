@@ -12,7 +12,7 @@
                 <article class="ticket">
                     <a href="../pages/ticket.php?id=<?=$ticket->getId()?>">
                         <header class="author">
-                            <img src="../assets/perfilIcon.png" alt="Perfil Icon">
+                            <img src="../assets/profile.png" alt="Perfil Icon">
                             <h3><?=$ticket->getClient()->getName()?></h3>
                         </header>
                         <h4><?=$ticket->getTitle()?></h4>
