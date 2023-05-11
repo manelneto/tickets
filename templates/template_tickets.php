@@ -5,7 +5,7 @@
 ?>
 
 <?php function drawTickets(Session $session, ?array $tickets, int $limit, int $offset, string $after, string $before, ?Status $status, ?Priority $priority, ?Department $department, array $statuses, array $priorities, array $departments) { ?>
-    <div class ="ticketsPage">
+    <main class="ticketsPage">
         <section class="tickets">
             <h2>My Tickets</h2>
             <?php for ($i = 0; $i < $limit && $i + $offset < count($tickets); $i++) { $ticket = $tickets[$i + $offset]; ?>
@@ -18,26 +18,9 @@
                         <h4><?=$ticket->getTitle()?></h4>
                         <p class="status"><?=$ticket->getStatus()->getName()?></p>
                         <p class="date-opened"><?=$ticket->getDateOpened()?></p>
-                        <?php 
-                        $priority = $ticket->getPriority();
-                        $priorityName = $priority ? $priority->getName() : null;
-                        $class = '';
-                        if ($priorityName === 'Critical') {
-                            $class = 'priority-critical';
-                        } 
-                        elseif ($priorityName === 'High') {
-                            $class = 'priority-high';
-                        } 
-                        elseif ($priorityName === 'Medium') {
-                            $class = 'priority-medium';
-                        } 
-                        elseif ($priorityName === 'Low') {
-                            $class = 'priority-low';
-                        }
-                        ?>
-                        <p class="priority <?php echo $class; ?>">
-                        <?php echo $priorityName; ?>
-                        </p>
+                        <?php if ($ticket->getPriority()) { ?>
+                        <p class="priority <?=$ticket->getPriority()->getName()?>"><?=$ticket->getPriority()->getName()?></p>
+                        <?php } ?>
                     </a>
                 </article>
             <?php } ?>
@@ -126,6 +109,6 @@
             </select>
             <button type="submit">Filter</button>
         </form>
-    </div>
+    </main>
     <?php } ?>
 <?php } ?>

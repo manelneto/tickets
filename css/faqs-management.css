@@ -1,14 +1,17 @@
-#faqs, #management {
+#faqs, 
+#management {
     margin-left: 3rem; 
     margin-top:2rem;
     margin-right: 3rem;
 }
 
-#faqs h2, #management h2 {
+#faqs h2, 
+#management h2 {
     display: none;
 }
 
-.faq, .management {
+.faq, 
+.management {
     margin-bottom: 1rem;
     border: 1px solid #ccc; 
     border-radius: 0.3rem;
@@ -24,7 +27,9 @@
     padding-left: 0.8rem;
 }
 
-.faq[open] .question, .management[open] .question, .faq[open] .question input {
+.faq[open] .question, 
+.management[open] .question, 
+.faq[open] .question input {
     background-color: rgb(144, 204, 239);
 }
 
@@ -48,7 +53,9 @@
     background-color: rgb(144, 204, 239);
 }
 
-.updateRole, .entityName, .assignAgent {
+.updateRole, 
+.entityName, 
+.assignAgent {
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
     display:block;
@@ -65,17 +72,20 @@
     margin: 1rem;
 }
 
-.faq-buttons, .add-faqs button {
+.faq-buttons, 
+.add-faqs button {
     display: block;
 }
 
-.faq-buttons button, .add-faqs button {
+.faq-buttons button, 
+.add-faqs button {
     border: none;
     background-color: #22216D;
     color: #ffffff
 }
 
-.faq-buttons button:hover, .add-faqs button:hover {
+.faq-buttons button:hover, 
+.add-faqs button:hover {
     background-color: rgb(144, 204, 239);
 }
 
@@ -83,7 +93,27 @@
     margin: 1rem;
 }
 
-.faq-questions-agent .answer, .add-faqs .answer {
+.faq-buttons,
+.add-faqs button {
+    margin-bottom: 0.5rem;
+    margin-left: 0.5rem;
+} 
+
+.answer,
+.add-faqs label{
+    margin-left: 0.5rem;
+}
+
+.answer{
+    margin-top: 0.5rem;
+}
+
+.faq .add-faqs-question + input{
+    margin-top: 0.5rem;
+}
+
+.faq-questions-agent .answer, 
+.add-faqs .answer {
     width: 20rem;
     margin-bottom: 0.5rem;
     display: block;
@@ -93,3 +123,4 @@
     display:block;
     margin-top: 0.5rem;
 }
+

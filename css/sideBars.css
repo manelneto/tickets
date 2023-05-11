@@ -1,10 +1,10 @@
-/*body{
+body{
   display: grid;
   grid-template-columns: [start] 13% [mid1] auto [end];
   grid-template-rows: [start] 5.5rem [mid1] auto [end];
   margin: 0;
   font-family: Arial, sans-serif;
-}*/
+}
 
 .mainHeader{
   grid-column: start/end;
@@ -96,19 +96,19 @@
     background-image: url('../assets/dashboard.png');
     background-size: 2.4rem;
   }
+
+  #menu li:nth-of-type(2){
+    background-image: url('../assets/newTicket.png');
+    background-size: 2.5rem;
+  }
   
-  #menu li:nth-of-type(2) {
+  #menu li:nth-of-type(3) {
     background-image: url('../assets/ticket.png');
     background-size: 3rem;
   }
   
-  #menu li:nth-of-type(3){
-    background-image: url('../assets/faq.png');
-    background-size: 2.5rem;
-  }
-
   #menu li:nth-of-type(4){
-    background-image: url('../assets/newTicket.png');
+    background-image: url('../assets/faq.png');
     background-size: 2.5rem;
   }
   

@@ -1,18 +1,22 @@
-#profile h2, #password h2{
+#profile h2, 
+#password h2{
     display:none;
 }
 
-.profileTitle, .profilePassword{
+.profileTitle, 
+.profilePassword{
     text-decoration: none;
 }
 
-#profile .profileTitle, #password .profilePassword{
+#profile .profileTitle, 
+#password .profilePassword{
     background-color: #22216D;
     padding: 1rem;
     color: #ffffff;
 }
 
-#profile .profilePassword, #password .profileTitle{
+#profile .profilePassword, 
+#password .profileTitle{
     background-color: #edf1f4;
     padding: 1rem;
     color: #000000;
