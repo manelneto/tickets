@@ -1,30 +1,30 @@
-.ticketPage {
+#ticket-page {
     display: grid;
-    grid-template-columns: [ticketStart] auto [ticketMid1] 17% [ticketEnd];
-    grid-template-rows: [ticketStart] auto [ticketEnd];   
-    height:100%;
+    grid-template-columns: [ticket-start] auto [ticket-mid] 17% [ticket-end];
+    grid-template-rows: [ticket-start] auto [ticket-end];
+    height: 100%;
 }
 
-.ticket{
-    grid-column: ticketStart/ticketMid1;
-    grid-row: ticketStart/ticketEnd;
+#ticket {
+    grid-column: ticket-start/ticket-mid;
+    grid-row: ticket-start/ticket-end;
 }
 
-.ticket-information{
-    grid-column: ticketMid1/ticketEnd;
-    grid-row: ticketStart/ticketEnd;
-    background-color: #f5f7f9; 
+#information {
+    grid-column: ticket-mid/ticket-end;
+    grid-row: ticket-start/ticket-end;
+    background-color: var(--light-gray);
 }
 
-.properties{
+.properties {
     display: flex;
     flex-direction: column;
-    margin-left:1rem;
+    margin-left: 1rem;
 }
 
-.properties label{
+.properties label {
     margin-top: 0.5rem;
-    display:block;
+    display: block;
 }
 
 #date-opened {
@@ -32,119 +32,111 @@
     flex-direction: row;
 }
 
-#date-opened h3{
+#date-opened h3 {
     margin-left: 1rem;
 }
 
-#date-opened p{
+#date-opened p {
     margin-left: 0.5rem;
     margin-top: 1.3rem;
 }
 
-.changes{
-    grid-column: ticketMid1/ticketEnd;
-    grid-row: ticketMid2/ticketEnd;
-    background-color: #f5f7f9; 
+#changes {
+    grid-column: ticket-mid/ticket-end;
+    grid-row: ticket-mid/ticket-end;
+    background-color: var(--light-gray);
     margin-left: 1rem;
 }
 
-.properties summary, .changes summary{
+.properties summary, #changes summary {
     font-weight: bold;
     margin-bottom: 1rem;
 }
 
-.properties label{
+.properties label {
     margin-bottom: 0.2rem;
 }
 
-.properties select{
+.properties select {
     margin-bottom: 0.5rem;
     width: 10rem;
     padding: 0.2rem;
-    display:block;
+    display: block;
     margin-right: 0.5rem;
 }
 
-.properties button{
+.properties button {
     margin-top: 0.3rem;
     border: none;
-    background-color: #22216D;
-    color: #ffffff;
+    background-color: var(--dark-blue);
+    color: white;
     padding: 0.2rem;
     width: 5rem;
     margin-bottom: 1.5rem;
 }
 
-.edit-ticket #edit-ticket-button{
+.edit-ticket button {
     border: none;
-    background-color: #22216D;
-    color: #ffffff;
+    background-color: var(--dark-blue);
+    color: white;
     padding: 0.2rem;
     width: 3rem;
 }
 
-.edit-ticket h2 input{
+.edit-ticket h2 input {
     width: 35rem;
     border: none;
     font-size: 1.3rem;
     font-weight: bold;
 }
 
-#header-ticket{
+#ticket-header {
     display: flex;
     flex-direction: row;
 }
 
-#header-ticket img{
+#ticket-header img {
     width: 4.5rem;
-    height:4.5rem;
+    height: 4.5rem;
     margin-left: 1rem;
     margin-top: 1rem;
 }
 
-#header-ticket h2{
+#ticket-header  h2 {
     margin-top: 2.3rem;
 }
 
-.edit-ticket img{
+.edit-ticket img {
     width: 3rem;
-    height:3rem;
+    height: 3rem;
     margin-left: 2rem;
 }
 
-#author-edit{
+#author-edit {
     display: flex;
     flex-direction: row;
     margin-bottom: 1rem;
     justify-content: space-between;
 }
 
-.edit-ticket .content{
+.edit-ticket #description {
     border:none;
     width: 30rem;
     height: 4rem;  
     margin-left: 2.2rem;
 }
 
-#author-information{
+#author-information {
     display: flex;
     flex-direction: row;
 }
 
-#author-information h3{
+#author-information h3 {
     margin-left: 1rem;
     margin-top: 1rem;
 }
 
-#author-edit button{
+#author-edit button {
     margin-right: 1rem;
     height:2rem;
 }
-
-    
-
-
-
-
-
-
