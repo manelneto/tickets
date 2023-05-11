@@ -35,9 +35,9 @@
             <input type="hidden" name="id" value="<?=$faq->getId()?>">
             <details class="faq">
                 <summary class="question">
-                    <input type="text" name="question" value="<?=$faq->getQuestion()?>">
+                    <input type="text" name="question" value="<?=$faq->getQuestion()?>" required>
                 </summary>
-                <textarea class="answer" name="answer"><?=$faq->getAnswer()?></textarea>
+                <textarea class="answer" name="answer" required><?=$faq->getAnswer()?></textarea>
                 <div class="faq-buttons">
                     <button formaction="../actions/action_edit_faq.php">Edit</button>
                     <button formaction="../actions/action_delete_faq.php">Delete</button>
