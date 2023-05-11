@@ -93,6 +93,25 @@
     margin: 1rem;
 }
 
+.faq-buttons,
+.add-faqs button {
+    margin-bottom: 0.5rem;
+    margin-left: 0.5rem;
+} 
+
+.answer,
+.add-faqs label{
+    margin-left: 0.5rem;
+}
+
+.answer{
+    margin-top: 0.5rem;
+}
+
+.faq .add-faqs-question + input{
+    margin-top: 0.5rem;
+}
+
 .faq-questions-agent .answer, 
 .add-faqs .answer {
     width: 20rem;
@@ -104,3 +123,4 @@
     display:block;
     margin-top: 0.5rem;
 }
+
