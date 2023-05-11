@@ -5,7 +5,7 @@
 ?>
 
 <?php function drawTicket(Session $session, Ticket $ticket, array $statuses, array $priorities, array $departments, array $agents) { ?>
-    <div class="ticketPage">
+    <main class="ticketPage">
         <article id="ticket">
             <?php $paragraphs = explode('\n', $ticket->getContent()); ?>
             <?php if ($session->getId() === $ticket->getClient()->getId()) { ?>
@@ -110,5 +110,5 @@
                 <p>Changes not implemented yet</p>
             </section>
         </aside>
-    </div>
+    </main>
 <?php } ?>

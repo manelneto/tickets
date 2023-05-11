@@ -3,25 +3,29 @@
 ?>
 
 <?php function drawRegister() { ?>
-    <h1><a href="../pages/index.php">Tickets Management</a></h1>
     <section id="register">
         <h2>Register</h2>
         <form action="../actions/action_register.php" method="post" class="register">
-            <label>
-                First Name<input type="text" name="firstName" placeholder="first">
+            <label for="firstname">
+                First Name
             </label>
-            <label>
-                Last Name<input type="text" name="lastName" placeholder="last">
+            <input id="firstname" type="text" name="firstName" placeholder="first">
+            <label for="lastname">
+                Last Name
             </label>
-            <label>
-                Username<input type="text" name="username" placeholder="username">
+            <input id="lastname" type="text" name="lastName" placeholder="last">
+            <label for="username">
+                Username
             </label>
-            <label>
-                Email<input type="email" name="email" placeholder="email">
+            <input id="username" type="text" name="username" placeholder="username"> 
+            <label for="email">
+                Email
             </label>
-            <label>
-                Password<input type="password" name="password" placeholder="password">
+            <input id="email" type="email" name="email" placeholder="email">
+            <label for="pass">
+                Password
             </label>
+            <input id="pass" type="password" name="password" placeholder="password">
             <button type="submit">Register</button>
         </form>
         <p>Already have an account? <a href="../pages/login.php">Log in</a></p>

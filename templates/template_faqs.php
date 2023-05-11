@@ -3,18 +3,21 @@
 ?>
 
 <?php function drawFAQsClient(array $faqs) { ?>
-    <section id="faqs">
-        <h2>FAQ</h2>
-        <?php foreach($faqs as $faq) { ?>
-        <details class="faq">
-            <summary class="question"><?=$faq->getQuestion()?></summary>
-            <p class="answer"><?=$faq->getAnswer()?></p>
-        </details>
-        <?php } ?>
-    </section>
+    <main>
+        <section id="faqs">
+            <h2>FAQ</h2>
+            <?php foreach($faqs as $faq) { ?>
+            <details class="faq">
+                <summary class="question"><?=$faq->getQuestion()?></summary>
+                <p class="answer"><?=$faq->getAnswer()?></p>
+            </details>
+            <?php } ?>
+        </section>
+    </main>
 <?php } ?>
 
 <?php function drawFAQsAgent(array $faqs) { ?>
+<main>
     <section id="faqs">
         <h2>FAQ</h2>
         <form action="../actions/action_add_faq.php" method="post" class="add-faqs">
@@ -43,4 +46,5 @@
         </form>
         <?php } ?>
     </section>
+</main>
 <?php } ?>

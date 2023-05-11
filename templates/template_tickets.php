@@ -5,7 +5,7 @@
 ?>
 
 <?php function drawTickets(Session $session, ?array $tickets, int $limit, int $offset, string $after, string $before, ?Status $status, ?Priority $priority, ?Department $department, array $statuses, array $priorities, array $departments) { ?>
-    <div class ="ticketsPage">
+    <main class="ticketsPage">
         <section class="tickets">
             <h2>My Tickets</h2>
             <?php for ($i = 0; $i < $limit && $i + $offset < count($tickets); $i++) { $ticket = $tickets[$i + $offset]; ?>
@@ -109,6 +109,6 @@
             </select>
             <button type="submit">Filter</button>
         </form>
-    </div>
+    </main>
     <?php } ?>
 <?php } ?>

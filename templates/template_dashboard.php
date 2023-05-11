@@ -3,7 +3,7 @@
 ?>
 
 <?php function drawDashboard(int $opened, int $assigned, int $closed, int $overdue) { ?>
-    <div class = "dashboard-tickets"> <!--adicionei sem autorização do manel mas e essencial para o css-->
+    <main class="dashboard-tickets">
         <section class="opened">
             <h2> Opened </h2>
             <p>You have <?=$opened?> tickets opened!</p>
@@ -20,5 +20,5 @@
             <h2>Overdue</h2>
             <p>You have <?=$overdue?> tickets overdue!</p>
         </section>
-    </div>
+    </main>
 <?php } ?>
