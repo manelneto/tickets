@@ -3,12 +3,12 @@
 ?>
 
 <?php function drawTicket(Session $session, Ticket $ticket, array $statuses, array $priorities, array $departments, array $agents, array $tags) { ?>
-    <main class="ticket-page">
-        <article id="ticket">
+    <main class="ticketPage">
+        <article class="ticket">
             <?php $paragraphs = explode('\n', $ticket->getDescription()); ?>
             <?php if ($session->getId() === $ticket->getClient()->getId()) { ?>
                 <form action="../actions/action_edit_ticket.php" method="post" class="edit-ticket">
-                    <header id="ticket-header">
+                    <header id="header-ticket">
                         <img src="../assets/ticket.jpg" alt="Ticket">
                         <h2 class="title"><input type="text" name="title" required value="<?=$ticket->getTitle()?>"></h2>
                     </header>
@@ -31,7 +31,7 @@
                 <?php }
             } ?>
         </article>
-        <aside class="information">
+        <aside class="ticket-information">
             <section id="date-opened">
                 <h3>Opened</h3>
                 <p><?=$ticket->getDateOpened()?></p>
