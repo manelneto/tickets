@@ -27,16 +27,16 @@
     display: block;
 }
 
-#date-opened {
+.date {
     display: flex;
     flex-direction: row;
 }
 
-#date-opened h3 {
+.date h3 {
     margin-left: 1rem;
 }
 
-#date-opened p {
+.date p {
     margin-left: 0.5rem;
     margin-top: 1.3rem;
 }

@@ -37,10 +37,16 @@
             } ?>
         </article>
         <aside id="information">
-            <section id="date-opened">
+            <section id="date-opened" class="date">
                 <h3>Opened</h3>
                 <p><?=$ticket->getDateOpened()?></p>
             </section>
+            <?php if ($ticket->getStatus()->getName() === 'Closed') { ?>
+            <section id="date-closed" class="date">
+                <h3>Closed</h3>
+                <p><?=$ticket->getDateClosed()?></p>
+            </section>
+            <?php } ?>
             <form action="../actions/action_edit_ticket_properties.php" method="post" class="properties">
                 <details>
                     <summary>Properties</summary>
