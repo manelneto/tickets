@@ -23,10 +23,10 @@
         <section id="register" class="authentication">
             <h2>Register</h2>
             <form action="../actions/action_register.php" method="post" class="register">
-                <label for="firstname">First Name</label>
-                <input id="firstname" type="text" name="firstname" placeholder="First Name" required>
-                <label for="lastname">Last Name</label>
-                <input id="lastname" type="text" name="lastname" placeholder="Last Name" required>
+                <label for="first-name">First Name</label>
+                <input id="first-name" type="text" name="first-name" placeholder="First Name" required>
+                <label for="last-name">Last Name</label>
+                <input id="last-name" type="text" name="last-name" placeholder="Last Name" required>
                 <label for="username">Username</label>
                 <input id="username" type="text" name="username" placeholder="Username" required>
                 <label for="email">Email</label>
