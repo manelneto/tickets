@@ -18,6 +18,8 @@
                         <p class="date-opened"><?=$ticket->getDateOpened()?></p>
                         <?php if ($ticket->getPriority()) { ?>
                         <p class="priority <?=strtolower($ticket->getPriority()->getName())?>"><?=$ticket->getPriority()->getName()?></p>
+                        <?php } else { ?>
+                        <p class="priority none">None</p>
                         <?php } ?>
                     </a>
                 </article>

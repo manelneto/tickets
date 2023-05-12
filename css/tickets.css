@@ -65,26 +65,32 @@
 .priority {
     border-radius: 30%;
     padding: 0.3rem;
+    border: 2px solid;
 }
 
 .critical {
     color: red;
-    border: 2px solid red;
+    border-color: red;
 }
 
 .high {
     color: orange;
-    border: 2px solid orange;
+    border-color: orange;
 }
 
 .medium {
     color: yellow;
-    border: 2px solid yellow;
+    border-color: yellow;
 }
 
 .low {
     color: green;
-    border: 2px solid green;
+    border-color: green;
+}
+
+.none {
+    color: black;
+    border-color: black;
 }
 
 #paging {
