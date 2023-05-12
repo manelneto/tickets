@@ -2,22 +2,16 @@
     declare(strict_types = 1);
 ?>
 
-<?php function drawDashboard(int $opened, int $assigned, int $closed) : void { ?>
+<?php function drawDashboard(array $statuses, array $count) : void { ?>
     <main>
         <section id="dashboard">
             <h2>Dashboard</h2>
+            <?php for ($i = 0; $i < count($statuses) && $i < count($count); $i++) { $status = $statuses[$i]; ?>
             <article class="card">
-                <h3>Opened</h3>
-                <p>You have <?=$opened?> tickets opened!</p>
+                <h3><?=$status->getName()?></h3>
+                <p>You have <?=$count[$i]?> tickets <?=strtolower($status->getName())?>!</p>
             </article>
-            <article class="card">
-                <h3>Assigned</h3>
-                <p>You have <?=$assigned?> tickets assigned!</p>
-            </article>
-            <article class="card">
-                <h3>Closed</h3>
-                <p>You have <?=$closed?> tickets closed!</p>
-            </article>
+            <?php } ?>
         </section>
     </main>
 <?php } ?>

@@ -21,7 +21,10 @@
     $priority = (int) $_POST['priority'] ?? 0;
     $status = (int) $_POST['status'] ?? 0;
 
-    $tickets = Ticket::getTickets($db, $session->getId(), $after, $before, $department, $priority, $status);
+    if ($session->isAgent())
+        $tickets = Ticket::getTicketsAgent($db, $session->getId(), $after, $before, $department, $priority, $status);
+    else
+        $tickets = Ticket::getTicketsClient($db, $session->getId(), $after, $before, $department, $priority, $status);
     $departments = Department::getDepartments($db);
     $priorities = Priority::getPriorities($db);
     $statuses = Status::getStatuses($db);
@@ -29,10 +32,10 @@
     require_once(__DIR__ . '/../templates/template_common.php');
     require_once(__DIR__ . '/../templates/template_tickets.php');
 
-    $limit = 2;
+    $limit = 11;
     $offset = isset($_POST['offset']) ? (int) max($_POST['offset'], 0) : 0;
 
     drawHeader($session, 'Tickets');
-    drawTickets($session, $tickets, $limit, $offset, $after, $before, Status::getStatus($db, $status), Priority::getPriority($db, $priority), Department::getDepartment($db, $department), $statuses, $priorities, $departments);
+    drawTickets($tickets, $limit, $offset, $after, $before, Status::getStatus($db, $status), Priority::getPriority($db, $priority), Department::getDepartment($db, $department), $statuses, $priorities, $departments);
     drawFooter();
 ?>

@@ -40,22 +40,6 @@
             return $this->firstName . ' ' . $this->lastName;
         }
 
-        public function setFirstName(string $firstName) {
-            $this->firstName = $firstName;
-        }
-
-        public function setLastName(string $lastName) {
-            $this->lastName = $lastName;
-        }
-
-        public function setUsername(string $username) {
-            $this->username = $username;
-        }
-
-        public function setEmail(string $email) {
-            $this->email = $email;
-        }
-
         public static function getClients(PDO $db) : array {
             $stmt = $db->prepare('
                 SELECT idClient, firstName, lastName, username, email
@@ -104,6 +88,30 @@
             return $agents;
         }
 
+        public static function getNotAdmins(PDO $db) : array {
+            $stmt = $db->prepare('
+                SELECT idClient, firstName, lastName, username, email
+                FROM User, Client
+                WHERE idUser = idClient AND idUser NOT IN (SELECT idAdmin FROM Admin)
+            ');
+
+            $stmt->execute();
+            $result = $stmt->fetchAll();
+
+            $notAdmins = array();
+
+            foreach ($result as $row)
+                $notAdmins[] = new User(
+                    (int) $row['idClient'],
+                    $row['firstName'],
+                    $row['lastName'],
+                    $row['username'],
+                    $row['email'],
+                );
+
+            return $notAdmins;
+        }
+
         public function isAgent(PDO $db) : bool {
             $stmt = $db->prepare('
                 SELECT *
@@ -128,7 +136,7 @@
             return (bool) $stmt->fetch();
         }
 
-        public function update(PDO $db, string $firstName, string $lastName, string $username, string $email) : bool {
+        public function edit(PDO $db, string $firstName, string $lastName, string $username, string $email) : bool {
             $stmt = $db->prepare('
                 UPDATE User
                 SET firstName = ?, lastName = ?, username = ?, email = ?
@@ -137,7 +145,7 @@
 
             try {
                 $stmt->execute(array($firstName, $lastName, $username, $email, $this->id));
-            } catch (PDOException $e) {
+            } catch (PDOException) {
                 return false;
             }
             
@@ -148,7 +156,7 @@
             return true;
         }
 
-        public function updatePassword(PDO $db, string $current, string $new) : bool {
+        public function editPassword(PDO $db, string $current, string $new) : bool {
             $stmt = $db->prepare('
                 SELECT password
                 FROM User
@@ -157,7 +165,7 @@
 
             try {
                 $stmt->execute(array($this->id));
-            } catch (PDOException $e) {
+            } catch (PDOException) {
                 return false;
             }
 
@@ -174,7 +182,7 @@
             
             try {
                 $update->execute(array(password_hash($new, PASSWORD_DEFAULT, ['cost' => 12]), $this->id));
-            } catch (PDOException $e) {
+            } catch (PDOException) {
                 return false;
             }
 
@@ -185,7 +193,7 @@
             $stmt = $db->prepare('
                 SELECT idUser, firstName, lastName, username, email
                 FROM User
-                Where idUser = ?
+                WHERE idUser = ?
             ');
 
             $stmt->execute(array($id));
@@ -233,7 +241,7 @@
 
             try {
                 $stmt->execute(array($firstName, $lastName, $username, $email, password_hash($password, PASSWORD_DEFAULT, $options)));
-            } catch (PDOException $e) {
+            } catch (PDOException) {
                 return null;
             }
 
@@ -248,7 +256,7 @@
 
             try {
                 $stmt->execute(array($this->id, $department));
-            } catch (PDOException $e) {
+            } catch (PDOException) {
                 return false;
             }
 
@@ -263,7 +271,7 @@
 
             try {
                 $stmt->execute(array($this->id));
-            } catch (PDOException $e) {
+            } catch (PDOException) {
                 return false;
             }
 
@@ -278,7 +286,7 @@
 
             try {
                 $stmt->execute(array($this->id));
-            } catch (PDOException $e) {
+            } catch (PDOException) {
                 return false;
             }
 

@@ -79,46 +79,6 @@
             return $this->faq;
         }
 
-        public function setClient(User $client) {
-            $this->client = $client;
-        }
-
-        public function setTitle(string $title) {
-            $this->title = $title;
-        }
-
-        public function setDescription(string $description) {
-            $this->description = $description;
-        }
-
-        public function setDateOpened(string $dateOpened) {
-            $this->dateOpened = $dateOpened;
-        }
-
-        public function setDateClosed(string $dateClosed) {
-            $this->dateClosed = $dateClosed;
-        }
-
-        public function setAgent(User $agent) {
-            $this->agent = $agent;
-        }
-
-        public function setDepartment(Department $department) {
-            $this->department = $department;
-        }
-
-        public function setPriority(Priority $priority) {
-            $this->priority = $priority;
-        }
-
-        public function setStatus(Status $status) {
-            $this->status = $status;
-        }
-
-        public function setFAQ(FAQ $faq) {
-            $this->faq = $faq;
-        }
-
         public static function getTicket(PDO $db, int $id) : ?Ticket {
             $stmt = $db->prepare('
                 SELECT idTicket, idClient, title, description, dateOpened, dateClosed, idAgent, idDepartment, idPriority, idStatus, idFAQ
@@ -146,19 +106,20 @@
             );
         }
 
-        public static function getTickets(PDO $db, int $id, string $after, string $before, int $department, int $priority, int $status) : array {
+        public static function getTicketsClient(PDO $db, int $id, string $after, string $before, int $department, int $priority, int $status) : array {
             $stmt = $db->prepare("
                 SELECT idTicket, idClient, title, description, dateOpened, dateClosed, idAgent, idDepartment, idPriority, idStatus, idFAQ
                 FROM Ticket
-                WHERE (idClient = ? OR idAgent = ?) 
+                WHERE (idClient = ?) 
                 AND (? = '' OR dateOpened > ?) 
                 AND (? = '' OR dateOpened < ?)
                 AND (? = '0' OR idDepartment = ?) 
                 AND (? = '0' OR idPriority = ?) 
                 AND (? = '0' OR idStatus = ?) 
+                ORDER BY 5 DESC, 9 DESC, 3
             ");
 
-            $stmt->execute(array($id, $id, $after, $after, $before, $before, $department, $department, $priority, $priority, $status, $status));
+            $stmt->execute(array($id, $after, $after, $before, $before, $department, $department, $priority, $priority, $status, $status));
             $result = $stmt->fetchAll();
 
             $tickets = array();
@@ -181,6 +142,42 @@
             return $tickets;
         }
 
+        public static function getTicketsAgent(PDO $db, int $id, string $after, string $before, int $department, int $priority, int $status) : array {
+            $stmt = $db->prepare("
+                SELECT idTicket, idClient, title, description, dateOpened, dateClosed, idAgent, idDepartment, idPriority, idStatus, idFAQ
+                FROM Ticket
+                WHERE (idClient = ? OR idAgent = ? OR idDepartment IS NULL OR idDepartment IN (SELECT idDepartment FROM AgentDepartment WHERE idAgent = ?))
+                AND (? = '' OR dateOpened > ?) 
+                AND (? = '' OR dateOpened < ?)
+                AND (? = '0' OR idDepartment = ?) 
+                AND (? = '0' OR idPriority = ?) 
+                AND (? = '0' OR idStatus = ?) 
+                ORDER BY 5 DESC, 9 DESC, 3
+            ");
+
+            $stmt->execute(array($id, $id, $id, $after, $after, $before, $before, $department, $department, $priority, $priority, $status, $status));
+            $result = $stmt->fetchAll();
+
+            $tickets = array();
+
+            foreach ($result as $row)
+                $tickets[] = new Ticket(
+                    (int) $row['idTicket'],
+                    User::getUser($db, (int) $row['idClient']),
+                    $row['title'],
+                    $row['description'],
+                    $row['dateOpened'],
+                    $row['dateClosed'],
+                    User::getUser($db, (int) $row['idAgent']),
+                    Department::getDepartment($db, (int) $row['idDepartment']),
+                    Priority::getPriority($db, (int) $row['idPriority']),
+                    Status::getStatus($db, (int) $row['idStatus']),
+                    FAQ::getFAQ($db, (int) $row['idFAQ'])
+                );
+
+            return $tickets;
+        }
+
         public static function getTicketsCountByStatus(PDO $db, int $id, int $status) : int {
             $stmt = $db->prepare('
                 SELECT idTicket
@@ -198,25 +195,25 @@
             if ($departmentId !== 0) {
                 $stmt = $db->prepare('
                     INSERT INTO Ticket (idClient, title, description, dateOpened, idDepartment)
-                    VALUES (?, ?, ?, ?, ?, ?)
+                    VALUES (?, ?, ?, ?, ?)
                 ');
                 try {
                     $stmt->execute(array($idClient, $title, $description, $dateOpened, $departmentId));
-                } catch (PDOException $e) {
+                } catch (PDOException) {
                     return false;
                 }
             } else {
                 $stmt = $db->prepare('
                     INSERT INTO Ticket (idClient, title, description, dateOpened)
-                    VALUES (?, ?, ?, ?, ?)
+                    VALUES (?, ?, ?, ?)
                 ');
                 try {
                     $stmt->execute(array($idClient, $title, $description, $dateOpened));
-                } catch (PDOException $e) {
+                } catch (PDOException) {
                     return false;
                 }
             }
-
+            /* esta função parece demasiado complexa (desnecessariamente?) */
             $stmt = $db->prepare('
                 SELECT max(idTicket)
                 FROM Ticket
@@ -232,7 +229,7 @@
                 ');
                 try {
                     $stmt->execute(array($id, $tag->getId()));
-                } catch (PDOException $e) {
+                } catch (PDOException) {
                     return false;
                 }
             }
@@ -249,7 +246,7 @@
 
             try {
                 $stmt->execute(array($title, $description, $this->id));
-            } catch (PDOException $e) {
+            } catch (PDOException) {
                 return false;
             }
             
@@ -267,7 +264,7 @@
 
             try {
                 $stmt->execute(array($status, $priority, $department, $agent, $this->id));
-            } catch (PDOException $e) {
+            } catch (PDOException) {
                 return false;
             }
             

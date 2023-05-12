@@ -13,7 +13,7 @@
     $db = getDatabaseConnection();
 
     require_once(__DIR__ . '/../database/class_user.php');
-    $clients = User::getClients($db);
+    $notAdmins = User::getNotAdmins($db);
     $agents = User::getAgents($db);
 
     require_once(__DIR__ . '/../database/class_department.php');
@@ -23,6 +23,6 @@
     require_once(__DIR__ . '/../templates/template_management.php');
 
     drawHeader($session, 'Management');
-    drawManagement($clients, $departments, $agents);
+    drawManagement($notAdmins, $departments, $agents);
     drawFooter();
 ?>

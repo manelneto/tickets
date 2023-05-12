@@ -13,11 +13,10 @@
     $db = getDatabaseConnection();
 
     require_once(__DIR__ . '/../database/class_user.php');
-    $user = User::registerUser($db, strtolower(trim($_POST['firstName'])), strtolower(trim($_POST['lastName'])), strtolower(trim($_POST['username'])), strtolower(trim($_POST['email'])), $_POST['password']);
+    $user = User::registerUser($db, strtolower(trim($_POST['first-name'])), strtolower(trim($_POST['last-name'])), strtolower(trim($_POST['username'])), strtolower(trim($_POST['email'])), $_POST['password']);
 
     if ($user) {
         $session->setId($user->getId());
-        $session->setUsername($user->getUsername());
         $session->setName($user->getName());
         $session->setAgent($user->isAgent($db));
         $session->setAdmin($user->isAdmin($db));

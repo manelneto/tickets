@@ -150,6 +150,14 @@ CREATE TABLE TicketTag (
 
 /* TRIGGERS */
 
+DROP TRIGGER IF EXISTS UserClient;
+CREATE TRIGGER UserClient
+    AFTER INSERT ON User
+    FOR EACH ROW
+    WHEN NOT EXISTS (SELECT * FROM Client WHERE idClient = New.idUser)
+BEGIN
+    INSERT INTO Client VALUES(New.idUser);
+END;
 
 DROP TRIGGER IF EXISTS AgentClient;
 CREATE TRIGGER AgentClient
@@ -179,9 +187,6 @@ INSERT INTO User VALUES(3, 'Manel', 'Neto', 'manelneto', 'manelneto@gmail.com', 
 INSERT INTO User VALUES(4, 'Client', 'Test', 'client', 'client@test.com', '$2y$12$zlEzCwPtpRRXdS12ob9ypeajSLmW94dUo5kOmItV791QMOe5Mf5x6');
 INSERT INTO User VALUES(5, 'Agent', 'Test', 'agent', 'agent@test.com', '$2y$12$5TuVO22AK1v3fXUPFuAKVueYh7/lqB9eWm8xgftXVQvtLRMLTRmoC');
 INSERT INTO User VALUES(6, 'Admin', 'Test', 'admin', 'admin@test.com', '$2y$12$MVxJYNX6egxRIQOm6LyGXuscEoF/SOCX7uwmnIGP8inDFncQap6jq');
-
-INSERT INTO Client VALUES(4);
-INSERT INTO Client VALUES(3);
 
 INSERT INTO Agent VALUES(5);
 INSERT INTO Agent VALUES(2);

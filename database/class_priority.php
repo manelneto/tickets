@@ -18,10 +18,6 @@
             return $this->name;
         }
 
-        public function setName(string $name) {
-            $this->name = $name;
-        }
-
         public static function getPriorities(PDO $db) : array {
             $stmt = $db->prepare('
                 SELECT idPriority, name
@@ -46,7 +42,7 @@
             $stmt = $db->prepare('
                 SELECT idPriority, name
                 FROM Priority
-                Where idPriority = ?
+                WHERE idPriority = ?
             ');
 
             $stmt->execute(array($id));
@@ -68,7 +64,7 @@
 
             try {
                 $stmt->execute(array($name));
-            } catch (PDOException $e) {
+            } catch (PDOException) {
                 return false;
             }
             

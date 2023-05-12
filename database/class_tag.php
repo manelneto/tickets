@@ -18,10 +18,6 @@
             return $this->name;
         }
 
-        public function setName(string $name) {
-            $this->name = $name;
-        }
-
         public static function getTags(PDO $db) : array {
             $stmt = $db->prepare('
                 SELECT idTag, name
@@ -46,7 +42,7 @@
             $stmt = $db->prepare('
                 SELECT idTag, name
                 FROM Tag
-                Where idTag = ?
+                WHERE idTag = ?
             ');
 
             $stmt->execute(array($id));
@@ -64,7 +60,7 @@
             $stmt = $db->prepare('
                 SELECT idTag, name
                 FROM Tag
-                Where name = ?
+                WHERE name = ?
             ');
 
             $stmt->execute(array($name));
@@ -86,7 +82,7 @@
 
             try {
                 $stmt->execute(array($name));
-            } catch (PDOException $e) {
+            } catch (PDOException) {
                 return false;
             }
             

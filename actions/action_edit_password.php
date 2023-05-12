@@ -15,7 +15,7 @@
     require_once(__DIR__ . '/../database/class_user.php');
     $user = User::getUser($db, $session->getId());
 
-    if ($user && $_POST['new'] === $_POST['confirm'] && $user->updatePassword($db, $_POST['current'], $_POST['new']))
+    if ($user && $_POST['new'] === $_POST['confirm'] && $user->editPassword($db, $_POST['current'], $_POST['new']))
         header('Location: ../pages/profile.php');
     else
         header('Location: ../pages/password.php');

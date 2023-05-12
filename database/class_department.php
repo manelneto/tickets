@@ -18,10 +18,6 @@
             return $this->name;
         }
 
-        public function setName(string $name) {
-            $this->name = $name;
-        }
-
         public static function getDepartments(PDO $db) : array {
             $stmt = $db->prepare('
                 SELECT idDepartment, name
@@ -46,7 +42,7 @@
             $stmt = $db->prepare('
                 SELECT idDepartment, name
                 FROM Department
-                Where idDepartment = ?
+                WHERE idDepartment = ?
             ');
 
             $stmt->execute(array($id));
@@ -68,7 +64,7 @@
 
             try {
                 $stmt->execute(array($name));
-            } catch (PDOException $e) {
+            } catch (PDOException) {
                 return false;
             }
             

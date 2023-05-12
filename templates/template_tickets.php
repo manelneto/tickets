@@ -2,10 +2,10 @@
     declare(strict_types = 1);
 ?>
 
-<?php function drawTickets(Session $session, ?array $tickets, int $limit, int $offset, string $after, string $before, ?Status $status, ?Priority $priority, ?Department $department, array $statuses, array $priorities, array $departments) { ?>
-    <main class="ticketsPage">
-        <section class="tickets">
-            <h2>My Tickets</h2>
+<?php function drawTickets(?array $tickets, int $limit, int $offset, string $after, string $before, ?Status $status, ?Priority $priority, ?Department $department, array $statuses, array $priorities, array $departments) : void { ?>
+    <main id="tickets-page">
+        <section id="tickets">
+            <h2>Tickets</h2>
             <?php for ($i = 0; $i < $limit && $i + $offset < count($tickets); $i++) { $ticket = $tickets[$i + $offset]; ?>
                 <article class="ticket">
                     <a href="../pages/ticket.php?id=<?=$ticket->getId()?>">
@@ -17,13 +17,13 @@
                         <p class="status"><?=$ticket->getStatus()->getName()?></p>
                         <p class="date-opened"><?=$ticket->getDateOpened()?></p>
                         <?php if ($ticket->getPriority()) { ?>
-                        <p class="priority <?=$ticket->getPriority()->getName()?>"><?=$ticket->getPriority()->getName()?></p>
+                        <p class="priority <?=strtolower($ticket->getPriority()->getName())?>"><?=$ticket->getPriority()->getName()?></p>
                         <?php } ?>
                     </a>
                 </article>
             <?php } ?>
         </section>
-        <div class="paging">
+        <div id="paging">
             <?php if ($offset > 0) { ?>
             <form action="../pages/tickets.php" method="post" class="previous">
                 <input type="hidden" name="after" <?php if ($after !== '') echo "value=$after"; ?>>
@@ -47,15 +47,14 @@
             </form>
             <?php } ?>
         </div>
-    <?php if ($session->isAgent() || $session->isAdmin()) { ?>
         <form action="../pages/tickets.php" method="post" class="filters">
             <h3>Filters</h3>
             <label for="after">After</label>
-            <input type="date" name="after" id="after" <?php if ($after !== '') echo "value=$after"; ?>>
+            <input id="after" type="date" name="after" <?php if ($after !== '') echo "value=$after"; ?>>
             <label for="before">Before</label>
-            <input type="date" name="before" id="before" <?php if ($before !== '') echo "value=$before"; ?>>
+            <input id="before" type="date" name="before" <?php if ($before !== '') echo "value=$before"; ?>>
             <label for="status">Status</label>
-            <select name="status" id="status">
+            <select id="status" name="status">
                 <?php if (!$status) { ?>
                     <option value="0">All</option>
                     <?php foreach ($statuses as $s) { ?>
@@ -72,7 +71,7 @@
                 <?php } ?>
             </select>
             <label for="priority">Priority</label>
-            <select name="priority" id="priority">
+            <select id="priority" name="priority">
                 <?php if (!$priority) { ?>
                     <option value="0">All</option>
                     <?php foreach ($priorities as $p) { ?>
@@ -89,7 +88,7 @@
                 <?php } ?>
             </select>
             <label for="department">Department</label>
-            <select name="department" id="department">
+            <select id="department" name="department">
                 <?php if (!$department) { ?>
                     <option value="0">All</option>
                     <?php foreach ($departments as $d) { ?>
@@ -108,5 +107,4 @@
             <button type="submit">Filter</button>
         </form>
     </main>
-    <?php } ?>
 <?php } ?>

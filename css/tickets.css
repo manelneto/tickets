@@ -1,20 +1,20 @@
-.ticketsPage {
+#tickets-page {
     display: grid;
-    grid-template-columns: [ticketsStart] auto [ticketsMid1] 17% [ticketsEnd];
-    grid-template-rows: [ticketsStart] auto [ticketsMid1] 3rem [ticketsEnd];
-    height:100%;
+    grid-template-columns: [tickets-start] auto [tickets-mid] 17% [tickets-end];
+    grid-template-rows: [tickets-start] auto [tickets-mid] 3rem [tickets-end];
+    height: 100%;
 }
 
-.tickets {
-    grid-column: ticketsStart/ticketsMid1;
-    grid-row: ticketsStart/ticketsMid1;
+#tickets {
+    grid-column: tickets-start/tickets-mid;
+    grid-row: tickets-start/tickets-mid;
 }
 
-.tickets h2{
-    display:none;
+#tickets h2 {
+    display: none;
 }
 
-.ticket a{
+.ticket a {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -32,22 +32,21 @@
     margin-right: 0.3rem;
 }
 
-.author{
+.author {
     display: inline-flex;
 }
 
-.author h3, 
-.ticket h4{
+.author h3, .ticket h4 {
     font-weight: 100;
 }
 
-.author h3{
+.author h3 {
     font-size: 1rem;
 }
 
-.tickets a {
+#tickets a {
     text-decoration: none;
-    color: #000000;
+    color: black;
 }
 
 .ticket {
@@ -56,58 +55,58 @@
 }
 
 .ticket:hover {
-    background-color: #f5f7f9;
+    background-color: var(--light-gray);
 }
 
 .tickets:first-child {
     margin-top: 1rem;
 }
 
-.priority{
+.priority {
     border-radius: 30%;
     padding: 0.3rem;
 }
 
-.Critical{
-    color: #ff0000;
-    border: 2px solid #ff0000;
+.critical {
+    color: red;
+    border: 2px solid red;
 }
 
-.High{
-    color: #FFA500;
-    border: 2px solid #FFA500;
+.high {
+    color: orange;
+    border: 2px solid orange;
 }
 
-.Medium{
-    color: #FFFF00;
-    border: 2px solid #FFFF00;
+.medium {
+    color: yellow;
+    border: 2px solid yellow;
 }
 
-.Low{
-    color: #008000;
-    border: 2px solid #008000;
+.low {
+    color: green;
+    border: 2px solid green;
 }
 
-.paging {
-    grid-column: ticketsStart/ticketsMid1;
-    grid-row: ticketsMid1/ticketsEnd;
-    background-color: #f5f7f9;
+#paging {
+    grid-column: tickets-start/tickets-mid;
+    grid-row: tickets-mid/tickets-end;
+    background-color: var(--light-gray);
     display: flex;
     flex-direction: row;
     justify-content: right;
     align-items: center;
 }
 
-.paging button {
+#paging button {
     border: none;
-    background-color: #f5f7f9;
+    background-color: var(--light-gray);
     margin-right: 1rem;
 }
 
 .filters {
-    grid-column: ticketsMid1/ticketsEnd;
-    grid-row: ticketsStart/ticketsEnd;
-    background-color: #f5f7f9;
+    grid-column: tickets-mid/tickets-end;
+    grid-row: tickets-start/tickets-end;
+    background-color: var(--light-gray);
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -120,27 +119,27 @@
     margin-bottom: 0.2rem;
 }
 
-.filters select{
+.filters select {
     width: 7rem;
 }
 
-.filters label input{
-    vertical-align:super;
+.filters label input {
+    vertical-align: super;
 }
 
 .filters button {
     margin-top: auto;
     width: 5rem;
     height: 1.5rem;
-    background-color: #22216D;
-    color: #ffffff;
+    background-color: var(--dark-blue);
+    color: white;
     border: none;
     margin-bottom: 1rem;
 }
 
 /*
 @media only screen and (max-width: 1120px) {
-    .main {
+    main {
         display: grid;
         grid-template-columns: [start] 10% [mid1] 90% [end];
         grid-template-rows: [start] 4rem [mid1] auto [mid2] auto [mid3] 2rem [end];
@@ -151,7 +150,7 @@
         grid-row: start/mid3;
     }
 
-    .paging {
+    #paging {
         grid-column: mid1/mid2;
         grid-row: mid3/end;
     }

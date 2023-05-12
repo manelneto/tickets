@@ -6,7 +6,7 @@
     <main>
         <section id="new-ticket">
             <h2>How can we help you?</h2>
-            <form action="../actions/action_new_ticket.php" method="post" class="new-ticket" novalidate>
+            <form action="../actions/action_add_ticket.php" method="post" class="new-ticket" novalidate>
                 <label for="title">Title</label>
                 <input id="title" type="text" name="title" placeholder="title" required>
                 <label for="department">Department</label>
