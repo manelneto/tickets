@@ -17,7 +17,6 @@
 
     if ($user) {
         $session->setId($user->getId());
-        $session->setUsername($user->getUsername());
         $session->setName($user->getName());
         $session->setAgent($user->isAgent($db));
         $session->setAdmin($user->isAdmin($db));
