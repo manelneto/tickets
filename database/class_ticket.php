@@ -106,11 +106,47 @@
             );
         }
 
-        public static function getTickets(PDO $db, int $id, string $after, string $before, int $department, int $priority, int $status) : array {
+        public static function getTicketsClient(PDO $db, int $id, string $after, string $before, int $department, int $priority, int $status) : array {
             $stmt = $db->prepare("
                 SELECT idTicket, idClient, title, description, dateOpened, dateClosed, idAgent, idDepartment, idPriority, idStatus, idFAQ
                 FROM Ticket
-                WHERE (idClient = ? OR idAgent = ? OR idDepartment IS NULL OR idDepartment IN (SELECT idDepartment FROM AgentDepartment WHERE idAgent = ?)) 
+                WHERE (idClient = ?) 
+                AND (? = '' OR dateOpened > ?) 
+                AND (? = '' OR dateOpened < ?)
+                AND (? = '0' OR idDepartment = ?) 
+                AND (? = '0' OR idPriority = ?) 
+                AND (? = '0' OR idStatus = ?) 
+                ORDER BY 5 DESC, 9 DESC, 3
+            ");
+
+            $stmt->execute(array($id, $after, $after, $before, $before, $department, $department, $priority, $priority, $status, $status));
+            $result = $stmt->fetchAll();
+
+            $tickets = array();
+
+            foreach ($result as $row)
+                $tickets[] = new Ticket(
+                    (int) $row['idTicket'],
+                    User::getUser($db, (int) $row['idClient']),
+                    $row['title'],
+                    $row['description'],
+                    $row['dateOpened'],
+                    $row['dateClosed'],
+                    User::getUser($db, (int) $row['idAgent']),
+                    Department::getDepartment($db, (int) $row['idDepartment']),
+                    Priority::getPriority($db, (int) $row['idPriority']),
+                    Status::getStatus($db, (int) $row['idStatus']),
+                    FAQ::getFAQ($db, (int) $row['idFAQ'])
+                );
+            
+            return $tickets;
+        }
+
+        public static function getTicketsAgent(PDO $db, int $id, string $after, string $before, int $department, int $priority, int $status) : array {
+            $stmt = $db->prepare("
+                SELECT idTicket, idClient, title, description, dateOpened, dateClosed, idAgent, idDepartment, idPriority, idStatus, idFAQ
+                FROM Ticket
+                WHERE (idClient = ? OR idAgent = ? OR idDepartment IS NULL OR idDepartment IN (SELECT idDepartment FROM AgentDepartment WHERE idAgent = ?)
                 AND (? = '' OR dateOpened > ?) 
                 AND (? = '' OR dateOpened < ?)
                 AND (? = '0' OR idDepartment = ?) 
@@ -138,7 +174,7 @@
                     Status::getStatus($db, (int) $row['idStatus']),
                     FAQ::getFAQ($db, (int) $row['idFAQ'])
                 );
-            
+
             return $tickets;
         }
 

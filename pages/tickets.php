@@ -21,7 +21,10 @@
     $priority = (int) $_POST['priority'] ?? 0;
     $status = (int) $_POST['status'] ?? 0;
 
-    $tickets = Ticket::getTickets($db, $session->getId(), $after, $before, $department, $priority, $status);
+    if ($session->isAgent())
+        $tickets = Ticket::getTicketsAgent($db, $session->getId(), $after, $before, $department, $priority, $status);
+    else
+        $tickets = Ticket::getTicketsClient($db, $session->getId(), $after, $before, $department, $priority, $status);
     $departments = Department::getDepartments($db);
     $priorities = Priority::getPriorities($db);
     $statuses = Status::getStatuses($db);
