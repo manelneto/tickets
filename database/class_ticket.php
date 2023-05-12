@@ -163,7 +163,7 @@
                 ');
                 try {
                     $stmt->execute(array($idClient, $title, $description, $dateOpened, $departmentId));
-                } catch (PDOException $e) {
+                } catch (PDOException) {
                     return false;
                 }
             } else {
@@ -173,11 +173,11 @@
                 ');
                 try {
                     $stmt->execute(array($idClient, $title, $description, $dateOpened));
-                } catch (PDOException $e) {
+                } catch (PDOException) {
                     return false;
                 }
             }
-
+            /* esta função parece demasiado complexa (desnecessariamente?) */
             $stmt = $db->prepare('
                 SELECT max(idTicket)
                 FROM Ticket
@@ -193,7 +193,7 @@
                 ');
                 try {
                     $stmt->execute(array($id, $tag->getId()));
-                } catch (PDOException $e) {
+                } catch (PDOException) {
                     return false;
                 }
             }
@@ -210,7 +210,7 @@
 
             try {
                 $stmt->execute(array($title, $description, $this->id));
-            } catch (PDOException $e) {
+            } catch (PDOException) {
                 return false;
             }
             
@@ -228,7 +228,7 @@
 
             try {
                 $stmt->execute(array($status, $priority, $department, $agent, $this->id));
-            } catch (PDOException $e) {
+            } catch (PDOException) {
                 return false;
             }
             
