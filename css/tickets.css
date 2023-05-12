@@ -87,7 +87,7 @@
     border: 2px solid green;
 }
 
-.paging {
+#paging {
     grid-column: tickets-start/tickets-mid;
     grid-row: tickets-mid/tickets-end;
     background-color: var(--light-gray);
@@ -97,7 +97,7 @@
     align-items: center;
 }
 
-.paging button {
+#paging button {
     border: none;
     background-color: var(--light-gray);
     margin-right: 1rem;
@@ -139,7 +139,7 @@
 
 /*
 @media only screen and (max-width: 1120px) {
-    .main {
+    main {
         display: grid;
         grid-template-columns: [start] 10% [mid1] 90% [end];
         grid-template-rows: [start] 4rem [mid1] auto [mid2] auto [mid3] 2rem [end];
@@ -150,7 +150,7 @@
         grid-row: start/mid3;
     }
 
-    .paging {
+    #paging {
         grid-column: mid1/mid2;
         grid-row: mid3/end;
     }

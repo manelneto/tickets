@@ -198,7 +198,7 @@
             if ($departmentId !== 0) {
                 $stmt = $db->prepare('
                     INSERT INTO Ticket (idClient, title, description, dateOpened, idDepartment)
-                    VALUES (?, ?, ?, ?, ?, ?)
+                    VALUES (?, ?, ?, ?, ?)
                 ');
                 try {
                     $stmt->execute(array($idClient, $title, $description, $dateOpened, $departmentId));
@@ -208,7 +208,7 @@
             } else {
                 $stmt = $db->prepare('
                     INSERT INTO Ticket (idClient, title, description, dateOpened)
-                    VALUES (?, ?, ?, ?, ?)
+                    VALUES (?, ?, ?, ?)
                 ');
                 try {
                     $stmt->execute(array($idClient, $title, $description, $dateOpened));

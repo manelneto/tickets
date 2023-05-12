@@ -14,17 +14,16 @@
     
     require_once(__DIR__ . '/../database/class_ticket.php');
     $dateOpened = date('Y-m-d');
-    $dateDue = date('Y-m-d', strtotime($dateOpened . ' + 10 days'));
 
     $departmentId = (int) $_POST['department'];
-    $tagsInput = explode(',', $_POST['tags']);
+    $tagsInput = str_contains($_POST['tags'], ',') ? explode(',', $_POST['tags']) : $_POST['tags'];
 
     $tags = array();
 
     foreach ($tagsInput as $tagInput)
         $tags[] = Tag::getTagByName($db, $tagInput);
 
-    if (Ticket::addTicket($db, $session->getId(), trim($_POST['title']), trim($_POST['content']), $dateOpened, $dateDue, $departmentId, $tags))
+    if (Ticket::addTicket($db, $session->getId(), trim($_POST['title'] ?? ''), trim($_POST['content'] ?? ''), $dateOpened, $departmentId, $tags))
         header('Location: ../pages/tickets.php');
     else
         header('Location: ../pages/new_ticket.php');

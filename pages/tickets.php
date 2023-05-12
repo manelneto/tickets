@@ -29,7 +29,7 @@
     require_once(__DIR__ . '/../templates/template_common.php');
     require_once(__DIR__ . '/../templates/template_tickets.php');
 
-    $limit = 2;
+    $limit = 11;
     $offset = isset($_POST['offset']) ? (int) max($_POST['offset'], 0) : 0;
 
     drawHeader($session, 'Tickets');
