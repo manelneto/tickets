@@ -145,7 +145,7 @@
 
             try {
                 $stmt->execute(array($firstName, $lastName, $username, $email, $this->id));
-            } catch (PDOException) {
+            } catch (PDOException $e) {
                 return false;
             }
             
@@ -165,7 +165,7 @@
 
             try {
                 $stmt->execute(array($this->id));
-            } catch (PDOException) {
+            } catch (PDOException $e) {
                 return false;
             }
 
@@ -182,7 +182,7 @@
             
             try {
                 $update->execute(array(password_hash($new, PASSWORD_DEFAULT, ['cost' => 12]), $this->id));
-            } catch (PDOException) {
+            } catch (PDOException $e) {
                 return false;
             }
 
@@ -241,7 +241,7 @@
 
             try {
                 $stmt->execute(array($firstName, $lastName, $username, $email, password_hash($password, PASSWORD_DEFAULT, $options)));
-            } catch (PDOException) {
+            } catch (PDOException $e) {
                 return null;
             }
 
@@ -256,7 +256,7 @@
 
             try {
                 $stmt->execute(array($this->id, $department));
-            } catch (PDOException) {
+            } catch (PDOException $e) {
                 return false;
             }
 
@@ -271,7 +271,7 @@
 
             try {
                 $stmt->execute(array($this->id));
-            } catch (PDOException) {
+            } catch (PDOException $e) {
                 return false;
             }
 
@@ -286,7 +286,7 @@
 
             try {
                 $stmt->execute(array($this->id));
-            } catch (PDOException) {
+            } catch (PDOException $e) {
                 return false;
             }
 
