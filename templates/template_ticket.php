@@ -104,7 +104,9 @@
                         <p><?=$tag->getName()?></p>
                     <?php } ?>
                     <input type="hidden" name="id" value="<?=$ticket->getId()?>">
+                    <?php if ($session->isAgent()) { ?>
                     <button type="submit" id="apply">Apply</button>
+                    <?php } ?>
                 </details>
             </form>
             <details id="changes">
