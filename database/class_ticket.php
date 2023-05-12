@@ -199,7 +199,7 @@
                 ');
                 try {
                     $stmt->execute(array($idClient, $title, $description, $dateOpened, $departmentId));
-                } catch (PDOException) {
+                } catch (PDOException $e) {
                     return false;
                 }
             } else {
@@ -209,7 +209,7 @@
                 ');
                 try {
                     $stmt->execute(array($idClient, $title, $description, $dateOpened));
-                } catch (PDOException) {
+                } catch (PDOException $e) {
                     return false;
                 }
             }
@@ -229,7 +229,7 @@
                 ');
                 try {
                     $stmt->execute(array($id, $tag->getId()));
-                } catch (PDOException) {
+                } catch (PDOException $e) {
                     return false;
                 }
             }
@@ -246,7 +246,7 @@
 
             try {
                 $stmt->execute(array($title, $description, $this->id));
-            } catch (PDOException) {
+            } catch (PDOException $e) {
                 return false;
             }
             
@@ -264,7 +264,7 @@
 
             try {
                 $stmt->execute(array($status, $priority, $department, $agent, $this->id));
-            } catch (PDOException) {
+            } catch (PDOException $e) {
                 return false;
             }
             

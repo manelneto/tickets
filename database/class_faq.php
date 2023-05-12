@@ -72,7 +72,7 @@
 
             try {
                 $stmt->execute(array($question, $answer));
-            } catch (PDOException) {
+            } catch (PDOException $e) {
                 return false;
             }
             
@@ -88,7 +88,7 @@
 
             try {
                 $stmt->execute(array($this->id));
-            } catch (PDOException) {
+            } catch (PDOException $e) {
                 return false;
             }
             
@@ -104,7 +104,7 @@
 
             try {
                 $stmt->execute(array($question, $answer, $this->id));
-            } catch (PDOException) {
+            } catch (PDOException $e) {
                 return false;
             }
             

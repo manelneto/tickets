@@ -64,7 +64,7 @@
 
             try {
                 $stmt->execute(array($name));
-            } catch (PDOException) {
+            } catch (PDOException $e) {
                 return false;
             }
             
