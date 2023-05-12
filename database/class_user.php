@@ -88,6 +88,30 @@
             return $agents;
         }
 
+        public static function getNotAdmins(PDO $db) : array {
+            $stmt = $db->prepare('
+                SELECT idClient, firstName, lastName, username, email
+                FROM User, Client
+                WHERE idUser = idClient AND idUser NOT IN (SELECT idAdmin FROM Admin)
+            ');
+
+            $stmt->execute();
+            $result = $stmt->fetchAll();
+
+            $notAdmins = array();
+
+            foreach ($result as $row)
+                $notAdmins[] = new User(
+                    (int) $row['idClient'],
+                    $row['firstName'],
+                    $row['lastName'],
+                    $row['username'],
+                    $row['email'],
+                );
+
+            return $notAdmins;
+        }
+
         public function isAgent(PDO $db) : bool {
             $stmt = $db->prepare('
                 SELECT *
