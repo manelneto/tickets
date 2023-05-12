@@ -13,7 +13,7 @@
                         <h2><input type="text" name="title" required value="<?=$ticket->getTitle()?>"></h2>
                     </header>
                     <div id="author-edit"><!--odeio estes div!-->
-                        <div id="author-information">
+                        <div id="author">
                             <img src="../assets/profile.png" alt="Profile Icon">
                             <h3><?=$ticket->getClient()->getName()?></h3>
                         </div>
@@ -27,7 +27,7 @@
                     <img src="../assets/ticket.jpg" alt="Ticket Icon">
                     <h2><?=$ticket->getTitle()?></h2>
                 </header>
-                <div id="author-information"><!--odeio estes div!-->
+                <div id="author"><!--odeio estes div!-->
                     <img src="../assets/profile.png" alt="Profile Icon">
                     <h3><?=$ticket->getClient()->getName()?></h3>
                 </div>
