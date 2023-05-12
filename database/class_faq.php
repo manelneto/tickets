@@ -24,14 +24,6 @@
             return $this->answer;
         }
 
-        public function setQuestion(string $question) {
-            $this->question = $question;
-        }
-
-        public function setAnswer(string $answer) {
-            $this->answer = $answer;
-        }
-
         public static function getFAQs(PDO $db) : array {
             $stmt = $db->prepare('
                 SELECT idFAQ, question, answer
@@ -57,7 +49,7 @@
             $stmt = $db->prepare('
                 SELECT idFAQ, question, answer
                 FROM FAQ
-                Where idFAQ = ?
+                WHERE idFAQ = ?
             ');
 
             $stmt->execute(array($id));
@@ -80,7 +72,7 @@
 
             try {
                 $stmt->execute(array($question, $answer));
-            } catch (PDOException $e) {
+            } catch (PDOException) {
                 return false;
             }
             
@@ -96,7 +88,7 @@
 
             try {
                 $stmt->execute(array($this->id));
-            } catch (PDOException $e) {
+            } catch (PDOException) {
                 return false;
             }
             
@@ -112,7 +104,7 @@
 
             try {
                 $stmt->execute(array($question, $answer, $this->id));
-            } catch (PDOException $e) {
+            } catch (PDOException) {
                 return false;
             }
             
