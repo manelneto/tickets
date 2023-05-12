@@ -146,7 +146,7 @@
             $stmt = $db->prepare("
                 SELECT idTicket, idClient, title, description, dateOpened, dateClosed, idAgent, idDepartment, idPriority, idStatus, idFAQ
                 FROM Ticket
-                WHERE (idClient = ? OR idAgent = ? OR idDepartment IS NULL OR idDepartment IN (SELECT idDepartment FROM AgentDepartment WHERE idAgent = ?)
+                WHERE (idClient = ? OR idAgent = ? OR idDepartment IS NULL OR idDepartment IN (SELECT idDepartment FROM AgentDepartment WHERE idAgent = ?))
                 AND (? = '' OR dateOpened > ?) 
                 AND (? = '' OR dateOpened < ?)
                 AND (? = '0' OR idDepartment = ?) 
