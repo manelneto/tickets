@@ -9,10 +9,10 @@
             <a id="edit-profile" href="../pages/profile.php">Edit Profile</a>
             <a id="change-password" href="../pages/password.php">Change Password</a>
             <form action="../actions/action_edit_profile.php" method="post" class="profile">
-                <label for="first">First Name</label>
-                <input id="first" type="text" name="first" value="<?=$user->getFirstName()?>" required>
-                <label for="last">Last Name</label>
-                <input id="last" type="text" name="last" value="<?=$user->getLastName()?>" required>
+                <label for="first-name">First Name</label>
+                <input id="first-name" type="text" name="first-name" value="<?=$user->getFirstName()?>" required>
+                <label for="last-name">Last Name</label>
+                <input id="last-name" type="text" name="last-name" value="<?=$user->getLastName()?>" required>
                 <label for="username">Username</label>
                 <input id="username" type="text" name="username" value="<?=$user->getUsername()?>" required>
                 <label for="email">Email</label>
