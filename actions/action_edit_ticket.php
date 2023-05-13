@@ -39,7 +39,7 @@
     }
 
     if ($ticket->edit($db, $title, $description))
-        $session->addMessage(false, 'Ticket successfully edited');
+        $session->addMessage(true, 'Ticket successfully edited');
     else
         $session->addMessage(false, 'Ticket could not be edited');
 

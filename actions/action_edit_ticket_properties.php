@@ -9,18 +9,23 @@
         die();
     }
 
+    $id = (int) $_POST['id'];
+
+    $status = (int) $_POST['status'];
+    $priority = (int) $_POST['priority'];
+    $department = (int) $_POST['department'];
+    $agent = (int) $_POST['agent'];
+
     require_once(__DIR__ . '/../database/connection.php');
     $db = getDatabaseConnection();
 
-    $id = (int) $_POST['id'];
-
     require_once(__DIR__ . '/../database/class_ticket.php');
-    $ticket = Ticket::getTicket($db, (int) $id);
+    $ticket = Ticket::getTicket($db, $id);
 
-    if ($ticket && $ticket->editProperties($db, (int) $_POST['status'], (int) $_POST['priority'], (int) $_POST['department'], (int) $_POST['agent']))
-        header("Location: ../pages/ticket.php?id=$id");
+    if ($ticket && $ticket->editProperties($db, $status, $priority, $department, $agent))
+        $session->addMessage(true, 'Ticket properties successfully edited');
     else
-        header("Location: ../pages/ticket.php?id=$id");
+        $session->addMessage(false, 'Ticket properties could not be edited');
 
-    /* if-else para depois adicionarmos mensagens de erro/sucesso */
+    header("Location: ../pages/ticket.php?id=$id");
 ?>
