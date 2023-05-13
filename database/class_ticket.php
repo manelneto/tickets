@@ -237,21 +237,28 @@
             return true;
         }
 
-        public function edit(PDO $db, string $title, string $description) : bool {
-            $stmt = $db->prepare('
+        public function edit(PDO $db, string $title, string $description, string $date) : bool {
+            $stmt1 = $db->prepare('
                 UPDATE Ticket
                 SET title = ?, description = ?
                 WHERE idTicket = ?
             ');
 
+            $stmt2 = $db->prepare('
+                INSERT INTO Change (date, description, idTicket)
+                VALUES (?, ?, ?)
+            ');
+
             try {
-                $stmt->execute(array($title, $description, $this->id));
+                $stmt1->execute(array($title, $description, $this->id));
+                $stmt2->execute(array($date, ''));
             } catch (PDOException $e) {
                 return false;
             }
             
             $this->title = $title;
             $this->description = $description;
+
             return true;
         }
 
