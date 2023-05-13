@@ -17,7 +17,7 @@
     require_once(__DIR__ . '/../database/class_ticket.php');
     $ticket = Ticket::getTicket($db, (int) $id);
 
-    if ($session->getId() !== $ticket->getClient()->getId()) {
+    if ($session->getId() !== $ticket->getAuthor()->getId()) {
         header('Location: ../pages/index.php');
         die();
     }

@@ -6,7 +6,7 @@
     <main id="ticket-page">
         <article id="ticket">
             <?php $paragraphs = explode('\n', $ticket->getDescription()); ?>
-            <?php if ($session->getId() === $ticket->getClient()->getId()) { ?>
+            <?php if ($session->getId() === $ticket->getAuthor()->getId()) { ?>
                 <form action="../actions/action_edit_ticket.php" method="post" class="edit-ticket">
                     <header id="ticket-header">
                         <img src="../assets/ticket.jpg" alt="Ticket Icon">
@@ -15,7 +15,7 @@
                     <div id="author-edit"><!--odeio estes div!-->
                         <div id="author">
                             <img src="../assets/profile.png" alt="Profile Icon">
-                            <h3><?=$ticket->getClient()->getName()?></h3>
+                            <h3><?=$ticket->getAuthor()->getName()?></h3>
                         </div>
                         <button type="submit">Edit</button>
                     </div>
@@ -29,7 +29,7 @@
                 </header>
                 <div id="author"><!--odeio estes div!-->
                     <img src="../assets/profile.png" alt="Profile Icon">
-                    <h3><?=$ticket->getClient()->getName()?></h3>
+                    <h3><?=$ticket->getAuthor()->getName()?></h3>
                 </div>
                 <?php foreach ($paragraphs as $paragraph) { ?>
                 <p><?=$paragraph?></p>

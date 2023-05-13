@@ -40,30 +40,6 @@
             return $this->firstName . ' ' . $this->lastName;
         }
 
-        public static function getClients(PDO $db) : array {
-            $stmt = $db->prepare('
-                SELECT idClient, firstName, lastName, username, email
-                FROM User, Client
-                WHERE idUser = idClient
-            ');
-
-            $stmt->execute();
-            $result = $stmt->fetchAll();
-
-            $clients = array();
-
-            foreach ($result as $row)
-                $clients[] = new User(
-                    (int) $row['idClient'],
-                    $row['firstName'],
-                    $row['lastName'],
-                    $row['username'],
-                    $row['email'],  
-                );
-
-            return $clients;
-        }
-
         public static function getAgents(PDO $db) : array {
             $stmt = $db->prepare('
                 SELECT idAgent, firstName, lastName, username, email
@@ -90,9 +66,9 @@
 
         public static function getNotAdmins(PDO $db) : array {
             $stmt = $db->prepare('
-                SELECT idClient, firstName, lastName, username, email
-                FROM User, Client
-                WHERE idUser = idClient AND idUser NOT IN (SELECT idAdmin FROM Admin)
+                SELECT idUser, firstName, lastName, username, email
+                FROM User
+                WHERE idUser NOT IN (SELECT idAdmin FROM Admin)
             ');
 
             $stmt->execute();
@@ -102,7 +78,7 @@
 
             foreach ($result as $row)
                 $notAdmins[] = new User(
-                    (int) $row['idClient'],
+                    (int) $row['idUser'],
                     $row['firstName'],
                     $row['lastName'],
                     $row['username'],
