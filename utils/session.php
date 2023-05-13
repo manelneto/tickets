@@ -55,8 +55,8 @@
             return $this->messages;
         }
 
-        public function addMessage(string $type, string $text) : void {
-            $_SESSION['messages'][] = array('type' => $type, 'text' => $text);
+        public function addMessage(bool $success, string $text) : void {
+            $_SESSION['messages'][] = array('type' => $success, 'text' => $text);
         }
     }
 ?>

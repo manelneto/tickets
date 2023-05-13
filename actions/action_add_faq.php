@@ -9,15 +9,24 @@
         die();
     }
 
+    $question = trim($_POST['question']);
+    $answer = trim($_POST['answer']);
+
+    if ($question === '' || $answer === '') {
+        $session->addMessage(false, 'FAQ fields cannot be empty');
+        header('Location: ../pages/faqs.php');
+        die();
+    }
+
     require_once(__DIR__ . '/../database/connection.php');
     $db = getDatabaseConnection();
 
     require_once(__DIR__ . '/../database/class_faq.php');
 
-    if (FAQ::addFAQ($db, $_POST['question'], $_POST['answer']))
-        header('Location: ../pages/faqs.php');
+    if (FAQ::addFAQ($db, $question, $answer))
+        $session->addMessage(true, 'FAQ successfully added');
     else
-        header('Location: ../pages/faqs.php');
+        $session->addMessage(false, 'FAQ already exists');
 
-    /* if-else para depois adicionarmos mensagens de erro/sucesso */
+    header('Location: ../pages/faqs.php');
 ?>

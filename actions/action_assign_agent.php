@@ -16,7 +16,9 @@
     $agent = User::getUser($db, (int) $_POST['agent']);
 
     if ($agent && $agent->isAgent($db) && $agent->assignToDepartment($db, (int) $_POST['department']))
-        header('Location: ../pages/dashboard.php');
+        $session->addMessage(true, 'Agent successfully assigned to department');
     else
-        header('Location: ../pages/management.php');
+        $session->addMessage(false, 'Agent already belongs to department');
+
+    header('Location: ../pages/management.php');
 ?>

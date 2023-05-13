@@ -9,6 +9,15 @@
         die();
     }
 
+    $title = trim($_POST['title']);
+    $description = trim($_POST['description']);
+
+    if ($title === '' || $description === '') {
+        $session->addMessage(false, 'Ticket title/description cannot be empty');
+        header('Location: ../pages/new_ticket.php');
+        die();
+    }
+
     require_once(__DIR__ . '/../database/connection.php');
     $db = getDatabaseConnection();
     
@@ -27,9 +36,12 @@
             $tags[] = $tag;
     }
 
-    if (Ticket::addTicket($db, $session->getId(), trim($_POST['title'] ?? ''), trim($_POST['description'] ?? ''), $dateOpened, $departmentId, $tags))
+    if (Ticket::addTicket($db, $session->getId(), $title, $description, $dateOpened, $departmentId, $tags)) {
+        $session->addMessage(true, 'Ticket successfully added');
         header('Location: ../pages/tickets.php');
-    else
+    }
+    else {
+        $session->addMessage(false, 'Action unsuccessful');
         header('Location: ../pages/new_ticket.php');
-
+    }
 ?>

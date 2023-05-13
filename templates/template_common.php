@@ -48,6 +48,13 @@
             <h1><?=$title?></h1>
         </header>
         <?php } ?>
+        <?php if (count($session->getMessages()) > 0) { ?>
+        <section id="messages">
+            <?php foreach ($session->getMessages() as $message) { ?>
+            <article class="<?php if ($message['type']) echo 'success'; else echo 'error' ?>"><?=$message['text']?></article>
+            <?php } ?>
+        </section>
+        <?php } ?>
 <?php } ?>
 
 <?php function drawFooter() : void { ?>

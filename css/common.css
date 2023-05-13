@@ -81,6 +81,23 @@ body:not(#authentication) {
   background-color: var(--blue);
 }
 
+#messages {
+  position: fixed;
+  transform: translate(-50%, 0);
+  left: 50%;
+  top: 1rem;
+  padding: 1rem;
+  border-style: dotted;
+}
+
+.success {
+  /* ... */
+}
+
+.error {
+  /* ... */
+}
+
 @media only screen and (max-width: 1120px) {
   #menu li {
     display: block;
