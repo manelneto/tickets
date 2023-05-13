@@ -15,7 +15,7 @@
     $email = strtolower(trim($_POST['email']));
     $password = $_POST['password'];
 
-    if ($firstName === '' || $lastName === '' || $username === '' || $email == '' || $password) {
+    if ($firstName === '' || $lastName === '' || $username === '' || $email === '' || $password === '') {
         $session->addMessage(false, 'Register fields cannot be empty');
         header('Location: ../pages/register.php');
         die();
