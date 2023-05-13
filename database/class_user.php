@@ -45,6 +45,7 @@
                 SELECT idAgent, firstName, lastName, username, email
                 FROM User, Agent
                 WHERE idUser = idAgent
+                ORDER BY 2, 3
             ');
 
             $stmt->execute();
@@ -69,6 +70,7 @@
                 SELECT idUser, firstName, lastName, username, email
                 FROM User
                 WHERE idUser NOT IN (SELECT idAdmin FROM Admin)
+                ORDER BY 2, 3
             ');
 
             $stmt->execute();

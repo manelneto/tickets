@@ -22,6 +22,7 @@
             $stmt = $db->prepare('
                 SELECT idPriority, name
                 FROM Priority
+                ORDER BY 1
             ');
 
             $stmt->execute();

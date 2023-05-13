@@ -269,6 +269,7 @@
                 SELECT idTag, name
                 FROM TicketTag NATURAL JOIN Tag
                 WHERE idTicket = ?
+                ORDER BY 2
             ');
 
             $stmt->execute(array($this->id));
@@ -290,6 +291,7 @@
                 SELECT idChange, date, description
                 FROM Change
                 WHERE idTicket = ?
+                ORDER BY 2
             ');
 
             $stmt->execute(array($this->id));

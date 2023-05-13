@@ -22,6 +22,7 @@
             $stmt = $db->prepare('
                 SELECT idTag, name
                 FROM Tag
+                ORDER BY 2
             ');
 
             $stmt->execute();
