@@ -7,6 +7,7 @@
     require_once(__DIR__ . '/../database/class_status.php');
     require_once(__DIR__ . '/../database/class_faq.php');
     require_once(__DIR__ . '/../database/class_tag.php');
+    require_once(__DIR__ . '/../database/class_change.php');
 
     class Ticket {
         private int $id;
@@ -283,7 +284,6 @@
             ');
 
             $stmt->execute(array($this->id));
-
             $result = $stmt->fetchAll();
 
             $tags = array();
@@ -291,10 +291,31 @@
             foreach ($result as $row)
                 $tags[] = new Tag(
                     (int) $row['idTag'],
-                    $row['name'],
+                    $row['name']
                 );
 
             return $tags;
+        }
+
+        public function getChanges(PDO $db) : ?array {
+            $stmt = $db->prepare('
+                SELECT idChange, date, description
+                FROM Change NATURAL JOIN Ticket
+            ');
+
+            $stmt->execute();
+            $result = $stmt->fetchAll();
+
+            $changes = array();
+
+            foreach ($result as $row)
+                $changes[] = new Change(
+                    (int) $row['idChange'],
+                    $row['date'],
+                    $row['description']
+                );
+
+            return $changes;
         }
     }
 ?>

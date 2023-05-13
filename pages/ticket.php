@@ -27,11 +27,12 @@
     $departments = Department::getDepartments($db);
     $agents = User::getAgents($db);
     $tags = $ticket->getTags($db);
+    $changes = $ticket->getChanges($db);
 
     require_once(__DIR__ . '/../templates/template_common.php');
     require_once(__DIR__ . '/../templates/template_ticket.php');
 
     drawHeader($session, "Ticket #$id");
-    drawTicket($session, $ticket, $statuses, $priorities, $departments, $agents, $tags);
+    drawTicket($session, $ticket, $statuses, $priorities, $departments, $agents, $tags, $changes);
     drawFooter();
 ?>

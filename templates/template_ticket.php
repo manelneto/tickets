@@ -2,7 +2,7 @@
     declare(strict_types = 1);
 ?>
 
-<?php function drawTicket(Session $session, Ticket $ticket, array $statuses, array $priorities, array $departments, array $agents, array $tags) : void { ?>
+<?php function drawTicket(Session $session, Ticket $ticket, array $statuses, array $priorities, array $departments, array $agents, array $tags, array $changes) : void { ?>
     <main id="ticket-page">
         <article id="ticket">
             <?php $paragraphs = explode('\n', $ticket->getDescription()); ?>
@@ -121,12 +121,10 @@
                 </details>
             </form>
             <details id="changes">
-                <summary>Changes</summary><!--
-                <?php /* foreach ($ticket->getChanges() as $change) { ?>
-                    <p><?=$change->getDate()?> - <?=$change->getDescription()?></p>
-                <?php } */ ?>-->
-                <p>Changes not implemented yet</p>
-                <p>Changes not implemented yet</p>
+                <summary>Changes</summary>
+                <?php foreach ($changes as $change) { ?>
+                <p><?=$change->getDate()?> - <?=$change->getDescription()?></p>
+                <?php } ?>
             </details>
         </aside>
     </main>
