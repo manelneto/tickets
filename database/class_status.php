@@ -22,6 +22,7 @@
             $stmt = $db->prepare('
                 SELECT idStatus, name
                 FROM Status
+                ORDER BY 1
             ');
 
             $stmt->execute();

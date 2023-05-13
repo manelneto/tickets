@@ -28,6 +28,7 @@
             $stmt = $db->prepare('
                 SELECT idFAQ, question, answer
                 FROM FAQ
+                ORDER BY 2
             ');
 
             $stmt->execute();

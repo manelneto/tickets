@@ -22,6 +22,7 @@
             $stmt = $db->prepare('
                 SELECT idDepartment, name
                 FROM Department
+                ORDER BY 2
             ');
 
             $stmt->execute();

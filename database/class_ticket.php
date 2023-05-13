@@ -7,10 +7,11 @@
     require_once(__DIR__ . '/../database/class_status.php');
     require_once(__DIR__ . '/../database/class_faq.php');
     require_once(__DIR__ . '/../database/class_tag.php');
+    require_once(__DIR__ . '/../database/class_change.php');
 
     class Ticket {
         private int $id;
-        private User $client;
+        private User $author;
         private string $title;
         private string $description;
         private string $dateOpened;
@@ -21,9 +22,9 @@
         private ?Status $status;
         private ?FAQ $faq;
 
-        public function __construct(int $id, User $client, string $title, string $description, string $dateOpened, ?string $dateClosed, ?User $agent, ?Department $department, ?Priority $priority, ?Status $status, ?FAQ $faq) {
+        public function __construct(int $id, User $author, string $title, string $description, string $dateOpened, ?string $dateClosed, ?User $agent, ?Department $department, ?Priority $priority, ?Status $status, ?FAQ $faq) {
             $this->id = $id;
-            $this->client = $client;
+            $this->author = $author;
             $this->title = $title;
             $this->description = $description;
             $this->dateOpened = $dateOpened;
@@ -39,8 +40,8 @@
             return $this->id;
         }
 
-        public function getClient() : User {
-            return $this->client;
+        public function getAuthor() : User {
+            return $this->author;
         }
 
         public function getTitle() : string {
@@ -81,7 +82,7 @@
 
         public static function getTicket(PDO $db, int $id) : ?Ticket {
             $stmt = $db->prepare('
-                SELECT idTicket, idClient, title, description, dateOpened, dateClosed, idAgent, idDepartment, idPriority, idStatus, idFAQ
+                SELECT idTicket, idUser, title, description, dateOpened, dateClosed, idAgent, idDepartment, idPriority, idStatus, idFAQ
                 FROM Ticket
                 WHERE idTicket = ?
             ');
@@ -93,7 +94,7 @@
 
             return new Ticket(
                 (int) $ticket['idTicket'],
-                User::getUser($db, (int) $ticket['idClient']),
+                User::getUser($db, (int) $ticket['idUser']),
                 $ticket['title'],
                 $ticket['description'],
                 $ticket['dateOpened'],
@@ -108,9 +109,9 @@
 
         public static function getTicketsClient(PDO $db, int $id, string $after, string $before, int $department, int $priority, int $status) : array {
             $stmt = $db->prepare("
-                SELECT idTicket, idClient, title, description, dateOpened, dateClosed, idAgent, idDepartment, idPriority, idStatus, idFAQ
+                SELECT idTicket, idUser, title, description, dateOpened, dateClosed, idAgent, idDepartment, idPriority, idStatus, idFAQ
                 FROM Ticket
-                WHERE (idClient = ?) 
+                WHERE (idUser = ?) 
                 AND (? = '' OR dateOpened > ?) 
                 AND (? = '' OR dateOpened < ?)
                 AND (? = '0' OR idDepartment = ?) 
@@ -127,7 +128,7 @@
             foreach ($result as $row)
                 $tickets[] = new Ticket(
                     (int) $row['idTicket'],
-                    User::getUser($db, (int) $row['idClient']),
+                    User::getUser($db, (int) $row['idUser']),
                     $row['title'],
                     $row['description'],
                     $row['dateOpened'],
@@ -144,9 +145,9 @@
 
         public static function getTicketsAgent(PDO $db, int $id, string $after, string $before, int $department, int $priority, int $status) : array {
             $stmt = $db->prepare("
-                SELECT idTicket, idClient, title, description, dateOpened, dateClosed, idAgent, idDepartment, idPriority, idStatus, idFAQ
+                SELECT idTicket, idUser, title, description, dateOpened, dateClosed, idAgent, idDepartment, idPriority, idStatus, idFAQ
                 FROM Ticket
-                WHERE (idClient = ? OR idAgent = ? OR idDepartment IS NULL OR idDepartment IN (SELECT idDepartment FROM AgentDepartment WHERE idAgent = ?))
+                WHERE (idUser = ? OR idAgent = ? OR idDepartment IS NULL OR idDepartment IN (SELECT idDepartment FROM AgentDepartment WHERE idAgent = ?))
                 AND (? = '' OR dateOpened > ?) 
                 AND (? = '' OR dateOpened < ?)
                 AND (? = '0' OR idDepartment = ?) 
@@ -163,7 +164,7 @@
             foreach ($result as $row)
                 $tickets[] = new Ticket(
                     (int) $row['idTicket'],
-                    User::getUser($db, (int) $row['idClient']),
+                    User::getUser($db, (int) $row['idUser']),
                     $row['title'],
                     $row['description'],
                     $row['dateOpened'],
@@ -182,7 +183,7 @@
             $stmt = $db->prepare('
                 SELECT idTicket
                 FROM Ticket
-                WHERE idClient = ? AND idStatus = ?
+                WHERE idUser = ? AND idStatus = ?
             ');
 
             $stmt->execute(array($id, $status));
@@ -191,29 +192,17 @@
             return count($result);
         }
 
-        public static function addTicket(PDO $db, int $idClient, string $title, string $description, string $dateOpened, int $departmentId, array $tags) : bool {
-            if ($departmentId !== 0) {
-                $stmt = $db->prepare('
-                    INSERT INTO Ticket (idClient, title, description, dateOpened, idDepartment)
-                    VALUES (?, ?, ?, ?, ?)
-                ');
-                try {
-                    $stmt->execute(array($idClient, $title, $description, $dateOpened, $departmentId));
-                } catch (PDOException $e) {
-                    return false;
-                }
-            } else {
-                $stmt = $db->prepare('
-                    INSERT INTO Ticket (idClient, title, description, dateOpened)
-                    VALUES (?, ?, ?, ?)
-                ');
-                try {
-                    $stmt->execute(array($idClient, $title, $description, $dateOpened));
-                } catch (PDOException $e) {
-                    return false;
-                }
+        public static function addTicket(PDO $db, int $idUser, string $title, string $description, string $dateOpened, int $department, array $tags) : bool {
+            $stmt = $db->prepare('
+                INSERT INTO Ticket (idUser, title, description, dateOpened, idDepartment)
+                VALUES (?, ?, ?, ?, ?)
+            ');
+            try {
+                $stmt->execute(array($idUser, $title, $description, $dateOpened, $department === 0 ? 'NULL' : $department));
+            } catch (PDOException $e) {
+                return false;
             }
-            /* esta função parece demasiado complexa (desnecessariamente?) */
+
             $stmt = $db->prepare('
                 SELECT max(idTicket)
                 FROM Ticket
@@ -280,10 +269,10 @@
                 SELECT idTag, name
                 FROM TicketTag NATURAL JOIN Tag
                 WHERE idTicket = ?
+                ORDER BY 2
             ');
 
             $stmt->execute(array($this->id));
-
             $result = $stmt->fetchAll();
 
             $tags = array();
@@ -291,10 +280,33 @@
             foreach ($result as $row)
                 $tags[] = new Tag(
                     (int) $row['idTag'],
-                    $row['name'],
+                    $row['name']
                 );
 
             return $tags;
+        }
+
+        public function getChanges(PDO $db) : ?array {
+            $stmt = $db->prepare('
+                SELECT idChange, date, description
+                FROM Change
+                WHERE idTicket = ?
+                ORDER BY 2
+            ');
+
+            $stmt->execute(array($this->id));
+            $result = $stmt->fetchAll();
+
+            $changes = array();
+
+            foreach ($result as $row)
+                $changes[] = new Change(
+                    (int) $row['idChange'],
+                    $row['date'],
+                    $row['description']
+                );
+
+            return $changes;
         }
     }
 ?>

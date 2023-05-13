@@ -2,11 +2,11 @@
     declare(strict_types = 1);
 ?>
 
-<?php function drawTicket(Session $session, Ticket $ticket, array $statuses, array $priorities, array $departments, array $agents, array $tags) : void { ?>
+<?php function drawTicket(Session $session, Ticket $ticket, array $statuses, array $priorities, array $departments, array $agents, array $tags, array $changes) : void { ?>
     <main id="ticket-page">
         <article id="ticket">
             <?php $paragraphs = explode('\n', $ticket->getDescription()); ?>
-            <?php if ($session->getId() === $ticket->getClient()->getId()) { ?>
+            <?php if ($session->getId() === $ticket->getAuthor()->getId()) { ?>
                 <form action="../actions/action_edit_ticket.php" method="post" class="edit-ticket">
                     <header id="ticket-header">
                         <img src="../assets/ticket.jpg" alt="Ticket Icon">
@@ -15,7 +15,7 @@
                     <div id="author-edit"><!--odeio estes div!-->
                         <div id="author">
                             <img src="../assets/profile.png" alt="Profile Icon">
-                            <h3><?=$ticket->getClient()->getName()?></h3>
+                            <h3><?=$ticket->getAuthor()->getName()?></h3>
                         </div>
                         <button type="submit">Edit</button>
                     </div>
@@ -29,7 +29,7 @@
                 </header>
                 <div id="author"><!--odeio estes div!-->
                     <img src="../assets/profile.png" alt="Profile Icon">
-                    <h3><?=$ticket->getClient()->getName()?></h3>
+                    <h3><?=$ticket->getAuthor()->getName()?></h3>
                 </div>
                 <?php foreach ($paragraphs as $paragraph) { ?>
                 <p><?=$paragraph?></p>
@@ -121,12 +121,11 @@
                 </details>
             </form>
             <details id="changes">
-                <summary>Changes</summary><!--
-                <?php /* foreach ($ticket->getChanges() as $change) { ?>
-                    <p><?=$change->getDate()?> - <?=$change->getDescription()?></p>
-                <?php } */ ?>-->
-                <p>Changes not implemented yet</p>
-                <p>Changes not implemented yet</p>
+                <summary>Changes</summary>
+                <?php foreach ($changes as $change) { ?>
+                    <h5><?=$change->getDate()?></h5>
+                    <p><?=$change->getDescription()?></p>
+                <?php } ?>
             </details>
         </aside>
     </main>

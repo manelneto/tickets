@@ -16,7 +16,6 @@ DROP TABLE IF EXISTS Priority;
 DROP TABLE IF EXISTS Department;
 DROP TABLE IF EXISTS Admin;
 DROP TABLE IF EXISTS Agent;
-DROP TABLE IF EXISTS Client;
 DROP TABLE IF EXISTS User;
 
 
@@ -35,16 +34,10 @@ CREATE TABLE User (
     CONSTRAINT UserEmailCK UNIQUE (email)
 );
 
-CREATE TABLE Client (
-    idClient INTEGER NOT NULL,
-    CONSTRAINT ClientPK PRIMARY KEY (idClient),
-    CONSTRAINT ClientUserFK FOREIGN KEY (idClient) REFERENCES User (idUser) ON UPDATE CASCADE ON DELETE CASCADE
-);
-
 CREATE TABLE Agent (
     idAgent INTEGER NOT NULL,
     CONSTRAINT AgentPK PRIMARY KEY (idAgent),
-    CONSTRAINT AgentClientFK FOREIGN KEY (idAgent) REFERENCES Client (idClient) ON UPDATE CASCADE ON DELETE CASCADE
+    CONSTRAINT AgentUserFK FOREIGN KEY (idAgent) REFERENCES User (idUser) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE Admin (
@@ -91,7 +84,7 @@ CREATE TABLE FAQ (
 
 CREATE TABLE Ticket (
     idTicket INTEGER NOT NULL,
-    idClient INTEGER NOT NULL,
+    idUser INTEGER NOT NULL,
     title TEXT NOT NULL,
     description TEXT NOT NULL,
     dateOpened DATE NOT NULL,
@@ -102,7 +95,7 @@ CREATE TABLE Ticket (
     idStatus INTEGER DEFAULT 1,
     idFAQ INTEGER,
     CONSTRAINT TicketPK PRIMARY KEY (idTicket),
-    CONSTRAINT TicketClientFK FOREIGN KEY (idClient) REFERENCES Client (idClient) ON UPDATE CASCADE ON DELETE CASCADE,
+    CONSTRAINT TicketUserFK FOREIGN KEY (idUser) REFERENCES User (idUser) ON UPDATE CASCADE ON DELETE CASCADE,
     CONSTRAINT TicketAgentFK FOREIGN KEY (idAgent) REFERENCES Agent (idAgent) ON UPDATE CASCADE ON DELETE CASCADE,
     CONSTRAINT TicketDepartmentFK FOREIGN KEY (idDepartment) REFERENCES Department (idDepartment) ON UPDATE CASCADE ON DELETE CASCADE,
     CONSTRAINT TicketPriorityFK FOREIGN KEY (idPriority) REFERENCES Priority (idPriority) ON UPDATE CASCADE ON DELETE CASCADE,
@@ -150,33 +143,76 @@ CREATE TABLE TicketTag (
 
 /* TRIGGERS */
 
-DROP TRIGGER IF EXISTS UserClient;
-CREATE TRIGGER UserClient
-    AFTER INSERT ON User
-    FOR EACH ROW
-    WHEN NOT EXISTS (SELECT * FROM Client WHERE idClient = New.idUser)
-BEGIN
-    INSERT INTO Client VALUES(New.idUser);
-END;
-
-DROP TRIGGER IF EXISTS AgentClient;
-CREATE TRIGGER AgentClient
-AFTER INSERT ON Agent
-FOR EACH ROW
-WHEN NOT EXISTS (SELECT * FROM Client WHERE idClient = New.idAgent)
-BEGIN
-    INSERT INTO Client VALUES(New.idAgent);
-END;
 
 DROP TRIGGER IF EXISTS AdminAgent;
 CREATE TRIGGER AdminAgent
-AFTER INSERT ON Admin
-FOR EACH ROW
-WHEN NOT EXISTS (SELECT * FROM Agent WHERE idAgent = New.idAdmin)
+    AFTER INSERT ON Admin
+    WHEN NOT EXISTS (SELECT * FROM Agent WHERE idAgent = New.idAdmin)
 BEGIN
-    INSERT INTO Agent VALUES(New.idAdmin);
+    INSERT INTO Agent (idAgent) VALUES (New.idAdmin);
 END;
 
+DROP TRIGGER IF EXISTS TicketTitle;
+CREATE TRIGGER TicketTitle
+    AFTER UPDATE OF title ON Ticket
+    WHEN New.title <> Old.title
+BEGIN
+    INSERT INTO Change (date, description, idTicket) VALUES (date(), 'Title edited', New.idTicket);
+END;
+
+DROP TRIGGER IF EXISTS TicketDescription;
+CREATE TRIGGER TicketDescription
+    AFTER UPDATE OF description ON Ticket
+    WHEN New.description <> Old.description
+BEGIN
+    INSERT INTO Change (date, description, idTicket) VALUES (date(), 'Description edited', New.idTicket);
+END;
+
+DROP TRIGGER IF EXISTS TicketAgent;
+CREATE TRIGGER TicketAgent
+    AFTER UPDATE OF idAgent ON Ticket
+    WHEN New.idAgent <> Old.idAgent
+BEGIN
+    INSERT INTO Change (date, description, idTicket) VALUES (date(), 'Agent: ' || IFNULL((SELECT firstName || ' ' || lastName FROM Agent, User WHERE idAgent = idUser AND idAgent = Old.idAgent), 'None') || ' → ' || (SELECT firstName || ' ' || lastName FROM Agent, User WHERE idAgent = idUser AND idAgent = New.idAgent), New.idTicket);
+END;
+
+DROP TRIGGER IF EXISTS TicketDepartment;
+CREATE TRIGGER TicketDepartment
+    AFTER UPDATE OF idDepartment ON Ticket
+    WHEN New.idDepartment <> Old.idDepartment
+BEGIN
+    INSERT INTO Change (date, description, idTicket) VALUES (date(), 'Department: ' || IFNULL((SELECT name FROM Department WHERE idDepartment = Old.idDepartment), 'None') || ' → ' || (SELECT name FROM Department WHERE idDepartment = New.idDepartment), New.idTicket);
+END;
+
+DROP TRIGGER IF EXISTS TicketPriority;
+CREATE TRIGGER TicketPriority
+    AFTER UPDATE OF idPriority ON Ticket
+    WHEN New.idPriority <> Old.idPriority
+BEGIN
+    INSERT INTO Change (date, description, idTicket) VALUES (date(), 'Priority: ' || IFNULL((SELECT name FROM Priority WHERE idPriority = Old.idPriority), 'None') || ' → ' || (SELECT name FROM Priority WHERE idPriority = New.idPriority), New.idTicket);
+END;
+
+DROP TRIGGER IF EXISTS TicketStatus;
+CREATE TRIGGER TicketStatus
+    AFTER UPDATE OF idStatus ON Ticket
+    WHEN New.idStatus <> Old.idStatus
+BEGIN
+    INSERT INTO Change (date, description, idTicket) VALUES (date(), 'Status: ' || IFNULL((SELECT name FROM Status WHERE idStatus = Old.idStatus), 'None') || ' → ' || (SELECT name FROM Status WHERE idStatus = New.idStatus), New.idTicket);
+END;
+
+DROP TRIGGER IF EXISTS TicketTagDelete;
+CREATE TRIGGER TicketTagInsert
+    AFTER DELETE ON TicketTag
+BEGIN
+    INSERT INTO Change (date, description, idTicket) VALUES (date(), 'Tag: - ' || (SELECT name FROM Tag NATURAL JOIN TicketTag WHERE idTicket = Old.idTicket AND idTag = Old.idTag), Old.idTicket);
+END;
+
+DROP TRIGGER IF EXISTS TicketTagInsert;
+CREATE TRIGGER TicketTagInsert
+    AFTER INSERT ON TicketTag
+BEGIN
+    INSERT INTO Change (date, description, idTicket) VALUES (date(), 'Tag: + ' || (SELECT name FROM Tag NATURAL JOIN TicketTag WHERE idTicket = New.idTicket AND idTag = New.idTag), New.idTicket);
+END;
 
 /* INSERT */
 
