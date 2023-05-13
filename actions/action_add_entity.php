@@ -51,7 +51,7 @@
                 $session->addMessage(false, "Tag '$name' already exists");
             break;
         default:
-            $session->addMessage(false, 'Action unsuccessful...');
+            $session->addMessage(false, 'Entity could not be added');
             break;
     }
 
