@@ -9,6 +9,9 @@
         die();
     }
 
+    $question = trim($_POST['question']);
+    $answer = trim($_POST['answer']);
+
     require_once(__DIR__ . '/../database/connection.php');
     $db = getDatabaseConnection();
 

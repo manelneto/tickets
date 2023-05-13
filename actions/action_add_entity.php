@@ -25,16 +25,35 @@
     require_once(__DIR__ . '/../database/class_priority.php');
     require_once(__DIR__ . '/../database/class_tag.php');
 
-    if ($_POST['entity'] === 'department' && Department::addDepartment($db, $name))
-        $session->addMessage(true, "Department '$name' successfully added");
-    else if ($_POST['entity'] === 'status' && Status::addStatus($db, $name))
-        $session->addMessage(true, "Status '$name' successfully added");
-    else if ($_POST['entity'] === 'priority' && Priority::addPriority($db, $name))
-        $session->addMessage(true, "Priority '$name' successfully added");
-    else if ($_POST['entity'] === 'tag' && Tag::addTag($db, $name))
-        $session->addMessage(true, "Tag '$name' successfully added");
-    else
-        $session->addMessage(false, "Action unsuccessful");
+    switch ($_POST['entity']) {
+        case 'department':
+            if (Department::addDepartment($db, $name))
+                $session->addMessage(true, "Department '$name' successfully added");
+            else
+                $session->addMessage(false, "Department '$name' already exists");
+            break;
+        case 'status':
+            if (Status::addStatus($db, $name))
+                $session->addMessage(true, "Status '$name' successfully added");
+            else
+                $session->addMessage(false, "Status '$name' already exists");
+            break;
+        case 'priority':
+            if (Priority::addPriority($db, $name))
+                $session->addMessage(true, "Priority '$name' successfully added");
+            else
+                $session->addMessage(false, "Priority '$name' already exists");
+            break;
+        case 'tag':
+            if (Tag::addTag($db, $name))
+                $session->addMessage(true, "Tag '$name' successfully added");
+            else
+                $session->addMessage(false, "Tag '$name' already exists");
+            break;
+        default:
+            $session->addMessage(false, 'Action unsuccessful...');
+            break;
+    }
 
     header('Location: ../pages/management.php');
 ?>
