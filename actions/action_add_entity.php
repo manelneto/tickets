@@ -12,7 +12,7 @@
     $name = trim($_POST['name']);
 
     if ($name === '') {
-        $session->addMessage(false, "Entity name cannot be empty");
+        $session->addMessage(false, 'Entity name cannot be empty');
         header('Location: ../pages/management.php');
         die();
     }
