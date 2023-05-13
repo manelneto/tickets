@@ -15,9 +15,9 @@
     require_once(__DIR__ . '/../database/class_faq.php');
 
     if (FAQ::addFAQ($db, $_POST['question'], $_POST['answer']))
-        header('Location: ../pages/faqs.php');
+        $session->addMessage(true, 'FAQ successfully added');
     else
-        header('Location: ../pages/faqs.php');
+        $session->addMessage(false, 'Action unsuccessful');
 
-    /* if-else para depois adicionarmos mensagens de erro/sucesso */
+    header('Location: ../pages/faqs.php');
 ?>
