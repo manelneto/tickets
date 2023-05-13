@@ -23,7 +23,7 @@
     require_once(__DIR__ . '/../database/class_user.php');
     $user = User::getUser($db, $session->getId());
 
-    if ($user && $user->editPassword($db, $_POST['current'], $_POST['new']))
+    if ($user && $user->editPassword($db, $_POST['current'], $new))
         $session->addMessage(true, 'Password successfully edited');
     else
         $session->addMessage(false, 'The current password does not match');

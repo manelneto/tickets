@@ -32,7 +32,7 @@
         $session->addMessage(true, 'Login successful');
         header('Location: ../pages/dashboard.php');
     } else {
-        header('Location: ../pages/login.php');
         $session->addMessage(false, 'Login unsuccessful');
+        header('Location: ../pages/login.php');
     }
 ?>
