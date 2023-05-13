@@ -9,23 +9,39 @@
         die();
     }
 
+    $id = (int) $_POST['id'];
+
+    $title = trim($_POST['title']);
+    $description = trim($_POST['description']);
+
+    if ($title === '' || $description === '') {
+        $session->addMessage(false, 'Ticket title/description cannot be empty');
+        header("Location: ../pages/ticket.php?id=$id");
+        die();
+    }
+
     require_once(__DIR__ . '/../database/connection.php');
     $db = getDatabaseConnection();
 
-    $id = (int) $_POST['id'];
-
     require_once(__DIR__ . '/../database/class_ticket.php');
-    $ticket = Ticket::getTicket($db, (int) $id);
+    $ticket = Ticket::getTicket($db, $id);
 
-    if ($session->getId() !== $ticket->getAuthor()->getId()) {
+    if (!$ticket) {
+        $session->addMessage(false, 'Ticket not found');
         header('Location: ../pages/index.php');
         die();
     }
 
-    if ($ticket && $ticket->edit($db, trim($_POST['title']), trim($_POST['description'])))
-        header("Location: ../pages/ticket.php?id=$id");
-    else
-        header("Location: ../pages/ticket.php?id=$id");
+    if ($session->getId() !== $ticket->getAuthor()->getId()) {
+        $session->addMessage(false, 'Only the author of the ticket can edit the ticket');
+        header('Location: ../pages/index.php');
+        die();
+    }
 
-    /* if-else para depois adicionarmos mensagens de erro/sucesso */
+    if ($ticket->edit($db, $title, $description))
+        $session->addMessage(false, 'Ticket successfully edited');
+    else
+        $session->addMessage(false, 'Ticket could not be edited');
+
+    header("Location: ../pages/ticket.php?id=$id");
 ?>

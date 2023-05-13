@@ -13,7 +13,7 @@
     $description = trim($_POST['description']);
 
     if ($title === '' || $description === '') {
-        $session->addMessage(false, 'Ticket title and description cannot be empty');
+        $session->addMessage(false, 'Ticket title/description cannot be empty');
         header('Location: ../pages/new_ticket.php');
         die();
     }
