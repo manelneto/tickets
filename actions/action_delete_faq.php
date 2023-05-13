@@ -16,9 +16,9 @@
     $faq = FAQ::getFAQ($db, (int) $_POST['id']);
 
     if ($faq && $faq->delete($db))
-        header('Location: ../pages/faqs.php');
+        $session->addMessage(true, 'FAQ successfully deleted');
     else
-        header('Location: ../pages/faqs.php');
+        $session->addMessage(false, 'FAQ could not be deleted');
 
-    /* if-else para depois adicionarmos mensagens de erro/sucesso */
+    header('Location: ../pages/faqs.php');
 ?>
