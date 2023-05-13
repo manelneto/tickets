@@ -192,29 +192,17 @@
             return count($result);
         }
 
-        public static function addTicket(PDO $db, int $idUser, string $title, string $description, string $dateOpened, int $departmentId, array $tags) : bool {
-            if ($departmentId !== 0) {
-                $stmt = $db->prepare('
-                    INSERT INTO Ticket (idUser, title, description, dateOpened, idDepartment)
-                    VALUES (?, ?, ?, ?, ?)
-                ');
-                try {
-                    $stmt->execute(array($idUser, $title, $description, $dateOpened, $departmentId));
-                } catch (PDOException $e) {
-                    return false;
-                }
-            } else {
-                $stmt = $db->prepare('
-                    INSERT INTO Ticket (idUser, title, description, dateOpened)
-                    VALUES (?, ?, ?, ?)
-                ');
-                try {
-                    $stmt->execute(array($idUser, $title, $description, $dateOpened));
-                } catch (PDOException $e) {
-                    return false;
-                }
+        public static function addTicket(PDO $db, int $idUser, string $title, string $description, string $dateOpened, int $department, array $tags) : bool {
+            $stmt = $db->prepare('
+                INSERT INTO Ticket (idUser, title, description, dateOpened, idDepartment)
+                VALUES (?, ?, ?, ?, ?)
+            ');
+            try {
+                $stmt->execute(array($idUser, $title, $description, $dateOpened, $department === 0 ? 'NULL' : $department));
+            } catch (PDOException $e) {
+                return false;
             }
-            /* esta função parece demasiado complexa (desnecessariamente?) */
+
             $stmt = $db->prepare('
                 SELECT max(idTicket)
                 FROM Ticket

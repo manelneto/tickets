@@ -155,6 +155,7 @@ END;
 DROP TRIGGER IF EXISTS TicketTitle;
 CREATE TRIGGER TicketTitle
     AFTER UPDATE OF title ON Ticket
+    WHEN New.title <> Old.title
 BEGIN
     INSERT INTO Change (date, description, idTicket) VALUES (date(), 'Title edited', New.idTicket);
 END;
@@ -162,6 +163,7 @@ END;
 DROP TRIGGER IF EXISTS TicketDescription;
 CREATE TRIGGER TicketDescription
     AFTER UPDATE OF description ON Ticket
+    WHEN New.description <> Old.description
 BEGIN
     INSERT INTO Change (date, description, idTicket) VALUES (date(), 'Description edited', New.idTicket);
 END;
@@ -169,6 +171,7 @@ END;
 DROP TRIGGER IF EXISTS TicketAgent;
 CREATE TRIGGER TicketAgent
     AFTER UPDATE OF idAgent ON Ticket
+    WHEN New.idAgent <> Old.idAgent
 BEGIN
     INSERT INTO Change (date, description, idTicket) VALUES (date(), 'Agent: ' || IFNULL((SELECT firstName || ' ' || lastName FROM Agent, User WHERE idAgent = idUser AND idAgent = Old.idAgent), 'None') || ' --> ' || (SELECT firstName || ' ' || lastName FROM Agent, User WHERE idAgent = idUser AND idAgent = New.idAgent), New.idTicket);
 END;
@@ -176,6 +179,7 @@ END;
 DROP TRIGGER IF EXISTS TicketDepartment;
 CREATE TRIGGER TicketDepartment
     AFTER UPDATE OF idDepartment ON Ticket
+    WHEN New.idDepartment <> Old.idDepartment
 BEGIN
     INSERT INTO Change (date, description, idTicket) VALUES (date(), 'Department: ' || IFNULL((SELECT name FROM Department WHERE idDepartment = Old.idDepartment), 'None') || ' --> ' || (SELECT name FROM Department WHERE idDepartment = New.idDepartment), New.idTicket);
 END;
@@ -183,6 +187,7 @@ END;
 DROP TRIGGER IF EXISTS TicketPriority;
 CREATE TRIGGER TicketPriority
     AFTER UPDATE OF idPriority ON Ticket
+    WHEN New.idPriority <> Old.idPriority
 BEGIN
     INSERT INTO Change (date, description, idTicket) VALUES (date(), 'Priority: ' || IFNULL((SELECT name FROM Priority WHERE idPriority = Old.idPriority), 'None') || ' --> ' || (SELECT name FROM Priority WHERE idPriority = New.idPriority), New.idTicket);
 END;
@@ -190,6 +195,7 @@ END;
 DROP TRIGGER IF EXISTS TicketStatus;
 CREATE TRIGGER TicketStatus
     AFTER UPDATE OF idStatus ON Ticket
+    WHEN New.title <> Old.title
 BEGIN
     INSERT INTO Change (date, description, idTicket) VALUES (date(), 'Status: ' || IFNULL((SELECT name FROM Status WHERE idStatus = Old.idStatus), 'None') || ' --> ' || (SELECT name FROM Status WHERE idStatus = New.idStatus), New.idTicket);
 END;
