@@ -17,14 +17,18 @@
     require_once(__DIR__ . '/../database/class_priority.php');
     require_once(__DIR__ . '/../database/class_tag.php');
 
-    if ($_POST['entity'] === 'department' && Department::addDepartment($db, $_POST['name']))
-        header('Location: ../pages/dashboard.php');
-    else if ($_POST['entity'] === 'status' && Status::addStatus($db, $_POST['name']))
-        header('Location: ../pages/dashboard.php');
-    else if ($_POST['entity'] === 'priority' && Priority::addPriority($db, $_POST['name']))
-        header('Location: ../pages/dashboard.php');
-    else if ($_POST['entity'] === 'tag' && Tag::addTag($db, $_POST['name']))
-        header('Location: ../pages/dashboard.php');
+    $name = trim($_POST['name']);
+
+    if ($_POST['entity'] === 'department' && Department::addDepartment($db, $name))
+        $session->addMessage(true, "Department '$name' successfully added");
+    else if ($_POST['entity'] === 'status' && Status::addStatus($db, $name))
+        $session->addMessage(true, "Status '$name' successfully added");
+    else if ($_POST['entity'] === 'priority' && Priority::addPriority($db, $name))
+        $session->addMessage(true, "Priority '$name' successfully added");
+    else if ($_POST['entity'] === 'tag' && Tag::addTag($db, $name))
+        $session->addMessage(true, "Tag '$name' successfully added");
     else
-        header('Location: ../pages/management.php');
+        $session->addMessage(false, "Action unsuccessful");
+
+    header('Location: ../pages/management.php');
 ?>
