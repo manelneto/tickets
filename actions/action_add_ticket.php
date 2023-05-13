@@ -17,7 +17,7 @@
 
     $departmentId = (int) $_POST['department'];
 
-    $names = str_contains($_POST['tags'], ',') ? explode(',', $_POST['tags']) : array(trim($_POST['tags']));
+    $names = (strpos($_POST['tags'], ',') !== false) ? explode(',', $_POST['tags']) : array(trim($_POST['tags']));
 
     $tags = array();
 
