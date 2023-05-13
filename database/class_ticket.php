@@ -238,7 +238,7 @@
             return true;
         }
 
-        public function edit(PDO $db, string $title, string $description, string $date) : bool {
+        public function edit(PDO $db, string $title, string $description) : bool {
             $stmt = $db->prepare('
                 UPDATE Ticket
                 SET title = ?, description = ?
@@ -300,10 +300,11 @@
         public function getChanges(PDO $db) : ?array {
             $stmt = $db->prepare('
                 SELECT idChange, date, description
-                FROM Change NATURAL JOIN Ticket
+                FROM Change
+                WHERE idTicket = ?
             ');
 
-            $stmt->execute();
+            $stmt->execute(array($this->id));
             $result = $stmt->fetchAll();
 
             $changes = array();

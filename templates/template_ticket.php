@@ -123,7 +123,7 @@
             <details id="changes">
                 <summary>Changes</summary>
                 <?php foreach ($changes as $change) { ?>
-                <p><?=$change->getDate()?> - <?=$change->getDescription()?></p>
+                    <p><?=$change->getDate()?> - <?=$change->getDescription()?></p>
                 <?php } ?>
             </details>
         </aside>
