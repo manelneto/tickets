@@ -9,6 +9,14 @@
         die();
     }
 
+    $name = trim($_POST['name']);
+
+    if ($name === '') {
+        $session->addMessage(false, "Entity name cannot be empty");
+        header('Location: ../pages/management.php');
+        die();
+    }
+
     require_once(__DIR__ . '/../database/connection.php');
     $db = getDatabaseConnection();
 
@@ -16,8 +24,6 @@
     require_once(__DIR__ . '/../database/class_status.php');
     require_once(__DIR__ . '/../database/class_priority.php');
     require_once(__DIR__ . '/../database/class_tag.php');
-
-    $name = trim($_POST['name']);
 
     if ($_POST['entity'] === 'department' && Department::addDepartment($db, $name))
         $session->addMessage(true, "Department '$name' successfully added");

@@ -27,9 +27,13 @@
             $tags[] = $tag;
     }
 
-    if (Ticket::addTicket($db, $session->getId(), trim($_POST['title'] ?? ''), trim($_POST['description'] ?? ''), $dateOpened, $departmentId, $tags))
+    if (Ticket::addTicket($db, $session->getId(), trim($_POST['title'] ?? ''), trim($_POST['description'] ?? ''), $dateOpened, $departmentId, $tags)) {
+        $session->addMessage(true, 'Ticket successfully added');
         header('Location: ../pages/tickets.php');
-    else
+    }
+    else {
+        $session->addMessage(false, 'Action unsuccessful');
         header('Location: ../pages/new_ticket.php');
+    }
 
 ?>
