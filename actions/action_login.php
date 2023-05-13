@@ -29,7 +29,6 @@
         $session->setName($user->getName());
         $session->setAgent($user->isAgent($db));
         $session->setAdmin($user->isAdmin($db));
-        $session->addMessage(true, 'Login successful');
         header('Location: ../pages/dashboard.php');
     } else {
         $session->addMessage(false, 'Login unsuccessful');

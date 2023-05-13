@@ -32,7 +32,6 @@
         $session->setName($user->getName());
         $session->setAgent($user->isAgent($db));
         $session->setAdmin($user->isAdmin($db));
-        $session->addMessage(true, 'Register successful');
         header('Location: ../pages/dashboard.php');
     } else {
         $session->addMessage(false, 'Register unsuccessful: username/email already exists');
