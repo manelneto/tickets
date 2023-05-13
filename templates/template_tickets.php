@@ -55,58 +55,30 @@
             <input id="after" type="date" name="after" <?php if ($after !== '') echo "value=$after"; ?>>
             <label for="before">Before</label>
             <input id="before" type="date" name="before" <?php if ($before !== '') echo "value=$before"; ?>>
-            <label for="status">Status</label>
-            <select id="status" name="status">
-                <?php if (!$status) { ?>
-                    <option value="0">All</option>
-                    <?php foreach ($statuses as $s) { ?>
-                        <option value="<?=$s->getId()?>"><?=$s->getName()?></option>
-                    <?php } ?>
-                <?php } else { ?>
-                    <option value="<?=$status->getId()?>"><?=$status->getName()?></option>
-                    <option value="0">All</option>
-                    <?php foreach ($statuses as $s) { ?>
-                        <?php if ($s->getId() !== $status->getId()) { ?>
-                            <option value="<?=$s->getId()?>"><?=$s->getName()?></option>
-                        <?php } ?>
-                    <?php } ?>
-                <?php } ?>
-            </select>
-            <label for="priority">Priority</label>
-            <select id="priority" name="priority">
-                <?php if (!$priority) { ?>
-                    <option value="0">All</option>
-                    <?php foreach ($priorities as $p) { ?>
-                        <option value="<?=$p->getId()?>"><?=$p->getName()?></option>
-                    <?php } ?>
-                <?php } else { ?>
-                    <option value="<?=$priority->getId()?>"><?=$priority->getName()?></option>
-                    <option value="0">All</option>
-                    <?php foreach ($priorities as $p) { ?>
-                        <?php if ($p->getId() !== $priority->getId()) { ?>
-                            <option value="<?=$p->getId()?>"><?=$p->getName()?></option>
-                        <?php } ?>
-                    <?php } ?>
-                <?php } ?>
-            </select>
-            <label for="department">Department</label>
-            <select id="department" name="department">
-                <?php if (!$department) { ?>
-                    <option value="0">All</option>
-                    <?php foreach ($departments as $d) { ?>
-                        <option value="<?=$d->getId()?>"><?=$d->getName()?></option>
-                    <?php } ?>
-                <?php } else { ?>
-                    <option value="<?=$department->getId()?>"><?=$department->getName()?></option>
-                    <option value="0">All</option>
-                    <?php foreach ($departments as $d) { ?>
-                        <?php if ($d->getId() !== $department->getId()) { ?>
-                            <option value="<?=$d->getId()?>"><?=$d->getName()?></option>
-                        <?php } ?>
-                    <?php } ?>
-                <?php } ?>
-            </select>
+            <?php drawFilter('Status', $status, $statuses); ?>
+            <?php drawFilter('Priority', $priority, $priorities); ?>
+            <?php drawFilter('Department', $department, $departments); ?>
             <button type="submit">Filter</button>
         </form>
     </main>
+<?php } ?>
+
+<?php function drawFilter(string $name, $entity, array $entities) : void { ?>
+    <label for="<?=strtolower($name)?>"><?=$name?></label>
+    <select id="<?=strtolower($name)?>" name="<?=strtolower($name)?>">
+        <?php if (!$entity) { ?>
+            <option value="0">All</option>
+            <?php foreach ($entities as $e) { ?>
+                <option value="<?=$e->getId()?>"><?=$e->getName()?></option>
+            <?php } ?>
+        <?php } else { ?>
+            <option value="<?=$entity->getId()?>"><?=$entity->getName()?></option>
+            <option value="0">All</option>
+            <?php foreach ($entities as $e) { ?>
+                <?php if ($e->getId() !== $entity->getId()) { ?>
+                    <option value="<?=$e->getId()?>"><?=$e->getName()?></option>
+                <?php } ?>
+            <?php } ?>
+        <?php } ?>
+    </select>
 <?php } ?>
