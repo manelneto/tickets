@@ -202,7 +202,7 @@ END;
 
 DROP TRIGGER IF EXISTS TicketTagDelete;
 CREATE TRIGGER TicketTagInsert
-    AFTER DELETE ON TicketTag
+    BEFORE DELETE ON TicketTag
 BEGIN
     INSERT INTO Change (date, description, idTicket) VALUES (date(), 'Tag: - ' || (SELECT name FROM Tag NATURAL JOIN TicketTag WHERE idTicket = Old.idTicket AND idTag = Old.idTag), Old.idTicket);
 END;
