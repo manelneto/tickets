@@ -56,7 +56,12 @@
                     <?php drawProperty($session->isAgent(), 'Agent', $ticket->getAgent(), $agents); ?>
                     <h4>Tags</h4>
                     <?php foreach ($tags as $tag) { ?>
+                        <?php if ($session->isAgent()) { ?>
+                        <input type="hidden" name="tag" value="<?=$tag->getId()?>">
+                        <button formaction="../actions/action_delete_ticket_tag.php" formmethod="post" type="submit"><?=$tag->getName()?></button>
+                        <?php } else { ?>
                         <p><?=$tag->getName()?></p>
+                        <?php } ?>
                     <?php } ?>
                     <input type="hidden" name="id" value="<?=$ticket->getId()?>">
                     <?php if ($session->isAgent()) { ?>

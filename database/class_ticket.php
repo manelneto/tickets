@@ -321,5 +321,21 @@
 
             return $changes;
         }
+
+        public function deleteTag(PDO $db, int $tag) : bool {
+            $stmt = $db->prepare('
+                DELETE
+                FROM TicketTag
+                WHERE idTag = ? AND idTicket = ?
+            ');
+
+            try {
+                $stmt->execute(array($tag, $this->id));
+            } catch (PDOException $e) {
+                return false;
+            }
+
+            return true;
+        }
     }
 ?>
