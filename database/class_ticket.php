@@ -36,6 +36,10 @@
             $this->faq = $faq;
         }
 
+        public function __toString() {
+            return $this->title;
+        }
+
         public function getId() : int {
             return $this->id;
         }
@@ -159,7 +163,7 @@
             return $tickets;
         }
 
-        public static function getTicketsAdmin(PDO $db, string $after, string $before, int $department, int $priority, int $status) : array {
+        public static function getTickets(PDO $db, string $after, string $before, int $department, int $priority, int $status) : array {
             $stmt = $db->prepare("
                 SELECT idTicket, idUser, title, description, dateOpened, dateClosed, idAgent, idDepartment, idPriority, idStatus, idFAQ
                 FROM Ticket

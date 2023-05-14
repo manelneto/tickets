@@ -12,6 +12,10 @@
             $this->answer = $answer;
         }
 
+        public function __toString() {
+            return $this->question;
+        }
+
         public function getId() : int {
             return $this->id;
         }
