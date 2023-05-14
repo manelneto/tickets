@@ -21,15 +21,18 @@
     $priority = (int) $_POST['priority'] ?? 0;
     $status = (int) $_POST['status'] ?? 0;
 
-    if ($session->isAdmin())
-        $tickets = Ticket::getTicketsAdmin($db, $after, $before, $department, $priority, $status);
-    else if ($session->isAgent())
-        $tickets = Ticket::getTicketsAgent($db, $session->getId(), $after, $before, $department, $priority, $status);
-    else
-        $tickets = Ticket::getTicketsClient($db, $session->getId(), $after, $before, $department, $priority, $status);
     $departments = Department::getDepartments($db);
     $priorities = Priority::getPriorities($db);
     $statuses = Status::getStatuses($db);
+
+    if ($session->isAdmin())
+        $tickets = Ticket::getTicketsAdmin($db, $after, $before, $department, $priority, $status);
+    else if ($session->isAgent()) {
+        $tickets = Ticket::getTicketsAgent($db, $session->getId(), $after, $before, $department, $priority, $status);
+        $departments = Department::getAgentDepartments($db, $session->getId());
+    }
+    else
+        $tickets = Ticket::getTicketsClient($db, $session->getId(), $after, $before, $department, $priority, $status);
 
     require_once(__DIR__ . '/../templates/template_common.php');
     require_once(__DIR__ . '/../templates/template_tickets.php');
