@@ -20,20 +20,22 @@
     $department = (int) $_POST['department'] ?? 0;
     $priority = (int) $_POST['priority'] ?? 0;
     $status = (int) $_POST['status'] ?? 0;
+    $agent = (int) $_POST['agent'] ?? 0;
 
     $priorities = Priority::getPriorities($db);
     $statuses = Status::getStatuses($db);
+    $agents = User::getAgents($db);
 
     if ($session->isAdmin()) {
-        $tickets = Ticket::getTickets($db, $after, $before, $department, $priority, $status);
+        $tickets = Ticket::getTickets($db, $after, $before, $department, $priority, $status, $agent);
         $departments = Department::getDepartments($db);
     }
     else if ($session->isAgent()) {
-        $tickets = Ticket::getTicketsAgent($db, $session->getId(), $after, $before, $department, $priority, $status);
+        $tickets = Ticket::getTicketsAgent($db, $session->getId(), $after, $before, $department, $priority, $status, $agent);
         $departments = array_unique(array_merge(Department::getAgentDepartments($db, $session->getId()), Department::getClientDepartments($db, $session->getId())));
     }
     else {
-        $tickets = Ticket::getTicketsClient($db, $session->getId(), $after, $before, $department, $priority, $status);
+        $tickets = Ticket::getTicketsClient($db, $session->getId(), $after, $before, $department, $priority, $status, $agent);
         $departments = Department::getClientDepartments($db, $session->getId());
     }
 
@@ -44,6 +46,6 @@
     $offset = isset($_POST['offset']) ? (int) max($_POST['offset'], 0) : 0;
 
     drawHeader($session, 'Tickets');
-    drawTickets($tickets, $limit, $offset, $after, $before, Status::getStatus($db, $status), Priority::getPriority($db, $priority), Department::getDepartment($db, $department), $statuses, $priorities, $departments);
+    drawTickets($tickets, $limit, $offset, $after, $before, Status::getStatus($db, $status), Priority::getPriority($db, $priority), Department::getDepartment($db, $department), User::getUser($db, $agent), $statuses, $priorities, $departments, $agents);
     drawFooter();
 ?>

@@ -115,7 +115,7 @@
             return self::parseTicket($db, $ticket);
         }
 
-        public static function getTicketsClient(PDO $db, int $id, string $after, string $before, int $department, int $priority, int $status) : array {
+        public static function getTicketsClient(PDO $db, int $id, string $after, string $before, int $department, int $priority, int $status, int $agent) : array {
             $stmt = $db->prepare("
                 SELECT idTicket, idUser, title, description, dateOpened, dateClosed, idAgent, idDepartment, idPriority, idStatus, idFAQ
                 FROM Ticket
@@ -125,10 +125,11 @@
                 AND (? = '0' OR idDepartment = ?) 
                 AND (? = '0' OR idPriority = ?) 
                 AND (? = '0' OR idStatus = ?) 
+                AND (? = '0' OR idAgent = ?)
                 ORDER BY 5 DESC, 9 DESC, 3
             ");
 
-            $stmt->execute(array($id, $after, $after, $before, $before, $department, $department, $priority, $priority, $status, $status));
+            $stmt->execute(array($id, $after, $after, $before, $before, $department, $department, $priority, $priority, $status, $status, $agent, $agent));
             $result = $stmt->fetchAll();
 
             $tickets = array();
@@ -139,7 +140,7 @@
             return $tickets;
         }
 
-        public static function getTicketsAgent(PDO $db, int $id, string $after, string $before, int $department, int $priority, int $status) : array {
+        public static function getTicketsAgent(PDO $db, int $id, string $after, string $before, int $department, int $priority, int $status, int $agent) : array {
             $stmt = $db->prepare("
                 SELECT idTicket, idUser, title, description, dateOpened, dateClosed, idAgent, idDepartment, idPriority, idStatus, idFAQ
                 FROM Ticket
@@ -149,10 +150,11 @@
                 AND (? = '0' OR idDepartment = ?) 
                 AND (? = '0' OR idPriority = ?) 
                 AND (? = '0' OR idStatus = ?) 
+                AND (? = '0' OR idAgent = ?)
                 ORDER BY 5 DESC, 9 DESC, 3
             ");
 
-            $stmt->execute(array($id, $id, $id, $after, $after, $before, $before, $department, $department, $priority, $priority, $status, $status));
+            $stmt->execute(array($id, $id, $id, $after, $after, $before, $before, $department, $department, $priority, $priority, $status, $status, $agent, $agent));
             $result = $stmt->fetchAll();
 
             $tickets = array();
@@ -163,7 +165,7 @@
             return $tickets;
         }
 
-        public static function getTickets(PDO $db, string $after, string $before, int $department, int $priority, int $status) : array {
+        public static function getTickets(PDO $db, string $after, string $before, int $department, int $priority, int $status, int $agent) : array {
             $stmt = $db->prepare("
                 SELECT idTicket, idUser, title, description, dateOpened, dateClosed, idAgent, idDepartment, idPriority, idStatus, idFAQ
                 FROM Ticket
@@ -172,10 +174,11 @@
                 AND (? = '0' OR idDepartment = ?) 
                 AND (? = '0' OR idPriority = ?) 
                 AND (? = '0' OR idStatus = ?) 
+                AND (? = '0' OR idAgent = ?)
                 ORDER BY 5 DESC, 9 DESC, 3
             ");
 
-            $stmt->execute(array($after, $after, $before, $before, $department, $department, $priority, $priority, $status, $status));
+            $stmt->execute(array($after, $after, $before, $before, $department, $department, $priority, $priority, $status, $status, $agent, $agent));
             $result = $stmt->fetchAll();
 
             $tickets = array();
