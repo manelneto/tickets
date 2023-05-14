@@ -47,7 +47,7 @@
                 <p><?=$ticket->getDateClosed()?></p>
             </section>
             <?php } ?>
-            <form action="../actions/action_edit_ticket_properties.php" method="post" class="properties">
+            <form action="../actions/action_edit_ticket_properties.php" method="post" class="properties" novalidate>
                 <details>
                     <summary>Properties</summary>
                     <?php drawProperty($session->isAgent(), 'Status', $ticket->getStatus(), $statuses); ?>

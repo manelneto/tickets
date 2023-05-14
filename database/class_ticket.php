@@ -236,17 +236,8 @@
             $result = $stmt->fetch();
             $id = (int) $result['max(idTicket)'];
 
-            foreach ($tags as $tag) {
-                $stmt = $db->prepare('
-                    INSERT INTO TicketTag (idTicket, idTag)
-                    VALUES (?, ?)
-                ');
-                try {
-                    $stmt->execute(array($id, $tag->getId()));
-                } catch (PDOException $e) {
-                    return false;
-                }
-            }
+            foreach ($tags as $tag)
+                self::addTag($db, $id, $tag);
 
             return true;
         }
@@ -269,7 +260,7 @@
             return true;
         }
 
-        public function editProperties(PDO $db, int $status, int $priority, int $department, int $agent) : bool {
+        public function editProperties(PDO $db, int $status, int $priority, int $department, int $agent, array $tags) : bool {
             $stmt = $db->prepare('
                 UPDATE Ticket
                 SET idStatus = ?, idPriority = ?, idDepartment = ?, idAgent = ?
@@ -281,7 +272,10 @@
             } catch (PDOException $e) {
                 return false;
             }
-            
+
+            foreach ($tags as $tag)
+                self::addTag($db, $this->id, $tag);
+
             $this->status = Status::getStatus($db, $status);
             $this->priority = Priority::getPriority($db, $priority);
             $this->department = Department::getDepartment($db, $department);
@@ -334,15 +328,25 @@
             return $changes;
         }
 
+        public static function addTag(PDO $db, int $ticket, int $tag) : void {
+            $stmt = $db->prepare('
+                INSERT INTO TicketTag (idTicket, idTag)
+                VALUES (?, ?)
+            ');
+            try {
+                $stmt->execute(array($ticket, $tag));
+            } catch (PDOException $e) {}
+        }
+
         public function deleteTag(PDO $db, int $tag) : bool {
             $stmt = $db->prepare('
                 DELETE
                 FROM TicketTag
-                WHERE idTag = ? AND idTicket = ?
+                WHERE idTicket = ? AND idTag = ? 
             ');
 
             try {
-                $stmt->execute(array($tag, $this->id));
+                $stmt->execute(array($this->id, $tag));
             } catch (PDOException $e) {
                 return false;
             }
