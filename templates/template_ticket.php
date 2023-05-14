@@ -58,8 +58,7 @@
                         <h4>Tags</h4>
                         <?php foreach ($tags as $tag) { ?>
                             <?php if ($session->isAgent()) { ?>
-                            <input type="hidden" name="tag" value="<?=$tag->getId()?>">
-                            <button formaction="../actions/action_delete_ticket_tag.php" formmethod="post" type="submit"><?=$tag->getName()?></button>
+                            <button formaction="../actions/action_delete_ticket_tag.php" formmethod="post" value="<?=$tag->getId()?>" name="tag"><?=$tag->getName()?></button>
                             <?php } else { ?>
                             <p><?=$tag->getName()?></p>
                             <?php } ?>
