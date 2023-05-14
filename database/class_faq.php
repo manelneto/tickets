@@ -112,9 +112,7 @@
             } catch (PDOException $e) {
                 return false;
             }
-            
-            $this->question = $question;
-            $this->answer = $answer;
+
             return true;
         }
     }

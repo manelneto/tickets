@@ -254,9 +254,7 @@
             } catch (PDOException $e) {
                 return false;
             }
-            
-            $this->title = $title;
-            $this->description = $description;
+
             return true;
         }
 
@@ -276,10 +274,6 @@
             foreach ($tags as $tag)
                 self::addTag($db, $this->id, $tag);
 
-            $this->status = Status::getStatus($db, $status);
-            $this->priority = Priority::getPriority($db, $priority);
-            $this->department = Department::getDepartment($db, $department);
-            $this->agent = User::getUser($db, $agent);
             return true;
         }
 
