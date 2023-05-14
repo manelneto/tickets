@@ -32,8 +32,7 @@
 
     foreach ($names as $name) {
         $tag = Tag::getTagByName($db, $name);
-        if ($tag)
-            $tags[] = $tag;
+        if ($tag) $tags[] = $tag;
     }
 
     if (Ticket::addTicket($db, $session->getId(), $title, $description, $dateOpened, $departmentId, $tags)) {

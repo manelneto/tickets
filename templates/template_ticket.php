@@ -64,6 +64,14 @@
                             <p><?=$tag->getName()?></p>
                             <?php } ?>
                         <?php } ?>
+                        <?php if ($session->isAgent()) { ?>
+                        <input id="tags" type="email" name="tags" placeholder="#tags" list="tags-list" multiple autocomplete>
+                        <datalist id="tags-list">
+                            <?php foreach ($tags as $tag) { ?>
+                            <option value="<?=$tag->getName()?>"><?=$tag->getName()?></option>
+                            <?php } ?>
+                        </datalist>
+                        <?php } ?>
                     </section>
                     <input type="hidden" name="id" value="<?=$ticket->getId()?>">
                     <?php if ($session->isAgent()) { ?>

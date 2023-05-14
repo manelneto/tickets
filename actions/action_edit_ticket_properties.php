@@ -19,10 +19,20 @@
     require_once(__DIR__ . '/../database/connection.php');
     $db = getDatabaseConnection();
 
+
+    $names = (strpos($_POST['tags'], ',') !== false) ? explode(',', $_POST['tags']) : array(trim($_POST['tags']));
+
+    $tags = array();
+
+    foreach ($names as $name) {
+        $tag = Tag::getTagByName($db, $name);
+        if ($tag) $tags[] = $tag;
+    }
+
     require_once(__DIR__ . '/../database/class_ticket.php');
     $ticket = Ticket::getTicket($db, $id);
 
-    if ($ticket && $ticket->editProperties($db, $status, $priority, $department, $agent))
+    if ($ticket && $ticket->editProperties($db, $status, $priority, $department, $agent, $tags))
         $session->addMessage(true, 'Ticket properties successfully edited');
     else
         $session->addMessage(false, 'Ticket properties could not be edited');
