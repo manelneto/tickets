@@ -214,6 +214,7 @@ BEGIN
     INSERT INTO Change (date, description, idTicket) VALUES (date(), 'Tag: + ' || (SELECT name FROM Tag NATURAL JOIN TicketTag WHERE idTicket = New.idTicket AND idTag = New.idTag), New.idTicket);
 END;
 
+
 /* INSERT */
 
 
