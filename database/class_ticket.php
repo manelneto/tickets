@@ -80,18 +80,7 @@
             return $this->faq;
         }
 
-        public static function getTicket(PDO $db, int $id) : ?Ticket {
-            $stmt = $db->prepare('
-                SELECT idTicket, idUser, title, description, dateOpened, dateClosed, idAgent, idDepartment, idPriority, idStatus, idFAQ
-                FROM Ticket
-                WHERE idTicket = ?
-            ');
-
-            $stmt->execute(array($id));
-            $ticket = $stmt->fetch();
-
-            if (!$ticket) return null;
-
+        private static function parseTicket(PDO $db, $ticket) : Ticket {
             return new Ticket(
                 (int) $ticket['idTicket'],
                 User::getUser($db, (int) $ticket['idUser']),
@@ -105,6 +94,21 @@
                 Status::getStatus($db, (int) $ticket['idStatus']),
                 FAQ::getFAQ($db, (int) $ticket['idFAQ'])
             );
+        }
+
+        public static function getTicket(PDO $db, int $id) : ?Ticket {
+            $stmt = $db->prepare('
+                SELECT idTicket, idUser, title, description, dateOpened, dateClosed, idAgent, idDepartment, idPriority, idStatus, idFAQ
+                FROM Ticket
+                WHERE idTicket = ?
+            ');
+
+            $stmt->execute(array($id));
+            $ticket = $stmt->fetch();
+
+            if (!$ticket) return null;
+
+            return self::parseTicket($db, $ticket);
         }
 
         public static function getTicketsClient(PDO $db, int $id, string $after, string $before, int $department, int $priority, int $status) : array {
@@ -126,19 +130,7 @@
             $tickets = array();
 
             foreach ($result as $row)
-                $tickets[] = new Ticket(
-                    (int) $row['idTicket'],
-                    User::getUser($db, (int) $row['idUser']),
-                    $row['title'],
-                    $row['description'],
-                    $row['dateOpened'],
-                    $row['dateClosed'],
-                    User::getUser($db, (int) $row['idAgent']),
-                    Department::getDepartment($db, (int) $row['idDepartment']),
-                    Priority::getPriority($db, (int) $row['idPriority']),
-                    Status::getStatus($db, (int) $row['idStatus']),
-                    FAQ::getFAQ($db, (int) $row['idFAQ'])
-                );
+                $tickets[] = self::parseTicket($db, $row);
             
             return $tickets;
         }
@@ -162,19 +154,30 @@
             $tickets = array();
 
             foreach ($result as $row)
-                $tickets[] = new Ticket(
-                    (int) $row['idTicket'],
-                    User::getUser($db, (int) $row['idUser']),
-                    $row['title'],
-                    $row['description'],
-                    $row['dateOpened'],
-                    $row['dateClosed'],
-                    User::getUser($db, (int) $row['idAgent']),
-                    Department::getDepartment($db, (int) $row['idDepartment']),
-                    Priority::getPriority($db, (int) $row['idPriority']),
-                    Status::getStatus($db, (int) $row['idStatus']),
-                    FAQ::getFAQ($db, (int) $row['idFAQ'])
-                );
+                $tickets[] = self::parseTicket($db ,$row);
+
+            return $tickets;
+        }
+
+        public static function getTicketsAdmin(PDO $db, string $after, string $before, int $department, int $priority, int $status) : array {
+            $stmt = $db->prepare("
+                SELECT idTicket, idUser, title, description, dateOpened, dateClosed, idAgent, idDepartment, idPriority, idStatus, idFAQ
+                FROM Ticket
+                WHERE (? = '' OR dateOpened > ?) 
+                AND (? = '' OR dateOpened < ?)
+                AND (? = '0' OR idDepartment = ?) 
+                AND (? = '0' OR idPriority = ?) 
+                AND (? = '0' OR idStatus = ?) 
+                ORDER BY 5 DESC, 9 DESC, 3
+            ");
+
+            $stmt->execute(array($after, $after, $before, $before, $department, $department, $priority, $priority, $status, $status));
+            $result = $stmt->fetchAll();
+
+            $tickets = array();
+
+            foreach ($result as $row)
+                $tickets[] = self::parseTicket($db, $row);
 
             return $tickets;
         }
