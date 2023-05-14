@@ -2,7 +2,7 @@
     declare(strict_types = 1);
 ?>
 
-<?php function drawTickets(?array $tickets, int $limit, int $offset, string $after, string $before, ?Status $status, ?Priority $priority, ?Department $department, ?User $agent, array $statuses, array $priorities, array $departments, array $agents) : void { ?>
+<?php function drawTickets(?array $tickets, int $limit, int $offset, string $after, string $before, ?Status $status, ?Priority $priority, ?Department $department, ?User $agent, ?Tag $tag, array $statuses, array $priorities, array $departments, array $agents, array $tags) : void { ?>
     <main id="tickets-page">
         <section id="tickets">
             <h2>Tickets</h2>
@@ -34,6 +34,7 @@
                 <input type="hidden" name="priority" <?php if ($priority) echo 'value=' . $priority->getId(); ?>>
                 <input type="hidden" name="department" <?php if ($department) echo 'value=' . $department->getId(); ?>>
                 <input type="hidden" name="agent" <?php if ($agent) echo 'value=' . $agent->getId(); ?>
+                <input type="hidden" name="tag" <?php if ($tag) echo 'value=' . $tag->getId(); ?>
                 <input type="hidden" name="offset" value="<?=$offset - $limit?>">
                 <button type="submit">Previous</button>
             </form>
@@ -46,6 +47,7 @@
                 <input type="hidden" name="priority" <?php if ($priority) echo 'value=' . $priority->getId(); ?>>
                 <input type="hidden" name="department" <?php if ($department) echo 'value=' . $department->getId(); ?>>
                 <input type="hidden" name="agent" <?php if ($agent) echo 'value=' . $agent->getId(); ?>
+                <input type="hidden" name="tag" <?php if ($tag) echo 'value=' . $tag->getId(); ?>
                 <input type="hidden" name="offset" value="<?=$offset + $limit?>">
                 <button type="submit">Next</button>
             </form>
@@ -61,6 +63,7 @@
             <?php drawFilter('Priority', $priority, $priorities); ?>
             <?php drawFilter('Department', $department, $departments); ?>
             <?php drawFilter('Agent', $agent, $agents); ?>
+            <?php drawFilter('Tag', $tag, $tags); ?>
             <button type="submit">Filter</button>
         </form>
     </main>
