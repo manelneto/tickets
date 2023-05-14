@@ -115,20 +115,22 @@
             return self::parseTicket($db, $ticket);
         }
 
-        public static function getTicketsClient(PDO $db, int $id, string $after, string $before, int $department, int $priority, int $status) : array {
+        public static function getTicketsClient(PDO $db, int $id, string $after, string $before, int $department, int $priority, int $status, int $agent, int $tag) : array {
             $stmt = $db->prepare("
-                SELECT idTicket, idUser, title, description, dateOpened, dateClosed, idAgent, idDepartment, idPriority, idStatus, idFAQ
-                FROM Ticket
+                SELECT DISTINCT idTicket, idUser, title, description, dateOpened, dateClosed, idAgent, idDepartment, idPriority, idStatus, idFAQ
+                FROM Ticket NATURAL JOIN TicketTag
                 WHERE (idUser = ?) 
                 AND (? = '' OR dateOpened > ?) 
                 AND (? = '' OR dateOpened < ?)
                 AND (? = '0' OR idDepartment = ?) 
                 AND (? = '0' OR idPriority = ?) 
                 AND (? = '0' OR idStatus = ?) 
+                AND (? = '0' OR idAgent = ?)
+                AND (? = '0' OR idTag = ?)
                 ORDER BY 5 DESC, 9 DESC, 3
             ");
 
-            $stmt->execute(array($id, $after, $after, $before, $before, $department, $department, $priority, $priority, $status, $status));
+            $stmt->execute(array($id, $after, $after, $before, $before, $department, $department, $priority, $priority, $status, $status, $agent, $agent, $tag, $tag));
             $result = $stmt->fetchAll();
 
             $tickets = array();
@@ -139,20 +141,22 @@
             return $tickets;
         }
 
-        public static function getTicketsAgent(PDO $db, int $id, string $after, string $before, int $department, int $priority, int $status) : array {
+        public static function getTicketsAgent(PDO $db, int $id, string $after, string $before, int $department, int $priority, int $status, int $agent, int $tag) : array {
             $stmt = $db->prepare("
-                SELECT idTicket, idUser, title, description, dateOpened, dateClosed, idAgent, idDepartment, idPriority, idStatus, idFAQ
-                FROM Ticket
+                SELECT DISTINCT idTicket, idUser, title, description, dateOpened, dateClosed, idAgent, idDepartment, idPriority, idStatus, idFAQ
+                FROM Ticket NATURAL JOIN TicketTag
                 WHERE (idUser = ? OR idAgent = ? OR idDepartment IS NULL OR idDepartment IN (SELECT idDepartment FROM AgentDepartment WHERE idAgent = ?))
                 AND (? = '' OR dateOpened > ?) 
                 AND (? = '' OR dateOpened < ?)
                 AND (? = '0' OR idDepartment = ?) 
                 AND (? = '0' OR idPriority = ?) 
                 AND (? = '0' OR idStatus = ?) 
+                AND (? = '0' OR idAgent = ?)
+                AND (? = '0' OR idTag = ?)
                 ORDER BY 5 DESC, 9 DESC, 3
             ");
 
-            $stmt->execute(array($id, $id, $id, $after, $after, $before, $before, $department, $department, $priority, $priority, $status, $status));
+            $stmt->execute(array($id, $id, $id, $after, $after, $before, $before, $department, $department, $priority, $priority, $status, $status, $agent, $agent, $tag, $tag));
             $result = $stmt->fetchAll();
 
             $tickets = array();
@@ -163,19 +167,21 @@
             return $tickets;
         }
 
-        public static function getTickets(PDO $db, string $after, string $before, int $department, int $priority, int $status) : array {
+        public static function getTickets(PDO $db, string $after, string $before, int $department, int $priority, int $status, int $agent, int $tag) : array {
             $stmt = $db->prepare("
-                SELECT idTicket, idUser, title, description, dateOpened, dateClosed, idAgent, idDepartment, idPriority, idStatus, idFAQ
-                FROM Ticket
+                SELECT DISTINCT idTicket, idUser, title, description, dateOpened, dateClosed, idAgent, idDepartment, idPriority, idStatus, idFAQ
+                FROM Ticket NATURAL JOIN TicketTag
                 WHERE (? = '' OR dateOpened > ?) 
                 AND (? = '' OR dateOpened < ?)
                 AND (? = '0' OR idDepartment = ?) 
                 AND (? = '0' OR idPriority = ?) 
                 AND (? = '0' OR idStatus = ?) 
+                AND (? = '0' OR idAgent = ?)
+                AND (? = '0' OR idTag = ?)
                 ORDER BY 5 DESC, 9 DESC, 3
             ");
 
-            $stmt->execute(array($after, $after, $before, $before, $department, $department, $priority, $priority, $status, $status));
+            $stmt->execute(array($after, $after, $before, $before, $department, $department, $priority, $priority, $status, $status, $agent, $agent, $tag, $tag));
             $result = $stmt->fetchAll();
 
             $tickets = array();
