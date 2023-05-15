@@ -10,8 +10,6 @@
         die();
     }
 
-    $session->checkCSRF();
-
     $question = trim($_POST['question']);
     $answer = trim($_POST['answer']);
 
