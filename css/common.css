@@ -4,6 +4,10 @@
   --light-gray: #edf1f4;
 }
 
+button, summary {
+  cursor: pointer;
+}
+
 body:not(#authentication) {
   display: grid;
   grid-template-columns: [start] 13% [mid] auto [end];
