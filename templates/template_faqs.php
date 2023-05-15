@@ -8,8 +8,8 @@
             <h2>FAQ</h2>
             <?php foreach($faqs as $faq) { ?>
             <details class="faq">
-                <summary class="question"><?=$faq->getQuestion()?></summary>
-                <p class="answer"><?=$faq->getAnswer()?></p>
+                <summary class="question"><?=htmlentities($faq->getQuestion())?></summary>
+                <p class="answer"><?=htmlentities($faq->getAnswer())?></p>
             </details>
             <?php } ?>
         </section>
@@ -37,9 +37,9 @@
                 <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
                 <details class="faq">
                     <summary class="question">
-                        <input type="text" name="question" value="<?=$faq->getQuestion()?>" required>
+                        <input type="text" name="question" value="<?=htmlentities($faq->getQuestion())?>" required>
                     </summary>
-                    <textarea class="answer" name="answer" required><?=$faq->getAnswer()?></textarea>
+                    <textarea class="answer" name="answer" required><?=htmlentities($faq->getAnswer())?></textarea>
                     <div class="faq-buttons">
                         <button formaction="../actions/action_edit_faq.php">Edit</button>
                         <button formaction="../actions/action_delete_faq.php">Delete</button>

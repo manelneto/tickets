@@ -12,28 +12,28 @@
                     <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
                     <header id="ticket-header">
                         <img src="../assets/ticket.jpg" alt="Ticket Icon">
-                        <h2><input type="text" name="title" required value="<?=$ticket->getTitle()?>"></h2>
+                        <h2><input type="text" name="title" required value="<?=htmlentities($ticket->getTitle())?>"></h2>
                     </header>
                     <div id="author-edit"><!--odeio estes div!-->
                         <div id="author">
                             <img src="../assets/profile.png" alt="Profile Icon">
-                            <h3><?=$ticket->getAuthor()->getName()?></h3>
+                            <h3><?=htmlentities($ticket->getAuthor()->getName())?></h3>
                         </div>
                         <button type="submit">Edit</button>
                     </div>
-                    <textarea id="description" name="description"><?php foreach ($paragraphs as $paragraph) echo $paragraph; ?></textarea>
+                    <textarea id="description" name="description"><?php foreach ($paragraphs as $paragraph) echo htmlentities($paragraph); ?></textarea>
                 </form>
             <?php } else { ?>
                 <header id="ticket-header">
                     <img src="../assets/ticket.jpg" alt="Ticket Icon">
-                    <h2><?=$ticket->getTitle()?></h2>
+                    <h2><?=htmlentities($ticket->getTitle())?></h2>
                 </header>
                 <div id="author"><!--odeio estes div!-->
                     <img src="../assets/profile.png" alt="Profile Icon">
-                    <h3><?=$ticket->getAuthor()->getName()?></h3>
+                    <h3><?=htmlentities($ticket->getAuthor()->getName())?></h3>
                 </div>
                 <?php foreach ($paragraphs as $paragraph) { ?>
-                <p><?=$paragraph?></p>
+                <p><?=htmlentities($paragraph)?></p>
                 <?php }
             } ?>
         </article>
@@ -61,16 +61,16 @@
                         <h4>Tags</h4>
                         <?php foreach ($tags as $tag) { ?>
                             <?php if ($session->isAgent()) { ?>
-                            <button formaction="../actions/action_delete_ticket_tag.php" formmethod="post" value="<?=$tag->getId()?>" name="tag"><?=$tag->getName()?></button>
+                            <button formaction="../actions/action_delete_ticket_tag.php" formmethod="post" value="<?=$tag->getId()?>" name="tag"><?=htmlentities($tag->getName())?></button>
                             <?php } else { ?>
-                            <p><?=$tag->getName()?></p>
+                            <p><?=htmlentities($tag->getName())?></p>
                             <?php } ?>
                         <?php } ?>
                         <?php if ($session->isAgent()) { ?>
                         <input id="tags" type="email" name="tags" placeholder="#tags" list="tags-list" multiple autocomplete>
                         <datalist id="tags-list">
                             <?php foreach ($tags as $tag) { ?>
-                            <option value="<?=$tag->getName()?>"><?=$tag->getName()?></option>
+                            <option value="<?=$tag->getName()?>"><?=htmlentities($tag->getName())?></option>
                             <?php } ?>
                         </datalist>
                         <?php } ?>
@@ -95,14 +95,14 @@
     <label for="<?=strtolower($name)?>"><?=$name?></label>
     <select id="<?=strtolower($name)?>" name="<?=strtolower($name)?>">
         <?php if ($entity) { ?>
-        <option value="<?=$entity->getId()?>"><?=$entity->getName()?></option>
+        <option value="<?=$entity->getId()?>"><?=htmlentities($entity->getName())?></option>
         <?php } else { ?>
         <option value="0"></option>
         <?php } ?>
         <?php if ($isAgent) {
             foreach ($entities as $e) {
                 if (!$entity || $e->getId() !== $entity->getId()) { ?>
-                <option value="<?=$e->getId()?>"><?=$e->getname()?></option>
+                <option value="<?=$e->getId()?>"><?=htmlentities($e->getname())?></option>
             <?php }
             }
         } ?>

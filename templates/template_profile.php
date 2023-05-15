@@ -11,13 +11,13 @@
             <form action="../actions/action_edit_profile.php" method="post" class="profile">
                 <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
                 <label for="first-name">First Name</label>
-                <input id="first-name" type="text" name="first-name" value="<?=$user->getFirstName()?>" required>
+                <input id="first-name" type="text" name="first-name" value="<?=htmlentities($user->getFirstName())?>" required>
                 <label for="last-name">Last Name</label>
-                <input id="last-name" type="text" name="last-name" value="<?=$user->getLastName()?>" required>
+                <input id="last-name" type="text" name="last-name" value="<?=htmlentities($user->getLastName())?>" required>
                 <label for="username">Username</label>
-                <input id="username" type="text" name="username" value="<?=$user->getUsername()?>" required>
+                <input id="username" type="text" name="username" value="<?=htmlentities($user->getUsername())?>" required>
                 <label for="email">Email</label>
-                <input id="email" type="email" name="email" value="<?=$user->getEmail()?>" required>
+                <input id="email" type="email" name="email" value="<?=htmlentities($user->getEmail())?>" required>
                 <button type="submit">Save</button>
             </form>
         </section>
