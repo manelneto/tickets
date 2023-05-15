@@ -7,20 +7,21 @@
         <section id="new-ticket">
             <h2>How can we help you?</h2>
             <form action="../actions/action_add_ticket.php" method="post" class="new-ticket" novalidate>
+                <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
                 <label for="title">Title</label>
                 <input id="title" type="text" name="title" placeholder="title" required>
                 <label for="department">Department</label>
                 <select name="department" id="department">
                     <option value="0"></option>
                     <?php foreach ($departments as $department) { ?>
-                    <option value=<?=$department->getId()?>><?=$department->getName()?></option>
+                    <option value=<?=$department->getId()?>><?=htmlentities($department->getName())?></option>
                     <?php } ?>
                 </select>
                 <label for="tags">Tags</label>
                 <input id="tags" type="email" name="tags" placeholder="#tags" list="tags-list" multiple autocomplete>
                 <datalist id="tags-list">
                     <?php foreach ($tags as $tag) { ?>
-                    <option value="<?=$tag->getName()?>"><?=$tag->getName()?></option>
+                    <option value="<?=$tag->getName()?>"><?=htmlentities($tag->getName())?></option>
                     <?php } ?>
                 </datalist>
                 <label for="description">Description</label>

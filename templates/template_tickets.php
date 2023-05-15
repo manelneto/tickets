@@ -11,13 +11,13 @@
                     <a href="../pages/ticket.php?id=<?=$ticket->getId()?>">
                         <header class="author">
                             <img src="../assets/profile.png" alt="Perfil Icon">
-                            <h3><?=$ticket->getAuthor()->getName()?></h3>
+                            <h3><?=htmlentities($ticket->getAuthor()->getName())?></h3>
                         </header>
-                        <h4><?=$ticket->getTitle()?></h4>
-                        <p class="status"><?=$ticket->getStatus()->getName()?></p>
+                        <h4><?=htmlentities($ticket->getTitle())?></h4>
+                        <p class="status"><?=htmlentities($ticket->getStatus()->getName())?></p>
                         <p class="date-opened"><?=$ticket->getDateOpened()?></p>
                         <?php if ($ticket->getPriority()) { ?>
-                        <p class="priority <?=strtolower($ticket->getPriority()->getName())?>"><?=$ticket->getPriority()->getName()?></p>
+                        <p class="priority <?=htmlentities(strtolower($ticket->getPriority()->getName()))?>"><?=htmlentities($ticket->getPriority()->getName())?></p>
                         <?php } else { ?>
                         <p class="priority none">None</p>
                         <?php } ?>
@@ -28,6 +28,7 @@
         <div id="paging">
             <?php if ($offset > 0) { ?>
             <form action="../pages/tickets.php" method="post" class="previous">
+                <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
                 <input type="hidden" name="after" <?php if ($after !== '') echo "value=$after"; ?>>
                 <input type="hidden" name="before" <?php if ($before !== '') echo "value=$before"; ?>>
                 <input type="hidden" name="status" <?php if ($status) echo 'value=' . $status->getId(); ?>>
@@ -41,6 +42,7 @@
             <?php } ?>
             <?php if ($offset + $limit < count($tickets)) { ?>
             <form action="../pages/tickets.php" method="post" class="next">
+                <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
                 <input type="hidden" name="after" <?php if ($after !== '') echo "value=$after"; ?>>
                 <input type="hidden" name="before" <?php if ($before !== '') echo "value=$before"; ?>>
                 <input type="hidden" name="status" <?php if ($status) echo 'value=' . $status->getId(); ?>>
@@ -54,6 +56,7 @@
             <?php } ?>
         </div>
         <form action="../pages/tickets.php" method="post" class="filters">
+            <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
             <h3>Filters</h3>
             <label for="after">After</label>
             <input id="after" type="date" name="after" <?php if ($after !== '') echo "value=$after"; ?>>
@@ -75,14 +78,14 @@
         <?php if (!$entity) { ?>
             <option value="0">All</option>
             <?php foreach ($entities as $e) { ?>
-                <option value="<?=$e->getId()?>"><?=$e->getName()?></option>
+                <option value="<?=$e->getId()?>"><?=htmlentities($e->getName())?></option>
             <?php } ?>
         <?php } else { ?>
-            <option value="<?=$entity->getId()?>"><?=$entity->getName()?></option>
+            <option value="<?=$entity->getId()?>"><?=htmlentities($entity->getName())?></option>
             <option value="0">All</option>
             <?php foreach ($entities as $e) { ?>
                 <?php if ($e->getId() !== $entity->getId()) { ?>
-                    <option value="<?=$e->getId()?>"><?=$e->getName()?></option>
+                    <option value="<?=$e->getId()?>"><?=htmlentities($e->getName())?></option>
                 <?php } ?>
             <?php } ?>
         <?php } ?>
