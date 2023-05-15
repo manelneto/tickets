@@ -10,8 +10,12 @@
         die();
     }
 
-    $firstName = trim($_POST['first-name']);
-    $lastName = trim($_POST['last-name']);
+    if (!preg_match("/^[a-zA-Z\s]+$/", $_POST['first-name']) || !preg_match("/^[a-zA-Z\s]+$/", $_POST['last-name']))
+        $session->addMessage(false, 'Name can only contains letters and spaces. Unexpected characters will be filtered.');
+
+    $firstName = preg_replace("/[^a-zA-Z\s]/", '', trim($_POST['first-name']));
+    $lastName = preg_replace("/[^a-zA-Z\s]/", '', trim($_POST['last-name']));
+
     $username = strtolower(trim($_POST['username']));
     $email = strtolower(trim($_POST['email']));
     $password = $_POST['password'];

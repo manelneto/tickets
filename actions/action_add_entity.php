@@ -10,7 +10,10 @@
         die();
     }
 
-    $name = trim($_POST['name']);
+    if (!preg_match("/^[a-zA-Z\s]+$/", $_POST['name']))
+        $session->addMessage(false, 'Entity name can only contains letters and spaces. Unexpected characters will be filtered.');
+
+    $name = preg_replace("/[^a-zA-Z\s]/", '', trim($_POST['name']));
 
     if ($name === '') {
         $session->addMessage(false, 'Entity name cannot be empty');
