@@ -17,7 +17,7 @@
                     <?php } ?>
                 </select>
                 <label for="tags">Tags</label>
-                <input id="tags" type="email" name="tags" placeholder="#tags" list="tags-list" multiple autocomplete formnovalidate>
+                <input id="tags" type="email" name="tags" placeholder="#tags" list="tags-list" multiple autocomplete>
                 <datalist id="tags-list">
                     <?php foreach ($tags as $tag) { ?>
                     <option value="<?=$tag->getName()?>"><?=$tag->getName()?></option>

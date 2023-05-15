@@ -48,6 +48,6 @@
     $offset = isset($_POST['offset']) ? (int) max($_POST['offset'], 0) : 0;
 
     drawHeader($session, 'Tickets');
-    drawTickets($tickets, $limit, $offset, $after, $before, Status::getStatus($db, $status), Priority::getPriority($db, $priority), Department::getDepartment($db, $department), User::getUser($db, $agent), Tag::getTagById($db, $tag), $statuses, $priorities, $departments, $agents, $tags);
+    drawTickets($tickets, $limit, $offset, $after, $before, Status::getStatus($db, $status), Priority::getPriority($db, $priority), Department::getDepartment($db, $department), User::getUser($db, $agent), Tag::getTag($db, $tag), $statuses, $priorities, $departments, $agents, $tags);
     drawFooter();
 ?>

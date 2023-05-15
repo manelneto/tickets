@@ -47,73 +47,31 @@
                 <p><?=$ticket->getDateClosed()?></p>
             </section>
             <?php } ?>
-            <form action="../actions/action_edit_ticket_properties.php" method="post" class="properties">
+            <form action="../actions/action_edit_ticket_properties.php" method="post" class="properties" novalidate>
                 <details>
                     <summary>Properties</summary>
-                    <label for="status">Status</label>
-                    <select id="status" name="status">
-                        <?php if ($ticket->getStatus()) { ?>
-                        <option value="<?=$ticket->getStatus()->getId()?>"><?=$ticket->getStatus()->getName()?></option>
-                        <?php } else { ?>
-                        <option value="0"></option>
+                    <?php drawProperty($session->isAgent(), 'Status', $ticket->getStatus(), $statuses); ?>
+                    <?php drawProperty($session->isAgent(), 'Priority', $ticket->getPriority(), $priorities); ?>
+                    <?php drawProperty($session->isAgent(), 'Department', $ticket->getDepartment(), $departments); ?>
+                    <?php drawProperty($session->isAgent(), 'Agent', $ticket->getAgent(), $agents); ?>
+                    <section>
+                        <h4>Tags</h4>
+                        <?php foreach ($tags as $tag) { ?>
+                            <?php if ($session->isAgent()) { ?>
+                            <button formaction="../actions/action_delete_ticket_tag.php" formmethod="post" value="<?=$tag->getId()?>" name="tag"><?=$tag->getName()?></button>
+                            <?php } else { ?>
+                            <p><?=$tag->getName()?></p>
+                            <?php } ?>
                         <?php } ?>
-                        <?php if ($session->isAgent()) {
-                            foreach ($statuses as $status) { 
-                                if (!$ticket->getStatus() || $status->getId() !== $ticket->getStatus()->getId()) { ?>
-                                <option value="<?=$status->getId()?>"><?=$status->getName()?></option>
-                            <?php }
-                            } 
-                        } ?>
-                    </select>
-                    <label for="priority">Priority</label>
-                    <select id="priority" name="priority">
-                        <?php if ($ticket->getPriority()) { ?>
-                        <option value="<?=$ticket->getPriority()->getId()?>"><?=$ticket->getPriority()->getName()?></option>
-                        <?php } else { ?>
-                        <option value="0"></option>
+                        <?php if ($session->isAgent()) { ?>
+                        <input id="tags" type="email" name="tags" placeholder="#tags" list="tags-list" multiple autocomplete>
+                        <datalist id="tags-list">
+                            <?php foreach ($tags as $tag) { ?>
+                            <option value="<?=$tag->getName()?>"><?=$tag->getName()?></option>
+                            <?php } ?>
+                        </datalist>
                         <?php } ?>
-                        <?php if ($session->isAgent()) {
-                            foreach ($priorities as $priority) {
-                                if (!$ticket->getPriority() || $priority->getId() !== $ticket->getPriority()->getId()) { ?>
-                                <option value="<?=$priority->getId()?>"><?=$priority->getName()?></option>
-                            <?php }
-                            } 
-                        } ?>
-                    </select>
-                    <label for="department">Department</label>
-                    <select id="department" name="department">
-                        <?php if ($ticket->getDepartment()) { ?>
-                        <option value="<?=$ticket->getDepartment()->getId()?>"><?=$ticket->getDepartment()->getName()?></option>
-                        <?php } else { ?>
-                        <option value="0"></option>
-                        <?php } ?>
-                        <?php if ($session->isAgent()) {
-                            foreach ($departments as $department) {
-                                if (!$ticket->getDepartment() || $department->getId() !== $ticket->getDepartment()->getId()) { ?>
-                                <option value="<?=$department->getId()?>"><?=$department->getName()?></option>
-                            <?php }
-                            } 
-                        } ?>
-                    </select>
-                    <label for="agent">Agent</label>
-                    <select id="agent" name="agent">
-                        <?php if ($ticket->getAgent()) { ?>
-                        <option value="<?=$ticket->getAgent()->getId()?>"><?=$ticket->getAgent()->getName()?></option>
-                        <?php } else { ?>
-                        <option value="0"></option>
-                        <?php } ?>
-                        <?php if ($session->isAgent()) {
-                            foreach ($agents as $agent) { 
-                                if (!$ticket->getAgent() || $agent->getId() !== $ticket->getAgent()->getId()) {?>
-                                <option value="<?=$agent->getId()?>"><?=$agent->getName()?></option>
-                            <?php }
-                            }
-                        } ?>
-                    </select>
-                    <h4>Tags</h4>
-                    <?php foreach ($tags as $tag) { ?>
-                        <p><?=$tag->getName()?></p>
-                    <?php } ?>
+                    </section>
                     <input type="hidden" name="id" value="<?=$ticket->getId()?>">
                     <?php if ($session->isAgent()) { ?>
                     <button type="submit" id="apply">Apply</button>
@@ -129,4 +87,22 @@
             </details>
         </aside>
     </main>
+<?php } ?>
+
+<?php function drawProperty(bool $isAgent, string $name, $entity, array $entities) : void { ?>
+    <label for="<?=strtolower($name)?>"><?=$name?></label>
+    <select id="<?=strtolower($name)?>" name="<?=strtolower($name)?>">
+        <?php if ($entity) { ?>
+        <option value="<?=$entity->getId()?>"><?=$entity->getName()?></option>
+        <?php } else { ?>
+        <option value="0"></option>
+        <?php } ?>
+        <?php if ($isAgent) {
+            foreach ($entities as $e) {
+                if (!$entity || $e->getId() !== $entity->getId()) { ?>
+                <option value="<?=$e->getId()?>"><?=$e->getname()?></option>
+            <?php }
+            }
+        } ?>
+    </select>
 <?php } ?>
