@@ -141,7 +141,7 @@ CREATE TABLE TicketTag (
 );
 
 
-/* TRIGGERS */
+/* TRIGGER */
 
 
 DROP TRIGGER IF EXISTS AdminAgent;
@@ -151,6 +151,71 @@ CREATE TRIGGER AdminAgent
 BEGIN
     INSERT INTO Agent (idAgent) VALUES (New.idAdmin);
 END;
+
+
+/* INSERT */
+
+
+INSERT INTO User VALUES(1, 'Joana', 'Marques', 'joanamarques', 'joanamarques@gmail.com', '$2y$12$DFNpOjKTVVMhs5DNj54mZOpSsXohNXNaQG4M0nGI/AOa.a4PS84Vy');
+INSERT INTO User VALUES(2, 'Matilde', 'Simões', 'matildesimoes', 'matildesimoes@gmail.com', '$2y$12$OeWSWAOPBapajMhswVhjDerSaOpGNC9iUo6v94uRvg/r.V4xjc.MW');
+INSERT INTO User VALUES(3, 'Manel', 'Neto', 'manelneto', 'manelneto@gmail.com', '$2y$12$nfwMTXK25lqUeUdtSSWDze1ruvRv2igiQMdhrJrmNLxp7XvOhBziW');
+INSERT INTO User VALUES(4, 'Client', 'Test', 'client', 'client@test.com', '$2y$12$zlEzCwPtpRRXdS12ob9ypeajSLmW94dUo5kOmItV791QMOe5Mf5x6');
+INSERT INTO User VALUES(5, 'Agent', 'Test', 'agent', 'agent@test.com', '$2y$12$5TuVO22AK1v3fXUPFuAKVueYh7/lqB9eWm8xgftXVQvtLRMLTRmoC');
+INSERT INTO User VALUES(6, 'Admin', 'Test', 'admin', 'admin@test.com', '$2y$12$MVxJYNX6egxRIQOm6LyGXuscEoF/SOCX7uwmnIGP8inDFncQap6jq');
+
+INSERT INTO Agent VALUES(5);
+INSERT INTO Agent VALUES(2);
+
+INSERT INTO Admin VALUES(6);
+INSERT INTO Admin VALUES(1);
+
+INSERT INTO Department VALUES(1, 'IT');
+INSERT INTO Department VALUES(2, 'Human Resources');
+INSERT INTO Department VALUES(3, 'Finances');
+INSERT INTO Department VALUES(4, 'Marketing');
+
+INSERT INTO Priority VALUES(1, 'Low');
+INSERT INTO Priority VALUES(2, 'Medium');
+INSERT INTO Priority VALUES(3, 'High');
+INSERT INTO Priority VALUES(4, 'Critical');
+
+INSERT INTO Tag VALUES(1, 'website');
+INSERT INTO Tag VALUES(2, 'password');
+INSERT INTO Tag VALUES(3, 'general');
+INSERT INTO Tag VALUES(4, 'other');
+
+INSERT INTO Status VALUES(1, 'Open');
+INSERT INTO Status VALUES(2, 'Assigned');
+INSERT INTO Status VALUES(3, 'Closed');
+
+INSERT INTO FAQ VALUES(1, 'How long do I have to wait for an answer?', 'It depends on the question. On average, one week.');
+INSERT INTO FAQ VALUES(2, 'Where can I see the current status of my ticket?', 'The client can check the ticket status in the Dashboard.');
+INSERT INTO FAQ VALUES(3, 'Where can I submit a new ticket?', 'On the tickets section.');
+INSERT INTO FAQ VALUES(4, 'Where can I change my email address?', 'On your profile section.');
+
+INSERT INTO Ticket VALUES(1, 1, 'Received a broken TV', 'The television I ordered from your site was delivered with a cracked screen. I need some replacement.', '2023-04-07', NULL, NULL, NULL, NULL, 1, NULL);
+INSERT INTO Ticket VALUES(2, 2, 'Payment failed', 'The payment of my purchase failed. What can I do?', '2023-04-06', '2023-04-13', 6, 3, 3, 3, NULL);
+INSERT INTO Ticket VALUES(3, 3, 'Email address change', 'Where can I change my email address?', '2023-04-05', '2023-04-10', 1, 1, 1, 3, 4);
+
+INSERT INTO Message VALUES(1, '2023-04-17', 'Forget it. I fixed the screen myself!', 1, 1);
+INSERT INTO Message VALUES(2, '2023-04-10', 'What is the number of your purchase?', 2, 5);
+INSERT INTO Message VALUES(3, '2023-04-11', 'Purchase Number 123', 2, 2);
+
+INSERT INTO AgentDepartment VALUES(5, 2);
+INSERT INTO AgentDepartment VALUES(5, 4);
+INSERT INTO AgentDepartment VALUES(2, 2);
+INSERT INTO AgentDepartment VALUES(6, 1);
+INSERT INTO AgentDepartment VALUES(6, 3);
+INSERT INTO AgentDepartment VALUES(1, 1);
+
+INSERT INTO TicketTag VALUES(1, 4);
+INSERT INTO TicketTag VALUES(2, 4);
+INSERT INTO TicketTag VALUES(3, 1);
+INSERT INTO TicketTag VALUES(3, 3);
+
+
+/* TRIGGERS */
+
 
 DROP TRIGGER IF EXISTS TicketTitle;
 CREATE TRIGGER TicketTitle
@@ -213,64 +278,3 @@ CREATE TRIGGER TicketTagInsert
 BEGIN
     INSERT INTO Change (date, description, idTicket) VALUES (date(), 'Tag: + ' || (SELECT name FROM Tag NATURAL JOIN TicketTag WHERE idTicket = New.idTicket AND idTag = New.idTag), New.idTicket);
 END;
-
-
-/* INSERT */
-
-
-INSERT INTO User VALUES(1, 'Joana', 'Marques', 'joanamarques', 'joanamarques@gmail.com', '$2y$12$DFNpOjKTVVMhs5DNj54mZOpSsXohNXNaQG4M0nGI/AOa.a4PS84Vy');
-INSERT INTO User VALUES(2, 'Matilde', 'Simões', 'matildesimoes', 'matildesimoes@gmail.com', '$2y$12$OeWSWAOPBapajMhswVhjDerSaOpGNC9iUo6v94uRvg/r.V4xjc.MW');
-INSERT INTO User VALUES(3, 'Manel', 'Neto', 'manelneto', 'manelneto@gmail.com', '$2y$12$nfwMTXK25lqUeUdtSSWDze1ruvRv2igiQMdhrJrmNLxp7XvOhBziW');
-INSERT INTO User VALUES(4, 'Client', 'Test', 'client', 'client@test.com', '$2y$12$zlEzCwPtpRRXdS12ob9ypeajSLmW94dUo5kOmItV791QMOe5Mf5x6');
-INSERT INTO User VALUES(5, 'Agent', 'Test', 'agent', 'agent@test.com', '$2y$12$5TuVO22AK1v3fXUPFuAKVueYh7/lqB9eWm8xgftXVQvtLRMLTRmoC');
-INSERT INTO User VALUES(6, 'Admin', 'Test', 'admin', 'admin@test.com', '$2y$12$MVxJYNX6egxRIQOm6LyGXuscEoF/SOCX7uwmnIGP8inDFncQap6jq');
-
-INSERT INTO Agent VALUES(5);
-INSERT INTO Agent VALUES(2);
-
-INSERT INTO Admin VALUES(6);
-INSERT INTO Admin VALUES(1);
-
-INSERT INTO Department VALUES(1, 'IT');
-INSERT INTO Department VALUES(2, 'Human Resources');
-INSERT INTO Department VALUES(3, 'Finances');
-INSERT INTO Department VALUES(4, 'Marketing');
-
-INSERT INTO Priority VALUES(1, 'Low');
-INSERT INTO Priority VALUES(2, 'Medium');
-INSERT INTO Priority VALUES(3, 'High');
-INSERT INTO Priority VALUES(4, 'Critical');
-
-INSERT INTO Tag VALUES(1, 'website');
-INSERT INTO Tag VALUES(2, 'password');
-INSERT INTO Tag VALUES(3, 'general');
-INSERT INTO Tag VALUES(4, 'other');
-
-INSERT INTO Status VALUES(1, 'Open');
-INSERT INTO Status VALUES(2, 'Assigned');
-INSERT INTO Status VALUES(3, 'Closed');
-
-INSERT INTO FAQ VALUES(1, 'How long do I have to wait for an answer?', 'It depends on the question. On average, one week.');
-INSERT INTO FAQ VALUES(2, 'Where can I see the current status of my ticket?', 'The client can check the ticket status in the Dashboard.');
-INSERT INTO FAQ VALUES(3, 'Where can I submit a new ticket?', 'On the tickets section.');
-INSERT INTO FAQ VALUES(4, 'Where can I change my email address?', 'On your profile section.');
-
-INSERT INTO Ticket VALUES(1, 1, 'Received a broken TV', 'The television I ordered from your site was delivered with a cracked screen. I need some replacement.', '2023-04-07', NULL, NULL, NULL, NULL, 1, NULL);
-INSERT INTO Ticket VALUES(2, 2, 'Payment failed', 'The payment of my purchase failed. What can I do?', '2023-04-06', '2023-04-13', 5, 3, 3, 3, NULL);
-INSERT INTO Ticket VALUES(3, 3, 'Email address change', 'Where can I change my email address?', '2023-04-05', '2023-04-10', 6, 1, 1, 3, 4);
-
-INSERT INTO Message VALUES(1, '2023-04-17', 'Forget it. I fixed the screen myself!', 1, 1);
-INSERT INTO Message VALUES(2, '2023-04-10', 'What is the number of your purchase?', 2, 5);
-INSERT INTO Message VALUES(3, '2023-04-11', 'Purchase Number 123', 2, 2);
-
-INSERT INTO AgentDepartment VALUES(5, 2);
-INSERT INTO AgentDepartment VALUES(5, 4);
-INSERT INTO AgentDepartment VALUES(2, 2);
-INSERT INTO AgentDepartment VALUES(6, 1);
-INSERT INTO AgentDepartment VALUES(6, 3);
-INSERT INTO AgentDepartment VALUES(1, 1);
-
-INSERT INTO TicketTag VALUES(1, 4);
-INSERT INTO TicketTag VALUES(2, 4);
-INSERT INTO TicketTag VALUES(3, 1);
-INSERT INTO TicketTag VALUES(3, 3);
