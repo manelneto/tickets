@@ -14,7 +14,9 @@
                             <h3><?=$ticket->getAuthor()->getName()?></h3>
                         </header>
                         <h4><?=$ticket->getTitle()?></h4>
-                        <p class="status"><?=$ticket->getStatus()->getName()?></p>
+                        <?php if ($ticket->getStatus()) { ?>
+                        <p class="status <?=strtolower($ticket->getStatus()->getName())?>"><?=$ticket->getStatus()->getName()?></p>
+                        <?php } ?>
                         <p class="date-opened"><?=$ticket->getDateOpened()?></p>
                         <?php if ($ticket->getPriority()) { ?>
                         <p class="priority <?=strtolower($ticket->getPriority()->getName())?>"><?=$ticket->getPriority()->getName()?></p>
