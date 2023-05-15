@@ -16,6 +16,8 @@
     position: relative;
     text-align: center;     
     background-color: var(--light-gray);
+    width: 12rem;
+    height: 8rem;
 }
 
 .card:hover {
@@ -31,6 +33,8 @@
     visibility: hidden;
     opacity: 0;
     transform: rotateY(180deg);
+    margin-left: 0.6rem;
+    margin-right: 0.6rem;
 }
 
 .card:hover h3 {
@@ -40,4 +44,19 @@
 .card:hover p {
     visibility: visible;
     opacity: 1;
+}
+
+@media only screen and (max-width: 1120px){
+    #dashboard {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
+    }
+
+    .card{
+        margin-top: 2rem;
+        width: 12rem;
+        height:8rem;
+    }
 }
