@@ -241,6 +241,14 @@ BEGIN
     INSERT INTO Change (date, description, idTicket) VALUES (date(), 'Agent: ' || IFNULL((SELECT firstName || ' ' || lastName FROM Agent, User WHERE idAgent = idUser AND idAgent = Old.idAgent), 'None') || ' → ' || (SELECT firstName || ' ' || lastName FROM Agent, User WHERE idAgent = idUser AND idAgent = New.idAgent), New.idTicket);
 END;
 
+DROP TRIGGER IF EXISTS TicketStatusAutoChange;
+CREATE TRIGGER TicketStatusAutoChange
+    AFTER UPDATE OF idAgent ON Ticket
+    WHEN Old.idAgent IS NULL AND New.idAgent IS NOT NULL
+BEGIN
+    UPDATE Ticket SET idStatus = 2 WHERE idTicket = Old.idTicket;
+END;
+
 DROP TRIGGER IF EXISTS TicketDepartment;
 CREATE TRIGGER TicketDepartment
     AFTER UPDATE OF idDepartment ON Ticket
