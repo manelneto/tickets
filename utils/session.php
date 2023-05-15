@@ -63,9 +63,10 @@
         }
 
         public function checkCSRF() : void {
-            if ($_SESSION['csrf'] !== $_POST['csrf']) {
+            if (!isset($_POST['csrf']) || $_SESSION['csrf'] !== $_POST['csrf']) {
                 $this->addMessage(false, 'Request does not appear to be legitimate');
-                header('Location: ' . $_SERVER['HTTP_REFERER']);
+                $location = $_SERVER['HTTP_REFERER'] ?? '../pages/index.php';
+                header('Location: ' . $location);
                 die();
             }
         }

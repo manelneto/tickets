@@ -6,12 +6,13 @@
     $session->checkCSRF();
 
     if (!$session->isAdmin()) {
+        $this->addMessage(false, 'You cannot perform that action');
         header('Location: ../pages/index.php');
         die();
     }
 
     if (!preg_match("/^[a-zA-Z\s]+$/", $_POST['name']))
-        $session->addMessage(false, 'Entity name can only contains letters and spaces. Unexpected characters will be filtered.');
+        $session->addMessage(false, 'Entity name can only contains letters and spaces. Unexpected characters will be filtered');
 
     $name = preg_replace("/[^a-zA-Z\s]/", '', trim($_POST['name']));
 

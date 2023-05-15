@@ -6,6 +6,7 @@
     $session->checkCSRF();
 
     if (!$session->isAdmin()) {
+        $this->addMessage(false, 'You cannot perform that action');
         header('Location: ../pages/index.php');
         die();
     }
