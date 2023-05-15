@@ -27,6 +27,12 @@
         die();
     }
 
+    if (strlen($password) < 8 || !preg_match("/[A-Z]/", $password) || !preg_match("/[a-z]/", $password) || !preg_match("/[0-9]/", $password) || !preg_match("/\W/", $password)) {
+        $session->addMessage(false, 'Password must have at least 8 characters, one uppercase, one lowercase, a number and a special character');
+        header('Location: ../pages/register.php');
+        die();
+    }
+
     require_once(__DIR__ . '/../database/connection.php');
     $db = getDatabaseConnection();
 
