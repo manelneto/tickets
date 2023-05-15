@@ -12,7 +12,7 @@
         <link rel="stylesheet" href="../css/authentication.css">
         <link rel="stylesheet" href="../css/common.css">
         <link rel="stylesheet" href="../css/dashboard.css">
-        <link rel="stylesheet" href="../css/faqs-management.css">
+        <link rel="stylesheet" href="../css/faqs_management.css">
         <link rel="stylesheet" href="../css/new_ticket.css">
         <link rel="stylesheet" href="../css/profile.css">
         <link rel="stylesheet" href="../css/ticket.css">
@@ -34,12 +34,17 @@
         </header>
         <nav id="menu">
             <ul>
-                <li><a href="../pages/dashboard.php">Dashboard</a></li>
-                <li><a href="../pages/new_ticket.php">New Ticket</a></li>
-                <li><a href="../pages/tickets.php">Tickets</a></li>
-                <li><a href="../pages/faqs.php">FAQ</a></li>
+                <li class="textMenu"><a href="../pages/dashboard.php">Dashboard</a></li>
+                <li class="imgMenu"><a href="../pages/dashboard.php"><img src="../assets/dashboard.png" alt="Dashboard Icon"></a></li>
+                <li class="textMenu"><a href="../pages/new_ticket.php">New Ticket</a></li>
+                <li class="imgMenu"><a href="../pages/new_ticket.php"><img src="../assets/new_ticket.png" alt="New Ticket Icon"></a></li>
+                <li class="textMenu"><a href="../pages/tickets.php">Tickets</a></li>
+                <li class="imgMenu"><a href="../pages/tickets.php"><img src="../assets/tickets.png" alt="Ticket Icon"></a></li>
+                <li class="textMenu"><a href="../pages/faqs.php">FAQ</a></li>
+                <li class="imgMenu"><a href="../pages/faqs.php"><img src="../assets/faq.png" alt="Faq Icon"></a></li>
                 <?php if ($session->isAdmin()) { ?>
-                <li><a href="../pages/management.php">Management</a></li>
+                <li class="textMenu"><a href="../pages/management.php">Management</a></li>
+                <li class="imgMenu"><a href="../pages/management.php"><img src="../assets/management.png" alt="Management Icon"></a></li>
                 <?php } ?>
             </ul>
         </nav>
