@@ -9,6 +9,7 @@
             <a id="edit-profile" href="../pages/profile.php">Edit Profile</a>
             <a id="change-password" href="../pages/password.php">Change Password</a>
             <form action="../actions/action_edit_profile.php" method="post" class="profile">
+                <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
                 <label for="first-name">First Name</label>
                 <input id="first-name" type="text" name="first-name" value="<?=$user->getFirstName()?>" required>
                 <label for="last-name">Last Name</label>
@@ -30,6 +31,7 @@
             <a id="edit-profile" href="../pages/profile.php">Edit Profile</a>
             <a id="change-password" href="../pages/password.php">Change Password</a>
             <form action="../actions/action_edit_password.php" method="post" class="profile">
+                <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
                 <label for="current">Current Password</label>
                 <input id="current" type="password" name="current" required>
                 <label for="new">New Password</label>

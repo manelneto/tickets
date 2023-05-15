@@ -9,6 +9,7 @@
             <details class="management">
                 <summary class="action">Upgrade a client</summary>
                 <form action="../actions/action_upgrade_client.php" method="post" class="upgrade">
+                    <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
                     <label for="client">Select a client</label>
                     <select id="client" name="client" required>
                         <?php foreach ($clients as $client) { ?>
@@ -27,6 +28,7 @@
             <details class="management">
                 <summary class="action">Add a new entity</summary>
                 <form action="../actions/action_add_entity.php" method="post" class="entity">
+                    <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
                     <label for="entity">Select an entity</label>
                     <select id="entity" name="entity" required>
                         <option value="department">Department</option>
@@ -44,6 +46,7 @@
             <details class="management">
                 <summary class="action">Assign agent to department</summary>
                 <form action="../actions/action_assign_agent.php" method="post" class="assign">
+                    <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
                     <label for="department">Select a department</label>
                     <select id="department" name="department" required>
                         <?php foreach ($departments as $department) { ?>

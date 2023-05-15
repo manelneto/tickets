@@ -23,6 +23,7 @@
         <header id="main-header">
             <h1><?=$title?></h1>
             <form action="../actions/action_logout.php" method="post" class="logout">
+                <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
                 <a href="../pages/profile.php"><?php
                     echo $session->getName();
                     if ($session->isAdmin()) echo ' (Admin)';

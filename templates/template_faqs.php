@@ -21,6 +21,7 @@
         <section id="faqs">
             <h2>FAQ</h2>
             <form action="../actions/action_add_faq.php" method="post" class="add-faq">
+                <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
                 <details class="faq">
                     <summary class="question">Add a new FAQ</summary>
                     <label id="add-question" for="question">Question</label>
@@ -33,6 +34,7 @@
             <?php foreach($faqs as $faq) { ?>
             <form method="post" class="faq-questions-agent">
                 <input type="hidden" name="id" value="<?=$faq->getId()?>">
+                <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
                 <details class="faq">
                     <summary class="question">
                         <input type="text" name="question" value="<?=$faq->getQuestion()?>" required>

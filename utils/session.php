@@ -8,6 +8,8 @@
             session_set_cookie_params(0, '/', 'localhost', true, true);
             session_start();
 
+            if (!isset($_SESSION['csrf'])) $_SESSION['csrf'] = bin2hex(openssl_random_pseudo_bytes(32));
+
             $this->messages = $_SESSION['messages'] ?? array();
             unset($_SESSION['messages']);
         }
@@ -58,6 +60,14 @@
 
         public function addMessage(bool $success, string $text) : void {
             $_SESSION['messages'][] = array('type' => $success, 'text' => $text);
+        }
+
+        public function checkCSRF() : void {
+            if ($_SESSION['csrf'] !== $_POST['csrf']) {
+                $this->addMessage(false, 'Request does not appear to be legitimate');
+                header('Location: ' . $_SERVER['HTTP_REFERER']);
+                die();
+            }
         }
     }
 ?>

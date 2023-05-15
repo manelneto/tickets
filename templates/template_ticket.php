@@ -8,6 +8,8 @@
             <?php $paragraphs = explode('\n', $ticket->getDescription()); ?>
             <?php if ($session->getId() === $ticket->getAuthor()->getId()) { ?>
                 <form action="../actions/action_edit_ticket.php" method="post" class="edit-ticket">
+                    <input type="hidden" name="id" value="<?=$ticket->getId()?>">
+                    <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
                     <header id="ticket-header">
                         <img src="../assets/ticket.jpg" alt="Ticket Icon">
                         <h2><input type="text" name="title" required value="<?=$ticket->getTitle()?>"></h2>
@@ -20,7 +22,6 @@
                         <button type="submit">Edit</button>
                     </div>
                     <textarea id="description" name="description"><?php foreach ($paragraphs as $paragraph) echo $paragraph; ?></textarea>
-                    <input type="hidden" name="id" value="<?=$ticket->getId()?>">
                 </form>
             <?php } else { ?>
                 <header id="ticket-header">
@@ -48,6 +49,8 @@
             </section>
             <?php } ?>
             <form action="../actions/action_edit_ticket_properties.php" method="post" class="properties" novalidate>
+                <input type="hidden" name="id" value="<?=$ticket->getId()?>">
+                <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
                 <details>
                     <summary>Properties</summary>
                     <?php drawProperty($session->isAgent(), 'Status', $ticket->getStatus(), $statuses); ?>
@@ -72,7 +75,6 @@
                         </datalist>
                         <?php } ?>
                     </section>
-                    <input type="hidden" name="id" value="<?=$ticket->getId()?>">
                     <?php if ($session->isAgent()) { ?>
                     <button type="submit" id="apply">Apply</button>
                     <?php } ?>

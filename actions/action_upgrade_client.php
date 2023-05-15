@@ -3,6 +3,7 @@
 
     require_once(__DIR__ . '/../utils/session.php');
     $session = new Session();
+    $session->checkCSRF();
 
     if (!$session->isAdmin()) {
         header('Location: ../pages/index.php');

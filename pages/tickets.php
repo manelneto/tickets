@@ -3,6 +3,7 @@
 
     require_once(__DIR__ . '/../utils/session.php');
     $session = new Session();
+    /* esta página faz-me alguma confusão, talvez seja mais simples quando tivermos a API (CSRF?!) */
 
     if (!$session->isLoggedIn()) {
         header('Location: ../pages/index.php');

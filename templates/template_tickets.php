@@ -28,6 +28,7 @@
         <div id="paging">
             <?php if ($offset > 0) { ?>
             <form action="../pages/tickets.php" method="post" class="previous">
+                <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
                 <input type="hidden" name="after" <?php if ($after !== '') echo "value=$after"; ?>>
                 <input type="hidden" name="before" <?php if ($before !== '') echo "value=$before"; ?>>
                 <input type="hidden" name="status" <?php if ($status) echo 'value=' . $status->getId(); ?>>
@@ -41,6 +42,7 @@
             <?php } ?>
             <?php if ($offset + $limit < count($tickets)) { ?>
             <form action="../pages/tickets.php" method="post" class="next">
+                <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
                 <input type="hidden" name="after" <?php if ($after !== '') echo "value=$after"; ?>>
                 <input type="hidden" name="before" <?php if ($before !== '') echo "value=$before"; ?>>
                 <input type="hidden" name="status" <?php if ($status) echo 'value=' . $status->getId(); ?>>
@@ -54,6 +56,7 @@
             <?php } ?>
         </div>
         <form action="../pages/tickets.php" method="post" class="filters">
+            <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
             <h3>Filters</h3>
             <label for="after">After</label>
             <input id="after" type="date" name="after" <?php if ($after !== '') echo "value=$after"; ?>>

@@ -3,11 +3,14 @@
 
     require_once(__DIR__ . '/../utils/session.php');
     $session = new Session();
+    $session->checkCSRF();
 
     if (!$session->isAgent()) {
         header('Location: ../pages/index.php');
         die();
     }
+
+    $session->checkCSRF();
 
     $question = trim($_POST['question']);
     $answer = trim($_POST['answer']);
