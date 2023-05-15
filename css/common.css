@@ -26,6 +26,10 @@ body:not(#authentication) {
   grid-row: mid/end;
 }
 
+#menu .imgMenu {
+  display:none;
+}
+
 #main-header h1 {
   margin-left: 2rem;
   font-size: 1.3rem;
@@ -56,6 +60,7 @@ body:not(#authentication) {
 
 #menu {
   background-color: var(--dark-blue);
+  height: 100%;
   min-height: calc(100vh - 5.5em);
 }
 
@@ -73,7 +78,7 @@ body:not(#authentication) {
   padding-left: 0;
 }
 
-#menu li {
+#menu .textMenu {
   padding-left: 2rem;
 }
 
@@ -82,36 +87,21 @@ body:not(#authentication) {
 }
 
 @media only screen and (max-width: 1120px) {
-  #menu li {
+  #menu .imgMenu {
     display: block;
     background-repeat: no-repeat;
     background-position: center;
     background-color: transparent;
-    text-indent: -9999em;
-  }
-  
-  #menu li:nth-of-type(1) {
-    background-image: url('../assets/dashboard.png');
-    background-size: 2.4rem;
   }
 
-  #menu li:nth-of-type(2) {
-    background-image: url('../assets/new_ticket.png');
-    background-size: 2.5rem;
+  #menu .imgMenu img:first-child{
+    padding-left: 2rem;
+    margin-left: auto;
+    margin-right: auto;
+    width: 20%;
   }
-  
-  #menu li:nth-of-type(3) {
-    background-image: url('../assets/tickets.png');
-    background-size: 3rem;
-  }
-  
-  #menu li:nth-of-type(4) {
-    background-image: url('../assets/faq.png');
-    background-size: 2.5rem;
-  }
-  
-  #menu li:nth-of-type(5) {
-    background-image: url('../assets/management.png');
-    background-size: 3rem;
+
+  #menu .textMenu {
+    display: none;
   }
 }
