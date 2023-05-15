@@ -32,7 +32,7 @@
 
     $ticket = Ticket::getTicket($db, $id);
 
-    if ($ticket && $ticket->editProperties($db, $status, $priority, $department, $agent, $tags))
+    if ($ticket && $ticket->editProperties($db, $status, $priority === 0 ? null : $priority, $department === 0 ? null : $department, $agent === 0 ? null : $agent, $tags))
         $session->addMessage(true, 'Ticket properties successfully edited');
     else
         $session->addMessage(false, 'Some ticket properties could not be edited');

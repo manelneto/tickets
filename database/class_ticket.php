@@ -258,7 +258,7 @@
             return true;
         }
 
-        public function editProperties(PDO $db, int $status, int $priority, int $department, int $agent, array $tags) : bool {
+        public function editProperties(PDO $db, int $status, ?int $priority, ?int $department, ?int $agent, array $tags) : bool {
             $stmt = $db->prepare('
                 UPDATE Ticket
                 SET idStatus = ?, idPriority = ?, idDepartment = ?, idAgent = ?

@@ -236,7 +236,7 @@ END;
 DROP TRIGGER IF EXISTS TicketAgent;
 CREATE TRIGGER TicketAgent
     AFTER UPDATE OF idAgent ON Ticket
-    WHEN New.idAgent <> Old.idAgent
+    WHEN New.idAgent <> Old.idAgent OR (New.idAgent IS NOT NULL AND Old.idAgent IS NULL)
 BEGIN
     INSERT INTO Change (date, description, idTicket) VALUES (date(), 'Agent: ' || IFNULL((SELECT firstName || ' ' || lastName FROM Agent, User WHERE idAgent = idUser AND idAgent = Old.idAgent), 'None') || ' → ' || (SELECT firstName || ' ' || lastName FROM Agent, User WHERE idAgent = idUser AND idAgent = New.idAgent), New.idTicket);
 END;
@@ -244,7 +244,7 @@ END;
 DROP TRIGGER IF EXISTS TicketDepartment;
 CREATE TRIGGER TicketDepartment
     AFTER UPDATE OF idDepartment ON Ticket
-    WHEN New.idDepartment <> Old.idDepartment
+    WHEN New.idDepartment <> Old.idDepartment OR (New.idDepartment IS NOT NULL AND Old.idDepartment IS NULL)
 BEGIN
     INSERT INTO Change (date, description, idTicket) VALUES (date(), 'Department: ' || IFNULL((SELECT name FROM Department WHERE idDepartment = Old.idDepartment), 'None') || ' → ' || (SELECT name FROM Department WHERE idDepartment = New.idDepartment), New.idTicket);
 END;
@@ -252,7 +252,7 @@ END;
 DROP TRIGGER IF EXISTS TicketPriority;
 CREATE TRIGGER TicketPriority
     AFTER UPDATE OF idPriority ON Ticket
-    WHEN New.idPriority <> Old.idPriority
+    WHEN New.idPriority <> Old.idPriority OR (New.idPriority IS NOT NULL AND Old.idPriority IS NULL)
 BEGIN
     INSERT INTO Change (date, description, idTicket) VALUES (date(), 'Priority: ' || IFNULL((SELECT name FROM Priority WHERE idPriority = Old.idPriority), 'None') || ' → ' || (SELECT name FROM Priority WHERE idPriority = New.idPriority), New.idTicket);
 END;
@@ -260,7 +260,7 @@ END;
 DROP TRIGGER IF EXISTS TicketStatus;
 CREATE TRIGGER TicketStatus
     AFTER UPDATE OF idStatus ON Ticket
-    WHEN New.idStatus <> Old.idStatus
+    WHEN New.idStatus <> Old.idStatus OR (New.idStatus IS NOT NULL AND Old.idStatus IS NULL)
 BEGIN
     INSERT INTO Change (date, description, idTicket) VALUES (date(), 'Status: ' || IFNULL((SELECT name FROM Status WHERE idStatus = Old.idStatus), 'None') || ' → ' || (SELECT name FROM Status WHERE idStatus = New.idStatus), New.idTicket);
 END;
