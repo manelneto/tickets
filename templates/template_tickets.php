@@ -51,6 +51,7 @@
             </form>
             <?php } ?>
         </div>
+        <p id="controller"> Filters </p>
         <form action="../pages/tickets.php" method="post" class="filters">
             <h3>Filters</h3>
             <label for="after">After</label>
@@ -67,7 +68,7 @@
 
 <?php function drawFilter(string $name, $entity, array $entities) : void { ?>
     <label for="<?=strtolower($name)?>"><?=$name?></label>
-    <select id="<?=strtolower($name)?>" name="<?=strtolower($name)?>">
+    <select  class="select-options" id="<?=strtolower($name)?>" name="<?=strtolower($name)?>">
         <?php if (!$entity) { ?>
             <option value="0">All</option>
             <?php foreach ($entities as $e) { ?>
