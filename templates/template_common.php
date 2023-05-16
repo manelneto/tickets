@@ -17,6 +17,7 @@
         <link rel="stylesheet" href="../css/profile.css">
         <link rel="stylesheet" href="../css/ticket.css">
         <link rel="stylesheet" href="../css/tickets.css">   
+        <script src="../javascript/sidenav.js"></script>
     </head>
     <body <?php if (!$session->isLoggedIn()) echo "id=\"authentication\""?>>
         <?php if ($session->isLoggedIn()) { ?>
