@@ -222,12 +222,13 @@
     }
 
     #controller{
-        display: inline-block;
+        display: flex;
         margin-left:auto;
         grid-column: tickets-start/tickets-end;
         grid-row: tickets-start/tickets-mid1;
         align-self: center;
         margin-right: 1rem;
+        width: 2.5rem;
     }
 
     .filters {

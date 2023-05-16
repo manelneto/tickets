@@ -8,6 +8,10 @@
     margin-right: 3rem;
 }
 
+.add-faq{
+    margin:0;
+}
+
 #faqs h2, #management h2 {
     display: none;
 }
@@ -65,6 +69,7 @@
     font-size: 1rem;
     resize: none;
     overflow: hidden;
+    font-family: Arial, sans-serif;
 }
 
 .add-faq summary{
@@ -79,10 +84,6 @@
     list-style-type: none;
 }
 
-#faqs form {
-    margin: 1rem;
-}
-
 .faq-buttons, .add-faq button {
     display: block;
 }
@@ -95,10 +96,6 @@
 
 .faq-buttons button:hover, .add-faq button:hover {
     background-color: var(--light-blue);
-}
-
-.add-faq {
-    margin: 1rem;
 }
 
 .faq-buttons, .add-faq button {
@@ -119,7 +116,7 @@
 }
 
 .faq-questions-agent .answer, .add-faq .answer {
-    width: 14.5rem;
+    width: 30rem;
     margin-bottom: 0.5rem;
     display: block;
 }
@@ -156,10 +153,13 @@
         width: 13.5rem;
         min-height:2.3rem;
         overflow: visible;
-        font-family: Arial, sans-serif;
     }
 
     .faq {
         max-width: 30rem;
+    }
+
+    .faq-questions-agent .answer, .add-faq .answer {
+        max-width: 15rem;
     }
 }

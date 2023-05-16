@@ -20,6 +20,12 @@
                 <input id="email" type="email" name="email" value="<?=htmlentities($user->getEmail())?>" required>
                 <button type="submit">Save</button>
             </form>
+            <form action="../actions/action_upload_photo.php" method="post" enctype="multipart/form-data" class="update-photo">
+                <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
+                <img id="upload-photo" src="<?php echo htmlentities('../profile_photos/' . $user->getPhoto()) ?>" alt="Profile Photo">
+                <input type="file" name="file-upload" id="file-upload">
+                <button type="submit">Upload</button>
+            </form>
         </section>
     </main>
 <?php } ?>
