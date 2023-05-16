@@ -7,13 +7,15 @@
         private string $lastName;
         private string $username;
         private string $email;
+        private string $photo;
 
-        public function __construct(int $id, string $firstName, string $lastName, string $username, string $email) {
+        public function __construct(int $id, string $firstName, string $lastName, string $username, string $email, string $photo) {
             $this->id = $id;
             $this->firstName = $firstName;
             $this->lastName = $lastName;
             $this->username = $username;
             $this->email = $email;
+            $this->photo = $photo;
         }
 
         public function __toString() {
@@ -44,9 +46,13 @@
             return $this->firstName . ' ' . $this->lastName;
         }
 
+        public function getPhoto() : string {
+            return $this->photo;
+        }
+
         public static function getAgents(PDO $db) : array {
             $stmt = $db->prepare('
-                SELECT idAgent, firstName, lastName, username, email
+                SELECT idAgent, firstName, lastName, username, email, photo
                 FROM User, Agent
                 WHERE idUser = idAgent
                 ORDER BY 2, 3
@@ -64,6 +70,7 @@
                     $row['lastName'],
                     $row['username'],
                     $row['email'],  
+                    $row['photo']
                 );
 
             return $agents;
@@ -71,7 +78,7 @@
 
         public static function getNotAdmins(PDO $db) : array {
             $stmt = $db->prepare('
-                SELECT idUser, firstName, lastName, username, email
+                SELECT idUser, firstName, lastName, username, email, photo
                 FROM User
                 WHERE idUser NOT IN (SELECT idAdmin FROM Admin)
                 ORDER BY 2, 3
@@ -89,6 +96,7 @@
                     $row['lastName'],
                     $row['username'],
                     $row['email'],
+                    $row['photo']
                 );
 
             return $notAdmins;
@@ -173,7 +181,7 @@
 
         public static function getUser(PDO $db, int $id) : ?User {
             $stmt = $db->prepare('
-                SELECT idUser, firstName, lastName, username, email
+                SELECT idUser, firstName, lastName, username, email, photo
                 FROM User
                 WHERE idUser = ?
             ');
@@ -188,13 +196,14 @@
                 $user['firstName'],
                 $user['lastName'],
                 $user['username'],
-                $user['email']
+                $user['email'],
+                $user['photo']
             );
         }
 
         public static function loginUser(PDO $db, string $username, string $password) : ?User {
             $stmt = $db->prepare('
-                SELECT idUser, firstName, lastName, username, email, password
+                SELECT idUser, firstName, lastName, username, email, password, photo
                 FROM User
                 WHERE lower(username) = ?
             ');
@@ -208,7 +217,8 @@
                     $user['firstName'],
                     $user['lastName'],
                     $user['username'],
-                    $user['email']
+                    $user['email'],
+                    $user['photo']
                 );
             } else return null;
         }
@@ -274,5 +284,21 @@
 
             return true;
         }
+
+        public function updatePhoto(PDO $db, string $photoType) : bool {
+            $stmt = $db->prepare('
+                UPDATE User
+                SET photoType = ?
+                WHERE idUser = ?    
+            ');
+
+            try {
+                $stmt->execute(array($photoType, $this->id));
+            } catch (PDOException $e) {
+                return false;
+            }
+
+            return true;
+        } 
     }
 ?>
