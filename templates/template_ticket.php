@@ -2,7 +2,7 @@
     declare(strict_types = 1);
 ?>
 
-<?php function drawTicket(Session $session, Ticket $ticket, array $statuses, array $priorities, array $departments, array $agents, array $tags, array $changes) : void { ?>
+<?php function drawTicket(Session $session, Ticket $ticket, array $statuses, array $priorities, array $departments, array $agents, array $tags, array $changes, array $messages) : void { ?>
     <main id="ticket-page">
         <article id="ticket-info">
             <?php $paragraphs = explode('\n', $ticket->getDescription()); ?>
@@ -88,6 +88,30 @@
                 <?php } ?>
             </details>
         </aside>
+        <!--  ..............MESSAGE_BOARD.............   -->
+        <section id="MessageBoard">
+            <h3>Message Board</h3>
+            <hr>
+        <!--notes: o forearch vai gerar um article por cada message; o class=<php if..echo client vai fazer com que a class mude
+        consoante o autor da mensagem é o autor do ticket ou é o agent a responder  -->
+            <?php foreach ($messages as $message) { ?>
+            <article class="<?php if ($message->getAuthor()->getId() === $ticket->getAuthor()->getId()) echo 'client'; else echo 'agent'; ?>">
+                <header>
+                    <h4><?=$message->getAuthor()->getName()?></h4>
+                </header>
+                <p><?=$message->getContent()?></p>
+                <footer>
+                <p> <?=$message->getDate()?> </p>
+                </footer>
+            </article>
+            <?php } ?>
+            <form action="../actions/action_add_message.php" method="post" class="MessageBoard">
+                <input type="hidden" name="id" value="<?=$ticket->getId()?>">
+                <label for="new-message">Add New Message:</label>
+                <textarea id="new-message" name="content" placeholder="Type a New Message" required></textarea>
+                <button type="submit">Submit</button>
+            </form>
+        </section>
     </main>
 <?php } ?>
 
