@@ -8,6 +8,7 @@
     require_once(__DIR__ . '/../database/class_faq.php');
     require_once(__DIR__ . '/../database/class_tag.php');
     require_once(__DIR__ . '/../database/class_change.php');
+    require_once(__DIR__ . '/../database/class_message.php');
 
     class Ticket {
         private int $id;
@@ -307,6 +308,45 @@
                 );
 
             return $changes;
+        }
+
+        public function getMessages(PDO $db) : ?array {
+            $stmt = $db->prepare('
+                SELECT idMessage, date, content, idUser
+                FROM Message
+                WHERE idTicket = ?
+                ORDER BY 2
+            ');
+
+            $stmt->execute(array($this->id));
+            $result = $stmt->fetchAll();
+
+            $messages = array();
+
+            foreach ($result as $row)
+                $messages[] = new Message(
+                    (int) $row['idMessage'],
+                    $row['date'],
+                    $row['content'],
+                    User::getUser($db, (int) $row['idUser'])
+                );
+
+            return $messages;
+        }
+
+        public function addMessage(PDO $db, string $date, string $content, int $author) : bool {
+            $stmt = $db->prepare('
+                INSERT INTO Message (date, content, idTicket, idUser)
+                VALUES (?, ?, ?, ?)
+            ');
+
+            try {
+                $stmt->execute(array($date, $content, $this->id, $author));
+            } catch (PDOException $e) {
+                return false;
+            }
+            
+            return true;
         }
     }
 ?>
