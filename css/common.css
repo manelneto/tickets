@@ -87,6 +87,17 @@ body:not(#authentication) {
 }
 
 @media only screen and (max-width: 1120px) {
+
+  body:not(#authentication) {
+    display: grid;
+    grid-template-columns: [start] 13% [mid] auto [end];
+    grid-template-rows: [start] 4rem [mid] auto [end];
+  }
+
+  #menu {
+    min-height: calc(100vh - 4em);
+  }
+
   #menu .imgMenu {
     display: block;
     background-repeat: no-repeat;
