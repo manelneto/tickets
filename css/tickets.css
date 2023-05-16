@@ -15,13 +15,39 @@
 }
 
 .ticket a {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
+    display: grid;
+    grid-template-columns: [tickets-start] 0.6fr [tickets-mid1] 1fr [tickets-mid2] 0.4fr [tickets-mid3] 0.5fr [tickets-mid4] 0.4fr [tickets-end];
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     height: 4rem;
     align-items: center;
     width: 100%;
+    margin-bottom: 0.5rem;
+}
+
+.author {
+    grid-column: tickets-start/tickets-mid1;
+    margin-left: 1.5rem;
+    display: inline-flex;
+}
+
+.ticket h4 {
+    grid-column: tickets-mid1/tickets-mid2;
+}
+
+.status {
+    grid-column: tickets-mid2/tickets-mid3;
+}
+
+.date-opened {
+    grid-column: tickets-mid3/tickets-mid4;
+}
+
+.priority {
+    grid-column: tickets-mid4/tickets-end;
+}
+
+#controller{
+    display:none;
 }
 
 .author > img {
@@ -30,10 +56,6 @@
     border-radius: 45%;
     margin-top: 0.4rem;
     margin-right: 0.3rem;
-}
-
-.author {
-    display: inline-flex;
 }
 
 .author h3, .ticket h4 {
@@ -49,23 +71,21 @@
     color: black;
 }
 
-.ticket {
-    display: flex;
-    flex-direction: row;
-}
-
 .ticket:hover {
     background-color: var(--light-gray);
 }
 
-.tickets:first-child {
-    margin-top: 1rem;
+.date-opened{
+    text-align: center;
 }
 
-.priority {
-    border-radius: 30%;
+.priority, .status{
+    border-radius: 50%;
     padding: 0.3rem;
     border: 2px solid;
+    text-align: center;
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
 }
 
 .critical {
@@ -91,6 +111,21 @@
 .none {
     color: black;
     border-color: black;
+}
+
+.open{
+    color: purple;
+    border-color: purple;
+}
+
+.closed{
+    color: blue;
+    border-color: blue;
+}
+
+.assigned{
+    color: plum;
+    border-color: plum;
 }
 
 #paging {
@@ -143,62 +178,65 @@
     margin-bottom: 1rem;
 }
 
-/*
-@media only screen and (max-width: 1120px) {
-    main {
+@media only screen and (max-width: 1120px){
+
+    #tickets-page {
         display: grid;
-        grid-template-columns: [start] 10% [mid1] 90% [end];
-        grid-template-rows: [start] 4rem [mid1] auto [mid2] auto [mid3] 2rem [end];
+        grid-template-columns: [tickets-start] auto [tickets-end];
+        grid-template-rows: [tickets-start] 3rem [tickets-mid1] auto [tickets-mid2] 3rem [tickets-end];
+        height: 100%;
+        width: 100%;
     }
 
     #tickets {
-        grid-column: mid1/mid2;
-        grid-row: start/mid3;
+        grid-column: tickets-start/tickets-end;
+        grid-row: tickets-mid1/tickets-mid2;
+    }
+
+    .ticket a {
+        display: grid;
+        grid-template-columns: [tickets-start] 0.6fr [tickets-mid1] 1fr [tickets-end];
+    }
+
+    .author {
+        grid-column: tickets-start/tickets-mid1;
+        margin-left: 1rem;
+        display: inline-flex;
+    }
+
+    .ticket img{
+        margin-top: 1rem;
+    }
+
+    .ticket h4 {
+        grid-column: tickets-mid1/tickets-mid2;
     }
 
     #paging {
-        grid-column: mid1/mid2;
-        grid-row: mid3/end;
+        grid-column: tickets-start/tickets-end;
+        grid-row: tickets-mid2/tickets-end;
     }
 
-    .filters {
-        grid-column: mid1/end;
-        grid-row: start/mid2;
-        background-color: #f5f7f9;
-        display: flex;
-        align-items: center;
-        flex-direction: row;
-        justify-content: space-between;
-    }
-
-    .filters p {
+    .ticket p {
         display: none;
     }
 
-    .filter {
-        margin-top: 1rem;
+    #controller{
         display: inline-block;
-        margin-left: 0rem;
-        margin-right: 0rem;
+        margin-left:auto;
+        grid-column: tickets-start/tickets-end;
+        grid-row: tickets-start/tickets-mid1;
+        align-self: center;
+        margin-right: 1rem;
     }
 
-    .filter > label {
-        font-size: 15px;
+    .filters {
+        width: 10rem;
+        display: none;
     }
 
-    .filter > select {
-        max-width: 4rem;
-        height: 1.5rem;
+    #tickets:first-child {
+        margin-top: 0rem;
     }
-
-    .filters button {
-        margin-bottom: 0rem;
-        margin-top: 1.1rem;
-        width: 4rem;
-        height: 1.5rem;
-        background-color: #22216D;
-        color: #ffffff;
-        border: none;
-        margin-right: 1.5rem;
-    }
-*/
+}
+    

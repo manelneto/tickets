@@ -9,7 +9,7 @@
             <?php for ($i = 0; $i < count($statuses) && $i < count($count); $i++) { $status = $statuses[$i]; ?>
             <article class="card">
                 <h3><?=htmlentities($status->getName())?></h3>
-                <p>You have <?=$count[$i]?> tickets <?=htmlentities(strtolower($status->getName()))?>!</p>
+                <p>You have <?=$count[$i]?> <?=htmlentities(strtolower($status->getName()))?> tickets!</p>
             </article>
             <?php } ?>
         </section>

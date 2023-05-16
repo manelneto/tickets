@@ -4,7 +4,7 @@
 
 <?php function drawTicket(Session $session, Ticket $ticket, array $statuses, array $priorities, array $departments, array $agents, array $tags, array $changes) : void { ?>
     <main id="ticket-page">
-        <article id="ticket">
+        <article id="ticket-info">
             <?php $paragraphs = explode('\n', $ticket->getDescription()); ?>
             <?php if ($session->getId() === $ticket->getAuthor()->getId()) { ?>
                 <form action="../actions/action_edit_ticket.php" method="post" class="edit-ticket">

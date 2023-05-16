@@ -36,8 +36,8 @@
                 <input type="hidden" name="id" value="<?=$faq->getId()?>">
                 <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
                 <details class="faq">
-                    <summary class="question">
-                        <input type="text" name="question" value="<?=htmlentities($faq->getQuestion())?>" required>
+                    <summary class="question" id="faq-arrow">
+                        <textarea name="question" required><?=htmlentities($faq->getQuestion())?></textarea>
                     </summary>
                     <textarea class="answer" name="answer" required><?=htmlentities($faq->getAnswer())?></textarea>
                     <div class="faq-buttons">

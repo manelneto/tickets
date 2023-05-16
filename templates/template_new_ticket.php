@@ -11,7 +11,7 @@
                 <label for="title">Title</label>
                 <input id="title" type="text" name="title" placeholder="title" required>
                 <label for="department">Department</label>
-                <select name="department" id="department">
+                <select name="department" id="new-ticket-department">
                     <option value="0"></option>
                     <?php foreach ($departments as $department) { ?>
                     <option value=<?=$department->getId()?>><?=htmlentities($department->getName())?></option>

@@ -14,7 +14,9 @@
                             <h3><?=htmlentities($ticket->getAuthor()->getName())?></h3>
                         </header>
                         <h4><?=htmlentities($ticket->getTitle())?></h4>
-                        <p class="status"><?=htmlentities($ticket->getStatus()->getName())?></p>
+                        <?php if ($ticket->getStatus()) { ?>
+                        <p class="status <?=htmlentities(strtolower($ticket->getStatus()->getName()))?>"><?=htmlentities($ticket->getStatus()->getName())?></p>
+                        <?php } ?>
                         <p class="date-opened"><?=$ticket->getDateOpened()?></p>
                         <?php if ($ticket->getPriority()) { ?>
                         <p class="priority <?=htmlentities(strtolower($ticket->getPriority()->getName()))?>"><?=htmlentities($ticket->getPriority()->getName())?></p>
@@ -55,6 +57,7 @@
             </form>
             <?php } ?>
         </div>
+        <p id="controller"> Filters </p>
         <form action="../pages/tickets.php" method="post" class="filters">
             <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
             <h3>Filters</h3>
@@ -74,7 +77,7 @@
 
 <?php function drawFilter(string $name, $entity, array $entities) : void { ?>
     <label for="<?=strtolower($name)?>"><?=$name?></label>
-    <select id="<?=strtolower($name)?>" name="<?=strtolower($name)?>">
+    <select  class="select-options" id="<?=strtolower($name)?>" name="<?=strtolower($name)?>">
         <?php if (!$entity) { ?>
             <option value="0">All</option>
             <?php foreach ($entities as $e) { ?>
