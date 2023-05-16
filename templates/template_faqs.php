@@ -34,8 +34,8 @@
             <form method="post" class="faq-questions-agent">
                 <input type="hidden" name="id" value="<?=$faq->getId()?>">
                 <details class="faq">
-                    <summary class="question">
-                        <input type="text" name="question" value="<?=$faq->getQuestion()?>" required>
+                    <summary class="question" id="faq-arrow">
+                        <textarea name="question" required><?=$faq->getQuestion()?></textarea>
                     </summary>
                     <textarea class="answer" name="answer" required><?=$faq->getAnswer()?></textarea>
                     <div class="faq-buttons">
