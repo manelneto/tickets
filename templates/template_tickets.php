@@ -10,7 +10,7 @@
                 <article class="ticket">
                     <a href="../pages/ticket.php?id=<?=$ticket->getId()?>">
                         <header class="author">
-                            <img src="../assets/profile.png" alt="Perfil Icon">
+                            <img src="../profile_photos/profile_default.png" alt="Perfil Icon">
                             <h3><?=htmlentities($ticket->getAuthor()->getName())?></h3>
                         </header>
                         <h4><?=htmlentities($ticket->getTitle())?></h4>
@@ -57,7 +57,7 @@
             </form>
             <?php } ?>
         </div>
-        <p id="controller"> Filters </p>
+        <img id="controller" src="../assets/filters.png" alt="Filters Icon">
         <form action="../pages/tickets.php" method="post" class="filters">
             <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
             <h3>Filters</h3>
