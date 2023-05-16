@@ -9,17 +9,18 @@
             <details class="management">
                 <summary class="action">Upgrade a client</summary>
                 <form action="../actions/action_upgrade_client.php" method="post" class="upgrade">
+                    <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
                     <label for="client">Select a client</label>
                     <select id="client" name="client" required>
                         <?php foreach ($clients as $client) { ?>
-                        <option value="<?=$client->getId()?>"><?=$client->getUsername()?></option>
+                        <option value="<?=$client->getId()?>"><?=htmlentities($client->getUsername())?></option>
                         <?php } ?>
                     </select>
                     <div id="upgrade-role">
                         <label for="agent">To agent</label>
                         <input id="agent" type="radio" name="role" value="agent" required>
                         <label for="admin">To admin</label>
-                        <input id=admin" type="radio" name="role" value="admin" required>
+                        <input id="admin" type="radio" name="role" value="admin" required>
                     </div>
                     <button type="submit">Upgrade</button>
                 </form>
@@ -27,6 +28,7 @@
             <details class="management">
                 <summary class="action">Add a new entity</summary>
                 <form action="../actions/action_add_entity.php" method="post" class="entity">
+                    <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
                     <label for="entity">Select an entity</label>
                     <select id="entity" name="entity" required>
                         <option value="department">Department</option>
@@ -44,17 +46,18 @@
             <details class="management">
                 <summary class="action">Assign agent to department</summary>
                 <form action="../actions/action_assign_agent.php" method="post" class="assign">
+                    <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
                     <label for="department">Select a department</label>
                     <select id="department" name="department" required>
                         <?php foreach ($departments as $department) { ?>
-                        <option value="<?=$department->getId()?>"><?=$department->getName()?></option>
+                        <option value="<?=$department->getId()?>"><?=htmlentities($department->getName())?></option>
                         <?php } ?>
                     </select>
                     <div class="field"><!--não gosto desta div mas desisti de tentar-->
                         <label for="agent">Select an agent</label>
                         <select id="agent" name="agent" required>
                             <?php foreach ($agents as $agent) { ?>
-                            <option value="<?=$agent->getId()?>"><?=$agent->getUsername()?></option>
+                            <option value="<?=$agent->getId()?>"><?=htmlentities($agent->getUsername())?></option>
                             <?php } ?>
                         </select>
                     </div>

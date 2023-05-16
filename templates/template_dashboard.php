@@ -8,8 +8,8 @@
             <h2>Dashboard</h2>
             <?php for ($i = 0; $i < count($statuses) && $i < count($count); $i++) { $status = $statuses[$i]; ?>
             <article class="card">
-                <h3><?=$status->getName()?></h3>
-                <p>You have <?=$count[$i]?> <?=strtolower($status->getName())?> tickets!</p>
+                <h3><?=htmlentities($status->getName())?></h3>
+                <p>You have <?=$count[$i]?> <?=htmlentities(strtolower($status->getName()))?> tickets!</p>
             </article>
             <?php } ?>
         </section>

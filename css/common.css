@@ -4,6 +4,10 @@
   --light-gray: #edf1f4;
 }
 
+button, summary {
+  cursor: pointer;
+}
+
 body:not(#authentication) {
   display: grid;
   grid-template-columns: [start] 13% [mid] auto [end];
@@ -84,6 +88,23 @@ body:not(#authentication) {
 
 #menu li:hover {
   background-color: var(--blue);
+}
+
+#messages {
+  position: fixed;
+  transform: translate(-50%, 0);
+  left: 50%;
+  top: 1rem;
+  padding: 1rem;
+  border-style: dotted;
+}
+
+.success {
+  /* ... */
+}
+
+.error {
+  /* ... */
 }
 
 @media only screen and (max-width: 1120px) {

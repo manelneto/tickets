@@ -7,6 +7,7 @@
         <section id="login" class="authentication">
             <h2>Login</h2>
             <form action="../actions/action_login.php" method="post" class="login">
+                <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
                 <label for="username">Username</label>
                 <input id="username" type="text" name="username" placeholder="username" required>
                 <label for="password">Password</label>
@@ -23,6 +24,7 @@
         <section id="register" class="authentication">
             <h2>Register</h2>
             <form action="../actions/action_register.php" method="post" class="register">
+                <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
                 <label for="first-name">First Name</label>
                 <input id="first-name" type="text" name="first-name" placeholder="First Name" required>
                 <label for="last-name">Last Name</label>

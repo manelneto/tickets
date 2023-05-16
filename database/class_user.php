@@ -16,6 +16,10 @@
             $this->email = $email;
         }
 
+        public function __toString() {
+            return $this->username;
+        }
+
         public function getId() : int {
             return $this->id;
         }

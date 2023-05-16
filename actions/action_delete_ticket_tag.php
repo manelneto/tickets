@@ -11,16 +11,19 @@
         die();
     }
 
+    $id = (int) $_POST['id'];
+    $tag = (int) $_POST['tag'];
+
     require_once(__DIR__ . '/../database/connection.php');
     $db = getDatabaseConnection();
 
-    require_once(__DIR__ . '/../database/class_faq.php');
-    $faq = FAQ::getFAQ($db, (int) $_POST['id']);
+    require_once(__DIR__ . '/../database/class_ticket.php');
+    $ticket = Ticket::getTicket($db, $id);
 
-    if ($faq && $faq->delete($db))
-        $session->addMessage(true, 'FAQ successfully deleted');
+    if ($ticket && $tag && $ticket->deleteTag($db, $tag))
+        $session->addMessage(true, "Tag successfully removed");
     else
-        $session->addMessage(false, 'FAQ could not be deleted');
+        $session->addMessage(false, 'Tag could not be removed');
 
-    header('Location: ../pages/faqs.php');
+    header("Location: ../pages/ticket.php?id=$id");
 ?>

@@ -10,6 +10,10 @@
             $this->name = $name;
         }
 
+        public function __toString() {
+            return $this->name;
+        }
+
         public function getId() : int {
             return $this->id;
         }
@@ -26,6 +30,50 @@
             ');
 
             $stmt->execute();
+            $result = $stmt->fetchAll();
+
+            $departments = array();
+
+            foreach ($result as $row)
+                $departments[] = new Department(
+                    (int) $row['idDepartment'],
+                    $row['name']
+                );
+
+            return $departments;
+        }
+
+        public static function getAgentDepartments(PDO $db, int $id) : array {
+            $stmt = $db->prepare('
+                SELECT idDepartment, name
+                FROM Department NATURAL JOIN AgentDepartment
+                WHERE idAgent = ?
+                ORDER BY 2
+            ');
+
+            $stmt->execute(array($id));
+            $result = $stmt->fetchAll();
+
+            $departments = array();
+
+            foreach ($result as $row)
+                $departments[] = new Department(
+                    (int) $row['idDepartment'],
+                    $row['name']
+                );
+
+            return $departments;
+        }
+
+        public static function getClientDepartments(PDO $db, int $id) : array {
+            $stmt = $db->prepare('
+                SELECT idDepartment, name
+                FROM Department NATURAL JOIN Ticket
+                WHERE idUser = ?
+                ORDER BY 2
+            ');
+
+            $stmt->execute(array($id));
             $result = $stmt->fetchAll();
 
             $departments = array();

@@ -3,9 +3,20 @@
 
     require_once(__DIR__ . '/../utils/session.php');
     $session = new Session();
+    $session->checkCSRF();
 
     if (!$session->isAgent()) {
+        $this->addMessage(false, 'You cannot perform that action');
         header('Location: ../pages/index.php');
+        die();
+    }
+
+    $question = trim($_POST['question']);
+    $answer = trim($_POST['answer']);
+
+    if ($question === '' || $answer === '') {
+        $session->addMessage(false, 'FAQ fields cannot be empty');
+        header('Location: ../pages/faqs.php');
         die();
     }
 
@@ -15,10 +26,10 @@
     require_once(__DIR__ . '/../database/class_faq.php');
     $faq = FAQ::getFAQ($db, (int) $_POST['id']);
 
-    if ($faq && $faq->edit($db, trim($_POST['question']), trim($_POST['answer'])))
-        header('Location: ../pages/faqs.php');
+    if ($faq && $faq->edit($db, $question, $answer))
+        $session->addMessage(true, 'FAQ successfully edited');
     else
-        header('Location: ../pages/faqs.php');
+        $session->addMessage(false, 'FAQ could not be edited');
 
-    /* if-else para depois adicionarmos mensagens de erro/sucesso */
+    header('Location: ../pages/faqs.php');
 ?>
