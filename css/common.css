@@ -30,7 +30,7 @@ body:not(#authentication) {
   grid-row: mid/end;
 }
 
-#menu .imgMenu {
+#menu .img-menu {
   display:none;
 }
 
@@ -75,15 +75,12 @@ body:not(#authentication) {
   text-decoration: none;
   color: white;
   font-size: 1rem;
+  padding-left: 2rem;
 }
 
 #menu ul {
   list-style-type: none;
   padding-left: 0;
-}
-
-#menu .textMenu {
-  padding-left: 2rem;
 }
 
 #menu li:hover {
@@ -119,21 +116,21 @@ body:not(#authentication) {
     min-height: calc(100vh - 4em);
   }
 
-  #menu .imgMenu {
+  #menu .img-menu {
     display: block;
     background-repeat: no-repeat;
     background-position: center;
     background-color: transparent;
   }
 
-  #menu .imgMenu img:first-child{
+  #menu .img-menu img:first-child{
     padding-left: 2rem;
     margin-left: auto;
     margin-right: auto;
     width: 20%;
   }
 
-  #menu .textMenu {
+  #menu .text-menu {
     display: none;
   }
 }
