@@ -28,7 +28,7 @@
     padding-left: 0.8rem;
 }
 
-.faq[open] .question, .faq[open] .question input, .management[open] .action {
+.faq[open] .question, .faq[open] .question textarea, .management[open] .action {
     background-color: var(--light-blue);
 }
 
@@ -57,11 +57,26 @@
     display: block;
 }
 
-.question input {
-    min-width: 22.7rem;
+.question textarea {
+    width: 30rem;
+    height:1.1rem;
     border: none;
     font-weight: bold;
     font-size: 1rem;
+    resize: none;
+    overflow: hidden;
+}
+
+.add-faq summary{
+    color: var(--light-blue);
+}
+
+.faq[open] summary{
+    color: var(--dark-blue);
+}
+
+#faq-arrow {
+    list-style-type: none;
 }
 
 #faqs form {
@@ -104,7 +119,7 @@
 }
 
 .faq-questions-agent .answer, .add-faq .answer {
-    width: 20rem;
+    width: 14.5rem;
     margin-bottom: 0.5rem;
     display: block;
 }
@@ -114,7 +129,7 @@
     margin-top: 0.5rem;
 }
 
-@media only screen and (max-width: 1120px) {
+@media only screen and (max-width: 750px) {
 
     #management, #faqs{
         margin-left: 1rem;
@@ -135,5 +150,16 @@
 
     #entity{
         margin-left: 0.5rem;
+    }
+
+    .question textarea {
+        width: 13.5rem;
+        min-height:2.3rem;
+        overflow: visible;
+        font-family: Arial, sans-serif;
+    }
+
+    .faq {
+        max-width: 30rem;
     }
 }
