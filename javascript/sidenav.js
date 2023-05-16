@@ -1,30 +1,37 @@
-const arrowButton = document.querySelector("#controller");
-const filtersSection = document.querySelector(".filters");
-const ticketsSection = document.querySelector("#tickets");
-const isFiltersOpen = false;
+document.addEventListener("DOMContentLoaded", function() {
+  var arrowButton = document.querySelector("#controller");
+  var filtersSection = document.querySelector(".filters");
+  var ticketsSection = document.querySelector("#tickets");
+  var isFiltersOpen = false;
 
   arrowButton.addEventListener("click", function() {
     if (!isFiltersOpen) {
       // Show the filters section and position it to overlap the middle column
       filtersSection.style.display = "flex";
-      filtersSection.style.gridColumn = "tickets-start/tickets-start"; // Change to "tickets-start/tickets-start"
-      ticketsSection.style.marginLeft = "0"; // Change to "marginLeft" and set to "0"
+      filtersSection.style.gridColumn = "tickets-start/tickets-end";
+      filtersSection.style.justifyContent = "center"; // Align filters to the center horizontally
+      ticketsSection.style.marginRight = "0"; // Remove right margin to make room for the sidebar
     } else {
       // Hide the filters section and reset its position
       filtersSection.style.display = "none";
       filtersSection.style.gridColumn = "tickets-mid/tickets-mid";
-      ticketsSection.style.marginLeft = ""; // Reset the left margin
+      filtersSection.style.justifyContent = ""; // Reset the justify-content property
+      ticketsSection.style.marginRight = ""; // Reset the right margin
     }
 
     isFiltersOpen = !isFiltersOpen;
+  });
 });
 
-const textarea = document.querySelector("#faq-arrow");
 
-textarea.addEventListener("input", function() {
-  // Reset the textarea's height to its scroll height
-  textarea.style.height = "auto";
-  
-  // Set the textarea's height to match its scroll height
-  textarea.style.height = textarea.scrollHeight + "px";
-});
+
+
+
+
+
+
+
+
+
+
+
