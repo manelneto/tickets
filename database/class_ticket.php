@@ -37,6 +37,10 @@
             $this->faq = $faq;
         }
 
+        public function __toString() {
+            return $this->title;
+        }
+
         public function getId() : int {
             return $this->id;
         }
@@ -81,18 +85,7 @@
             return $this->faq;
         }
 
-        public static function getTicket(PDO $db, int $id) : ?Ticket {
-            $stmt = $db->prepare('
-                SELECT idTicket, idUser, title, description, dateOpened, dateClosed, idAgent, idDepartment, idPriority, idStatus, idFAQ
-                FROM Ticket
-                WHERE idTicket = ?
-            ');
-
-            $stmt->execute(array($id));
-            $ticket = $stmt->fetch();
-
-            if (!$ticket) return null;
-
+        private static function parseTicket(PDO $db, $ticket) : Ticket {
             return new Ticket(
                 (int) $ticket['idTicket'],
                 User::getUser($db, (int) $ticket['idUser']),
@@ -108,74 +101,94 @@
             );
         }
 
-        public static function getTicketsClient(PDO $db, int $id, string $after, string $before, int $department, int $priority, int $status) : array {
-            $stmt = $db->prepare("
+        public static function getTicket(PDO $db, int $id) : ?Ticket {
+            $stmt = $db->prepare('
                 SELECT idTicket, idUser, title, description, dateOpened, dateClosed, idAgent, idDepartment, idPriority, idStatus, idFAQ
                 FROM Ticket
+                WHERE idTicket = ?
+            ');
+
+            $stmt->execute(array($id));
+            $ticket = $stmt->fetch();
+
+            if (!$ticket) return null;
+
+            return self::parseTicket($db, $ticket);
+        }
+
+        public static function getTicketsClient(PDO $db, int $id, string $after, string $before, int $department, int $priority, int $status, int $agent, int $tag) : array {
+            $stmt = $db->prepare("
+                SELECT DISTINCT Ticket.idTicket, idUser, title, description, dateOpened, dateClosed, idAgent, idDepartment, idPriority, idStatus, idFAQ
+                FROM Ticket LEFT OUTER JOIN TicketTag
                 WHERE (idUser = ?) 
                 AND (? = '' OR dateOpened > ?) 
                 AND (? = '' OR dateOpened < ?)
                 AND (? = '0' OR idDepartment = ?) 
                 AND (? = '0' OR idPriority = ?) 
                 AND (? = '0' OR idStatus = ?) 
+                AND (? = '0' OR idAgent = ?)
+                AND (? = '0' OR idTag = ?)
                 ORDER BY 5 DESC, 9 DESC, 3
             ");
 
-            $stmt->execute(array($id, $after, $after, $before, $before, $department, $department, $priority, $priority, $status, $status));
+            $stmt->execute(array($id, $after, $after, $before, $before, $department, $department, $priority, $priority, $status, $status, $agent, $agent, $tag, $tag));
             $result = $stmt->fetchAll();
 
             $tickets = array();
 
             foreach ($result as $row)
-                $tickets[] = new Ticket(
-                    (int) $row['idTicket'],
-                    User::getUser($db, (int) $row['idUser']),
-                    $row['title'],
-                    $row['description'],
-                    $row['dateOpened'],
-                    $row['dateClosed'],
-                    User::getUser($db, (int) $row['idAgent']),
-                    Department::getDepartment($db, (int) $row['idDepartment']),
-                    Priority::getPriority($db, (int) $row['idPriority']),
-                    Status::getStatus($db, (int) $row['idStatus']),
-                    FAQ::getFAQ($db, (int) $row['idFAQ'])
-                );
+                $tickets[] = self::parseTicket($db, $row);
             
             return $tickets;
         }
 
-        public static function getTicketsAgent(PDO $db, int $id, string $after, string $before, int $department, int $priority, int $status) : array {
+        public static function getTicketsAgent(PDO $db, int $id, string $after, string $before, int $department, int $priority, int $status, int $agent, int $tag) : array {
             $stmt = $db->prepare("
-                SELECT idTicket, idUser, title, description, dateOpened, dateClosed, idAgent, idDepartment, idPriority, idStatus, idFAQ
-                FROM Ticket
+                SELECT DISTINCT Ticket.idTicket, idUser, title, description, dateOpened, dateClosed, idAgent, idDepartment, idPriority, idStatus, idFAQ
+                FROM Ticket LEFT OUTER JOIN TicketTag
                 WHERE (idUser = ? OR idAgent = ? OR idDepartment IS NULL OR idDepartment IN (SELECT idDepartment FROM AgentDepartment WHERE idAgent = ?))
                 AND (? = '' OR dateOpened > ?) 
                 AND (? = '' OR dateOpened < ?)
                 AND (? = '0' OR idDepartment = ?) 
                 AND (? = '0' OR idPriority = ?) 
                 AND (? = '0' OR idStatus = ?) 
+                AND (? = '0' OR idAgent = ?)
+                AND (? = '0' OR idTag = ?)
                 ORDER BY 5 DESC, 9 DESC, 3
             ");
 
-            $stmt->execute(array($id, $id, $id, $after, $after, $before, $before, $department, $department, $priority, $priority, $status, $status));
+            $stmt->execute(array($id, $id, $id, $after, $after, $before, $before, $department, $department, $priority, $priority, $status, $status, $agent, $agent, $tag, $tag));
             $result = $stmt->fetchAll();
 
             $tickets = array();
 
             foreach ($result as $row)
-                $tickets[] = new Ticket(
-                    (int) $row['idTicket'],
-                    User::getUser($db, (int) $row['idUser']),
-                    $row['title'],
-                    $row['description'],
-                    $row['dateOpened'],
-                    $row['dateClosed'],
-                    User::getUser($db, (int) $row['idAgent']),
-                    Department::getDepartment($db, (int) $row['idDepartment']),
-                    Priority::getPriority($db, (int) $row['idPriority']),
-                    Status::getStatus($db, (int) $row['idStatus']),
-                    FAQ::getFAQ($db, (int) $row['idFAQ'])
-                );
+                $tickets[] = self::parseTicket($db ,$row);
+
+            return $tickets;
+        }
+
+        public static function getTickets(PDO $db, string $after, string $before, int $department, int $priority, int $status, int $agent, int $tag) : array {
+            $stmt = $db->prepare("
+                SELECT DISTINCT Ticket.idTicket, idUser, title, description, dateOpened, dateClosed, idAgent, idDepartment, idPriority, idStatus, idFAQ
+                FROM Ticket LEFT OUTER JOIN TicketTag
+                WHERE (? = '' OR dateOpened > ?) 
+                AND (? = '' OR dateOpened < ?)
+                AND (? = '0' OR idDepartment = ?) 
+                AND (? = '0' OR idPriority = ?) 
+                AND (? = '0' OR idStatus = ?) 
+                AND (? = '0' OR idAgent = ?)
+                AND (? = '0' OR idTag = ?)
+                ORDER BY 5 DESC, 9 DESC, 3
+            ");
+
+            $stmt->execute(array($after, $after, $before, $before, $department, $department, $priority, $priority, $status, $status, $agent, $agent, $tag, $tag));
+            $result = $stmt->fetchAll();
+
+            $tickets = array();
+
+            foreach ($result as $row)
+                $tickets[] = self::parseTicket($db, $row);
 
             return $tickets;
         }
@@ -194,14 +207,26 @@
         }
 
         public static function addTicket(PDO $db, int $idUser, string $title, string $description, string $dateOpened, int $department, array $tags) : bool {
-            $stmt = $db->prepare('
+            if ($department === 0) {
+                $stmt = $db->prepare('
+                INSERT INTO Ticket (idUser, title, description, dateOpened)
+                VALUES (?, ?, ?, ?)
+            ');
+                try {
+                    $stmt->execute(array($idUser, $title, $description, $dateOpened));
+                } catch (PDOException $e) {
+                    return false;
+                }
+            } else {
+                $stmt = $db->prepare('
                 INSERT INTO Ticket (idUser, title, description, dateOpened, idDepartment)
                 VALUES (?, ?, ?, ?, ?)
             ');
-            try {
-                $stmt->execute(array($idUser, $title, $description, $dateOpened, $department === 0 ? 'NULL' : $department));
-            } catch (PDOException $e) {
-                return false;
+                try {
+                    $stmt->execute(array($idUser, $title, $description, $dateOpened, $department));
+                } catch (PDOException $e) {
+                    return false;
+                }
             }
 
             $stmt = $db->prepare('
@@ -212,17 +237,8 @@
             $result = $stmt->fetch();
             $id = (int) $result['max(idTicket)'];
 
-            foreach ($tags as $tag) {
-                $stmt = $db->prepare('
-                    INSERT INTO TicketTag (idTicket, idTag)
-                    VALUES (?, ?)
-                ');
-                try {
-                    $stmt->execute(array($id, $tag->getId()));
-                } catch (PDOException $e) {
-                    return false;
-                }
-            }
+            foreach ($tags as $tag)
+                self::addTag($db, $id, $tag);
 
             return true;
         }
@@ -239,13 +255,11 @@
             } catch (PDOException $e) {
                 return false;
             }
-            
-            $this->title = $title;
-            $this->description = $description;
+
             return true;
         }
 
-        public function editProperties(PDO $db, int $status, int $priority, int $department, int $agent) : bool {
+        public function editProperties(PDO $db, int $status, ?int $priority, ?int $department, ?int $agent, array $tags) : bool {
             $stmt = $db->prepare('
                 UPDATE Ticket
                 SET idStatus = ?, idPriority = ?, idDepartment = ?, idAgent = ?
@@ -257,11 +271,10 @@
             } catch (PDOException $e) {
                 return false;
             }
-            
-            $this->status = Status::getStatus($db, $status);
-            $this->priority = Priority::getPriority($db, $priority);
-            $this->department = Department::getDepartment($db, $department);
-            $this->agent = User::getUser($db, $agent);
+
+            foreach ($tags as $tag)
+                self::addTag($db, $this->id, $tag);
+
             return true;
         }
 
@@ -345,7 +358,31 @@
             } catch (PDOException $e) {
                 return false;
             }
+        }
             
+        public static function addTag(PDO $db, int $ticket, int $tag) : void {
+            $stmt = $db->prepare('
+                INSERT INTO TicketTag (idTicket, idTag)
+                VALUES (?, ?)
+            ');
+            try {
+                $stmt->execute(array($ticket, $tag));
+            } catch (PDOException $e) {}
+        }
+
+        public function deleteTag(PDO $db, int $tag) : bool {
+            $stmt = $db->prepare('
+                DELETE
+                FROM TicketTag
+                WHERE idTicket = ? AND idTag = ? 
+            ');
+
+            try {
+                $stmt->execute(array($this->id, $tag));
+            } catch (PDOException $e) {
+                return false;
+            }
+
             return true;
         }
     }

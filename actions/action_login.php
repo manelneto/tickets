@@ -3,9 +3,20 @@
 
     require_once(__DIR__ . '/../utils/session.php');
     $session = new Session();
+    $session->checkCSRF();
 
     if ($session->isLoggedIn()) {
+        $this->addMessage(false, 'You cannot perform that action');
         header('Location: ../pages/index.php');
+        die();
+    }
+
+    $username = strtolower(trim($_POST['username']));
+    $password = $_POST['password'];
+
+    if ($username === '') {
+        $session->addMessage(false, 'Username cannot be empty');
+        header('Location: ../pages/login.php');
         die();
     }
 
@@ -13,7 +24,7 @@
     $db = getDatabaseConnection();
 
     require_once(__DIR__ . '/../database/class_user.php');
-    $user = User::loginUser($db, strtolower(trim($_POST['username'])), $_POST['password']);
+    $user = User::loginUser($db, $username, $password);
 
     if ($user) {
         $session->setId($user->getId());
@@ -22,6 +33,7 @@
         $session->setAdmin($user->isAdmin($db));
         header('Location: ../pages/dashboard.php');
     } else {
+        $session->addMessage(false, 'Login unsuccessful');
         header('Location: ../pages/login.php');
     }
 ?>

@@ -50,3 +50,14 @@
     margin-top: 1rem;
     width: 6rem;
 }
+
+@media only screen and (max-width: 1120px){
+    
+    #profile #change-password, #password #edit-profile {
+        padding: 0.3rem;
+    }
+
+    #profile #edit-profile, #password #change-password {
+        padding: 0.3rem;
+    }
+}

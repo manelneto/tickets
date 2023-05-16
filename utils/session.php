@@ -5,7 +5,10 @@
         private array $messages;
 
         public function __construct() {
+            session_set_cookie_params(0, '/', 'localhost', true, true);
             session_start();
+
+            if (!isset($_SESSION['csrf'])) $_SESSION['csrf'] = bin2hex(openssl_random_pseudo_bytes(32));
 
             $this->messages = $_SESSION['messages'] ?? array();
             unset($_SESSION['messages']);
@@ -55,8 +58,17 @@
             return $this->messages;
         }
 
-        public function addMessage(string $type, string $text) : void {
-            $_SESSION['messages'][] = array('type' => $type, 'text' => $text);
+        public function addMessage(bool $success, string $text) : void {
+            $_SESSION['messages'][] = array('type' => $success, 'text' => $text);
+        }
+
+        public function checkCSRF() : void {
+            if (!isset($_POST['csrf']) || $_SESSION['csrf'] !== $_POST['csrf']) {
+                $this->addMessage(false, 'Request does not appear to be legitimate');
+                $location = $_SERVER['HTTP_REFERER'] ?? '../pages/index.php';
+                header('Location: ' . $location);
+                die();
+            }
         }
     }
 ?>

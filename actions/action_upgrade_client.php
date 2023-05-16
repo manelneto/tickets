@@ -3,8 +3,10 @@
 
     require_once(__DIR__ . '/../utils/session.php');
     $session = new Session();
+    $session->checkCSRF();
 
     if (!$session->isAdmin()) {
+        $this->addMessage(false, 'You cannot perform that action');
         header('Location: ../pages/index.php');
         die();
     }
@@ -15,10 +17,23 @@
     require_once(__DIR__ . '/../database/class_user.php');
     $client = User::getUser($db, (int) $_POST['client']);
 
-    if ($client && $_POST['role'] === 'agent' && $client->upgradeToAgent($db))
-        header('Location: ../pages/dashboard.php');
-    else if ($client && $_POST['role'] === 'admin' && $client->upgradeToAdmin($db))
-        header('Location: ../pages/dashboard.php');
-    else
-        header('Location: ../pages/management.php');
+    switch ($_POST['role']) {
+        case 'agent':
+            if ($client && $client->upgradeToAgent($db))
+                $session->addMessage(true, 'Client successfully upgraded to agent');
+            else
+                $session->addMessage(false, 'Client is already an agent');
+            break;
+        case 'admin':
+            if ($client && $client->upgradeToAdmin($db))
+                $session->addMessage(true, 'Client successfully upgraded to admin');
+            else
+                $session->addMessage(false, 'Client is already an admin');
+            break;
+        default:
+            $session->addMessage(false, 'Client could not be upgraded');
+            break;
+    }
+
+    header('Location: ../pages/management.php');
 ?>

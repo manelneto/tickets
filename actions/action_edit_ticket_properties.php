@@ -3,24 +3,41 @@
 
     require_once(__DIR__ . '/../utils/session.php');
     $session = new Session();
+    $session->checkCSRF();
 
     if (!$session->isAgent()) {
+        $this->addMessage(false, 'You cannot perform that action');
         header('Location: ../pages/index.php');
         die();
     }
 
+    $id = (int) $_POST['id'];
+
+    $status = (int) $_POST['status'];
+    $priority = (int) $_POST['priority'];
+    $department = (int) $_POST['department'];
+    $agent = (int) $_POST['agent'];
+
     require_once(__DIR__ . '/../database/connection.php');
     $db = getDatabaseConnection();
 
-    $id = (int) $_POST['id'];
-
     require_once(__DIR__ . '/../database/class_ticket.php');
-    $ticket = Ticket::getTicket($db, (int) $id);
 
-    if ($ticket && $ticket->editProperties($db, (int) $_POST['status'], (int) $_POST['priority'], (int) $_POST['department'], (int) $_POST['agent']))
-        header("Location: ../pages/ticket.php?id=$id");
+    $names = (strpos($_POST['tags'], ',') !== false) ? explode(',', $_POST['tags']) : array(trim($_POST['tags']));
+
+    $tags = array();
+
+    foreach ($names as $name) {
+        $tag = Tag::getTagId($db, $name);
+        if ($tag) $tags[] = $tag;
+    }
+
+    $ticket = Ticket::getTicket($db, $id);
+
+    if ($ticket && $ticket->editProperties($db, $status, $priority === 0 ? null : $priority, $department === 0 ? null : $department, $agent === 0 ? null : $agent, $tags))
+        $session->addMessage(true, 'Ticket properties successfully edited');
     else
-        header("Location: ../pages/ticket.php?id=$id");
+        $session->addMessage(false, 'Some ticket properties could not be edited');
 
-    /* if-else para depois adicionarmos mensagens de erro/sucesso */
+    header("Location: ../pages/ticket.php?id=$id");
 ?>

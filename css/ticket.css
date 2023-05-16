@@ -5,7 +5,7 @@
     height: 100%;
 }
 
-#ticket {
+#ticket-info {
     grid-column: ticket-start/ticket-mid;
     grid-row: ticket-start/ticket-end;
 }
