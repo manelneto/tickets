@@ -3,7 +3,7 @@
 ?>
 
 <?php function drawProfile(User $user) : void { ?>
-    <main>
+    <main class="profile-page">
         <section id="profile">
             <h2>My Profile</h2>
             <a id="edit-profile" href="../pages/profile.php">Edit Profile</a>
@@ -20,18 +20,20 @@
                 <input id="email" type="email" name="email" value="<?=htmlentities($user->getEmail())?>" required>
                 <button type="submit">Save</button>
             </form>
-            <form action="../actions/action_upload_photo.php" method="post" enctype="multipart/form-data" class="update-photo">
-                <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
-                <img id="upload-photo" src="<?php echo htmlentities('../profile_photos/' . $user->getPhoto()) ?>" alt="Profile Photo">
-                <input type="file" name="file-upload" id="file-upload">
-                <button type="submit">Upload</button>
+        </section>
+        <section id="profile-photo">
+            <form action="../actions/action_upload_photo.php" method="post" enctype="multipart/form-data" class="upload-photo">
+                    <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
+                    <img id="upload-photo" src="<?php echo htmlentities('../profile_photos/' . $user->getPhoto()) ?>" alt="Profile Photo">
+                    <input type="file" name="photo-upload" id="photo-upload">
+                    <button type="submit">Upload</button>
             </form>
         </section>
     </main>
 <?php } ?>
 
 <?php function drawPassword() : void { ?>
-    <main>
+    <main class="profile-page">
         <section id="password">
             <h2>Change Password</h2>
             <a id="edit-profile" href="../pages/profile.php">Edit Profile</a>
