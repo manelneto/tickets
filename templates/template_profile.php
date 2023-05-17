@@ -24,7 +24,7 @@
         <section id="profile-photo">
             <form action="../actions/action_upload_photo.php" method="post" enctype="multipart/form-data" class="upload-photo">
                     <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
-                    <img id="upload-photo" src="<?php echo htmlentities('../profile_photos/' . $user->getPhoto()) ?>" alt="Profile Photo">
+                    <img class="upload-photo" src="<?php echo htmlentities('../profile_photos/' . $user->getPhoto()) ?>" alt="Profile Photo">
                     <input type="file" name="photo-upload" id="photo-upload">
                     <button type="submit">Upload</button>
             </form>
@@ -32,7 +32,7 @@
     </main>
 <?php } ?>
 
-<?php function drawPassword() : void { ?>
+<?php function drawPassword(User $user) : void { ?>
     <main class="profile-page">
         <section id="password">
             <h2>Change Password</h2>
@@ -48,6 +48,9 @@
                 <input id="confirm" type="password" name="confirm" required>
                 <button type="submit">Save</button>
             </form>
+        </section>
+        <section id="password-photo">
+            <img class="upload-photo" src="<?php echo ('../profile_photos/' . $user->getPhoto()) ?>" alt="Profile Photo">
         </section>
     </main>
 <?php } ?>
