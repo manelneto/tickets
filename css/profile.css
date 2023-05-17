@@ -1,3 +1,22 @@
+.profile-page{
+    display:grid;
+    grid-template-columns: [profile-start] auto [profile-mid] 50% [profile-end];
+    grid-gap: 1rem;
+}
+
+#profile{
+    grid-column: profile-start/profile-mid;
+}
+
+#profile-photo{
+    grid-column: profile-mid/profile-end;
+}
+
+#profile-photo img{
+    width: 70%;
+    height: 70%;
+}
+
 #profile h2, #password h2 {
     display: none;
 }
@@ -18,7 +37,7 @@
     color: black;
 }
 
-#profile, #password {
+#profile, #profile-photo, #password {
     margin: 3rem;
 }
 
@@ -31,7 +50,7 @@
     margin-bottom: 1rem;
 }
 
-#profile form, #password form {
+#profile form, #password form, #profile-photo form {
     display: flex;
     flex-direction: column;
     padding-top: 3rem;
@@ -42,7 +61,7 @@
     margin-bottom: 0.3rem;
 }
 
-#profile form button, #password form button {
+#profile form button, #profile-photo form button, #password form button {
     background-color: var(--dark-blue);
     border: none;
     color: white;
