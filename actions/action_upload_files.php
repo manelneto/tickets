@@ -1,5 +1,4 @@
 <?php
-  
     declare(strict_types = 1);
 
     require_once(__DIR__ . '/../utils/session.php');
@@ -18,6 +17,8 @@
 
     require_once(__DIR__ . '/../database/class_user.php');
     $user = User::getUser($db, $session->getId());
+
+    if (!is_dir('ticket_files')) mkdir('ticket_files');
     
     $save_dir = "../profile_photos/";
     $original_name = basename($_FILES["photo-upload"]["name"]);
@@ -34,8 +35,8 @@
         unlink($save_file);
     }
 
-    if (move_uploaded_file($_FILES["photo-upload"]["tmp_name"], $save_file) && $user->updatePhoto($db, $save_file))
-        $session->addMessage(true, 'Success uploading profile photo');
+    if (move_uploaded_file($_FILES["photo-upload"]["tmp_name"], $save_file) && $user->updatePhoto($db, $photo_type))
+        $session->addMessage(false, 'Success uploading profile photo');
     else
         $session->addMessage(false, 'Error uploading profile photo');
 
