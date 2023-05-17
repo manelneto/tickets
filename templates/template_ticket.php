@@ -2,7 +2,7 @@
     declare(strict_types = 1);
 ?>
 
-<?php function drawTicket(Session $session, Ticket $ticket, array $statuses, array $priorities, array $departments, array $agents, array $tags, array $changes, array $messages) : void { ?>
+<?php function drawTicket(Session $session, Ticket $ticket, array $statuses, array $priorities, array $departments, array $agents, array $tags, array $changes, array $messages, array $faqs) : void { ?>
     <main id="ticket-page">
         <article id="ticket-info">
             <?php $paragraphs = explode('\n', $ticket->getDescription()); ?>
@@ -88,7 +88,7 @@
                 <?php } ?>
             </details>
         </aside>
-        <!--  ..............MESSAGE_BOARD.............   -->
+    <!--  ..............MESSAGE_BOARD.............   -->
         <section id="MessageBoard">
             <h3>Message Board</h3>
             <hr>
@@ -97,7 +97,7 @@
             <?php foreach ($messages as $message) { ?>
             <article class="<?php if ($message->getAuthor()->getId() === $ticket->getAuthor()->getId()) echo 'client'; else echo 'agent'; ?>">
                 <header>
-                    <h4><?=$message->getAuthor()->getName()?></h4>
+                    <h4><?=$message->getAuthor()->getName()?> <span class="material-symbols-outlined">chat_bubble</span></h4>
                 </header>
                 <p><?=$message->getContent()?></p>
                 <footer>
@@ -107,8 +107,14 @@
             <?php } ?>
             <form action="../actions/action_add_message.php" method="post" class="MessageBoard">
                 <input type="hidden" name="id" value="<?=$ticket->getId()?>">
-                <label for="new-message">Add New Message:</label>
-                <textarea id="new-message" name="content" placeholder="Type a New Message" required></textarea>
+                <label for="new-message">Add New Message:</label>       
+                <textarea id="new-message" name="content" placeholder="Type a New Message" ></textarea>
+                <select id="FAQ-reply" name="FAQ-reply">
+                    <option value="default" hidden>Reply with FAQ</option>
+                    <?php foreach ($faqs as $faq) { ?>
+                    <option value="<?=$faq->getId()?>"><?=$faq->getQuestion()?></option>
+                    <?php } ?>
+                </select>
                 <button type="submit">Submit</button>
             </form>
         </section>
