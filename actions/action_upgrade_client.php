@@ -5,11 +5,7 @@
     $session = new Session();
     $session->checkCSRF();
 
-    if (!$session->isAdmin()) {
-        $this->addMessage(false, 'You cannot perform that action');
-        header('Location: ../pages/index.php');
-        die();
-    }
+    if (!$session->isAdmin()) $session->redirect();
 
     require_once(__DIR__ . '/../database/connection.php');
     $db = getDatabaseConnection();
@@ -17,21 +13,23 @@
     require_once(__DIR__ . '/../database/class_user.php');
     $client = User::getUser($db, (int) $_POST['client']);
 
+    if (!$client) $session->redirect();
+
     switch ($_POST['role']) {
         case 'agent':
-            if ($client && $client->upgradeToAgent($db))
-                $session->addMessage(true, 'Client successfully upgraded to agent');
+            if ($client->upgradeToAgent($db))
+                $session->addMessage(true, "{$client->getName()} successfully upgraded to agent");
             else
-                $session->addMessage(false, 'Client is already an agent');
+                $session->addMessage(false, "{$client->getName()} is already an agent");
             break;
         case 'admin':
-            if ($client && $client->upgradeToAdmin($db))
-                $session->addMessage(true, 'Client successfully upgraded to admin');
+            if ($client->upgradeToAdmin($db))
+                $session->addMessage(true, "{$client->getName()} successfully upgraded to admin");
             else
-                $session->addMessage(false, 'Client is already an admin');
+                $session->addMessage(false, "{$client->getName()} is already an admin");
             break;
         default:
-            $session->addMessage(false, 'Client could not be upgraded');
+            $session->addMessage(false, "{$client->getName()} could not be upgraded");
             break;
     }
 

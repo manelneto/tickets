@@ -53,20 +53,20 @@
                 <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
                 <details>
                     <summary>Properties</summary>
-                    <?php drawProperty($session->isAgent(), 'Status', $ticket->getStatus(), $statuses); ?>
-                    <?php drawProperty($session->isAgent(), 'Priority', $ticket->getPriority(), $priorities); ?>
-                    <?php drawProperty($session->isAgent(), 'Department', $ticket->getDepartment(), $departments); ?>
-                    <?php drawProperty($session->isAgent(), 'Agent', $ticket->getAgent(), $agents); ?>
+                    <?php drawProperty($session->isAdmin() || ($session->isAgent() && $session->getId() !== $ticket->getAuthor()->getId()), 'Status', $ticket->getStatus(), $statuses); ?>
+                    <?php drawProperty($session->isAdmin() || ($session->isAgent() && $session->getId() !== $ticket->getAuthor()->getId()), 'Priority', $ticket->getPriority(), $priorities); ?>
+                    <?php drawProperty($session->isAdmin() || ($session->isAgent() && $session->getId() !== $ticket->getAuthor()->getId()), 'Department', $ticket->getDepartment(), $departments); ?>
+                    <?php drawProperty($session->isAdmin() || ($session->isAgent() && $session->getId() !== $ticket->getAuthor()->getId()), 'Agent', $ticket->getAgent(), $agents); ?>
                     <section>
                         <h4>Tags</h4>
                         <?php foreach ($tags as $tag) { ?>
-                            <?php if ($session->isAgent()) { ?>
+                            <?php if ($session->isAdmin() || ($session->isAgent() && $session->getId() !== $ticket->getAuthor()->getId())) { ?>
                             <button formaction="../actions/action_delete_ticket_tag.php" formmethod="post" value="<?=$tag->getId()?>" name="tag"><?=htmlentities($tag->getName())?></button>
                             <?php } else { ?>
                             <p><?=htmlentities($tag->getName())?></p>
                             <?php } ?>
                         <?php } ?>
-                        <?php if ($session->isAgent()) { ?>
+                        <?php if ($session->isAdmin() || ($session->isAgent() && $session->getId() !== $ticket->getAuthor()->getId())) { ?>
                         <input id="tags" type="email" name="tags" placeholder="#tags" list="tags-list" multiple autocomplete>
                         <datalist id="tags-list">
                             <?php foreach ($tags as $tag) { ?>
@@ -75,7 +75,7 @@
                         </datalist>
                         <?php } ?>
                     </section>
-                    <?php if ($session->isAgent()) { ?>
+                    <?php if ($session->isAdmin() || ($session->isAgent() && $session->getId() !== $ticket->getAuthor()->getId())) { ?>
                     <button type="submit" id="apply">Apply</button>
                     <?php } ?>
                 </details>
@@ -115,7 +115,7 @@
     </main>
 <?php } ?>
 
-<?php function drawProperty(bool $isAgent, string $name, $entity, array $entities) : void { ?>
+<?php function drawProperty(bool $canEdit, string $name, $entity, array $entities) : void { ?>
     <label for="<?=strtolower($name)?>"><?=$name?></label>
     <select id="<?=strtolower($name)?>" name="<?=strtolower($name)?>">
         <?php if ($entity) { ?>
@@ -123,7 +123,7 @@
         <?php } else { ?>
         <option value="0"></option>
         <?php } ?>
-        <?php if ($isAgent) {
+        <?php if ($canEdit) {
             foreach ($entities as $e) {
                 if (!$entity || $e->getId() !== $entity->getId()) { ?>
                 <option value="<?=$e->getId()?>"><?=htmlentities($e->getname())?></option>

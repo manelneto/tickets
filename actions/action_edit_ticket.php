@@ -5,11 +5,7 @@
     $session = new Session();
     $session->checkCSRF();
 
-    if (!$session->isLoggedIn()) {
-        $this->addMessage(false, 'You cannot perform that action');
-        header('Location: ../pages/index.php');
-        die();
-    }
+    if (!$session->isLoggedIn()) $session->redirect();
 
     $id = (int) $_POST['id'];
 
@@ -28,17 +24,7 @@
     require_once(__DIR__ . '/../database/class_ticket.php');
     $ticket = Ticket::getTicket($db, $id);
 
-    if (!$ticket) {
-        $session->addMessage(false, 'Ticket not found');
-        header('Location: ../pages/index.php');
-        die();
-    }
-
-    if ($session->getId() !== $ticket->getAuthor()->getId()) {
-        $session->addMessage(false, 'Only the author of the ticket can edit the ticket');
-        header('Location: ../pages/index.php');
-        die();
-    }
+    if (!$ticket || ($session->getId() !== $ticket->getAuthor()->getId())) $session->redirect();
 
     if ($ticket->edit($db, $title, $description))
         $session->addMessage(true, 'Ticket successfully edited');

@@ -5,11 +5,7 @@
     $session = new Session();
     $session->checkCSRF();
 
-    if (!$session->isAdmin()) {
-        $this->addMessage(false, 'You cannot perform that action');
-        header('Location: ../pages/index.php');
-        die();
-    }
+    if (!$session->isAdmin()) $session->redirect();
 
     require_once(__DIR__ . '/../database/connection.php');
     $db = getDatabaseConnection();
@@ -18,9 +14,9 @@
     $agent = User::getUser($db, (int) $_POST['agent']);
 
     if ($agent && $agent->isAgent($db) && $agent->assignToDepartment($db, (int) $_POST['department']))
-        $session->addMessage(true, 'Agent successfully assigned to department');
+        $session->addMessage(true, 'Agent successfully assigned to that department');
     else
-        $session->addMessage(false, 'Agent already belongs to department');
+        $session->addMessage(false, 'Agent already belongs to that department');
 
     header('Location: ../pages/management.php');
 ?>
