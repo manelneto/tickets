@@ -16,12 +16,13 @@
                     </header>
                     <div id="author-edit"><!--odeio estes div!-->
                         <div id="author">
-                            <img src="../profile_photos/profile_default.png" alt="Profile Icon">
+                            <img class="upload-photo-ticket" src="<?php echo ('../profile_photos/' . $ticket->getAuthor()->getPhoto()) ?>" alt="Profile Photo">
                             <h3><?=htmlentities($ticket->getAuthor()->getName())?></h3>
                         </div>
                         <button type="submit">Edit</button>
                     </div>
                     <textarea id="description" name="description"><?php foreach ($paragraphs as $paragraph) echo htmlentities($paragraph); ?></textarea>
+                    <a href="<?php echo ($ticket->getFilename()) ?>" download>Download File</a>
                 </form>
             <?php } else { ?>
                 <header id="ticket-header">
@@ -29,7 +30,7 @@
                     <h2><?=htmlentities($ticket->getTitle())?></h2>
                 </header>
                 <div id="author"><!--odeio estes div!-->
-                    <img src="../profile_photos/profile_default.png" alt="Profile Icon">
+                <img class="upload-photo" src="<?php echo ('../profile_photos/' . $ticket->getAuthor()->getPhoto()) ?>" alt="Profile Photo">
                     <h3><?=htmlentities($ticket->getAuthor()->getName())?></h3>
                 </div>
                 <?php foreach ($paragraphs as $paragraph) { ?>

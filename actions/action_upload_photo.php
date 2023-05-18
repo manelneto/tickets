@@ -20,11 +20,11 @@
     $user = User::getUser($db, $session->getId());
     
     $save_dir = "../profile_photos/";
-    $original_name = basename($_FILES["file-upload"]["name"]);
+    $original_name = basename($_FILES["photo-upload"]["name"]);
     $photo_type = pathinfo($original_name, PATHINFO_EXTENSION);
 
     $save_file = $save_dir . $session->getId() . "." . $photo_type ;
-    
+
     if($photo_type != "jpg" && $photo_type != "png" && $photo_type != "jpeg") {
         $session->addMessage(false, 'Only JPG, PNG, JPEG files are allowed');
         die();
@@ -34,8 +34,8 @@
         unlink($save_file);
     }
 
-    if (move_uploaded_file($_FILES["file-upload"]["tmp_name"], $save_file) && $user->updatePhoto($db, $photo_type))
-        $session->addMessage(false, 'Success uploading profile photo');
+    if (move_uploaded_file($_FILES["photo-upload"]["tmp_name"], $save_file) && $user->updatePhoto($db, $save_file))
+        $session->addMessage(true, 'Success uploading profile photo');
     else
         $session->addMessage(false, 'Error uploading profile photo');
 

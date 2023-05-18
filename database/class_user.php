@@ -285,15 +285,15 @@
             return true;
         }
 
-        public function updatePhoto(PDO $db, string $photoType) : bool {
+        public function updatePhoto(PDO $db, string $photo) : bool {
             $stmt = $db->prepare('
                 UPDATE User
-                SET photoType = ?
+                SET photo = ?
                 WHERE idUser = ?    
             ');
 
             try {
-                $stmt->execute(array($photoType, $this->id));
+                $stmt->execute(array($photo, $this->id));
             } catch (PDOException $e) {
                 return false;
             }

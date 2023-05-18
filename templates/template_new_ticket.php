@@ -6,7 +6,7 @@
     <main>
         <section id="new-ticket">
             <h2>How can we help you?</h2>
-            <form action="../actions/action_add_ticket.php" method="post" class="new-ticket" novalidate>
+            <form action="../actions/action_add_ticket.php" method="post" enctype="multipart/form-data" class="new-ticket" novalidate>
                 <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
                 <label for="title">Title</label>
                 <input id="title" type="text" name="title" placeholder="title" required>
@@ -26,6 +26,7 @@
                 </datalist>
                 <label for="description">Description</label>
                 <textarea id="description" name="description" placeholder="Describe your issue" required></textarea>
+                <input type="file" name="file-upload" id="file-upload">
                 <button type="submit">Submit</button>
             </form>
         </section>
