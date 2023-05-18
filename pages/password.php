@@ -19,6 +19,6 @@
     require_once(__DIR__ . '/../templates/template_profile.php');
 
     drawHeader($session, 'My Profile');
-    drawPassword();
+    drawPassword($user);
     drawFooter();
 ?>

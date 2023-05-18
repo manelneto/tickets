@@ -11,7 +11,7 @@
                 <label for="username">Username</label>
                 <input id="username" type="text" name="username" placeholder="username" required>
                 <label for="password">Password</label>
-                <input id="password" type="password" name="password" placeholder="password" required>
+                <input id="password-login" type="password" name="password" placeholder="password" required>
                 <button type="submit">Log In</button>
             </form>
             <p>Don't have an account? <a href="../pages/register.php">Sign up</a></p>
@@ -34,7 +34,7 @@
                 <label for="email">Email</label>
                 <input id="email" type="email" name="email" placeholder="Email" required>
                 <label for="password">Password</label>
-                <input id="password" type="password" name="password" placeholder="Password" required>
+                <input id="password-register" type="password" name="password" placeholder="Password" required>
                 <button type="submit">Register</button>
             </form>
             <p>Already have an account? <a href="../pages/login.php">Log in</a></p>
