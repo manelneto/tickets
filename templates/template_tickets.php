@@ -10,7 +10,7 @@
                 <article class="ticket">
                     <a href="../pages/ticket.php?id=<?=$ticket->getId()?>">
                         <header class="author">
-                            <img src="../profile_photos/profile_default.png" alt="Perfil Icon">
+                            <img src="<?php echo ('../profile_photos/' . $ticket->getAuthor()->getPhoto()) ?>" alt="Profile Photo">
                             <h3><?=htmlentities($ticket->getAuthor()->getName())?></h3>
                         </header>
                         <h4><?=htmlentities($ticket->getTitle())?></h4>
