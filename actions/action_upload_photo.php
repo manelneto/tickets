@@ -24,7 +24,7 @@
     $photo_type = pathinfo($original_name, PATHINFO_EXTENSION);
 
     $save_file = $save_dir . $session->getId() . "." . $photo_type ;
-    
+
     if($photo_type != "jpg" && $photo_type != "png" && $photo_type != "jpeg") {
         $session->addMessage(false, 'Only JPG, PNG, JPEG files are allowed');
         die();
