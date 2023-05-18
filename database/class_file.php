@@ -21,27 +21,5 @@
         public function getName() : string {
             return $this->name;
         }
-
-        /*public static function getFiles(PDO $db) : array {
-            $stmt = $db->prepare('
-                SELECT idFile, filename, idTicketFile
-                FROM File
-                WHERE id =...
-                ORDER BY 2
-            ');
-
-            $stmt->execute();
-            $result = $stmt->fetchAll();
-
-            $files = array();
-
-            foreach ($result as $row)
-                $files[] = new File(
-                    (int) $row['idFile'],
-                    $row['filename']
-                );
-
-            return $files;
-        }*/
     }
 ?>
