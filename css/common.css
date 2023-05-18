@@ -100,7 +100,7 @@ body:not(#authentication) {
 }
 
 .error {
-  background-color: #ff6666;
+  background-color: #ff7f7f;
   color: #7f0000;
   padding: 1rem;
 }
