@@ -21,7 +21,7 @@
     
     $author = $session->getId();
 
-    if ($idFAQ === 0) {
+    if ((int)$idFAQ === 0) {
         $content = $_POST['content'];
     } else {
         $content = FAQ::getFAQ($db, (int) $id)->getAnswer();

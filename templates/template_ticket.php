@@ -90,19 +90,17 @@
         </aside>
     <!--  ..............MESSAGE_BOARD.............   -->
         <section id="MessageBoard">
-            <h3>Message Board</h3>
+            <h3>Message Board <span class="material-symbols-outlined">chat_bubble</span> </h3>
             <hr>
         <!--notes: o forearch vai gerar um article por cada message; o class=<php if..echo client vai fazer com que a class mude
         consoante o autor da mensagem é o autor do ticket ou é o agent a responder  -->
             <?php foreach ($messages as $message) { ?>
             <article class="<?php if ($message->getAuthor()->getId() === $ticket->getAuthor()->getId()) echo 'client'; else echo 'agent'; ?>">
                 <header>
-                    <h4><?=$message->getAuthor()->getName()?> <span class="material-symbols-outlined">chat_bubble</span></h4>
+                    <h4><?=$message->getAuthor()->getName()?></h4>
                 </header>
                 <p><?=$message->getContent()?></p>
-                <footer>
-                <p> <?=$message->getDate()?> </p>
-                </footer>
+                <footer> <?=$message->getDate()?> </footer>
             </article>
             <?php } ?>
             <form action="../actions/action_add_message.php" method="post" class="MessageBoard">
