@@ -119,5 +119,20 @@
             
             return true;
         }
+
+        public function delete(PDO $db) : bool {
+            $stmt = $db->prepare('
+                DELETE FROM Department
+                WHERE idDepartment = ?
+            ');
+
+            try {
+                $stmt->execute(array($this->id));
+            } catch (PDOException $e) {
+                return false;
+            }
+
+            return true;
+        }
     }
 ?>
