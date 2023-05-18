@@ -31,11 +31,44 @@
         if ($tag) $tags[] = $tag;
     }
 
+<<<<<<< HEAD
     if (Ticket::addTicket($db, $session->getId(), $title, $description, $dateOpened, $department, $tags)) {
         $session->addMessage(true, 'Ticket successfully added');
         header('Location: ../pages/tickets.php');
     } else {
         $session->addMessage(false, 'Ticket could not be added');
         header('Location: ../pages/new_ticket.php');
+=======
+    if (isset($FILES['file-upload']['name'])) {
+        if (!is_dir('../ticket_files')) mkdir('../ticket_files');
+    
+        $save_dir = "../ticket_files/";
+        $original_name = basename($_FILES["file-upload"]["name"]);
+        $file_type = pathinfo($original_name, PATHINFO_EXTENSION);
+    
+        $save_file = $save_dir . $session->getId() . "." . $file_type ;
+    
+        if($file_type != "txt" && $file_type != "pdf" && $file_type != "doc") {
+            $session->addMessage(false, 'Only TXT, PDF, DOC files are allowed');
+            die();
+        }
+    
+        if (move_uploaded_file($_FILES["file-upload"]["tmp_name"], $save_file) && Ticket::addTicket($db, $session->getId(), $title, $description, $dateOpened, $department, $tags, $save_file)) {
+            $session->addMessage(true, 'Ticket successfully added');
+            header('Location: ../pages/tickets.php');
+        }
+        else {
+            $session->addMessage(false, 'Ticket could not be added');
+            header('Location: ../pages/new_ticket.php');
+        }
+    } else {
+        if (Ticket::addTicket($db, $session->getId(), $title, $description, $dateOpened, $department, $tags)) {
+            $session->addMessage(true, 'Ticket successfully added');
+            header('Location: ../pages/tickets.php');
+        } else {
+            $session->addMessage(false, 'Ticket could not be added');
+            header('Location: ../pages/new_ticket.php');
+        }
+>>>>>>> main
     }
 ?>

@@ -18,8 +18,14 @@
     $ticket = Ticket::getTicket($db, (int) $id);
 
     $date = date('Y-m-d');
-    $content = $_POST['content'];
+    
     $author = $session->getId();
+
+    if ((int)$idFAQ === 0) {
+        $content = $_POST['content'];
+    } else {
+        $content = FAQ::getFAQ($db, (int) $id)->getAnswer();
+    }
 
     if ($ticket && $ticket->addMessage($db, $date, $content, $author))
         header("Location: ../pages/ticket.php?id=$id");

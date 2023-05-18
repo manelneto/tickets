@@ -1,3 +1,23 @@
+.profile-page{
+    display:grid;
+    grid-template-columns: [profile-start] auto [profile-mid] 50% [profile-end];
+}
+
+#profile, #password{
+    grid-column: profile-start/profile-mid;
+}
+
+#profile-photo, #password-photo{
+    grid-column: profile-mid/profile-end;
+}
+
+#profile-photo img, #password-photo img{
+    width: 225px;
+    border-radius: 50%;
+    margin-bottom: 1.5rem;
+    margin-left: 1rem;
+}
+
 #profile h2, #password h2 {
     display: none;
 }
@@ -18,8 +38,9 @@
     color: black;
 }
 
-#profile, #password {
-    margin: 3rem;
+#profile, #profile-photo, #password, #password-photo {
+    margin-left: 3rem;
+    margin-top:3rem;
 }
 
 #profile form label input, #password form label input {
@@ -38,11 +59,16 @@
     padding-right: 2rem;
 }
 
+#profile-photo form{
+    display: flex;
+    flex-direction: column;
+}
+
 #profile label, #password label {
     margin-bottom: 0.3rem;
 }
 
-#profile form button, #password form button {
+#profile form button, #profile-photo form button, #password form button {
     background-color: var(--dark-blue);
     border: none;
     color: white;
@@ -59,5 +85,31 @@
 
     #profile #edit-profile, #password #change-password {
         padding: 0.3rem;
+    }
+
+    .profile-page{
+        display:grid;
+        grid-template-columns: [profile-start] auto [profile-end];
+        grid-template-rows: [profile-start] 24rem [profile-mid] auto [profile-end];
+    }
+
+    #profile, #password{
+        grid-column: profile-start/profile-end;
+        grid-row: profile-start/profile-mid;
+    }
+    
+    #profile-photo, #password-photo{
+        grid-column: profile-start/profile-end;
+        grid-row: profile-mid/profile-end;
+    }
+
+    #profile-photo img, #password-photo img{
+        width: 200px;
+        margin-left: 0rem;
+    }
+       
+    #profile, #profile-photo, #password, #password-photo {
+        margin-left: 1.5rem;
+        margin-top:3rem;
     }
 }
