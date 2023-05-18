@@ -167,7 +167,8 @@
 .client {
     background-color: var(--light-gray);
     width: 42%;
-    margin: 1.5rem;
+    margin-top: 2.3rem;
+    margin-left: 1.1rem;
     position: relative;
 }
 
@@ -187,7 +188,7 @@
     left: 46%;
     background-color: var(--light-gray);
     width: 42%;
-    margin: 1.5rem;
+    margin-top: 2.3rem;
     position: relative;
 }
 
@@ -218,9 +219,9 @@
 
 .MessageBoard label{
     color: rgb(3, 3, 197);
-    padding-top: 1.5rem;
-    padding-bottom: 1.5rem;
     font-weight: bold;
+    display: block;
+    margin-top: 1.2rem;
 }
 
 .MessageBoard textarea{
@@ -263,4 +264,9 @@
 
 span.material-symbols-outlined{
     line-height: 0.1rem;
+}
+
+#FAQ-reply{
+    display: block;
+    margin-top: 1rem;
 }
