@@ -205,27 +205,15 @@
             return count($result);
         }
 
-        public static function addTicket(PDO $db, int $idUser, string $title, string $description, string $dateOpened, int $department, array $tags) : bool {
-            if ($department === 0) {
-                $stmt = $db->prepare('
-                INSERT INTO Ticket (idUser, title, description, dateOpened)
-                VALUES (?, ?, ?, ?)
+        public static function addTicket(PDO $db, int $idUser, string $title, string $description, string $dateOpened, ?int $department, array $tags, ?string $filename = null) : bool {
+            $stmt = $db->prepare('
+                INSERT INTO Ticket (idUser, title, description, dateOpened, idDepartment, filename)
+                VALUES (?, ?, ?, ?, ?, ?)    
             ');
-                try {
-                    $stmt->execute(array($idUser, $title, $description, $dateOpened));
-                } catch (PDOException $e) {
-                    return false;
-                }
-            } else {
-                $stmt = $db->prepare('
-                INSERT INTO Ticket (idUser, title, description, dateOpened, idDepartment)
-                VALUES (?, ?, ?, ?, ?)
-            ');
-                try {
-                    $stmt->execute(array($idUser, $title, $description, $dateOpened, $department));
-                } catch (PDOException $e) {
-                    return false;
-                }
+            try {
+                $stmt->execute(array($idUser, $title, $description, $dateOpened, $department, $filename));
+            } catch (PDOException $e)  {
+                return false;
             }
 
             $stmt = $db->prepare('
@@ -345,6 +333,21 @@
                 return false;
             }
 
+            return true;
+        }
+
+        public function uploadFile(PDO $db, string $filename) : bool {
+            $stmt = $db->prepare('
+                INSERT INTO File (filename, idTicketFile)
+                VALUES (?, ?)
+            ');
+
+            try {
+                $stmt->execute(array($filename, $this->id));
+            } catch (PDOException $e) {
+                return false;
+            }
+            
             return true;
         }
     }
