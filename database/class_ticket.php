@@ -22,7 +22,7 @@
         private ?Priority $priority;
         private ?Status $status;
         private ?FAQ $faq;
-        private ?File $filename;
+        private ?string $filename;
 
         public function __construct(int $id, User $author, string $title, string $description, string $dateOpened, ?string $dateClosed, ?User $agent, ?Department $department, ?Priority $priority, ?Status $status, ?FAQ $faq, ?File $filename = null) {
             $this->id = $id;
@@ -87,7 +87,7 @@
             return $this->faq;
         }
 
-        public function getFilename() : ?File {
+        public function getFilename() : ?string {
             return $this->filename;
         }
 

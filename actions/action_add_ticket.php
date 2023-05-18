@@ -46,7 +46,7 @@
         }
     
         if (move_uploaded_file($_FILES["file-upload"]["tmp_name"], $save_file) && Ticket::addTicket($db, $session->getId(), $title, $description, $dateOpened, $department, $tags, $save_file)) {
-            $session->addMessage(true, 'Ticket successfully added');
+            $session->addMessage(true, 'Ticket successfully added 1');
             header('Location: ../pages/tickets.php');
         }
         else {
@@ -55,7 +55,7 @@
         }
     } else {
         if (Ticket::addTicket($db, $session->getId(), $title, $description, $dateOpened, $department, $tags)) {
-            $session->addMessage(true, 'Ticket successfully added');
+            $session->addMessage(true, 'Ticket successfully added 2');
             header('Location: ../pages/tickets.php');
         } else {
             $session->addMessage(false, 'Ticket could not be added');

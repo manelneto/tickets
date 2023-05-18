@@ -22,7 +22,7 @@
                         <button type="submit">Edit</button>
                     </div>
                     <textarea id="description" name="description"><?php foreach ($paragraphs as $paragraph) echo htmlentities($paragraph); ?></textarea>
-                    <a href="<?php echo ($ticket->getFilename()) ?>" download>Download File</a>
+                    <a href="<?=$ticket->getFilename()?>" download>Download File</a>
                 </form>
             <?php } else { ?>
                 <header id="ticket-header">
