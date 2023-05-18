@@ -22,8 +22,9 @@
         private ?Priority $priority;
         private ?Status $status;
         private ?FAQ $faq;
+        private ?File $filename;
 
-        public function __construct(int $id, User $author, string $title, string $description, string $dateOpened, ?string $dateClosed, ?User $agent, ?Department $department, ?Priority $priority, ?Status $status, ?FAQ $faq) {
+        public function __construct(int $id, User $author, string $title, string $description, string $dateOpened, ?string $dateClosed, ?User $agent, ?Department $department, ?Priority $priority, ?Status $status, ?FAQ $faq, ?File $filename = null) {
             $this->id = $id;
             $this->author = $author;
             $this->title = $title;
@@ -35,6 +36,7 @@
             $this->priority = $priority;
             $this->status = $status;
             $this->faq = $faq;
+            $this->filename = $filename;
         }
 
         public function __toString() {
@@ -83,6 +85,10 @@
 
         public function getFAQ() : ?FAQ {
             return $this->faq;
+        }
+
+        public function getFilename() : ?File {
+            return $this->filename;
         }
 
         private static function parseTicket(PDO $db, $ticket) : Ticket {
@@ -206,27 +212,15 @@
             return count($result);
         }
 
-        public static function addTicket(PDO $db, int $idUser, string $title, string $description, string $dateOpened, int $department, array $tags) : bool {
-            if ($department === 0) {
-                $stmt = $db->prepare('
-                INSERT INTO Ticket (idUser, title, description, dateOpened)
-                VALUES (?, ?, ?, ?)
+        public static function addTicket(PDO $db, int $idUser, string $title, string $description, string $dateOpened, ?int $department, array $tags, ?string $filename = null) : bool {
+            $stmt = $db->prepare('
+                INSERT INTO Ticket (idUser, title, description, dateOpened, idDepartment, filename)
+                VALUES (?, ?, ?, ?, ?, ?)    
             ');
-                try {
-                    $stmt->execute(array($idUser, $title, $description, $dateOpened));
-                } catch (PDOException $e) {
-                    return false;
-                }
-            } else {
-                $stmt = $db->prepare('
-                INSERT INTO Ticket (idUser, title, description, dateOpened, idDepartment)
-                VALUES (?, ?, ?, ?, ?)
-            ');
-                try {
-                    $stmt->execute(array($idUser, $title, $description, $dateOpened, $department));
-                } catch (PDOException $e) {
-                    return false;
-                }
+            try {
+                $stmt->execute(array($idUser, $title, $description, $dateOpened, $department, $filename));
+            } catch (PDOException $e)  {
+                return false;
             }
 
             $stmt = $db->prepare('
@@ -385,6 +379,21 @@
                 return false;
             }
 
+            return true;
+        }
+
+        public function uploadFile(PDO $db, string $filename) : bool {
+            $stmt = $db->prepare('
+                INSERT INTO File (filename, idTicketFile)
+                VALUES (?, ?)
+            ');
+
+            try {
+                $stmt->execute(array($filename, $this->id));
+            } catch (PDOException $e) {
+                return false;
+            }
+            
             return true;
         }
     }
