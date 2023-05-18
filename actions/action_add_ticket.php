@@ -31,14 +31,6 @@
         if ($tag) $tags[] = $tag;
     }
 
-<<<<<<< HEAD
-    if (Ticket::addTicket($db, $session->getId(), $title, $description, $dateOpened, $department, $tags)) {
-        $session->addMessage(true, 'Ticket successfully added');
-        header('Location: ../pages/tickets.php');
-    } else {
-        $session->addMessage(false, 'Ticket could not be added');
-        header('Location: ../pages/new_ticket.php');
-=======
     if (isset($FILES['file-upload']['name'])) {
         if (!is_dir('../ticket_files')) mkdir('../ticket_files');
     
@@ -69,6 +61,5 @@
             $session->addMessage(false, 'Ticket could not be added');
             header('Location: ../pages/new_ticket.php');
         }
->>>>>>> main
     }
 ?>
