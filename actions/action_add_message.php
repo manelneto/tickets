@@ -21,10 +21,12 @@
     
     $author = $session->getId();
 
-    if ((int)$idFAQ === 0) {
+    $idFAQ = (int) $_POST['FAQ-reply'];
+
+    if ((int) $idFAQ === 0) {
         $content = $_POST['content'];
     } else {
-        $content = FAQ::getFAQ($db, (int) $id)->getAnswer();
+        $content = FAQ::getFAQ($db, (int) $idFAQ)->getAnswer();
     }
 
     if ($ticket && $ticket->addMessage($db, $date, $content, $author))
