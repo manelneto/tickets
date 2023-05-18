@@ -106,14 +106,14 @@
             <?php } ?>
             <form action="../actions/action_add_message.php" method="post" class="MessageBoard">
                 <input type="hidden" name="id" value="<?=$ticket->getId()?>">
-                <label for="new-message">Add New Message:</label>       
-                <textarea id="new-message" name="content" placeholder="Type a New Message" ></textarea>
+                <label for="new-message">Add New Message:</label>
                 <select id="FAQ-reply" name="FAQ-reply">
                     <option value="default" hidden>Reply with FAQ</option>
                     <?php foreach ($faqs as $faq) { ?>
                     <option value="<?=$faq->getId()?>"><?=$faq->getQuestion()?></option>
                     <?php } ?>
-                </select>
+                </select>    
+                <textarea id="new-message" name="content" placeholder="Type a New Message" ></textarea>
                 <button type="submit">Submit</button>
             </form>
         </section>
