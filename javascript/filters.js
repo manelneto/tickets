@@ -1,9 +1,3 @@
-function encodeForAjax(data) {
-    return Object.keys(data).map(function(k){
-        return encodeURIComponent(k) + '=' + encodeURIComponent(data[k])
-    }).join('&')
-} // common ????
-
 const filter = document.querySelector('#filter');
 
 if (filter) {
@@ -19,11 +13,9 @@ if (filter) {
         const tag = document.querySelector('#tag');
         const offset = document.querySelector('#offset');
 
-        const str = '../api/api_ticket.php?' + encodeForAjax({after: after.value, before: before.value, status: status.value, priority: priority.value, department: department.value, agent: agent.value, tag: tag.value});
+        const url = '../api/api_ticket.php?' + encodeForAjax({after: after.value, before: before.value, status: status.value, priority: priority.value, department: department.value, agent: agent.value, tag: tag.value});
 
-        console.log(str);
-
-        const response = await fetch(str);
+        const response = await fetch(url);
         const tickets = await response.json();
 
         const section = document.querySelector('#tickets');

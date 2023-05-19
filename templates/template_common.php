@@ -16,10 +16,12 @@
         <link rel="stylesheet" href="../css/new_ticket.css">
         <link rel="stylesheet" href="../css/profile.css">
         <link rel="stylesheet" href="../css/ticket.css">
-        <link rel="stylesheet" href="../css/tickets.css">   
-        <script src="../javascript/sidenav.js" defer></script>
+        <link rel="stylesheet" href="../css/tickets.css">
+        <script src="../javascript/common.js"></script>
+        <!--script src="../javascript/sidenav.js" defer></script-->
         <!--script src="../javascript/autocomplete.js" defer></script-->
         <script src="../javascript/filters.js" defer></script>
+        <script src="../javascript/ticket.js" defer></script>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     </head>
     <body <?php if (!$session->isLoggedIn()) echo "id=\"authentication\""?>>

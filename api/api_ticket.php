@@ -54,21 +54,19 @@
             echo json_encode(Ticket::addTicket($db, $session->getId(), $title, $description, $dateOpened, $department, $tags));
             break;
         case 'PUT':
-            $id = (int) $_GET['id'];
-            $ticket = Ticket::getTicket($db, $id);
-            if (isset($_GET['title']) && isset($_GET['description'])) {
-                $title = $_GET['title'];
-                $description = $_GET['description'];
-                echo json_encode($ticket->edit($db, $title, $description));
-            }
-            if (isset($_GET['status']) && isset($_POST['tags'])) {
-                $status = (int) $_GET['status'];
-                $priority = (int) $_GET['priority'];
-                $department = (int) $_GET['department'];
-                $agent = (int) $_GET['agent'];
-                $tags = json_decode($_POST['tags']); //???????
-                echo json_encode($ticket->editProperties($db, $status, $priority, $department, $agent, $tags));
-            }
+            $input = fopen('php://input', 'r');
+            $body = fread($input, 1024);
+            fclose($input);
+            $decoded = urldecode($body);
+            $content = array();
+            parse_str($decoded, $content);
+
+            $ticket = Ticket::getTicket($db, (int) $content['id']);
+            $status = (int) $content['status'];
+            $priority = (int) $content['priority'];
+            $department = (int) $content['department'];
+            $agent = (int) $content['agent'];
+            echo json_encode($ticket->editProperties($db, $status, $priority, $department, $agent, array()));
             break;
     }
 ?>

@@ -50,7 +50,7 @@
             </section>
             <?php } ?>
             <form action="../actions/action_edit_ticket_properties.php" method="post" class="properties" novalidate>
-                <input type="hidden" name="id" value="<?=$ticket->getId()?>">
+                <input id="id" type="hidden" name="id" value="<?=$ticket->getId()?>">
                 <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
                 <details>
                     <summary>Properties</summary>
