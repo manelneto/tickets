@@ -4,40 +4,73 @@
 
 <?php function drawTicket(Session $session, Ticket $ticket, array $statuses, array $priorities, array $departments, array $agents, array $tags, array $changes, array $messages, array $faqs) : void { ?>
     <main id="ticket-page">
-        <article id="ticket-info">
-            <?php $paragraphs = explode('\n', $ticket->getDescription()); ?>
-            <?php if ($session->getId() === $ticket->getAuthor()->getId()) { ?>
-                <form action="../actions/action_edit_ticket.php" method="post" class="edit-ticket">
-                    <input type="hidden" name="id" value="<?=$ticket->getId()?>">
-                    <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
-                    <header id="ticket-header">
-                        <img src="../assets/ticket.jpg" alt="Ticket Icon">
-                        <h2><input type="text" name="title" required value="<?=htmlentities($ticket->getTitle())?>"></h2>
-                    </header>
-                    <div id="author-edit"><!--odeio estes div!-->
-                        <div id="author">
-                            <img class="upload-photo-ticket" src="<?php echo ('../profile_photos/' . $ticket->getAuthor()->getPhoto()) ?>" alt="Profile Photo">
-                            <h3><?=htmlentities($ticket->getAuthor()->getName())?></h3>
+        <section id="ticket-main">
+            <article id="ticket-info">
+                <?php $paragraphs = explode('\n', $ticket->getDescription()); ?>
+                <?php if ($session->getId() === $ticket->getAuthor()->getId()) { ?>
+                    <form action="../actions/action_edit_ticket.php" method="post" class="edit-ticket">
+                        <input type="hidden" name="id" value="<?=$ticket->getId()?>">
+                        <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
+                        <header id="ticket-header">
+                            <img src="../assets/message.png" alt="Ticket Icon">
+                            <h2><input type="text" name="title" required value="<?=htmlentities($ticket->getTitle())?>"></h2>
+                        </header>
+                        <div id="author-edit"><!--odeio estes div!-->
+                            <div id="author">
+                                <img class="upload-photo-ticket" src="<?php echo ('../profile_photos/' . $ticket->getAuthor()->getPhoto()) ?>" alt="Profile Photo">
+                                <h3><?=htmlentities($ticket->getAuthor()->getName())?></h3>
+                            </div>
+                            <button type="submit" id="author-edit-button">Edit</button>
                         </div>
-                        <button type="submit">Edit</button>
+                        <textarea id="description" name="description"><?php foreach ($paragraphs as $paragraph) echo htmlentities($paragraph); ?></textarea>
+                        <a href="<?php echo ($ticket->getFilename()) ?>" download>Download the file here</a>
+                    </form>
+                <?php } else { ?>
+                    <header id="ticket-header">
+                        <img src="../assets/message.png" alt="Ticket Icon">
+                        <h2><?=htmlentities($ticket->getTitle())?></h2>
+                    </header>
+                    <div id="author"><!--odeio estes div!-->
+                    <img class="upload-photo" src="<?php echo ('../profile_photos/' . $ticket->getAuthor()->getPhoto()) ?>" alt="Profile Photo">
+                        <h3><?=htmlentities($ticket->getAuthor()->getName())?></h3>
                     </div>
-                    <textarea id="description" name="description"><?php foreach ($paragraphs as $paragraph) echo htmlentities($paragraph); ?></textarea>
-                    <a href="<?=$ticket->getFilename()?>" download>Download File</a>
+                    <?php foreach ($paragraphs as $paragraph) { ?>
+                    <p><?=htmlentities($paragraph)?></p>
+                    <a href="<?php echo ($ticket->getFilename()) ?>" download>Download the file here</a>
+                    <?php }
+                } ?>
+            </article>
+            <details id="messageBoard" >
+                <summary> Message Board <span class="material-symbols-outlined">chat_bubble</span> </summary>
+                <hr>
+                <div id="all-messages">
+                <?php foreach ($messages as $message) { ?>
+                <article class="<?php if ($message->getAuthor()->getId() === $session->getId()) echo 'self'; else echo 'other'; ?>">
+                    <header>
+                        <img class="message-photo" src="<?php echo ('../profile_photos/' . $message->getAuthor()->getPhoto()) ?>" alt="Profile Photo">
+                        <p><?=$message->getAuthor()->getName()?></p>
+                        <p class="message-date"> <?=$message->getDate()?> </p>
+                    </header>
+                    <p class="message-content"><?=$message->getContent()?></p>
+                </article>
+                <?php } ?>
+                <form action="../actions/action_add_message.php" method="post" class="messageBoard-form">
+                    <input type="hidden" name="id" value="<?=$ticket->getId()?>">
+                    <input id="message-author" type="hidden" value="<?=$session->getId()?>">
+                    <label for="faq-reply">Reply with FAQ:</label>
+                    <select id="faq-reply" name="faq-reply">
+                        <option value="0"></option>
+                        <?php foreach ($faqs as $faq) { ?>
+                        <option value="<?=$faq->getId()?>"><?=$faq->getQuestion()?></option>
+                        <?php } ?>
+                    </select>    
+                    <textarea id="new-message" name="content" placeholder="Type a New Message"></textarea>
+                    <button id="send" type="submit">Send</button>
                 </form>
-            <?php } else { ?>
-                <header id="ticket-header">
-                    <img src="../assets/ticket.jpg" alt="Ticket Icon">
-                    <h2><?=htmlentities($ticket->getTitle())?></h2>
-                </header>
-                <div id="author"><!--odeio estes div!-->
-                <img class="upload-photo" src="<?php echo ('../profile_photos/' . $ticket->getAuthor()->getPhoto()) ?>" alt="Profile Photo">
-                    <h3><?=htmlentities($ticket->getAuthor()->getName())?></h3>
                 </div>
-                <?php foreach ($paragraphs as $paragraph) { ?>
-                <p><?=htmlentities($paragraph)?></p>
-                <?php }
-            } ?>
-        </article>
+            </details>
+        </section>
+        <img id="tools" src="../assets/tools.png" alt="Tools Icon">
         <aside id="information">
             <section id="date-opened" class="date">
                 <h3>Opened</h3>
@@ -89,35 +122,6 @@
                 <?php } ?>
             </details>
         </aside>
-        <details id="messageBoard">
-            <summary> Message Board <span class="material-symbols-outlined">chat_bubble</span> </summary>
-            <hr>
-            <div id="all-messages">
-            <?php foreach ($messages as $message) { ?>
-            <article class="<?php if ($message->getAuthor()->getId() === $ticket->getAuthor()->getId()) echo 'client'; else echo 'agent'; ?>">
-                <header>
-                    <img class="message-photo" src="<?php echo ('../profile_photos/' . $message->getAuthor()->getPhoto()) ?>" alt="Profile Photo">
-                    <p><?=$message->getAuthor()->getName()?></p>
-                    <p class="message-date"> <?=$message->getDate()?> </p>
-                </header>
-                <p class="message-content"><?=$message->getContent()?></p>
-            </article>
-            <?php } ?>
-            <form action="../actions/action_add_message.php" method="post" class="messageBoard-form">
-                <input id="id" type="hidden" value="<?=$ticket->getId()?>">
-                <input id="message-author" type="hidden" value="<?=$session->getId()?>">
-                <label for="faq-reply">Reply with FAQ:</label>
-                <select id="faq-reply" name="faq-reply">
-                    <option value="0"></option>
-                    <?php foreach ($faqs as $faq) { ?>
-                    <option value="<?=$faq->getId()?>"><?=$faq->getQuestion()?></option>
-                    <?php } ?>
-                </select>    
-                <textarea id="new-message" name="content" placeholder="Type a New Message" ></textarea>
-                <button id="send" type="submit">Send</button>
-            </form>
-            </div>
-        </details>
     </main>
 <?php } ?>
 
