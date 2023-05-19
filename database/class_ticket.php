@@ -352,6 +352,8 @@
             } catch (PDOException $e) {
                 return false;
             }
+
+            return true;
         }
             
         public static function addTag(PDO $db, int $ticket, int $tag) : void {

@@ -19,6 +19,7 @@
         <link rel="stylesheet" href="../css/tickets.css">   
         <script src="../javascript/sidenav.js"></script>
         <script src="../javascript/autocomplete.js"></script>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     </head>
     <body <?php if (!$session->isLoggedIn()) echo "id=\"authentication\""?>>
         <?php if ($session->isLoggedIn()) { ?>
