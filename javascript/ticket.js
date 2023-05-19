@@ -44,7 +44,6 @@ if (apply) {
     })
 }
 
-
 const send = document.querySelector('#send');
 if (send) {
     send.addEventListener('click', async function (event) {
@@ -52,10 +51,10 @@ if (send) {
         const id = document.querySelector('#id');
         const newMessage = document.querySelector('#new-message');
 
-        const url = '../api/api_message.php';
+        const url = '../api/api_message.php/';
         const data = {id: id.value, content: newMessage.value};
         const response = await fetch(url, {
-            method: 'PUT',
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
@@ -66,33 +65,40 @@ if (send) {
         if (success) {
             const allMessages = document.querySelector('#all-messages');
 
-            const message = document.createElement('article');
-            message.classList.add('self');
+            const article = document.createElement('article');
+            article.classList.add('agent');
 
             const header = document.createElement('header');
 
-            const img = document.createElement('message-photo');
-            img.src = '../profile_photos/' + message.author.photo; // <---
+            const id = document.querySelector('#message-author');
+            const url = '../api/api_user.php?' + encodeForAjax({id: id.value});
+            const response = await fetch(url)
+            const user = await response.json();
+
+            const img = document.createElement('img');
+            img.classList.add('message-photo');
+            img.src = '../profile_photos/' + user.photo;
             img.alt = 'Profile Photo';
             header.appendChild(img);
 
-            const p = document.createElement(p);
-            p.textContent = message.author.name; // <--
+            const p = document.createElement('p');
+            p.textContent = user.firstName + ' ' + user.lastName;
             header.appendChild(p);
 
-            const date = document.createElement(p);
+            const date = document.createElement('p');
             date.classList.add('message-date');
-            date.textContent = message.date;
+            date.textContent = new Date().toJSON().slice(0, 10);
             header.appendChild(date);
 
-            const content = document.createElement(p);
+            const content = document.createElement('p');
             content.classList.add('message-content');
-            content.textContent = message.content;
+            content.textContent = newMessage.value;
 
-            message.appendChild(header);
-            message.appendChild(content);
+            article.appendChild(header);
+            article.appendChild(content);
 
-            allMessages.appendChild(message);
+            const form = document.querySelector('.messageBoard-form')
+            allMessages.insertBefore(article, form);
         } else {
             /* ... */
         }

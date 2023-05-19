@@ -104,7 +104,8 @@
             </article>
             <?php } ?>
             <form action="../actions/action_add_message.php" method="post" class="messageBoard-form">
-                <input type="hidden" name="id" value="<?=$ticket->getId()?>">
+                <input id="id" type="hidden" value="<?=$ticket->getId()?>">
+                <input id="message-author" type="hidden" value="<?=$session->getId()?>">
                 <label for="faq-reply">Reply with FAQ:</label>
                 <select id="faq-reply" name="faq-reply">
                     <option value="0"></option>
