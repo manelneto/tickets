@@ -70,14 +70,14 @@
             <?php drawFilter('Department', $department, $departments); ?>
             <?php drawFilter('Agent', $agent, $agents); ?>
             <?php drawFilter('Tag', $tag, $tags); ?>
-            <button type="submit">Filter</button>
+            <button id="filter" type="submit">Filter</button>
         </form>
     </main>
 <?php } ?>
 
 <?php function drawFilter(string $name, $entity, array $entities) : void { ?>
     <label for="<?=strtolower($name)?>"><?=$name?></label>
-    <select  class="select-options" id="<?=strtolower($name)?>" name="<?=strtolower($name)?>">
+    <select class="select-options" id="<?=strtolower($name)?>" name="<?=strtolower($name)?>">
         <?php if (!$entity) { ?>
             <option value="0">All</option>
             <?php foreach ($entities as $e) { ?>

@@ -5,11 +5,7 @@
     $session = new Session();
     $session->checkCSRF();
     
-    if (!$session->isLoggedIn()) {
-        $this->addMessage(false, 'You cannot perform that action');
-        header('Location: ../pages/index.php');
-        die();
-    }
+    if (!$session->isLoggedIn()) $session->redirect();
 
     $session->logout();
 
