@@ -89,6 +89,7 @@ body:not(#authentication) {
 
 #messages {
   position: fixed;
+  transform: translate(-50%, 0);
   left: 50%;
   top: 1rem;
 }
@@ -140,7 +141,7 @@ body:not(#authentication) {
 
   #messages {
     top: 4.5rem;
-    left: 30%;
+    left: 40%;
   }
 
   .success, .error {
