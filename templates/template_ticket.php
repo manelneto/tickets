@@ -58,22 +58,22 @@
                     <?php drawProperty($session->isAgent(), 'Priority', $ticket->getPriority(), $priorities); ?>
                     <?php drawProperty($session->isAgent(), 'Department', $ticket->getDepartment(), $departments); ?>
                     <?php drawProperty($session->isAgent(), 'Agent', $ticket->getAgent(), $agents); ?>
-                    <section>
+                    <section id="property-tag">
                         <h4>Tags</h4>
                         <?php foreach ($tags as $tag) { ?>
                             <?php if ($session->isAgent()) { ?>
-                            <button formaction="../actions/action_delete_ticket_tag.php" formmethod="post" value="<?=$tag->getId()?>" name="tag"><?=htmlentities($tag->getName())?></button>
+                            <button formaction="../actions/action_delete_ticket_tag.php" formmethod="post" class="all-tags" value="<?=$tag->getId()?>" name="tag"><?=htmlentities($tag->getName())?></button>
                             <?php } else { ?>
                             <p><?=htmlentities($tag->getName())?></p>
                             <?php } ?>
                         <?php } ?>
                         <?php if ($session->isAgent()) { ?>
-                        <input id="tags" type="email" name="tags" placeholder="#tags" list="tags-list" multiple autocomplete>
-                        <datalist id="tags-list">
+                        <input type="text" id="tags" type="email" name="tags" placeholder="#tags" list="tags-list" multiple autocomplete>
+                        <!--<datalist id="tags-list">
                             <?php foreach ($tags as $tag) { ?>
                             <option value="<?=$tag->getName()?>"><?=htmlentities($tag->getName())?></option>
                             <?php } ?>
-                        </datalist>
+                        </datalist>-->
                         <?php } ?>
                     </section>
                     <?php if ($session->isAgent()) { ?>
@@ -89,34 +89,33 @@
                 <?php } ?>
             </details>
         </aside>
-    <!--  ..............MESSAGE_BOARD.............   -->
-        <section id="MessageBoard">
-            <h3>Message Board <span class="material-symbols-outlined">chat_bubble</span> </h3>
+        <details id="messageBoard">
+            <summary> Message Board <span class="material-symbols-outlined">chat_bubble</span> </summary>
             <hr>
-        <!--notes: o forearch vai gerar um article por cada message; o class=<php if..echo client vai fazer com que a class mude
-        consoante o autor da mensagem é o autor do ticket ou é o agent a responder  -->
+            <div id="all-messages">
             <?php foreach ($messages as $message) { ?>
             <article class="<?php if ($message->getAuthor()->getId() === $ticket->getAuthor()->getId()) echo 'client'; else echo 'agent'; ?>">
                 <header>
-                    <h4><?=$message->getAuthor()->getName()?></h4>
+                    <img class="message-photo" src="<?php echo ('../profile_photos/' . $message->getAuthor()->getPhoto()) ?>" alt="Profile Photo">
+                    <p><?=$message->getAuthor()->getName()?></p>
+                    <p class="message-date"> <?=$message->getDate()?> </p>
                 </header>
-                <p><?=$message->getContent()?></p>
-                <footer> <?=$message->getDate()?> </footer>
+                <p class="message-content"><?=$message->getContent()?></p>
             </article>
             <?php } ?>
-            <form action="../actions/action_add_message.php" method="post" class="MessageBoard">
+            <form action="../actions/action_add_message.php" method="post" class="messageBoard-form">
                 <input type="hidden" name="id" value="<?=$ticket->getId()?>">
-                <label for="new-message">Add New Message:</label>
-                <select id="FAQ-reply" name="FAQ-reply">
+                <select id="faq-reply" name="FAQ-reply">
                     <option value="default" hidden>Reply with FAQ</option>
                     <?php foreach ($faqs as $faq) { ?>
                     <option value="<?=$faq->getId()?>"><?=$faq->getQuestion()?></option>
                     <?php } ?>
                 </select>    
                 <textarea id="new-message" name="content" placeholder="Type a New Message" ></textarea>
-                <button type="submit">Submit</button>
+                <button type="submit">Send</button>
             </form>
-        </section>
+            </div>
+        </details>
     </main>
 <?php } ?>
 
