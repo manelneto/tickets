@@ -2,9 +2,9 @@
     declare(strict_types = 1);
 
     class FAQ {
-        private int $id;
-        private string $question;
-        private string $answer;
+        public int $id;
+        public string $question;
+        public string $answer;
 
         public function __construct(int $id, string $question, string $answer) {
             $this->id = $id;

@@ -44,15 +44,15 @@
             <?php } ?>
             <?php if ($offset + $limit < count($tickets)) { ?>
             <form action="../pages/tickets.php" method="post" class="next">
-                <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
-                <input type="hidden" name="after" <?php if ($after !== '') echo "value=$after"; ?>>
-                <input type="hidden" name="before" <?php if ($before !== '') echo "value=$before"; ?>>
-                <input type="hidden" name="status" <?php if ($status) echo 'value=' . $status->getId(); ?>>
-                <input type="hidden" name="priority" <?php if ($priority) echo 'value=' . $priority->getId(); ?>>
-                <input type="hidden" name="department" <?php if ($department) echo 'value=' . $department->getId(); ?>>
-                <input type="hidden" name="agent" <?php if ($agent) echo 'value=' . $agent->getId(); ?>>
-                <input type="hidden" name="tag" <?php if ($tag) echo 'value=' . $tag->getId(); ?>>
-                <input type="hidden" name="offset" value="<?=$offset + $limit?>">
+                <input id="csrf" type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
+                <input id="after" type="hidden" name="after" <?php if ($after !== '') echo "value=$after"; ?>>
+                <input id="before" type="hidden" name="before" <?php if ($before !== '') echo "value=$before"; ?>>
+                <input id="status" type="hidden" name="status" <?php if ($status) echo 'value=' . $status->getId(); ?>>
+                <input id="priority" type="hidden" name="priority" <?php if ($priority) echo 'value=' . $priority->getId(); ?>>
+                <input id="department" type="hidden" name="department" <?php if ($department) echo 'value=' . $department->getId(); ?>>
+                <input id="agent" type="hidden" name="agent" <?php if ($agent) echo 'value=' . $agent->getId(); ?>>
+                <input id="tag" type="hidden" name="tag" <?php if ($tag) echo 'value=' . $tag->getId(); ?>>
+                <input id="offset" type="hidden" name="offset" value="<?=$offset + $limit?>">
                 <button type="submit">Next</button>
             </form>
             <?php } ?>
@@ -70,7 +70,7 @@
             <?php drawFilter('Department', $department, $departments); ?>
             <?php drawFilter('Agent', $agent, $agents); ?>
             <?php drawFilter('Tag', $tag, $tags); ?>
-            <button type="submit">Filter</button>
+            <button id="filter" type="submit">Filter</button>
         </form>
     </main>
 <?php } ?>

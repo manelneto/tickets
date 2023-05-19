@@ -11,18 +11,18 @@
     require_once(__DIR__ . '/../database/class_message.php');
 
     class Ticket {
-        private int $id;
-        private User $author;
-        private string $title;
-        private string $description;
-        private string $dateOpened;
-        private ?string $dateClosed;
-        private ?User $agent;
-        private ?Department $department;
-        private ?Priority $priority;
-        private ?Status $status;
-        private ?FAQ $faq;
-        private ?string $filename;
+        public int $id;
+        public User $author;
+        public string $title;
+        public string $description;
+        public string $dateOpened;
+        public ?string $dateClosed;
+        public ?User $agent;
+        public ?Department $department;
+        public ?Priority $priority;
+        public ?Status $status;
+        public ?FAQ $faq;
+        public ?string $filename;
 
         public function __construct(int $id, User $author, string $title, string $description, string $dateOpened, ?string $dateClosed, ?User $agent, ?Department $department, ?Priority $priority, ?Status $status, ?FAQ $faq, ?File $filename = null) {
             $this->id = $id;

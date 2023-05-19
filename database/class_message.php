@@ -4,10 +4,10 @@
     require_once(__DIR__ . '/../database/class_user.php');
 
     class Message {
-        private int $id;
-        private string $date;
-        private string $content;
-        private User $author; 
+        public int $id;
+        public string $date;
+        public string $content;
+        public User $author;
 
         public function __construct(int $id, string $date, string $content, User $author) {
             $this->id = $id;

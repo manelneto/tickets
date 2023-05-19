@@ -2,8 +2,8 @@
     declare(strict_types = 1);
 
     class Department {
-        private int $id;
-        private string $name;
+        public int $id;
+        public string $name;
 
         public function __construct(int $id, string $name) {
             $this->id = $id;
