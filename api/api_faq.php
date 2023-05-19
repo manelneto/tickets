@@ -14,16 +14,14 @@
     switch ($_SERVER['REQUEST_METHOD']) {
         case 'GET':
             $response = isset($_GET['id']) ? FAQ::getFAQ($db, (int) $_GET['id']) : FAQ::getFAQs($db);
-            if ($_SERVER['HTTP_ACCEPT'] === 'application/json')
-                echo json_encode($response);
+            echo json_encode($response);
             break;
         case 'POST':
             if (!$session->isAgent()) die();
             $question = trim($_POST['question']);
             $answer = trim($_POST['answer']);
             if ($question === '' || $answer === '') die();
-            if ($_SERVER['HTTP_ACCEPT'] === 'application/json')
-                echo json_encode(FAQ::addFAQ($db, $question, $answer));
+            echo json_encode(FAQ::addFAQ($db, $question, $answer));
             break;
         case 'PUT':
             if (!$session->isAgent()) die();
@@ -32,18 +30,13 @@
             if ($question === '' || $answer === '') die();
             $faq = FAQ::getFAQ($db, (int) $_POST['id']);
             if (!$faq) die();
-            if ($_SERVER['HTTP_ACCEPT'] === 'application/json')
-                echo json_encode($faq->edit($db, $question, $answer));
+            echo json_encode($faq->edit($db, $question, $answer));
             break;
         case 'DELETE':
             if (!$session->isAgent()) die();
             $faq = FAQ::getFAQ($db, (int) $_POST['id']);
             if (!$faq) die();
-            if ($_SERVER['HTTP_ACCEPT'] === 'application/json')
-                echo json_encode($faq->delete($db));
+            echo json_encode($faq->delete($db));
             break;
     }
-
-    http_response_code(200);
 ?>
-

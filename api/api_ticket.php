@@ -59,11 +59,11 @@
             parse_str($decoded, $content);
 
             $ticket = Ticket::getTicket($db, (int) $content['id']);
-            $status = (int) $content['status'];
-            $priority = (int) $content['priority'];
-            $department = (int) $content['department'];
-            $agent = (int) $content['agent'];
-            echo json_encode($ticket->editProperties($db, $status, $priority, $department, $agent, array()));
+            $status = (int) $content['status'] ?? 0;
+            $priority = (int) $content['priority'] ?? 0;
+            $department = (int) $content['department'] ?? 0;
+            $agent = (int) $content['agent'] ?? 0;
+            echo json_encode($ticket->editProperties($db, $status === 0 ? null : $status, $priority === 0 ? null : $priority, $department === 0 ? null : $department, $agent === 0 ? null : $agent, array()));
             break;
     }
 ?>
