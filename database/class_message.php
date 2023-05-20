@@ -51,5 +51,21 @@
                 User::getUser($db, (int) $message['idUser'])
             );
         }
+
+        public function delete(PDO $db) : bool {
+            $stmt = $db->prepare('
+                DELETE
+                FROM Message
+                WHERE idMessage = ?
+            ');
+
+            try {
+                $stmt->execute(array($this->id));
+            } catch (PDOException $e) {
+                return false;
+            }
+
+            return true;
+        }
     }
 ?>

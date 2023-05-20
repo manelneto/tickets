@@ -10,7 +10,7 @@
     require_once(__DIR__ . '/../database/connection.php');
     $db = getDatabaseConnection();
 
-    require_once(__DIR__ . '/../database/class_faq.php');
+    require_once(__DIR__ . '/../database/class_message.php');
     $message = Message::getMessage($db, (int) $_POST['id']);
 
     if ($message && $message->delete($db))
