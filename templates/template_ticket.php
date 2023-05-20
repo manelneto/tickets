@@ -24,6 +24,13 @@
                         </div>
                         <textarea id="description" name="description"><?php foreach ($paragraphs as $paragraph) echo htmlentities($paragraph); ?></textarea>
                         <a href="<?php echo ($ticket->getFilename()) ?>" download>Download the file here</a>
+                        <?php if ($session->isAdmin()) { ?>
+                            <form action="../actions/action_delete_ticket.php" method="post" class="delete-ticket">
+                                <input type="hidden" name="id" value="<?=$ticket->getId()?>">
+                                <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
+                                <button type="submit" class="delete-ticket">Delete</button>
+                            </form>
+                        <?php } ?>
                     </form>
                 <?php } else { ?>
                     <header id="ticket-header">
@@ -79,13 +86,6 @@
         </section>
         <img id="tools" src="../assets/tools.png" alt="Tools Icon">
         <aside id="information">
-            <?php if ($session->isAdmin()) { ?>
-            <form action="../actions/action_delete_ticket.php" method="post" class="delete-ticket">
-                <input type="hidden" name="id" value="<?=$ticket->getId()?>">
-                <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
-                <button type="submit">Delete</button>
-            </form>
-            <?php } ?>
             <section id="date-opened" class="date">
                 <h3>Opened</h3>
                 <p><?=$ticket->getDateOpened()?></p>
