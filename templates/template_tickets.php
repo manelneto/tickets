@@ -16,6 +16,8 @@
                         <h4><?=htmlentities($ticket->getTitle())?></h4>
                         <?php if ($ticket->getStatus()) { ?>
                         <p class="status <?=htmlentities(strtolower($ticket->getStatus()->getName()))?>"><?=htmlentities($ticket->getStatus()->getName())?></p>
+                        <?php } else { ?>
+                        <p class="status none">None</p>
                         <?php } ?>
                         <p class="date-opened"><?=$ticket->getDateOpened()?></p>
                         <?php if ($ticket->getPriority()) { ?>
@@ -30,7 +32,6 @@
         <div id="paging">
             <?php if ($offset > 0) { ?>
             <form action="../pages/tickets.php" method="post" class="previous">
-                <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
                 <input type="hidden" name="after" <?php if ($after !== '') echo "value=$after"; ?>>
                 <input type="hidden" name="before" <?php if ($before !== '') echo "value=$before"; ?>>
                 <input type="hidden" name="status" <?php if ($status) echo 'value=' . $status->getId(); ?>>
@@ -44,7 +45,6 @@
             <?php } ?>
             <?php if ($offset + $limit < count($tickets)) { ?>
             <form action="../pages/tickets.php" method="post" class="next">
-                <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
                 <input type="hidden" name="after" <?php if ($after !== '') echo "value=$after"; ?>>
                 <input type="hidden" name="before" <?php if ($before !== '') echo "value=$before"; ?>>
                 <input type="hidden" name="status" <?php if ($status) echo 'value=' . $status->getId(); ?>>
@@ -59,7 +59,6 @@
         </div>
         <img id="controller" src="../assets/filters.png" alt="Filters Icon">
         <form action="../pages/tickets.php" method="post" class="filters">
-            <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
             <h3>Filters</h3>
             <label for="after">After</label>
             <input id="after" type="date" name="after" <?php if ($after !== '') echo "value=$after"; ?>>

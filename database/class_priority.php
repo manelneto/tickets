@@ -61,6 +61,24 @@
             );
         }
 
+        public static function getPriorityByName(PDO $db, string $name) : ?Priority {
+            $stmt = $db->prepare('
+                SELECT idPriority, name
+                FROM Priority
+                WHERE name = ?
+            ');
+
+            $stmt->execute(array($name));
+            $priority = $stmt->fetch();
+
+            if (!$priority) return null;
+
+            return new Priority(
+                (int) $priority['idPriority'],
+                $priority['name']
+            );
+        }
+
         public static function addPriority(PDO $db, string $name) : bool {
             $stmt = $db->prepare('
                 INSERT INTO Priority (name)
@@ -73,6 +91,22 @@
                 return false;
             }
             
+            return true;
+        }
+
+        public function delete(PDO $db) : bool {
+            $stmt = $db->prepare('
+                DELETE
+                FROM Priority
+                WHERE idPriority = ?
+            ');
+
+            try {
+                $stmt->execute(array($this->id));
+            } catch (PDOException $e) {
+                return false;
+            }
+
             return true;
         }
     }

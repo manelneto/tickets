@@ -179,6 +179,22 @@
             return true;
         }
 
+        public function updatePhoto(PDO $db, string $photo) : bool {
+            $stmt = $db->prepare('
+                UPDATE User
+                SET photo = ?
+                WHERE idUser = ?    
+            ');
+
+            try {
+                $stmt->execute(array($photo, $this->id));
+            } catch (PDOException $e) {
+                return false;
+            }
+
+            return true;
+        }
+
         public static function getUser(PDO $db, int $id) : ?User {
             $stmt = $db->prepare('
                 SELECT idUser, firstName, lastName, username, email, photo
@@ -285,20 +301,20 @@
             return true;
         }
 
-        public function updatePhoto(PDO $db, string $photo) : bool {
+        public function delete(PDO $db) : bool {
             $stmt = $db->prepare('
-                UPDATE User
-                SET photo = ?
-                WHERE idUser = ?    
+                DELETE
+                FROM User
+                WHERE idUser = ?
             ');
 
             try {
-                $stmt->execute(array($photo, $this->id));
+                $stmt->execute(array($this->id));
             } catch (PDOException $e) {
                 return false;
             }
 
             return true;
-        } 
+        }
     }
 ?>

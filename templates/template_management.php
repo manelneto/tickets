@@ -36,7 +36,7 @@
                         <option value="priority">Priority</option>
                         <option value="tag">Tag</option>
                     </select>
-                    <div class="field"><!--não gosto desta div mas desisti de tentar-->
+                    <div class="field">
                         <label for="name">Name</label>
                         <input type="text" id="name" name="name" required>
                     </div>
@@ -53,7 +53,7 @@
                         <option value="<?=$department->getId()?>"><?=htmlentities($department->getName())?></option>
                         <?php } ?>
                     </select>
-                    <div class="field"><!--não gosto desta div mas desisti de tentar-->
+                    <div class="field">
                         <label for="agent">Select an agent</label>
                         <select id="agent" name="agent" required>
                             <?php foreach ($agents as $agent) { ?>
@@ -62,6 +62,37 @@
                         </select>
                     </div>
                     <button type="submit">Assign</button>
+                </form>
+            </details>
+            <details class="management">
+                <summary class="action">Delete an entity</summary>
+                <form action="../actions/action_delete_entity.php" method="post" class="delete-entity">
+                    <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
+                    <label for="entity-delete">Select an entity</label>
+                    <select id="entity-delete" name="entity" required>
+                        <option value="department">Department</option>
+                        <option value="status">Status</option>
+                        <option value="priority">Priority</option>
+                        <option value="tag">Tag</option>
+                    </select>
+                    <div class="field">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <button type="submit">Delete</button>
+                </form>
+            </details>
+            <details class="management">
+                <summary class="action">Delete a user</summary>
+                <form action="../actions/action_delete_user.php" method="post" class="delete-user">
+                    <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
+                    <label for="user">Select a user</label>
+                    <select id="user" name="user" required>
+                        <?php foreach ($clients as $user) { ?>
+                            <option value="<?=$user->getId()?>"><?=htmlentities($user->getUsername())?></option>
+                        <?php } ?>
+                    </select>
+                    <button type="submit">Delete</button>
                 </form>
             </details>
         </section>

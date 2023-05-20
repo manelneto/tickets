@@ -95,7 +95,7 @@ if (send) {
             const allMessages = document.querySelector('#all-messages');
 
             const article = document.createElement('article');
-            article.classList.add('agent');
+            article.classList.add('self');
 
             const header = document.createElement('header');
 

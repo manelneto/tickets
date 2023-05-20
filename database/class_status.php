@@ -61,6 +61,24 @@
             );
         }
 
+        public static function getStatusByName(PDO $db, string $name) : ?Status {
+            $stmt = $db->prepare('
+                SELECT idStatus, name
+                FROM Status
+                WHERE name = ?
+            ');
+
+            $stmt->execute(array($name));
+            $status = $stmt->fetch();
+
+            if (!$status) return null;
+
+            return new Status(
+                (int) $status['idStatus'],
+                $status['name']
+            );
+        }
+
         public static function addStatus(PDO $db, string $name) : bool {
             $stmt = $db->prepare('
                 INSERT INTO Status (name)
@@ -73,6 +91,22 @@
                 return false;
             }
             
+            return true;
+        }
+
+        public function delete(PDO $db) : bool {
+            $stmt = $db->prepare('
+                DELETE
+                FROM Status
+                WHERE idStatus = ?
+            ');
+
+            try {
+                $stmt->execute(array($this->id));
+            } catch (PDOException $e) {
+                return false;
+            }
+
             return true;
         }
     }

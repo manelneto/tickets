@@ -105,6 +105,24 @@
             );
         }
 
+        public static function getDepartmentByName(PDO $db, string $name) : ?Department {
+            $stmt = $db->prepare('
+                SELECT idDepartment, name
+                FROM Department
+                WHERE name = ?
+            ');
+
+            $stmt->execute(array($name));
+            $department = $stmt->fetch();
+
+            if (!$department) return null;
+
+            return new Department(
+                (int) $department['idDepartment'],
+                $department['name']
+            );
+        }
+
         public static function addDepartment(PDO $db, string $name) : bool {
             $stmt = $db->prepare('
                 INSERT INTO Department (name)
@@ -122,7 +140,8 @@
 
         public function delete(PDO $db) : bool {
             $stmt = $db->prepare('
-                DELETE FROM Department
+                DELETE
+                FROM Department
                 WHERE idDepartment = ?
             ');
 
