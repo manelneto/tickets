@@ -39,14 +39,7 @@
 
 .new-ticket button {
     padding: 0.4rem;
-    border: none;
-    background-color: var(--dark-blue);
-    color: white;
     margin-bottom: 1rem;
-}
-
-#new-ticket button:hover {
-    background-color: var(--light-blue);
 }
 
 @media only screen and (max-width: 750px){

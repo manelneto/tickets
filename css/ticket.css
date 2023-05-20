@@ -111,9 +111,6 @@
 
 .properties button {
     margin-top: 0.3rem;
-    border: none;
-    background-color: var(--dark-blue);
-    color: white;
     padding: 0.2rem;
 }
 
@@ -124,9 +121,6 @@
 }
 
 .edit-ticket button {
-    border: none;
-    background-color: var(--dark-blue);
-    color: white;
     padding: 0.2rem;
     width: 3rem;
     margin-right: 1rem;
@@ -186,9 +180,7 @@
 
 #ticket-info a, #messageBoard a{
     margin-left: 2.3rem;
-    text-decoration: none;
     font-size: 1rem;
-    color:black;
 }
 
 #author {
@@ -322,9 +314,6 @@
 .messageBoard-form button{
     display: block;
     padding: 0.1rem;
-    background-color: var(--dark-blue);
-    color: white;
-    border: none;
     width: 3rem;
 }
 
@@ -337,7 +326,7 @@
     display: none;
 }
 
-.delete-message{
+.delete-message button{
     background-color: var(--dark-blue);
     color: white;
     border: none;
