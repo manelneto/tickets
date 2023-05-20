@@ -211,7 +211,7 @@
 
 #all-messages{
     overflow-y: scroll;
-    height: 14rem;
+    height: 15rem;
     margin-right: 6.5rem;
 }
 
@@ -219,7 +219,8 @@
     color: var(--dark-blue);
     list-style-type: none;
     margin-left: 0.6rem;
-    margin-top:1rem;
+    margin-top:1.5rem;
+    font-weight: bold;
 }
 
 .other {
@@ -473,6 +474,10 @@
         width: 16rem;
     }
 
+    .delete-ticket, .edit-ticket a{
+        display: flex;
+        justify-content: space-between;
+    }
 }
 
 @media only screen and (max-width: 850px) and (min-width: 750px){
