@@ -1,17 +1,11 @@
 <?php
-  
     declare(strict_types = 1);
 
     require_once(__DIR__ . '/../utils/session.php');
-
     $session = new Session();
     $session->checkCSRF();
 
-    if (!$session->isLoggedIn()) {
-        $this->addMessage(false, 'You cannot perform that action');
-        header('Location: ../pages/index.php');
-        die();
-    }
+    if (!$session->isLoggedIn()) $session->redirect();
 
     require_once(__DIR__ . '/../database/connection.php');
     $db = getDatabaseConnection();
@@ -19,25 +13,24 @@
     require_once(__DIR__ . '/../database/class_user.php');
     $user = User::getUser($db, $session->getId());
     
-    $save_dir = "../profile_photos/";
-    $original_name = basename($_FILES["photo-upload"]["name"]);
-    $photo_type = pathinfo($original_name, PATHINFO_EXTENSION);
+    $saveDir = "../profile_photos/";
+    $originalName = basename($_FILES["photo-upload"]["name"]);
+    $photoType = pathinfo($originalName, PATHINFO_EXTENSION);
 
-    $save_file = $save_dir . $session->getId() . "." . $photo_type ;
+    $saveFile = $saveDir . $session->getId() . "." . $photoType ;
 
-    if($photo_type != "jpg" && $photo_type != "png" && $photo_type != "jpeg") {
-        $session->addMessage(false, 'Only JPG, PNG, JPEG files are allowed');
+    if ($photoType != "jpg" && $photoType != "png" && $photoType != "jpeg") {
+        $session->addMessage(false, 'Only JPG, PNG and JPEG files are allowed');
+        header('Location: ../pages/profile.php');
         die();
     }
 
-    if (file_exists($save_file)) {
-        unlink($save_file);
-    }
+    if (file_exists($saveFile)) unlink($saveFile);
 
-    if (move_uploaded_file($_FILES["photo-upload"]["tmp_name"], $save_file) && $user->updatePhoto($db, $save_file))
-        $session->addMessage(true, 'Success uploading profile photo');
+    if (move_uploaded_file($_FILES["photo-upload"]["tmp_name"], $saveFile) && $user->updatePhoto($db, $saveFile))
+        $session->addMessage(true, 'Profile photo successfully updated');
     else
-        $session->addMessage(false, 'Error uploading profile photo');
+        $session->addMessage(false, 'Profile photo could not be updated');
 
     header('Location: ../pages/profile.php');
 ?>
