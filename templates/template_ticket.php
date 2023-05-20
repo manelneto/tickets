@@ -99,12 +99,7 @@
                             <?php } ?>
                         <?php } ?>
                         <?php if ($session->isAgent()) { ?>
-                        <input type="text" id="tags" type="email" name="tags" placeholder="#tags" list="tags-list" multiple autocomplete>
-                        <!--<datalist id="tags-list">
-                            <?php foreach ($tags as $tag) { ?>
-                            <option value="<?=$tag->getName()?>"><?=htmlentities($tag->getName())?></option>
-                            <?php } ?>
-                        </datalist>-->
+                        <input type="text" id="tags" name="tags">
                         <?php } ?>
                     </section>
                     <?php if ($session->isAgent()) { ?>
