@@ -76,7 +76,7 @@
                 <h3>Opened</h3>
                 <p><?=$ticket->getDateOpened()?></p>
             </section>
-            <?php if ($ticket->getStatus()->getName() === 'Closed') { ?>
+            <?php if ($ticket->getStatus() && $ticket->getStatus()->getName() === 'Closed') { ?>
             <section id="date-closed" class="date">
                 <h3>Closed</h3>
                 <p><?=$ticket->getDateClosed()?></p>

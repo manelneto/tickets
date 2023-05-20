@@ -78,7 +78,7 @@
                 $priority['name']
             );
         }
-        
+
         public static function addPriority(PDO $db, string $name) : bool {
             $stmt = $db->prepare('
                 INSERT INTO Priority (name)

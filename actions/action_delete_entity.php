@@ -13,35 +13,35 @@
     switch ($_POST['entity']) {
         case 'department':
             require_once(__DIR__ . '/../database/class_department.php');
-            $department = Department::getDepartmentByName($db, (int) $_POST['id']);
+            $department = Department::getDepartmentByName($db, $_POST['name']);
             if ($department && $department->delete($db))
                 $session->addMessage(true, "Department '{$department->name}' successfully deleted");
             else
-                $session->addMessage(false, "Department '{$department->name}' could not be deleted");
+                $session->addMessage(false, "Department could not be deleted");
             break;
         case 'status':
             require_once(__DIR__ . '/../database/class_status.php');
-            $status = Status::getStatus($db, (int) $_POST['id']);
+            $status = Status::getStatusByName($db, $_POST['name']);
             if ($status && $status->delete($db))
                 $session->addMessage(true, "Status '{$status->name}' successfully deleted");
             else
-                $session->addMessage(false, "Status '{$status->name}' could not be deleted");
+                $session->addMessage(false, "Status could not be deleted");
             break;
         case 'priority':
             require_once(__DIR__ . '/../database/class_priority.php');
-            $priority = Priority::getPriority($db, (int) $_POST['id']);
+            $priority = Priority::getPriorityByName($db, $_POST['name']);
             if ($priority && $priority->delete($db))
                 $session->addMessage(true, "Priority '{$priority->name}' successfully deleted");
             else
-                $session->addMessage(false, "Priority '{$priority->name}' could not be deleted");
+                $session->addMessage(false, "Priority could not be deleted");
             break;
         case 'tag':
             require_once(__DIR__ . '/../database/class_tag.php');
-            $tag = Tag::getTag($db,  (int) $_POST['id']);
+            $tag = Tag::getTagByName($db, $_POST['name']);
             if ($tag && $tag->delete($db))
                 $session->addMessage(true, "Tag '{$tag->name}' successfully deleted");
             else
-                $session->addMessage(false, "Tag '{$tag->name}' could not be deleted");
+                $session->addMessage(false, "Tag could not be deleted");
             break;
         default:
             $session->addMessage(false, 'Entity could not be deleted');
