@@ -90,5 +90,21 @@
             
             return true;
         }
+
+        public function delete(PDO $db) : bool {
+            $stmt = $db->prepare('
+                DELETE
+                FROM Tag
+                WHERE idTag = ?
+            ');
+
+            try {
+                $stmt->execute(array($this->id));
+            } catch (PDOException $e) {
+                return false;
+            }
+
+            return true;
+        }
     }
 ?>

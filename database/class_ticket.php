@@ -24,7 +24,7 @@
         public ?FAQ $faq;
         public ?string $filename;
 
-        public function __construct(int $id, User $author, string $title, string $description, string $dateOpened, ?string $dateClosed, ?User $agent, ?Department $department, ?Priority $priority, ?Status $status, ?FAQ $faq, ?File $filename = null) {
+        public function __construct(int $id, User $author, string $title, string $description, string $dateOpened, ?string $dateClosed, ?User $agent, ?Department $department, ?Priority $priority, ?Status $status, ?FAQ $faq, ?string $filename) {
             $this->id = $id;
             $this->author = $author;
             $this->title = $title;
@@ -103,13 +103,14 @@
                 Department::getDepartment($db, (int) $ticket['idDepartment']),
                 Priority::getPriority($db, (int) $ticket['idPriority']),
                 Status::getStatus($db, (int) $ticket['idStatus']),
-                FAQ::getFAQ($db, (int) $ticket['idFAQ'])
+                FAQ::getFAQ($db, (int) $ticket['idFAQ']),
+                $ticket['filename']
             );
         }
 
         public static function getTicket(PDO $db, int $id) : ?Ticket {
             $stmt = $db->prepare('
-                SELECT idTicket, idUser, title, description, dateOpened, dateClosed, idAgent, idDepartment, idPriority, idStatus, idFAQ
+                SELECT idTicket, idUser, title, description, dateOpened, dateClosed, idAgent, idDepartment, idPriority, idStatus, idFAQ, filename
                 FROM Ticket
                 WHERE idTicket = ?
             ');
@@ -124,7 +125,7 @@
 
         public static function getTicketsClient(PDO $db, int $id, string $after, string $before, int $department, int $priority, int $status, int $agent, int $tag) : array {
             $stmt = $db->prepare("
-                SELECT DISTINCT T.idTicket, idUser, title, description, dateOpened, dateClosed, idAgent, idDepartment, idPriority, idStatus, idFAQ
+                SELECT DISTINCT T.idTicket, idUser, title, description, dateOpened, dateClosed, idAgent, idDepartment, idPriority, idStatus, idFAQ, filename
                 FROM Ticket T, TicketTag TT
                 WHERE (T.idTicket = TT.idTicket OR T.idTicket NOT IN (SELECT idTicket FROM TicketTag))
                 AND (idUser = ?) 
@@ -151,7 +152,7 @@
 
         public static function getTicketsAgent(PDO $db, int $id, string $after, string $before, int $department, int $priority, int $status, int $agent, int $tag) : array {
             $stmt = $db->prepare("
-                SELECT DISTINCT T.idTicket, idUser, title, description, dateOpened, dateClosed, idAgent, idDepartment, idPriority, idStatus, idFAQ
+                SELECT DISTINCT T.idTicket, idUser, title, description, dateOpened, dateClosed, idAgent, idDepartment, idPriority, idStatus, idFAQ, filename
                 FROM Ticket T, TicketTag TT
                 WHERE (T.idTicket = TT.idTicket OR T.idTicket NOT IN (SELECT idTicket FROM TicketTag))
                 AND (idUser = ? OR idAgent = ? OR idDepartment IS NULL OR idDepartment IN (SELECT idDepartment FROM AgentDepartment WHERE idAgent = ?))
@@ -178,7 +179,7 @@
 
         public static function getTickets(PDO $db, string $after, string $before, int $department, int $priority, int $status, int $agent, int $tag) : array {
             $stmt = $db->prepare("
-                SELECT DISTINCT T.idTicket, idUser, title, description, dateOpened, dateClosed, idAgent, idDepartment, idPriority, idStatus, idFAQ
+                SELECT DISTINCT T.idTicket, idUser, title, description, dateOpened, dateClosed, idAgent, idDepartment, idPriority, idStatus, idFAQ, filename
                 FROM Ticket T, TicketTag TT
                 WHERE (T.idTicket = TT.idTicket OR T.idTicket NOT IN (SELECT idTicket FROM TicketTag))
                 AND (? = '' OR dateOpened > ?) 
@@ -215,10 +216,10 @@
             return count($result);
         }
 
-        public static function addTicket(PDO $db, int $idUser, string $title, string $description, string $dateOpened, ?int $department, array $tags, ?string $filename = null) : bool {
+        public static function addTicket(PDO $db, int $idUser, string $title, string $description, string $dateOpened, ?int $department, array $tags, ?string $filename) : bool {
             $stmt = $db->prepare('
                 INSERT INTO Ticket (idUser, title, description, dateOpened, idDepartment, filename)
-                VALUES (?, ?, ?, ?, ?, ?)    
+                VALUES (?, ?, ?, ?, ?, ?)
             ');
             try {
                 $stmt->execute(array($idUser, $title, $description, $dateOpened, $department, $filename));
@@ -234,8 +235,10 @@
             $result = $stmt->fetch();
             $id = (int) $result['max(idTicket)'];
 
+            $ticket = self::getTicket($db, $id);
+
             foreach ($tags as $tag)
-                self::addTag($db, $id, $tag);
+                $ticket->addTag($db, $tag);
 
             return true;
         }
@@ -270,7 +273,23 @@
             }
 
             foreach ($tags as $tag)
-                self::addTag($db, $this->id, $tag);
+                $this->addTag($db, $tag);
+
+            return true;
+        }
+
+        public function delete(PDO $db) : bool {
+            $stmt = $db->prepare('
+                DELETE
+                FROM Ticket
+                WHERE idTicket = ?
+            ');
+
+            try {
+                $stmt->execute(array($this->id));
+            } catch (PDOException $e) {
+                return false;
+            }
 
             return true;
         }
@@ -359,13 +378,13 @@
             return true;
         }
             
-        public static function addTag(PDO $db, int $ticket, int $tag) : void {
+        public function addTag(PDO $db, int $tag) : void {
             $stmt = $db->prepare('
                 INSERT INTO TicketTag (idTicket, idTag)
                 VALUES (?, ?)
             ');
             try {
-                $stmt->execute(array($ticket, $tag));
+                $stmt->execute(array($this->id, $tag));
             } catch (PDOException $e) {}
         }
 
@@ -382,21 +401,6 @@
                 return false;
             }
 
-            return true;
-        }
-
-        public function uploadFile(PDO $db, string $filename) : bool {
-            $stmt = $db->prepare('
-                INSERT INTO File (filename, idTicketFile)
-                VALUES (?, ?)
-            ');
-
-            try {
-                $stmt->execute(array($filename, $this->id));
-            } catch (PDOException $e) {
-                return false;
-            }
-            
             return true;
         }
     }

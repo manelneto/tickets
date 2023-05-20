@@ -122,7 +122,8 @@
 
         public function delete(PDO $db) : bool {
             $stmt = $db->prepare('
-                DELETE FROM Department
+                DELETE
+                FROM Department
                 WHERE idDepartment = ?
             ');
 
