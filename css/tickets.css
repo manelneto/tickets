@@ -164,10 +164,6 @@
     width: 7rem;
 }
 
-.filters label input {
-    vertical-align: super;
-}
-
 .filters button {
     margin-top: auto;
     width: 5rem;
@@ -229,13 +225,41 @@
         align-self: center;
         margin-right: 1rem;
         width: 2.5rem;
+        position: relative;
+        right: 0;
+        z-index: 2; 
     }
 
     .filters {
+        position: absolute;
+        right: 0;
         width: 10rem;
-        display: none;
+        display: none; 
+        height: 100%;
+    }
+   
+    .filters label, .filters select, .filters input {
+        margin-left: 1.7rem;
     }
 
+    .filters button{
+        margin-left: 2.5rem;
+        margin-top: 2rem;
+    }
+
+    .filters h3{
+        margin-left:3rem;
+    }
+
+    .show {
+        display: block;
+        right:0;
+    }
+
+    .move{
+        padding-right: 10rem;
+    }
+    
     #tickets:first-child {
         margin-top: 0rem;
     }
