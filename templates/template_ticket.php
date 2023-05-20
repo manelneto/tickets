@@ -15,7 +15,7 @@
                             <img src="../assets/message.png" alt="Ticket Icon">
                             <h2><input type="text" name="title" required value="<?=htmlentities($ticket->getTitle())?>"></h2>
                         </header>
-                        <div id="author-edit"><!--odeio estes div!-->
+                        <div id="author-edit">
                             <div id="author">
                                 <img class="upload-photo-ticket" src="<?php echo ('../profile_photos/' . $ticket->getAuthor()->getPhoto()) ?>" alt="Profile Photo">
                                 <h3><?=htmlentities($ticket->getAuthor()->getName())?></h3>
@@ -30,18 +30,18 @@
                         <img src="../assets/message.png" alt="Ticket Icon">
                         <h2><?=htmlentities($ticket->getTitle())?></h2>
                     </header>
-                    <div id="author"><!--odeio estes div!-->
-                    <img class="upload-photo" src="<?php echo ('../profile_photos/' . $ticket->getAuthor()->getPhoto()) ?>" alt="Profile Photo">
-                        <h3><?=htmlentities($ticket->getAuthor()->getName())?></h3>
+                    <div id="author">
+                        <img class="upload-photo" src="<?php echo ('../profile_photos/' . $ticket->getAuthor()->getPhoto()) ?>" alt="Profile Photo">
+                            <h3><?=htmlentities($ticket->getAuthor()->getName())?></h3>
                     </div>
                     <?php foreach ($paragraphs as $paragraph) { ?>
                     <p><?=htmlentities($paragraph)?></p>
                     <a href="<?php echo ($ticket->getFilename()) ?>" download>Download the file here</a>
-                    <?php }
-                } ?>
+                    <?php } ?>
+                <?php } ?>
             </article>
             <details id="messageBoard" >
-                <summary> Message Board <span class="material-symbols-outlined">chat_bubble</span> </summary>
+                <summary>Message Board<span class="material-symbols-outlined">chat_bubble</span> </summary>
                 <hr>
                 <div id="all-messages">
                 <?php foreach ($messages as $message) { ?>
@@ -52,11 +52,19 @@
                         <p class="message-date"> <?=$message->getDate()?> </p>
                     </header>
                     <p class="message-content"><?=$message->getContent()?></p>
+                    <?php if ($session->isAdmin()) { ?>
+                    <form action="../actions/action_delete_messsage.php" method="post" class="delete-message">
+                        <input type="hidden" name="id" value="<?=$message->id?>">
+                        <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
+                        <button type="submit">Delete</button>
+                    </form>
+                    <?php } ?>
                 </article>
                 <?php } ?>
                 <form action="../actions/action_add_message.php" method="post" class="messageBoard-form">
                     <input type="hidden" name="id" value="<?=$ticket->getId()?>">
                     <input id="message-author" type="hidden" value="<?=$session->getId()?>">
+                    <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
                     <label for="faq-reply">Reply with FAQ:</label>
                     <select id="faq-reply" name="faq-reply">
                         <option value="0"></option>
@@ -72,6 +80,13 @@
         </section>
         <img id="tools" src="../assets/tools.png" alt="Tools Icon">
         <aside id="information">
+            <?php if ($session->isAdmin()) { ?>
+            <form action="../actions/action_delete_ticket.php" method="post" class="delete-ticket">
+                <input type="hidden" name="id" value="<?=$ticket->getId()?>">
+                <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
+                <button type="submit">Delete</button>
+            </form>
+            <?php } ?>
             <section id="date-opened" class="date">
                 <h3>Opened</h3>
                 <p><?=$ticket->getDateOpened()?></p>
