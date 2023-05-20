@@ -304,8 +304,8 @@
         public function delete(PDO $db) : bool {
             $stmt = $db->prepare('
                 DELETE
-                FROM Ticket
-                WHERE idTicket = ?
+                FROM User
+                WHERE idUser = ?
             ');
 
             try {
