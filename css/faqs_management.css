@@ -12,10 +12,6 @@
     margin:0;
 }
 
-#faqs h2, #management h2 {
-    display: none;
-}
-
 .faq, .management {
     margin-bottom: 1rem;
     border: 1px solid #ccc; 
@@ -32,10 +28,6 @@
     padding-left: 0.8rem;
 }
 
-.faq[open] .question, .faq[open] .question textarea, .management[open] .action {
-    background-color: var(--light-blue);
-}
-
 .management form {
     margin: 1rem;
 }
@@ -45,14 +37,8 @@
 }
 
 .management button {
-    border: none;
-    padding: 0.5rem;
+    padding: 0.3rem;
     display: block;
-    background-color: var(--light-gray);
-}
-
-.management[open] button:hover {
-    background-color: var(--light-blue);
 }
 
 #upgrade-role, .field {
@@ -86,16 +72,6 @@
 
 .faq-buttons, .add-faq button {
     display: block;
-}
-
-.faq-buttons button, .add-faq button {
-    border: none;
-    background-color: var(--dark-blue);
-    color: white;
-}
-
-.faq-buttons button:hover, .add-faq button:hover {
-    background-color: var(--light-blue);
 }
 
 .faq-buttons, .add-faq button {
