@@ -26,12 +26,14 @@
 }
 
 #login label, #register label {
-    margin-left: 2rem;
+    margin-left: 5%;
     margin-top: 0.4rem;
 }
 
 #login input, #register input {
-    align-self: center;
+    /*align-self: center;*/
+    position: relative;
+    left:5%;
     padding: 0.3rem;
     margin-top: 0.3rem;
     margin-bottom: 0.6rem;

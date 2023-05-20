@@ -93,8 +93,6 @@
         <section id="MessageBoard">
             <h3>Message Board <span class="material-symbols-outlined">chat_bubble</span> </h3>
             <hr>
-        <!--notes: o forearch vai gerar um article por cada message; o class=<php if..echo client vai fazer com que a class mude
-        consoante o autor da mensagem é o autor do ticket ou é o agent a responder  -->
             <?php foreach ($messages as $message) { ?>
             <article class="<?php if ($message->getAuthor()->getId() === $ticket->getAuthor()->getId()) echo 'client'; else echo 'agent'; ?>">
                 <header>
