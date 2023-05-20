@@ -2,9 +2,9 @@
     declare(strict_types = 1);
 
     class Change {
-        private int $id;
-        private string $date;
-        private string $description;
+        public int $id;
+        public string $date;
+        public string $description;
 
         public function __construct(int $id, string $date, string $description) {
             $this->id = $id;
@@ -29,4 +29,3 @@
         }
     }
 ?>
-

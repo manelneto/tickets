@@ -56,14 +56,16 @@
                 <?php } ?>
                 <form action="../actions/action_add_message.php" method="post" class="messageBoard-form">
                     <input type="hidden" name="id" value="<?=$ticket->getId()?>">
-                    <select id="faq-reply" name="FAQ-reply">
-                        <option value="default" hidden>Reply with FAQ</option>
+                    <input id="message-author" type="hidden" value="<?=$session->getId()?>">
+                    <label for="faq-reply">Reply with FAQ:</label>
+                    <select id="faq-reply" name="faq-reply">
+                        <option value="0"></option>
                         <?php foreach ($faqs as $faq) { ?>
                         <option value="<?=$faq->getId()?>"><?=$faq->getQuestion()?></option>
                         <?php } ?>
                     </select>    
-                    <textarea id="new-message" name="content" placeholder="Type a New Message" ></textarea>
-                    <button type="submit">Send</button>
+                    <textarea id="new-message" name="content" placeholder="Type a New Message"></textarea>
+                    <button id="send" type="submit">Send</button>
                 </form>
                 </div>
             </details>
@@ -81,28 +83,28 @@
             </section>
             <?php } ?>
             <form action="../actions/action_edit_ticket_properties.php" method="post" class="properties" novalidate>
-                <input type="hidden" name="id" value="<?=$ticket->getId()?>">
+                <input id="id" type="hidden" name="id" value="<?=$ticket->getId()?>">
                 <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
                 <details>
                     <summary>Properties</summary>
-                    <?php drawProperty($session->isAgent(), 'Status', $ticket->getStatus(), $statuses); ?>
-                    <?php drawProperty($session->isAgent(), 'Priority', $ticket->getPriority(), $priorities); ?>
-                    <?php drawProperty($session->isAgent(), 'Department', $ticket->getDepartment(), $departments); ?>
-                    <?php drawProperty($session->isAgent(), 'Agent', $ticket->getAgent(), $agents); ?>
+                    <?php drawProperty($session->isAdmin() || ($session->isAgent() && $session->getId() !== $ticket->getAuthor()->getId()), 'Status', $ticket->getStatus(), $statuses); ?>
+                    <?php drawProperty($session->isAdmin() || ($session->isAgent() && $session->getId() !== $ticket->getAuthor()->getId()), 'Priority', $ticket->getPriority(), $priorities); ?>
+                    <?php drawProperty($session->isAdmin() || ($session->isAgent() && $session->getId() !== $ticket->getAuthor()->getId()), 'Department', $ticket->getDepartment(), $departments); ?>
+                    <?php drawProperty($session->isAdmin() || ($session->isAgent() && $session->getId() !== $ticket->getAuthor()->getId()), 'Agent', $ticket->getAgent(), $agents); ?>
                     <section id="property-tag">
                         <h4>Tags</h4>
                         <?php foreach ($tags as $tag) { ?>
-                            <?php if ($session->isAgent()) { ?>
+                            <?php if ($session->isAdmin() || ($session->isAgent() && $session->getId() !== $ticket->getAuthor()->getId())) { ?>
                             <button formaction="../actions/action_delete_ticket_tag.php" formmethod="post" class="all-tags" value="<?=$tag->getId()?>" name="tag"><?=htmlentities($tag->getName())?></button>
                             <?php } else { ?>
                             <p><?=htmlentities($tag->getName())?></p>
                             <?php } ?>
                         <?php } ?>
-                        <?php if ($session->isAgent()) { ?>
+                        <?php if ($session->isAdmin() || ($session->isAgent() && $session->getId() !== $ticket->getAuthor()->getId())) { ?>
                         <input type="text" id="tags" name="tags">
                         <?php } ?>
                     </section>
-                    <?php if ($session->isAgent()) { ?>
+                    <?php if ($session->isAdmin() || ($session->isAgent() && $session->getId() !== $ticket->getAuthor()->getId())) { ?>
                     <button type="submit" id="apply">Apply</button>
                     <?php } ?>
                 </details>
@@ -118,7 +120,7 @@
     </main>
 <?php } ?>
 
-<?php function drawProperty(bool $isAgent, string $name, $entity, array $entities) : void { ?>
+<?php function drawProperty(bool $canEdit, string $name, $entity, array $entities) : void { ?>
     <label for="<?=strtolower($name)?>"><?=$name?></label>
     <select id="<?=strtolower($name)?>" name="<?=strtolower($name)?>">
         <?php if ($entity) { ?>
@@ -126,7 +128,7 @@
         <?php } else { ?>
         <option value="0"></option>
         <?php } ?>
-        <?php if ($isAgent) {
+        <?php if ($canEdit) {
             foreach ($entities as $e) {
                 if (!$entity || $e->getId() !== $entity->getId()) { ?>
                 <option value="<?=$e->getId()?>"><?=htmlentities($e->getname())?></option>

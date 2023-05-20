@@ -11,18 +11,18 @@
     require_once(__DIR__ . '/../database/class_message.php');
 
     class Ticket {
-        private int $id;
-        private User $author;
-        private string $title;
-        private string $description;
-        private string $dateOpened;
-        private ?string $dateClosed;
-        private ?User $agent;
-        private ?Department $department;
-        private ?Priority $priority;
-        private ?Status $status;
-        private ?FAQ $faq;
-        private ?File $filename;
+        public int $id;
+        public User $author;
+        public string $title;
+        public string $description;
+        public string $dateOpened;
+        public ?string $dateClosed;
+        public ?User $agent;
+        public ?Department $department;
+        public ?Priority $priority;
+        public ?Status $status;
+        public ?FAQ $faq;
+        public ?string $filename;
 
         public function __construct(int $id, User $author, string $title, string $description, string $dateOpened, ?string $dateClosed, ?User $agent, ?Department $department, ?Priority $priority, ?Status $status, ?FAQ $faq, ?File $filename = null) {
             $this->id = $id;
@@ -87,7 +87,7 @@
             return $this->faq;
         }
 
-        public function getFilename() : ?File {
+        public function getFilename() : ?string {
             return $this->filename;
         }
 
@@ -124,9 +124,10 @@
 
         public static function getTicketsClient(PDO $db, int $id, string $after, string $before, int $department, int $priority, int $status, int $agent, int $tag) : array {
             $stmt = $db->prepare("
-                SELECT DISTINCT Ticket.idTicket, idUser, title, description, dateOpened, dateClosed, idAgent, idDepartment, idPriority, idStatus, idFAQ
-                FROM Ticket LEFT OUTER JOIN TicketTag
-                WHERE (idUser = ?) 
+                SELECT DISTINCT T.idTicket, idUser, title, description, dateOpened, dateClosed, idAgent, idDepartment, idPriority, idStatus, idFAQ
+                FROM Ticket T, TicketTag TT
+                WHERE (T.idTicket = TT.idTicket OR T.idTicket NOT IN (SELECT idTicket FROM TicketTag))
+                AND (idUser = ?) 
                 AND (? = '' OR dateOpened > ?) 
                 AND (? = '' OR dateOpened < ?)
                 AND (? = '0' OR idDepartment = ?) 
@@ -150,9 +151,10 @@
 
         public static function getTicketsAgent(PDO $db, int $id, string $after, string $before, int $department, int $priority, int $status, int $agent, int $tag) : array {
             $stmt = $db->prepare("
-                SELECT DISTINCT Ticket.idTicket, idUser, title, description, dateOpened, dateClosed, idAgent, idDepartment, idPriority, idStatus, idFAQ
-                FROM Ticket LEFT OUTER JOIN TicketTag
-                WHERE (idUser = ? OR idAgent = ? OR idDepartment IS NULL OR idDepartment IN (SELECT idDepartment FROM AgentDepartment WHERE idAgent = ?))
+                SELECT DISTINCT T.idTicket, idUser, title, description, dateOpened, dateClosed, idAgent, idDepartment, idPriority, idStatus, idFAQ
+                FROM Ticket T, TicketTag TT
+                WHERE (T.idTicket = TT.idTicket OR T.idTicket NOT IN (SELECT idTicket FROM TicketTag))
+                AND (idUser = ? OR idAgent = ? OR idDepartment IS NULL OR idDepartment IN (SELECT idDepartment FROM AgentDepartment WHERE idAgent = ?))
                 AND (? = '' OR dateOpened > ?) 
                 AND (? = '' OR dateOpened < ?)
                 AND (? = '0' OR idDepartment = ?) 
@@ -176,9 +178,10 @@
 
         public static function getTickets(PDO $db, string $after, string $before, int $department, int $priority, int $status, int $agent, int $tag) : array {
             $stmt = $db->prepare("
-                SELECT DISTINCT Ticket.idTicket, idUser, title, description, dateOpened, dateClosed, idAgent, idDepartment, idPriority, idStatus, idFAQ
-                FROM Ticket LEFT OUTER JOIN TicketTag
-                WHERE (? = '' OR dateOpened > ?) 
+                SELECT DISTINCT T.idTicket, idUser, title, description, dateOpened, dateClosed, idAgent, idDepartment, idPriority, idStatus, idFAQ
+                FROM Ticket T, TicketTag TT
+                WHERE (T.idTicket = TT.idTicket OR T.idTicket NOT IN (SELECT idTicket FROM TicketTag))
+                AND (? = '' OR dateOpened > ?) 
                 AND (? = '' OR dateOpened < ?)
                 AND (? = '0' OR idDepartment = ?) 
                 AND (? = '0' OR idPriority = ?) 

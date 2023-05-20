@@ -5,11 +5,7 @@
     $session = new Session();
     $session->checkCSRF();
 
-    if (!$session->isAgent()) {
-        $this->addMessage(false, 'You cannot perform that action');
-        header('Location: ../pages/index.php');
-        die();
-    }
+    if (!$session->isAgent()) $session->redirect();
 
     require_once(__DIR__ . '/../database/connection.php');
     $db = getDatabaseConnection();

@@ -2,12 +2,12 @@
     declare(strict_types = 1);
 
     class User {
-        private int $id;
-        private string $firstName;
-        private string $lastName;
-        private string $username;
-        private string $email;
-        private string $photo;
+        public int $id;
+        public string $firstName;
+        public string $lastName;
+        public string $username;
+        public string $email;
+        public string $photo;
 
         public function __construct(int $id, string $firstName, string $lastName, string $username, string $email, string $photo) {
             $this->id = $id;

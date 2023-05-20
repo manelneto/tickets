@@ -5,22 +5,18 @@
     $session = new Session();
     $session->checkCSRF();
 
-    if (!$session->isLoggedIn()) {
-        $this->addMessage(false, 'You cannot perform that action');
-        header('Location: ../pages/index.php');
-        die();
-    }
+    if (!$session->isLoggedIn()) $session->redirect();
 
     $new = $_POST['new'];
 
-    if ($new !== $_POST['confirm']) {
-        $session->addMessage(false, 'The introduced passwords do not match');
+    if (strlen($new) < 8 || !preg_match("/[A-Z]/", $new) || !preg_match("/[a-z]/", $new) || !preg_match("/[0-9]/", $new) || !preg_match("/\W/", $new)) {
+        $session->addMessage(false, 'New password must have at least 8 characters, one uppercase, one lowercase, a number and a special character');
         header('Location: ../pages/password.php');
         die();
     }
 
-    if (strlen($new) < 8 || !preg_match("/[A-Z]/", $new) || !preg_match("/[a-z]/", $new) || !preg_match("/[0-9]/", $new) || !preg_match("/\W/", $new)) {
-        $session->addMessage(false, 'New password must have at least 8 characters, one uppercase, one lowercase, a number and a special character');
+    if ($new !== $_POST['confirm']) {
+        $session->addMessage(false, 'The introduced passwords do not match');
         header('Location: ../pages/password.php');
         die();
     }

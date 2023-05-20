@@ -2,8 +2,8 @@
     declare(strict_types = 1);
 
     class Department {
-        private int $id;
-        private string $name;
+        public int $id;
+        public string $name;
 
         public function __construct(int $id, string $name) {
             $this->id = $id;
@@ -117,6 +117,21 @@
                 return false;
             }
             
+            return true;
+        }
+
+        public function delete(PDO $db) : bool {
+            $stmt = $db->prepare('
+                DELETE FROM Department
+                WHERE idDepartment = ?
+            ');
+
+            try {
+                $stmt->execute(array($this->id));
+            } catch (PDOException $e) {
+                return false;
+            }
+
             return true;
         }
     }

@@ -66,9 +66,15 @@
             if (!isset($_POST['csrf']) || $_SESSION['csrf'] !== $_POST['csrf']) {
                 $this->addMessage(false, 'Request does not appear to be legitimate');
                 $location = $_SERVER['HTTP_REFERER'] ?? '../pages/index.php';
-                header('Location: ' . $location);
+                header("Location: $location");
                 die();
             }
+        }
+
+        public function redirect() : void {
+            $location = $_SERVER['HTTP_REFERER'] ?? '../pages/index.php';
+            header("Location: $location");
+            die();
         }
     }
 ?>

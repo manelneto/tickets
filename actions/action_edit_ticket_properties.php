@@ -5,11 +5,7 @@
     $session = new Session();
     $session->checkCSRF();
 
-    if (!$session->isAgent()) {
-        $this->addMessage(false, 'You cannot perform that action');
-        header('Location: ../pages/index.php');
-        die();
-    }
+    if (!$session->isAgent()) $session->redirect();
 
     $id = (int) $_POST['id'];
 
@@ -23,16 +19,16 @@
 
     require_once(__DIR__ . '/../database/class_ticket.php');
 
-    $names = (strpos($_POST['tags'], ',') !== false) ? explode(',', $_POST['tags']) : array(trim($_POST['tags']));
-
+    $names = (strpos($_POST['tags'], ',') !== false) ? explode(',', trim($_POST['tags'])) : array(trim($_POST['tags']));
     $tags = array();
-
     foreach ($names as $name) {
         $tag = Tag::getTagId($db, $name);
         if ($tag) $tags[] = $tag;
     }
 
     $ticket = Ticket::getTicket($db, $id);
+
+    if (!($session->isAdmin() || ($session->isAgent() && $session->getId() !== $ticket->getAuthor()->getId()))) $session->redirect();
 
     if ($ticket && $ticket->editProperties($db, $status, $priority === 0 ? null : $priority, $department === 0 ? null : $department, $agent === 0 ? null : $agent, $tags))
         $session->addMessage(true, 'Ticket properties successfully edited');

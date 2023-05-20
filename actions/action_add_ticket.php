@@ -5,11 +5,7 @@
     $session = new Session();
     $session->checkCSRF();
 
-    if (!$session->isLoggedIn()) {
-        $this->addMessage(false, 'You cannot perform that action');
-        header('Location: ../pages/index.php');
-        die();
-    }
+    if (!$session->isLoggedIn()) $session->redirect();
 
     $title = trim($_POST['title']);
     $description = trim($_POST['description']);
@@ -28,10 +24,8 @@
     
     require_once(__DIR__ . '/../database/class_ticket.php');
 
-    $names = (strpos($_POST['tags'], ',') !== false) ? explode(',', $_POST['tags']) : array(trim($_POST['tags']));
-
+    $names = (strpos($_POST['tags'], ',') !== false) ? explode(',', trim($_POST['tags'])) : array(trim($_POST['tags']));
     $tags = array();
-
     foreach ($names as $name) {
         $tag = Tag::getTagId($db, $name);
         if ($tag) $tags[] = $tag;
@@ -52,7 +46,7 @@
         }
     
         if (move_uploaded_file($_FILES["file-upload"]["tmp_name"], $save_file) && Ticket::addTicket($db, $session->getId(), $title, $description, $dateOpened, $department, $tags, $save_file)) {
-            $session->addMessage(true, 'Ticket successfully added');
+            $session->addMessage(true, 'Ticket successfully added 1');
             header('Location: ../pages/tickets.php');
         }
         else {
@@ -61,7 +55,7 @@
         }
     } else {
         if (Ticket::addTicket($db, $session->getId(), $title, $description, $dateOpened, $department, $tags)) {
-            $session->addMessage(true, 'Ticket successfully added');
+            $session->addMessage(true, 'Ticket successfully added 2');
             header('Location: ../pages/tickets.php');
         } else {
             $session->addMessage(false, 'Ticket could not be added');

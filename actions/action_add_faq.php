@@ -5,11 +5,7 @@
     $session = new Session();
     $session->checkCSRF();
 
-    if (!$session->isAgent()) {
-        $this->addMessage(false, 'You cannot perform that action');
-        header('Location: ../pages/index.php');
-        die();
-    }
+    if (!$session->isAgent()) $session->redirect();
 
     $question = trim($_POST['question']);
     $answer = trim($_POST['answer']);
