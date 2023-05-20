@@ -10,10 +10,6 @@
     grid-row: tickets-start/tickets-mid;
 }
 
-#tickets h2 {
-    display: none;
-}
-
 .ticket a {
     display: grid;
     grid-template-columns: [tickets-start] 0.6fr [tickets-mid1] 1fr [tickets-mid2] 0.4fr [tickets-mid3] 0.5fr [tickets-mid4] 0.4fr [tickets-end];
@@ -64,11 +60,6 @@
 
 .author h3 {
     font-size: 1rem;
-}
-
-#tickets a {
-    text-decoration: none;
-    color: black;
 }
 
 .ticket:hover {
@@ -168,9 +159,6 @@
     margin-top: auto;
     width: 5rem;
     height: 1.5rem;
-    background-color: var(--dark-blue);
-    color: white;
-    border: none;
     margin-bottom: 1rem;
 }
 
