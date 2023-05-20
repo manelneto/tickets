@@ -6,16 +6,11 @@
     margin-top: 2rem;
 }
 
-#dashboard h2 {
-    display: none;
-}
-
 .card {
     border-radius: 10%;
     transition: transform 0.8s;
     position: relative;
     text-align: center;     
-    background-color: var(--light-gray);
     width: 12rem;
     height: 8rem;
 }
