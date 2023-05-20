@@ -18,10 +18,6 @@
     margin-left: 1rem;
 }
 
-#profile h2, #password h2 {
-    display: none;
-}
-
 #edit-profile, #change-password {
     text-decoration: none;
 }
@@ -69,9 +65,6 @@
 }
 
 #profile form button, #profile-photo form button, #password form button {
-    background-color: var(--dark-blue);
-    border: none;
-    color: white;
     padding: 0.3rem;
     margin-top: 1rem;
     width: 6rem;
