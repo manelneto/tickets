@@ -1,13 +1,15 @@
 const input = document.querySelector('#tags');
+
 if (input) {
-    input.addEventListener('keydown', function (event) {
-        console.log('keydown');
-        if (event.key === 'Enter' || event.key === 'Tab') {
-            console.log('event');
+    input.addEventListener('keydown', async function (event) {
+        if (event.key === 'Enter') {
             event.preventDefault();
             const tag = input.value;
 
-            /* PEDIDO A API */
+            const url = '../api/api_tags.php?' + encodeForAjax({input: input.value});
+
+            const response = await fetch(url);
+            const allTags = await response.json();
 
             const button = document.createElement('button');
             button.formAction = '../actions/action_delete_ticket_tag.php';
@@ -23,3 +25,38 @@ if (input) {
         }
     })
 }
+
+
+
+
+if(input)
+input.addEventListener('input',  async function (event) {
+    event.preventDefault();
+    const url = '../api/api_tags.php?' + encodeForAjax({input: input.value});
+
+    const response = await fetch(url);
+    const allTags = await response.json();
+
+    const dbtags = new Array();
+
+    for(const tag of allTags) {
+        dbtags.push(tag.name);
+    }
+
+    const tag = input.value;
+
+
+    for (const i=0; i<dbtags.length; i++) {
+        if (dbtags[i].toUpperCase().includes(tag.toUpperCase())) {
+            const p = document.createElement('p');
+            p.textContent = dbtags[i];
+            
+            //Attach click event to each paragraph
+            p.addEventListener('keydown', function() {
+                if (event.key === 'Tab')
+                    input.value = dbtags[i];
+            });
+        }
+    }
+});
+
