@@ -328,9 +328,6 @@
 }
 
 .delete-message button{
-    background-color: var(--dark-blue);
-    color: white;
-    border: none;
     margin-left: 0.5rem;
     margin-top: 1rem;
 }
