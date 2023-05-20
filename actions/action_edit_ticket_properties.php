@@ -22,8 +22,8 @@
     $names = (strpos($_POST['tags'], ',') !== false) ? explode(',', trim($_POST['tags'])) : array(trim($_POST['tags']));
     $tags = array();
     foreach ($names as $name) {
-        $tag = Tag::getTagId($db, $name);
-        if ($tag) $tags[] = $tag;
+        $tag = Tag::getTagByName($db, $name);
+        if ($tag) $tags[] = $tag->id;
     }
 
     $ticket = Ticket::getTicket($db, $id);

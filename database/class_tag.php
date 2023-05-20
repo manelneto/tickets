@@ -61,7 +61,7 @@
             );
         }
 
-        public static function getTagId(PDO $db, string $name) : ?int {
+        public static function getTagByName(PDO $db, string $name) : ?Tag {
             $stmt = $db->prepare('
                 SELECT idTag, name
                 FROM Tag
@@ -73,7 +73,10 @@
 
             if (!$tag) return null;
 
-            return (int) $tag['idTag'];
+            return new Tag(
+                (int) $tag['idTag'],
+                $tag['name']
+            );
         }
 
         public static function addTag(PDO $db, string $name) : bool {

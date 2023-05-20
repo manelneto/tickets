@@ -45,10 +45,10 @@
             $names = (strpos($_POST['tags'], ',') !== false) ? explode(',', $_POST['tags']) : array(trim($_POST['tags']));
             $tags = array();
             foreach ($names as $name) {
-                $tag = Tag::getTagId($db, $name);
-                if ($tag) $tags[] = $tag;
+                $tag = Tag::getTagByName($db, $name);
+                if ($tag) $tags[] = $tag->id;
             }
-            echo json_encode(Ticket::addTicket($db, $session->getId(), $title, $description, $dateOpened, $department, $tags));
+            echo json_encode(Ticket::addTicket($db, $session->getId(), $title, $description, $dateOpened, $department, $tags, ''));
             break;
         case 'PUT':
             $input = fopen('php://input', 'r');
