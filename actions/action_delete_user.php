@@ -11,7 +11,7 @@
     $db = getDatabaseConnection();
 
     require_once(__DIR__ . '/../database/class_user.php');
-    $user = User::getUser($db, (int) $_POST['id']);
+    $user = User::getUser($db, (int) $_POST['user']);
 
     if ($user && $user->delete($db))
         $session->addMessage(true, 'User successfully deleted');
