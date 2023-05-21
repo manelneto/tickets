@@ -1,5 +1,4 @@
 const apply = document.querySelector('#apply');
-
 if (apply) {
     apply.addEventListener('click', async function (event) {
         event.preventDefault();
@@ -20,7 +19,6 @@ if (apply) {
             body: encodeForAjax(data),
         })
         const success = await response.json();
-        console.log(success);
         let messages = document.querySelector('#messages');
         if (!messages) {
             messages = document.createElement('section');
@@ -60,7 +58,6 @@ const option = document.querySelector('#faq-reply');
 if (option) {
     option.addEventListener('change', async function (event) {
         const textarea = document.querySelector('#new-message');
-        console.log(typeof(this.value));
         if (this.value === '0')
             textarea.value = '';
         else {
@@ -77,65 +74,70 @@ const send = document.querySelector('#send');
 if (send) {
     send.addEventListener('click', async function (event) {
         event.preventDefault();
-        const id = document.querySelector('#id');
+        const ticket = document.querySelector('#id');
         const newMessage = document.querySelector('#new-message');
 
-        const url = '../api/api_message.php/';
-        const data = {id: id.value, content: newMessage.value};
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body: encodeForAjax(data),
-        })
-        const success = await response.json();
+        const allMessages = document.querySelector('#all-messages');
 
-        if (success) {
-            const allMessages = document.querySelector('#all-messages');
+        const article = document.createElement('article');
+        article.classList.add('self');
 
-            const article = document.createElement('article');
-            article.classList.add('self');
+        const header = document.createElement('header');
 
-            const header = document.createElement('header');
+        const id = document.querySelector('#message-author');
+        const response = await fetch('../api/api_user.php?' + encodeForAjax({id: id.value}));
+        const user = await response.json();
 
-            const id = document.querySelector('#message-author');
-            const url = '../api/api_user.php?' + encodeForAjax({id: id.value});
-            const response = await fetch(url)
-            const user = await response.json();
+        const img = document.createElement('img');
+        img.classList.add('message-photo');
+        img.src = '../profile_photos/' + user.photo;
+        img.alt = 'Profile Photo';
+        header.appendChild(img);
 
-            const img = document.createElement('img');
-            img.classList.add('message-photo');
-            img.src = '../profile_photos/' + user.photo;
-            img.alt = 'Profile Photo';
-            header.appendChild(img);
+        const p = document.createElement('p');
+        p.textContent = user.firstName + ' ' + user.lastName;
+        header.appendChild(p);
 
-            const p = document.createElement('p');
-            p.textContent = user.firstName + ' ' + user.lastName;
-            header.appendChild(p);
+        const date = document.createElement('p');
+        date.classList.add('message-date');
+        date.textContent = new Date().toJSON().slice(0, 10);
+        header.appendChild(date);
 
-            const date = document.createElement('p');
-            date.classList.add('message-date');
-            date.textContent = new Date().toJSON().slice(0, 10);
-            header.appendChild(date);
+        const content = document.createElement('p');
+        content.classList.add('message-content');
+        content.textContent = newMessage.value;
 
-            const content = document.createElement('p');
-            content.classList.add('message-content');
-            content.textContent = newMessage.value;
+        const undo = document.createElement('button');
+        undo.classList.add('undo-message');
+        undo.textContent = 'Undo';
+        undo.addEventListener('click', function () {
+            this.parentElement.remove();
+        });
 
-            article.appendChild(header);
-            article.appendChild(content);
+        article.appendChild(header);
+        article.appendChild(content);
+        article.appendChild(undo);
 
-            const form = document.querySelector('.messageBoard-form')
-            allMessages.insertBefore(article, form);
+        const form = document.querySelector('.messageBoard-form')
+        allMessages.insertBefore(article, form);
 
-            allMessages.scrollTo(0, allMessages.scrollHeight);
+        allMessages.scrollTo(0, allMessages.scrollHeight);
 
-            const textarea = document.querySelector('#new-message');
-            textarea.value = '';
-        } else {
-            /* ... */
-        }
+        const textarea = document.querySelector('#new-message');
+        textarea.value = '';
+
+        window.setTimeout(async function () {
+            document.querySelector('.undo-message').remove();
+            const url = '../api/api_message.php/';
+            const data = {id: ticket.value, content: content.textContent};
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: encodeForAjax(data),
+            })
+        }, 5000)
     })
 }
 

@@ -22,18 +22,16 @@
                                 <img class="upload-photo-ticket" src="<?php echo ('../profile_photos/' . $ticket->getAuthor()->getPhoto()) ?>" alt="Profile Photo">
                                 <h3><?=htmlentities($ticket->getAuthor()->getName())?></h3>
                             </div>
-                            <button type="submit" id="author-edit-button">Edit</button>
+                            <?php if ($session->getId() === $ticket->getAuthor()->id) { ?>
+                            <button formaction="../actions/action_edit_ticket.php" id="author-edit-button">Edit</button>
+                            <?php } ?>
+                            <?php if ($session->isAgent()) { ?>
+                            <button formaction="../actions/action_delete_ticket.php">Delete</button>
+                            <?php } ?>
                         </div>
                         <textarea id="description" name="description"><?php foreach ($paragraphs as $paragraph) echo htmlentities($paragraph); ?></textarea>
                         <?php if($ticket->getFilename() != ''){ ?>
                             <a href="<?php echo '../ticket_files/' . $ticket->getFilename() ?>" download>Download the file here</a>
-                        <?php } ?>
-                        <?php if ($session->isAdmin()) { ?>
-                            <form action="../actions/action_delete_ticket.php" method="post" class="delete-ticket">
-                                <input type="hidden" name="id" value="<?=$ticket->getId()?>">
-                                <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
-                                <button type="submit" class="delete-ticket">Delete</button>
-                            </form>
                         <?php } ?>
                     </form>
                 <?php } else { ?>
@@ -62,27 +60,29 @@
                         <img class="message-photo" src="<?php echo ('../profile_photos/' . $message->getAuthor()->getPhoto()) ?>" alt="Profile Photo">
                         <p><?=$message->getAuthor()->getName()?></p>
                         <p class="message-date"> <?=$message->getDate()?> </p>
-                        <?php if ($session->isAdmin()) { ?>
-                            <form action="../actions/action_delete_messsage.php" method="post">
-                                <input type="hidden" name="id" value="<?=$message->id?>">
-                                <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
-                                <button type="submit" class="delete-message">Delete</button>
-                            </form>
-                        <?php } ?>
                     </header>
                     <p class="message-content"><?=$message->getContent()?></p>
+                    <?php if ($session->isAdmin()) { ?>
+                        <form action="../actions/action_delete_messsage.php" method="post">
+                            <input type="hidden" name="id" value="<?=$message->id?>">
+                            <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
+                            <button type="submit" class="delete-message">Delete</button>
+                        </form>
+                    <?php } ?>
                 </article>
                 <?php } ?>
                 <form action="../actions/action_add_message.php" method="post" class="messageBoard-form">
                     <input type="hidden" name="id" value="<?=$ticket->getId()?>">
                     <input id="message-author" type="hidden" value="<?=$session->getId()?>">
                     <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
+                    <?php if ($session->isAgent()) { ?>
                     <select id="faq-reply" name="faq-reply">
                         <option value="0">Reply with FAQ: </option>
                         <?php foreach ($faqs as $faq) { ?>
                         <option value="<?=$faq->getId()?>"><?=$faq->getQuestion()?></option>
                         <?php } ?>
-                    </select>    
+                    </select>
+                    <?php } ?>
                     <textarea id="new-message" name="content" placeholder="Type a New Message"></textarea>
                     <button id="send" type="submit">Send</button>
                 </form>
