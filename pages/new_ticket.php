@@ -14,12 +14,11 @@
 
     require_once(__DIR__ . '/../database/class_ticket.php');
     $departments = Department::getDepartments($db);
-    $tags = Tag::getTags($db);
 
     require_once(__DIR__ . '/../templates/template_common.php');
     require_once(__DIR__ . '/../templates/template_new_ticket.php');
 
     drawHeader($session, 'New Ticket');
-    drawNewTicket($departments, $tags);
+    drawNewTicket($departments);
     drawFooter();
 ?>
