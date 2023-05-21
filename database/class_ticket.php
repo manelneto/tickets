@@ -125,17 +125,16 @@
 
         public static function getTicketsClient(PDO $db, int $id, string $after, string $before, int $department, int $priority, int $status, int $agent, int $tag) : array {
             $stmt = $db->prepare("
-                SELECT DISTINCT T.idTicket, idUser, title, description, dateOpened, dateClosed, idAgent, idDepartment, idPriority, idStatus, idFAQ, filename
-                FROM Ticket T, TicketTag TT
-                WHERE (T.idTicket = TT.idTicket OR T.idTicket NOT IN (SELECT idTicket FROM TicketTag))
-                AND (idUser = ?) 
+                SELECT idTicket, idUser, title, description, dateOpened, dateClosed, idAgent, idDepartment, idPriority, idStatus, idFAQ, filename
+                FROM Ticket
+                WHERE (idUser = ?) 
                 AND (? = '' OR dateOpened > ?) 
                 AND (? = '' OR dateOpened < ?)
                 AND (? = '0' OR idDepartment = ?) 
                 AND (? = '0' OR idPriority = ?) 
                 AND (? = '0' OR idStatus = ?) 
                 AND (? = '0' OR idAgent = ?)
-                AND (? = '0' OR idTag = ?)
+                AND (? = '0' OR idTicket IN (SELECT idTicket FROM TicketTag WHERE idTag = ?))
                 ORDER BY 5 DESC, 9 DESC, 3
             ");
 
@@ -152,17 +151,16 @@
 
         public static function getTicketsAgent(PDO $db, int $id, string $after, string $before, int $department, int $priority, int $status, int $agent, int $tag) : array {
             $stmt = $db->prepare("
-                SELECT DISTINCT T.idTicket, idUser, title, description, dateOpened, dateClosed, idAgent, idDepartment, idPriority, idStatus, idFAQ, filename
-                FROM Ticket T, TicketTag TT
-                WHERE (T.idTicket = TT.idTicket OR T.idTicket NOT IN (SELECT idTicket FROM TicketTag))
-                AND (idUser = ? OR idAgent = ? OR idDepartment IS NULL OR idDepartment IN (SELECT idDepartment FROM AgentDepartment WHERE idAgent = ?))
+                SELECT idTicket, idUser, title, description, dateOpened, dateClosed, idAgent, idDepartment, idPriority, idStatus, idFAQ, filename
+                FROM Ticket
+                WHERE (idUser = ? OR idAgent = ? OR idDepartment IS NULL OR idDepartment IN (SELECT idDepartment FROM AgentDepartment WHERE idAgent = ?))
                 AND (? = '' OR dateOpened > ?) 
                 AND (? = '' OR dateOpened < ?)
                 AND (? = '0' OR idDepartment = ?) 
                 AND (? = '0' OR idPriority = ?) 
                 AND (? = '0' OR idStatus = ?) 
                 AND (? = '0' OR idAgent = ?)
-                AND (? = '0' OR idTag = ?)
+                AND (? = '0' OR idTicket IN (SELECT idTicket FROM TicketTag WHERE idTag = ?))
                 ORDER BY 5 DESC, 9 DESC, 3
             ");
 
@@ -179,16 +177,15 @@
 
         public static function getTickets(PDO $db, string $after, string $before, int $department, int $priority, int $status, int $agent, int $tag) : array {
             $stmt = $db->prepare("
-                SELECT DISTINCT T.idTicket, idUser, title, description, dateOpened, dateClosed, idAgent, idDepartment, idPriority, idStatus, idFAQ, filename
-                FROM Ticket T, TicketTag TT
-                WHERE (T.idTicket = TT.idTicket OR T.idTicket NOT IN (SELECT idTicket FROM TicketTag))
-                AND (? = '' OR dateOpened > ?) 
+                SELECT idTicket, idUser, title, description, dateOpened, dateClosed, idAgent, idDepartment, idPriority, idStatus, idFAQ, filename
+                FROM Ticket
+                WHERE (? = '' OR dateOpened > ?) 
                 AND (? = '' OR dateOpened < ?)
                 AND (? = '0' OR idDepartment = ?) 
                 AND (? = '0' OR idPriority = ?) 
                 AND (? = '0' OR idStatus = ?) 
                 AND (? = '0' OR idAgent = ?)
-                AND (? = '0' OR idTag = ?)
+                AND (? = '0' OR idTicket IN (SELECT idTicket FROM TicketTag WHERE idTag = ?))
                 ORDER BY 5 DESC, 9 DESC, 3
             ");
 
