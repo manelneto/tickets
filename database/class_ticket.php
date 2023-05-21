@@ -221,11 +221,11 @@
                 INSERT INTO Ticket (idUser, title, description, dateOpened, idDepartment, filename)
                 VALUES (?, ?, ?, ?, ?, ?)
             ');
-            try {
+            /*try {*/
                 $stmt->execute(array($idUser, $title, $description, $dateOpened, $department, $filename));
-            } catch (PDOException $e)  {
+            /*} catch (PDOException $e)  {
                 return false;
-            }
+            }*/
 
             $stmt = $db->prepare('
                 SELECT max(idTicket)
