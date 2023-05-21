@@ -70,12 +70,14 @@
                     <input type="hidden" name="id" value="<?=$ticket->getId()?>">
                     <input id="message-author" type="hidden" value="<?=$session->getId()?>">
                     <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
+                    <?php if ($session->isAgent()) { ?>
                     <select id="faq-reply" name="faq-reply">
                         <option value="0">Reply with FAQ: </option>
                         <?php foreach ($faqs as $faq) { ?>
                         <option value="<?=$faq->getId()?>"><?=$faq->getQuestion()?></option>
                         <?php } ?>
-                    </select>    
+                    </select>
+                    <?php } ?>
                     <textarea id="new-message" name="content" placeholder="Type a New Message"></textarea>
                     <button id="send" type="submit">Send</button>
                 </form>
