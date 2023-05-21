@@ -295,7 +295,7 @@ UPDATE Ticket SET idAgent = 2, idDepartment = 3, idPriority = 3 WHERE idTicket =
 UPDATE Ticket SET idStatus = 3 WHERE idTicket = 2;
 
 INSERT INTO Message VALUES(1, '2023-05-15', 'Forget it. I fixed the screen myself!', 1, 1);
-INSERT INTO Message VALUES(2, '2023-05-07', 'What is the number of your purchase?', 2, 6);
+INSERT INTO Message VALUES(2, '2023-05-07', 'What is the number of your purchase?', 2, 2);
 INSERT INTO Message VALUES(3, '2023-05-08', 'Purchase Number 123', 2, 2);
 
 INSERT INTO AgentDepartment VALUES(2, 2);
