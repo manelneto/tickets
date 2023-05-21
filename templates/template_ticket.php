@@ -8,12 +8,14 @@
             <article id="ticket-info">
                 <?php $paragraphs = explode('\n', $ticket->getDescription()); ?>
                 <?php if ($session->getId() === $ticket->getAuthor()->getId()) { ?>
-                    <form action="../actions/action_edit_ticket.php" method="post" class="edit-ticket">
+                    <!-- added the id="edit-ticket" to form -->
+                    <form id="edit-ticket-form" action="../actions/action_edit_ticket.php" method="post" class="edit-ticket">
                         <input type="hidden" name="id" value="<?=$ticket->getId()?>">
                         <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
                         <header id="ticket-header">
                             <img src="../assets/message.png" alt="Ticket Icon">
-                            <h2><input type="text" name="title" required value="<?=htmlentities($ticket->getTitle())?>"></h2>
+                             <!-- added the id="edit-header" to input -->
+                            <h2><input type="text" id="edit-header" name="title" required value="<?=htmlentities($ticket->getTitle())?>"></h2>
                         </header>
                         <div id="author-edit">
                             <div id="author">
@@ -50,7 +52,8 @@
                 <?php } ?>
             </article>
             <details id="messageBoard" >
-                <summary>Message Board<span class="material-symbols-outlined">chat_bubble</span> </summary>
+                <!-- Added button show -->
+                <summary>Message Board <button id="show-button"> Show</button> </summary>
                 <hr>
                 <div id="all-messages">
                 <?php foreach ($messages as $message) { ?>
