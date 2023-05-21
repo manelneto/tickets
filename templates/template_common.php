@@ -9,7 +9,6 @@
         <title>Tickets Management</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="../css/utils.css">
         <link rel="stylesheet" href="../css/authentication.css">
         <link rel="stylesheet" href="../css/common.css">
         <link rel="stylesheet" href="../css/dashboard.css">
@@ -18,14 +17,12 @@
         <link rel="stylesheet" href="../css/profile.css">
         <link rel="stylesheet" href="../css/tickets.css">   
         <link rel="stylesheet" href="../css/ticket.css">
-        
-        <script src="../javascript/sidebar.js" defer></script>
-        <!--script src="../javascript/autocomplete.js"></script-->
-        <script src="../javascript/common.js"></script>
+        <link rel="stylesheet" href="../css/utils.css">
+        <script src="../javascript/common.js" defer></script>
         <script src="../javascript/filters.js" defer></script>
-        <script src="../javascript/ticket.js" defer></script>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+        <script src="../javascript/sidebar.js" defer></script>
         <script src="../javascript/tags.js" defer></script>
+        <script src="../javascript/ticket.js" defer></script>
     </head>
     <body <?php if (!$session->isLoggedIn()) echo "id=\"authentication\""?>>
         <?php if ($session->isLoggedIn()) { ?>
@@ -51,7 +48,7 @@
                 <li class="text-menu"><a href="../pages/tickets.php">Tickets</a></li>
                 <li class="img-menu"><a href="../pages/tickets.php"><img src="../assets/tickets.png" alt="Ticket Icon"></a></li>
                 <li class="text-menu"><a href="../pages/faqs.php">FAQ</a></li>
-                <li class="img-menu"><a href="../pages/faqs.php"><img src="../assets/faq.png" alt="Faq Icon"></a></li>
+                <li class="img-menu"><a href="../pages/faqs.php"><img src="../assets/faq.png" alt="FAQ Icon"></a></li>
                 <?php if ($session->isAdmin()) { ?>
                 <li class="text-menu"><a href="../pages/management.php">Management</a></li>
                 <li class="img-menu"><a href="../pages/management.php"><img src="../assets/management.png" alt="Management Icon"></a></li>

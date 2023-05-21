@@ -10,7 +10,7 @@
                 <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
                 <label for="username">Username</label>
                 <input id="username" type="text" name="username" placeholder="username" required>
-                <label for="password">Password</label>
+                <label for="password-login">Password</label>
                 <input id="password-login" type="password" name="password" placeholder="password" required>
                 <button type="submit">Log In</button>
             </form>
@@ -33,7 +33,7 @@
                 <input id="username" type="text" name="username" placeholder="Username" required>
                 <label for="email">Email</label>
                 <input id="email" type="email" name="email" placeholder="Email" required>
-                <label for="password">Password</label>
+                <label for="password-register">Password</label>
                 <input id="password-register" type="password" name="password" placeholder="Password" required>
                 <button type="submit">Register</button>
             </form>

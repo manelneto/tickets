@@ -13,7 +13,7 @@
                     <label for="client">Select a client</label>
                     <select id="client" name="client" required>
                         <?php foreach ($clients as $client) { ?>
-                        <option value="<?=$client->getId()?>"><?=htmlentities($client->getUsername())?></option>
+                        <option value="<?=$client->id?>"><?=htmlentities($client->username)?></option>
                         <?php } ?>
                     </select>
                     <div id="upgrade-role">
@@ -50,14 +50,14 @@
                     <label for="department">Select a department</label>
                     <select id="department" name="department" required>
                         <?php foreach ($departments as $department) { ?>
-                        <option value="<?=$department->getId()?>"><?=htmlentities($department->getName())?></option>
+                        <option value="<?=$department->id?>"><?=htmlentities($department->name)?></option>
                         <?php } ?>
                     </select>
                     <div class="field">
                         <label for="agent">Select an agent</label>
                         <select id="agent" name="agent" required>
                             <?php foreach ($agents as $agent) { ?>
-                            <option value="<?=$agent->getId()?>"><?=htmlentities($agent->getUsername())?></option>
+                            <option value="<?=$agent->id?>"><?=htmlentities($agent->username)?></option>
                             <?php } ?>
                         </select>
                     </div>

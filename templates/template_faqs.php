@@ -8,8 +8,8 @@
             <h2>FAQ</h2>
             <?php foreach($faqs as $faq) { ?>
             <details class="faq">
-                <summary class="question"><?=htmlentities($faq->getQuestion())?></summary>
-                <p class="answer"><?=htmlentities($faq->getAnswer())?></p>
+                <summary class="question"><?=htmlentities($faq->question)?></summary>
+                <p class="answer"><?=htmlentities($faq->answerr)?></p>
             </details>
             <?php } ?>
         </section>
@@ -33,13 +33,13 @@
             </form>
             <?php foreach($faqs as $faq) { ?>
             <form method="post" class="faq-questions-agent">
-                <input type="hidden" name="id" value="<?=$faq->getId()?>">
+                <input type="hidden" name="id" value="<?=$faq->id?>">
                 <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
                 <details class="faq">
-                    <summary class="question" id="faq-arrow">
-                        <textarea name="question" required><?=htmlentities($faq->getQuestion())?></textarea>
+                    <summary class="question">
+                        <textarea name="question" required><?=htmlentities($faq->question)?></textarea>
                     </summary>
-                    <textarea class="answer" name="answer" required><?=htmlentities($faq->getAnswer())?></textarea>
+                    <textarea class="answer" name="answer" required><?=htmlentities($faq->answer)?></textarea>
                     <div class="faq-buttons">
                         <button formaction="../actions/action_edit_faq.php">Edit</button>
                         <button formaction="../actions/action_delete_faq.php">Delete</button>
