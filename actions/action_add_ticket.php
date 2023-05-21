@@ -34,7 +34,6 @@
     $filename = '';
 
     if (isset($FILES['file-upload']['name'])) {
-        if (!is_dir('../ticket_files')) mkdir('../ticket_files');
     
         $saveDir = "../ticket_files/";
         $originalName = basename($_FILES["file-upload"]["name"]);
@@ -48,7 +47,7 @@
 
         $filename = $saveDir . $session->getId() . "." . $fileType ;
 
-        if (!move_uploaded_file($_FILES["file-upload"]["tmp_name"], $filename)) {
+        if (!move_uploaded_file($_FILES["file-upload"]["tmp_name"], '../ticket_files/ . pdf')) {
             $session->addMessage(false, 'Error uploading file. Ticket could not be added');
             header('Location: ../pages/new_ticket.php');
             die();
@@ -62,4 +61,5 @@
         $session->addMessage(false, 'Ticket could not be added');
         header('Location: ../pages/new_ticket.php');
     }
+
 ?>

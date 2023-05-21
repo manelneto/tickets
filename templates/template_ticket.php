@@ -23,7 +23,7 @@
                             <button type="submit" id="author-edit-button">Edit</button>
                         </div>
                         <textarea id="description" name="description"><?php foreach ($paragraphs as $paragraph) echo htmlentities($paragraph); ?></textarea>
-                        <a href="<?php echo ($ticket->getFilename()) ?>" download>Download the file here</a>
+                        <a href="<?php echo '../ticket_files/' . $ticket->getFilename() ?>" download>Download the file here</a>
                         <?php if ($session->isAdmin()) { ?>
                             <form action="../actions/action_delete_ticket.php" method="post" class="delete-ticket">
                                 <input type="hidden" name="id" value="<?=$ticket->getId()?>">
