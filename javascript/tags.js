@@ -32,7 +32,7 @@ if (input) {
 if(input)
 input.addEventListener('input',  async function (event) {
     event.preventDefault();
-    const url = '../api/api_tags.php?' + encodeForAjax({input: input.value});
+    const url = '../api/api_tags.php' 
 
     const response = await fetch(url);
     const allTags = await response.json();
