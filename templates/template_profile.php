@@ -11,22 +11,22 @@
             <form action="../actions/action_edit_profile.php" method="post" class="profile">
                 <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
                 <label for="first-name">First Name</label>
-                <input id="first-name" type="text" name="first-name" value="<?=htmlentities($user->getFirstName())?>" required>
+                <input id="first-name" type="text" name="first-name" value="<?=htmlentities($user->firstName)?>" required>
                 <label for="last-name">Last Name</label>
-                <input id="last-name" type="text" name="last-name" value="<?=htmlentities($user->getLastName())?>" required>
+                <input id="last-name" type="text" name="last-name" value="<?=htmlentities($user->lastName)?>" required>
                 <label for="username">Username</label>
-                <input id="username" type="text" name="username" value="<?=htmlentities($user->getUsername())?>" required>
+                <input id="username" type="text" name="username" value="<?=htmlentities($user->username)?>" required>
                 <label for="email">Email</label>
-                <input id="email" type="email" name="email" value="<?=htmlentities($user->getEmail())?>" required>
+                <input id="email" type="email" name="email" value="<?=htmlentities($user->email)?>" required>
                 <button type="submit">Save</button>
             </form>
         </section>
         <section id="profile-photo">
             <form action="../actions/action_upload_photo.php" method="post" enctype="multipart/form-data" class="upload-photo">
-                    <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
-                    <img class="upload-photo" src="<?php echo htmlentities('../profile_photos/' . $user->getPhoto()) ?>" alt="Profile Photo">
-                    <input type="file" name="photo-upload" id="photo-upload">
-                    <button type="submit">Upload</button>
+                <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
+                <img class="upload-photo" src="<?=htmlentities('../profile_photos/' . $user->photo)?>" alt="Profile Photo">
+                <input type="file" name="photo-upload" id="photo-upload">
+                <button type="submit">Upload</button>
             </form>
         </section>
     </main>
@@ -50,7 +50,8 @@
             </form>
         </section>
         <section id="password-photo">
-            <img class="upload-photo" src="<?php echo ('../profile_photos/' . $user->getPhoto()) ?>" alt="Profile Photo">
+            <h2><?=$user->getName()?></h2>
+            <img class="upload-photo" src="<?php echo ('../profile_photos/' . $user->photo) ?>" alt="Profile Photo">
         </section>
     </main>
 <?php } ?>

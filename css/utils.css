@@ -1,4 +1,4 @@
-#menu .img-menu, #dashboard h2, #faqs h2, #management h2, #profile h2, #password h2, #tickets h2, #tools{
+#menu .img-menu, #dashboard h2, #faqs h2, #management h2, #profile h2, #password h2, #tickets h2, #tools, #password-photo h2 {
     display: none;
 }
 

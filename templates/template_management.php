@@ -2,7 +2,7 @@
     declare(strict_types = 1);
 ?>
 
-<?php function drawManagement(array $clients, array $departments, array $agents) : void { ?>
+<?php function drawManagement(array $notAdmins, array $departments, array $agents) : void { ?>
     <main>
         <section id="management">
             <h2>Management</h2>
@@ -12,7 +12,7 @@
                     <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
                     <label for="client">Select a client</label>
                     <select id="client" name="client" required>
-                        <?php foreach ($clients as $client) { ?>
+                        <?php foreach ($notAdmins as $client) { ?>
                         <option value="<?=$client->id?>"><?=htmlentities($client->username)?></option>
                         <?php } ?>
                     </select>
@@ -88,8 +88,8 @@
                     <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
                     <label for="user">Select a user</label>
                     <select id="user" name="user" required>
-                        <?php foreach ($clients as $user) { ?>
-                            <option value="<?=$user->getId()?>"><?=htmlentities($user->getUsername())?></option>
+                        <?php foreach ($notAdmins as $user) { ?>
+                            <option value="<?=$user->id?>"><?=htmlentities($user->username)?></option>
                         <?php } ?>
                     </select>
                     <button type="submit">Delete</button>

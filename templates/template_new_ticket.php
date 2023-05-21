@@ -2,7 +2,7 @@
     declare(strict_types = 1);
 ?>
 
-<?php function drawNewTicket(array $departments, array $tags) : void { ?>
+<?php function drawNewTicket(array $departments) : void { ?>
     <main>
         <section id="new-ticket">
             <h2>How can we help you?</h2>
@@ -10,18 +10,18 @@
                 <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
                 <label for="title">Title</label>
                 <input id="title" type="text" name="title" placeholder="title" required>
-                <label for="department">Department</label>
-                <select name="department" id="new-ticket-department">
+                <label for="new-ticket-department">Department</label>
+                <select id="new-ticket-department" name="department">
                     <option value="0"></option>
                     <?php foreach ($departments as $department) { ?>
-                    <option value=<?=$department->getId()?>><?=htmlentities($department->getName())?></option>
+                    <option value=<?=$department->id?>><?=htmlentities($department->name)?></option>
                     <?php } ?>
                 </select>
                 <label for="tags">Tags</label>
-                <input type="text" id="tags" name="tags">
+                <input id="tags" type="text" name="tags">
                 <label for="description">Description</label>
                 <textarea id="description" name="description" placeholder="Describe your issue" required></textarea>
-                <input type="file" name="file-upload" id="file-upload">
+                <input id="file-upload" type="file" name="file-upload">
                 <button type="submit">Submit</button>
             </form>
         </section>

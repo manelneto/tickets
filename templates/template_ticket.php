@@ -6,21 +6,21 @@
     <main id="ticket-page">
         <section id="ticket-main">
             <article id="ticket-info">
-                <?php $paragraphs = explode('\n', $ticket->getDescription()); ?>
-                <?php if ($session->getId() === $ticket->getAuthor()->getId()) { ?>
+                <?php $paragraphs = explode('\n', $ticket->description); ?>
+                <?php if ($session->getId() === $ticket->author->id) { ?>
                     <form id="edit-ticket-form" action="../actions/action_edit_ticket.php" method="post" class="edit-ticket">
-                        <input type="hidden" name="id" value="<?=$ticket->getId()?>">
+                        <input type="hidden" name="id" value="<?=$ticket->id?>">
                         <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
                         <header id="ticket-header">
                             <img src="../assets/message.png" alt="Ticket Icon">
-                            <h2><input type="text" id="edit-header" name="title" required value="<?=htmlentities($ticket->getTitle())?>"></h2>
+                            <h2><input type="text" id="edit-header" name="title" required value="<?=htmlentities($ticket->title)?>"></h2>
                         </header>
                         <div id="author-edit">
                             <div id="author">
-                                <img class="upload-photo-ticket" src="<?php echo ('../profile_photos/' . $ticket->getAuthor()->getPhoto()) ?>" alt="Profile Photo">
-                                <h3><?=htmlentities($ticket->getAuthor()->getName())?></h3>
+                                <img class="upload-photo-ticket" src="<?='../profile_photos/' . $ticket->author->photo?>" alt="Profile Photo">
+                                <h3><?=htmlentities($ticket->author->getName())?></h3>
                             </div>
-                            <?php if ($session->getId() === $ticket->getAuthor()->id) { ?>
+                            <?php if ($session->getId() === $ticket->author->id) { ?>
                             <button formaction="../actions/action_edit_ticket.php" id="author-edit-button">Edit</button>
                             <?php } ?>
                             <?php if ($session->isAgent()) { ?>
