@@ -40,7 +40,7 @@
                 <input type="hidden" name="agent" <?php if ($agent) echo 'value=' . $agent->getId(); ?>>
                 <input type="hidden" name="tag" <?php if ($tag) echo 'value=' . $tag->getId(); ?>>
                 <input type="hidden" name="offset" value="<?=$offset - $limit?>">
-                <button type="submit">Previous</button>
+                <button id="previous" type="submit">Previous</button>
             </form>
             <?php } ?>
             <?php if ($offset + $limit < count($tickets)) { ?>
@@ -53,7 +53,7 @@
                 <input type="hidden" name="agent" <?php if ($agent) echo 'value=' . $agent->getId(); ?>>
                 <input type="hidden" name="tag" <?php if ($tag) echo 'value=' . $tag->getId(); ?>>
                 <input type="hidden" name="offset" value="<?=$offset + $limit?>">
-                <button type="submit">Next</button>
+                <button id="next" type="submit">Next</button>
             </form>
             <?php } ?>
         </div>
