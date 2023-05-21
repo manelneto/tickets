@@ -5,7 +5,11 @@
     $session = new Session();
     $session->checkCSRF();
 
-    if (!$session->isLoggedIn()) $session->redirect();
+    if (!$session->isLoggedIn()) {
+        $this->addMessage(false, 'You cannot perform that action');
+        header('Location: ../pages/index.php');
+        die();
+    }
 
     $title = trim($_POST['title']);
     $description = trim($_POST['description']);
@@ -24,42 +28,43 @@
     
     require_once(__DIR__ . '/../database/class_ticket.php');
 
-    $names = (strpos($_POST['tags'], ',') !== false) ? explode(',', trim($_POST['tags'])) : array(trim($_POST['tags']));
+    $names = (strpos($_POST['tags'], ',') !== false) ? explode(',', $_POST['tags']) : array(trim($_POST['tags']));
+
     $tags = array();
+
     foreach ($names as $name) {
         $tag = Tag::getTagByName($db, $name);
-        if ($tag) $tags[] = $tag->name;
+        if ($tag) $tags[] = $tag;
     }
 
-    $filename = '';
-
-    if (isset($FILES['file-upload']['name'])) {
+    if (isset($_FILES['file-upload']['name'])) {
     
-        $saveDir = "../ticket_files/";
-        $originalName = basename($_FILES["file-upload"]["name"]);
-        $fileType = pathinfo($originalName, PATHINFO_EXTENSION);
-
-        if ($fileType != "txt" && $fileType != "pdf" && $fileType != "doc") {
-            $session->addMessage(false, 'Only TXT, PDF and DOC files are allowed');
-            header('Location: ../pages/new_ticket.php');
+        $save_dir = "../ticket_files/";
+        $original_name = basename($_FILES["file-upload"]["name"]);
+        $file_type = pathinfo($original_name, PATHINFO_EXTENSION);
+    
+        $save_file = $save_dir . $session->getId() . "." . $file_type ;
+    
+        if($file_type != "txt" && $file_type != "pdf" && $file_type != "doc") {
+            $session->addMessage(false, 'Only TXT, PDF, DOC files are allowed');
             die();
         }
-
-        $filename = $saveDir . $session->getId() . "." . $fileType ;
-
-        if (!move_uploaded_file($_FILES["file-upload"]["tmp_name"], '../ticket_files/ . pdf')) {
-            $session->addMessage(false, 'Error uploading file. Ticket could not be added');
-            header('Location: ../pages/new_ticket.php');
-            die();
+    
+        if (move_uploaded_file($_FILES["file-upload"]["tmp_name"], $save_file) && Ticket::addTicket($db, $session->getId(), $title, $description, $dateOpened, $department, $tags, $save_file)) {
+            $session->addMessage(true, 'Ticket successfully added');
+            header('Location: ../pages/tickets.php');
         }
-    }
-
-    if (Ticket::addTicket($db, $session->getId(), $title, $description, $dateOpened, $department, $tags, $filename)) {
-        $session->addMessage(true, 'Ticket successfully added');
-        header('Location: ../pages/tickets.php');
+        else {
+            $session->addMessage(false, 'Ticket could not be added');
+            header('Location: ../pages/new_ticket.php');
+        }
     } else {
-        $session->addMessage(false, 'Ticket could not be added');
-        header('Location: ../pages/new_ticket.php');
+        if (Ticket::addTicket($db, $session->getId(), $title, $description, $dateOpened, $department, $tags, '')) {
+            $session->addMessage(true, 'Ticket successfully added');
+            header('Location: ../pages/tickets.php');
+        } else {
+            $session->addMessage(false, 'Ticket could not be added');
+            header('Location: ../pages/new_ticket.php');
+        }
     }
-
 ?>
