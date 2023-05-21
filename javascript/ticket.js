@@ -139,9 +139,6 @@ if (send) {
     })
 }
 
-/******************************************_ CHANGES_*************************************************/
-
-
 const editButton = document.getElementById('author-edit-button');
 let isEditMode = false;
 
@@ -192,6 +189,3 @@ messageInfo.forEach(function(element) {
 
   setTimeout(removeMessageInfo, duration);
 });
-
-
-/****************************************************************************************/

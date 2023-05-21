@@ -59,11 +59,17 @@
             parse_str($decoded, $content);
 
             $ticket = Ticket::getTicket($db, (int) $content['id']);
-            $status = (int) $content['status'] ?? 0;
-            $priority = (int) $content['priority'] ?? 0;
-            $department = (int) $content['department'] ?? 0;
-            $agent = (int) $content['agent'] ?? 0;
-            echo json_encode($ticket->editProperties($db, $status === 0 ? null : $status, $priority === 0 ? null : $priority, $department === 0 ? null : $department, $agent === 0 ? null : $agent, array()));
+
+            if (isset($content['tag'])) {
+                echo json_encode($ticket->addTag($db, Tag::getTagByName($db, $content['tag'])->id));
+            } else {
+                $status = (int) $content['status'] ?? 0;
+                $priority = (int) $content['priority'] ?? 0;
+                $department = (int) $content['department'] ?? 0;
+                $agent = (int) $content['agent'] ?? 0;
+                $tags = $ticket->getTags($db);
+                echo json_encode($ticket->editProperties($db, $status === 0 ? null : $status, $priority === 0 ? null : $priority, $department === 0 ? null : $department, $agent === 0 ? null : $agent, $tags));
+            }
             break;
     }
 ?>
