@@ -9,6 +9,7 @@
         <title>Tickets Management</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../css/utils.css">
         <link rel="stylesheet" href="../css/authentication.css">
         <link rel="stylesheet" href="../css/common.css">
         <link rel="stylesheet" href="../css/dashboard.css">
@@ -17,7 +18,6 @@
         <link rel="stylesheet" href="../css/profile.css">
         <link rel="stylesheet" href="../css/tickets.css">   
         <link rel="stylesheet" href="../css/ticket.css">
-        <link rel="stylesheet" href="../css/utils.css">
         <script src="../javascript/common.js" defer></script>
         <script src="../javascript/filters.js" defer></script>
         <script src="../javascript/sidebar.js" defer></script>

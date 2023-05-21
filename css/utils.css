@@ -8,8 +8,8 @@
 }
 
 .logout button, .management button, .faq-buttons button, .add-faq button, .new-ticket button, #profile form button, 
-#profile-photo form button, #password form button, .properties button, .edit-ticket button, .messageBoard-form button,
-.delete-message, .filters button, #show-button{
+#profile-photo form button, #password form button, .properties button, .edit-ticket button, .message-board button,
+.delete-message button, .filters button, #show-button{
     background-color: var(--dark-blue);
     border: none;
     color: white;
@@ -19,4 +19,3 @@
 .faq[open] .question textarea, .management[open] .action, #new-ticket button:hover{
     background-color: var(--light-blue);
 }
-

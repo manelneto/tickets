@@ -161,7 +161,7 @@
     border-radius: 50%;
 }
 
-#author-edit {
+#author-edit, #author-delete {
     display: flex;
     flex-direction: row;
     margin-bottom: 1rem;
@@ -178,7 +178,7 @@
     font-size: 1rem;
 }
 
-#ticket-info a, #messageBoard a{
+#ticket-info a, #message-board a{
     margin-left: 2.3rem;
     font-size: 1rem;
 }
@@ -197,7 +197,7 @@
     margin-left: 2rem;
 }
 
-#messageBoard {
+#message-board {
     margin-inline-start: 1.8rem;
 }
 
@@ -207,7 +207,7 @@
     margin-right: 6.5rem;
 }
 
-#messageBoard summary {
+#message-board summary {
     color: var(--dark-blue);
     list-style-type: none;
     margin-left: 0.6rem;
@@ -283,7 +283,7 @@
     height: 3rem;
 }
 
-#messageBoard hr{
+#message-board hr{
     margin-bottom: 1rem;
     margin-right: 1.8rem;
     margin-left: 0rem;
@@ -292,27 +292,27 @@
     border-radius: 5px;
 }
 
-#messageBoard h4{
+#message-board h4{
     padding: 0.5rem;
 }
 
-#messageBoard p{
+#message-board p{
     margin-inline-start: 0.5rem;
 }
 
-.messageBoard-form{
+.add-message{
     position:fixed;
     bottom: 0;
     margin-bottom: 0.5rem;
 }
 
-.messageBoard-form textarea{
+.add-message textarea{
     margin-top: 0.5rem;
     min-height: 1rem;
     min-width: 40rem;
 }
 
-.messageBoard-form button{
+.add-message button{
     display: block;
     padding: 0.1rem;
     width: 3rem;
@@ -323,7 +323,7 @@
     margin-top: 1rem;
 }
 
-.delete-message {
+.delete-message button, .undo-message button {
     margin-left: 0.5rem;
     margin-top: 1rem;
 }
@@ -390,11 +390,11 @@
         margin-top: 0.9rem;
     }
 
-    #author img, #ticket-info a, #ticket-info p, #messageBoard{
+    #author img, #ticket-info a, #ticket-info p, #message-board{
         margin-left: 1rem;
     }
 
-    #messageBoard summary{
+    #message-board summary{
         margin-left:0rem;
     }
 
@@ -402,11 +402,11 @@
         margin-right: 1rem;
     }
 
-    #messageBoard hr{
+    #message-board hr{
         border-top: 6px solid var(--light-gray);
     }
     
-    .messageBoard-form textarea{
+    .add-message textarea{
         margin-top: 0.5rem;
         min-height: 1rem;
         min-width: 18rem;
@@ -443,17 +443,17 @@
         display: block;
     }
 
-    #author-edit {
+    #author-edit, #author-delete {
         display: flex;
         flex-direction: column;
     }
 
-    #author-edit-button{
+    #author-edit-button, #author-delete-button {
         height: 1.5rem;
         margin-left: 5rem;
     }
 
-    .messageBoard-form{
+    .add-message{
         position:relative;
         margin-bottom: 0.5rem;
     }
@@ -488,7 +488,7 @@
         width: 25rem;
     }
 
-    .messageBoard-form textarea{
+    .add-message textarea{
         margin-top: 0.5rem;
         min-height: 1rem;
         min-width: 35rem;
