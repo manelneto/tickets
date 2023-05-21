@@ -8,7 +8,6 @@ if (apply) {
         const priority = document.querySelector('#priority');
         const department = document.querySelector('#department');
         const agent = document.querySelector('#agent');
-        // TAGS
         const url = '../api/api_ticket.php/';
         const data = {id: id.value, status: status.value, priority: priority.value, department: department.value, agent: agent.value};
         const response = await fetch(url, {
@@ -35,6 +34,7 @@ if (apply) {
 
             const details = document.querySelector('#changes');
             for (const change of changes) {
+                console.log(change);
                 h5 = document.createElement('h5');
                 h5.textContent = change.date;
                 details.appendChild(h5);
@@ -108,7 +108,7 @@ if (send) {
         content.textContent = newMessage.value;
 
         const undo = document.createElement('button');
-        undo.classList.add('undo-message');
+        undo.classList.add('delete-message');
         undo.textContent = 'Undo';
         undo.addEventListener('click', function () {
             this.parentElement.remove();
@@ -127,7 +127,7 @@ if (send) {
         textarea.value = '';
 
         window.setTimeout(async function () {
-            document.querySelector('.undo-message').remove();
+            document.querySelector('.delete-message').remove();
             const url = '../api/api_message.php/';
             const data = {id: ticket.value, content: content.textContent};
             const response = await fetch(url, {
@@ -143,42 +143,44 @@ if (send) {
 
 const editButton = document.getElementById('author-edit-button');
 let isEditMode = false;
+if (editButton) {
+    editButton.addEventListener('click', function(event) {
+        if (isEditMode) {
+            return;
+        }
 
-editButton.addEventListener('click', function(event) {
-    if (isEditMode) {
-        return;
-      }
+        event.preventDefault();
+        editButton.textContent = 'Save';
+        
+        const EditHeader = document.getElementById('edit-header');
+        EditHeader.style.backgroundColor = "#F0F0F0";
 
-    event.preventDefault();
-    editButton.textContent = 'Save';
-    
-    const EditHeader = document.getElementById('edit-header');
-    EditHeader.style.backgroundColor = "#F0F0F0";
+        const EditDescription = document.getElementById('description');
+        EditDescription.style.backgroundColor = "#F0F0F0";
 
-    const EditDescription = document.getElementById('description');
-    EditDescription.style.backgroundColor = "#F0F0F0";
-
-    isEditMode = true;
-});
+        isEditMode = true;
+    });
+}
 
 
 const showButton = document.getElementById('show-button');
-const showMessages = document.getElementById('messageBoard');
 
-showButton.addEventListener('click', function(){
-    
-    if (messageBoard.hasAttribute('open')) {
-        messageBoard.removeAttribute('open');
-        showButton.textContent = 'Show';
-        showButton.style.background = "midnightblue";
-    } else {
-        messageBoard.setAttribute('open', 'open');
-        showButton.textContent = 'Hide';
-        showButton.style.background = "#7CB9E8";
-    }
 
-});
+if (showButton) {
+    showButton.addEventListener('click', function(){
+        
+        if (messageBoard.hasAttribute('open')) {
+            messageBoard.removeAttribute('open');
+            showButton.textContent = 'Show';
+            showButton.style.background = "midnightblue";
+        } else {
+            messageBoard.setAttribute('open', 'open');
+            showButton.textContent = 'Hide';
+            showButton.style.background = "#7CB9E8";
+        }
 
+    });
+}
 
 const messageInfo = document.querySelectorAll('#messages article.success');
 

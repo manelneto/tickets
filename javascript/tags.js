@@ -11,6 +11,8 @@ window.onload = async () => {
 
 if (input) {
     input.addEventListener('keydown', async function (event) {
+        let exist = false;
+
         if (event.key === 'Tab') {
             event.preventDefault();
             if (matchingTags.length > 0) {
@@ -23,50 +25,57 @@ if (input) {
             event.preventDefault();
             const tagName = input.value;
 
-            for (const tag of dbtags) {
-                if(tag === tagName) {
-                    input.value = "";
-                    return;
+            if (document.querySelector('#' + tagName)) { 
+                input.value = "";
+            } else {
+                const button = document.createElement('button');
+                button.formAction = '../actions/action_delete_ticket_tag.php';
+                button.formMethod = 'post';
+                button.classList.add('all-tags');
+                button.name = 'name';
+                button.textContent = tagName;
+                button.id = tagName;
+                
+                const section = document.querySelector('#property-tag');
+                section.insertBefore(button, input);
+
+                for (const tag of dbtags) {
+                    if (tag === tagName) {
+                        input.value = "";
+                        exist = true;
+                    }
                 }
+    
+                let success = false;
+                if (!exist) {
+                    const url = '../api/api_tags.php/';
+                    const data = { name: tagName };
+                    const response = await fetch(url, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        },
+                        body: encodeForAjax(data),
+                    })
+                    success = await response.json();
+                }
+        
+                if (success || exist) {
+                    dbtags.push(tagName);
+                    const id = document.querySelector('#id');
+                    const url = '../api/api_ticket.php';
+                    const data = {id: id.value, tag: tagName};
+                    const response = await fetch(url, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        },
+                        body: encodeForAjax(data),
+                    });
+                }
+    
+                input.value = "";
             }
-
-            const button = document.createElement('button');
-            button.formAction = '../actions/action_delete_ticket_tag.php';
-            button.formMethod = 'post';
-            button.classList.add('all-tags');
-            button.name = 'name';
-            button.textContent = tagName;
-
-            const section = document.querySelector('#property-tag');
-            section.insertBefore(button, input);
-    
-            const url = '../api/api_tags.php/';
-            const data = { name: tagName };
-            const response = await fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: encodeForAjax(data),
-            })
-    
-            const success = await response.json();
-    
-            if (success) {
-                dbtags.push(tagName);
-                const id = document.querySelector('#id');
-                const url = '../api/api_ticket.php';
-                const data = {id: id.value, tag: tagName};
-                const response = await fetch(url, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    },
-                    body: encodeForAjax(data),
-                });
-            }
-
-            input.value = "";
         }
     })
 

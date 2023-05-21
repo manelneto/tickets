@@ -8,13 +8,11 @@
             <article id="ticket-info">
                 <?php $paragraphs = explode('\n', $ticket->getDescription()); ?>
                 <?php if ($session->getId() === $ticket->getAuthor()->getId()) { ?>
-                    <!-- added the id="edit-ticket" to form -->
                     <form id="edit-ticket-form" action="../actions/action_edit_ticket.php" method="post" class="edit-ticket">
                         <input type="hidden" name="id" value="<?=$ticket->getId()?>">
                         <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
                         <header id="ticket-header">
                             <img src="../assets/message.png" alt="Ticket Icon">
-                             <!-- added the id="edit-header" to input -->
                             <h2><input type="text" id="edit-header" name="title" required value="<?=htmlentities($ticket->getTitle())?>"></h2>
                         </header>
                         <div id="author-edit">
@@ -50,8 +48,7 @@
                 <?php } ?>
             </article>
             <details id="messageBoard" >
-                <!-- Added button show -->
-                <summary>Message Board <button id="show-button"> Show</button> </summary>
+                <summary>Message Board<button id="show-button">Show</button></summary>
                 <hr>
                 <div id="all-messages">
                 <?php foreach ($messages as $message) { ?>
@@ -114,7 +111,7 @@
                         <h4>Tags</h4>
                         <?php foreach ($tags as $tag) { ?>
                             <?php if ($session->isAdmin() || ($session->isAgent() && $session->getId() !== $ticket->getAuthor()->getId())) { ?>
-                            <button formaction="../actions/action_delete_ticket_tag.php" formmethod="post" class="all-tags" value="<?=$tag->getId()?>" name="tag"><?=htmlentities($tag->getName())?></button>
+                            <button formaction="../actions/action_delete_ticket_tag.php" formmethod="post" class="all-tags" value="<?=$tag->getId()?>" name="tag" id="<?=$tag->name?>"><?=htmlentities($tag->getName())?></button>
                             <?php } else { ?>
                             <p><?=htmlentities($tag->getName())?></p>
                             <?php } ?>
