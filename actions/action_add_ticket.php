@@ -24,12 +24,7 @@
 
     require_once(__DIR__ . '/../database/class_ticket.php');
 
-    $names = (strpos($_POST['tags'], ',') !== false) ? explode(',', trim($_POST['tags'])) : array(trim($_POST['tags']));
-    $tags = array();
-    foreach ($names as $name) {
-        $tag = Tag::getTagByName($db, $name);
-        if ($tag) $tags[] = $tag;
-    }
+    $tag = Tag::getTagByName($db, $_POST['tags']);
 
     $filename = '';
 
@@ -55,7 +50,7 @@
         }
     }
 
-    if (Ticket::addTicket($db, $session->getId(), $title, $description, $dateOpened, $department === 0 ? null : $department, $tags, $filename)) {
+    if (Ticket::addTicket($db, $session->getId(), $title, $description, $dateOpened, $department === 0 ? null : $department, (int) $tag, $filename)) {
         $session->addMessage(true, 'Ticket successfully added');
         header('Location: ../pages/tickets.php');
     } else {

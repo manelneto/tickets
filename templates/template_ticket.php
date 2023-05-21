@@ -28,8 +28,8 @@
                             <?php } ?>
                         </div>
                         <textarea id="description" name="description"><?php foreach ($paragraphs as $paragraph) echo htmlentities($paragraph); ?></textarea>
-                        <?php if($ticket->getFilename() !== ''){ ?>
-                            <a href="<?php echo '../ticket_files/' . $ticket->getFilename() ?>" download>Download the file here</a>
+                        <?php if (trim($ticket->getFilename() ?? '') !== '') { ?>
+                            <a href="<?=$ticket->getFilename()?>" download>Download the file here</a>
                         <?php } ?>
                     </form>
                 <?php } else { ?>
@@ -44,8 +44,8 @@
                     <?php foreach ($paragraphs as $paragraph) { ?>
                     <p><?=htmlentities($paragraph)?></p>
                     <?php } ?>
-                    <?php if($ticket->getFilename() !== ''){ ?>
-                        <a href="<?php echo '../ticket_files/' . $ticket->getFilename() ?>" download>Download the file here</a>
+                    <?php if (trim($ticket->getFilename() ?? '') !== '') { ?>
+                        <a href="<?=$ticket->getFilename()?>" download>Download the file here</a>
                     <?php } ?>
                 <?php } ?>
             </article>

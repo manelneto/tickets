@@ -213,16 +213,16 @@
             return count($result);
         }
 
-        public static function addTicket(PDO $db, int $idUser, string $title, string $description, string $dateOpened, ?int $department, array $tags, ?string $filename) : bool {
+        public static function addTicket(PDO $db, int $idUser, string $title, string $description, string $dateOpened, ?int $department, int $tag, ?string $filename) : bool {
             $stmt = $db->prepare('
                 INSERT INTO Ticket (idUser, title, description, dateOpened, idDepartment, filename)
                 VALUES (?, ?, ?, ?, ?, ?)
             ');
-            /*try {*/
+            try {
                 $stmt->execute(array($idUser, $title, $description, $dateOpened, $department, $filename));
-            /*} catch (PDOException $e)  {
+            } catch (PDOException $e)  {
                 return false;
-            }*/
+            }
 
             $stmt = $db->prepare('
                 SELECT max(idTicket)
@@ -234,8 +234,7 @@
 
             $ticket = self::getTicket($db, $id);
 
-            foreach ($tags as $tag)
-                $ticket->addTag($db, $tag);
+            $ticket->addTag($db, $tag);
 
             return true;
         }
