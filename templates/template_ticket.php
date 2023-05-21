@@ -55,15 +55,15 @@
                         <img class="message-photo" src="<?php echo ('../profile_photos/' . $message->getAuthor()->getPhoto()) ?>" alt="Profile Photo">
                         <p><?=$message->getAuthor()->getName()?></p>
                         <p class="message-date"> <?=$message->getDate()?> </p>
-                        <?php if ($session->isAdmin()) { ?>
-                            <form action="../actions/action_delete_messsage.php" method="post">
-                                <input type="hidden" name="id" value="<?=$message->id?>">
-                                <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
-                                <button type="submit" class="delete-message">Delete</button>
-                            </form>
-                        <?php } ?>
                     </header>
                     <p class="message-content"><?=$message->getContent()?></p>
+                    <?php if ($session->isAdmin()) { ?>
+                        <form action="../actions/action_delete_messsage.php" method="post">
+                            <input type="hidden" name="id" value="<?=$message->id?>">
+                            <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
+                            <button type="submit" class="delete-message">Delete</button>
+                        </form>
+                    <?php } ?>
                 </article>
                 <?php } ?>
                 <form action="../actions/action_add_message.php" method="post" class="messageBoard-form">
