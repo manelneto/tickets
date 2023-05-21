@@ -8,7 +8,7 @@
             <article id="ticket-info">
                 <?php $paragraphs = explode('\n', $ticket->getDescription()); ?>
                 <?php if ($session->getId() === $ticket->getAuthor()->getId()) { ?>
-                    <form action="../actions/action_edit_ticket.php" method="post" class="edit-ticket">
+                    <form method="post" class="edit-ticket">
                         <input type="hidden" name="id" value="<?=$ticket->getId()?>">
                         <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
                         <header id="ticket-header">
@@ -20,17 +20,15 @@
                                 <img class="upload-photo-ticket" src="<?php echo ('../profile_photos/' . $ticket->getAuthor()->getPhoto()) ?>" alt="Profile Photo">
                                 <h3><?=htmlentities($ticket->getAuthor()->getName())?></h3>
                             </div>
-                            <button type="submit" id="author-edit-button">Edit</button>
+                            <?php if ($session->getId() === $ticket->getAuthor()->id) { ?>
+                            <button formaction="../actions/action_edit_ticket.php" id="author-edit-button">Edit</button>
+                            <?php } ?>
+                            <?php if ($session->isAgent()) { ?>
+                            <button formaction="../actions/action_delete_ticket.php">Delete</button>
+                            <?php } ?>
                         </div>
                         <textarea id="description" name="description"><?php foreach ($paragraphs as $paragraph) echo htmlentities($paragraph); ?></textarea>
                         <a href="<?php echo '../ticket_files/' . $ticket->getFilename() ?>" download>Download the file here</a>
-                        <?php if ($session->isAdmin()) { ?>
-                            <form action="../actions/action_delete_ticket.php" method="post" class="delete-ticket">
-                                <input type="hidden" name="id" value="<?=$ticket->getId()?>">
-                                <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
-                                <button type="submit" class="delete-ticket">Delete</button>
-                            </form>
-                        <?php } ?>
                     </form>
                 <?php } else { ?>
                     <header id="ticket-header">
