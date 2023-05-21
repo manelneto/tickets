@@ -8,7 +8,7 @@
             <article id="ticket-info">
                 <?php $paragraphs = explode('\n', $ticket->getDescription()); ?>
                 <?php if ($session->getId() === $ticket->getAuthor()->getId()) { ?>
-                    <form id="edit-ticket-form" action="../actions/action_edit_ticket.php" method="post" class="edit-ticket">
+                    <form id="edit-ticket-form" method="post" class="edit-ticket">
                         <input type="hidden" name="id" value="<?=$ticket->getId()?>">
                         <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
                         <header id="ticket-header">
@@ -28,7 +28,7 @@
                             <?php } ?>
                         </div>
                         <textarea id="description" name="description"><?php foreach ($paragraphs as $paragraph) echo htmlentities($paragraph); ?></textarea>
-                        <?php if($ticket->getFilename() != ''){ ?>
+                        <?php if($ticket->getFilename() !== ''){ ?>
                             <a href="<?php echo '../ticket_files/' . $ticket->getFilename() ?>" download>Download the file here</a>
                         <?php } ?>
                     </form>
@@ -43,12 +43,14 @@
                     </div>
                     <?php foreach ($paragraphs as $paragraph) { ?>
                     <p><?=htmlentities($paragraph)?></p>
-                    <a href="<?php echo ($ticket->getFilename()) ?>" download>Download the file here</a>
+                    <?php } ?>
+                    <?php if($ticket->getFilename() !== ''){ ?>
+                        <a href="<?php echo '../ticket_files/' . $ticket->getFilename() ?>" download>Download the file here</a>
                     <?php } ?>
                 <?php } ?>
             </article>
             <details id="messageBoard" >
-                <summary>Message Board<button id="show-button">Show</button></summary>
+                <summary>Message Board</summary>
                 <hr>
                 <div id="all-messages">
                 <?php foreach ($messages as $message) { ?>
