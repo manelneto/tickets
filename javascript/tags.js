@@ -1,31 +1,5 @@
 const input = document.querySelector('#tags');
 
-if (input) {
-    input.addEventListener('keydown', async function (event) {
-        if (event.key === 'Enter') {
-            event.preventDefault();
-            const tag = input.value;
-
-            const url = '../api/api_tags.php?' + encodeForAjax({input: input.value});
-
-            const response = await fetch(url);
-            const allTags = await response.json();
-
-            const button = document.createElement('button');
-            button.formAction = '../actions/action_delete_ticket_tag.php';
-            button.formMethod = 'post';
-            button.classList.add('all-tags');
-            button.name = 'name';
-            button.textContent = tag;
-
-            const section = document.querySelector('#property-tag');
-            section.insertBefore(button, input);
-
-            input.value = "";
-        }
-    })
-}
-
 let dbtags = [];
 
 window.onload = async () => {
@@ -35,7 +9,67 @@ window.onload = async () => {
     dbtags = allTags.map(tag => tag.name).filter(Boolean);
 };
 
-if(input) {
+if (input) {
+    input.addEventListener('keydown', async function (event) {
+        if (event.key === 'Tab') {
+            event.preventDefault();
+            if (matchingTags.length > 0) {
+                input.value = matchingTags[index];
+                index = (index + 1) % matchingTags.length;
+            }
+        }
+
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            const tagName = input.value;
+
+            for (const tag of dbtags) {
+                if(tag === tagName) {
+                    input.value = "";
+                    return;
+                }
+            }
+
+            const button = document.createElement('button');
+            button.formAction = '../actions/action_delete_ticket_tag.php';
+            button.formMethod = 'post';
+            button.classList.add('all-tags');
+            button.name = 'name';
+            button.textContent = tagName;
+
+            const section = document.querySelector('#property-tag');
+            section.insertBefore(button, input);
+    
+            const url = '../api/api_tags.php/';
+            const data = { name: tagName };
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: encodeForAjax(data),
+            })
+    
+            const success = await response.json();
+    
+            if (success) {
+                dbtags.push(tagName);
+                const id = document.querySelector('#id');
+                const url = '../api/api_ticket.php';
+                const data = {id: id.value, tag: tagName};
+                const response = await fetch(url, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: encodeForAjax(data),
+                });
+            }
+
+            input.value = "";
+        }
+    })
+
     let matchingTags = [];
     let index = 0;
 
@@ -48,22 +82,4 @@ if(input) {
 
         matchingTags = dbtags.filter(dbtag => dbtag && dbtag.toUpperCase().startsWith(tag)).filter(Boolean);
     });
-
-    input.addEventListener('keydown', function(event) {
-        if (event.key === 'Tab') {
-            event.preventDefault();
-            
-            if (matchingTags.length > 0) {
-                input.value = matchingTags[index];
-                index = (index + 1) % matchingTags.length;
-            }
-        }
-    });
 }
-
-
-
-
-
-
-

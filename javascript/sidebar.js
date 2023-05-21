@@ -14,31 +14,22 @@ if(controller)
     }
   );
 
-const information = document.getElementById('information');
 const tools = document.getElementById('tools');
 
-tools.addEventListener('click', function() {
-    information.classList.toggle('appear');
+if (tools) {
+  tools.addEventListener('click', function() {
+    const information = document.getElementById('information');
 
-    if(information.classList.contains('appear')) {
-      tools.classList.add('moving');
+    if (information) {
+      information.classList.toggle('appear');
+
+      if(information.classList.contains('appear')) {
+        tools.classList.add('moving');
+      }
+      else {
+        tools.classList.remove('moving');
+      }
     }
-    else {
-      tools.classList.remove('moving');
     }
-  }
-);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  );
+}
