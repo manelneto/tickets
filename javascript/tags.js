@@ -26,37 +26,44 @@ if (input) {
     })
 }
 
+let dbtags = [];
 
-
-
-if(input)
-input.addEventListener('input',  async function (event) {
-    event.preventDefault();
-    const url = '../api/api_tags.php' 
-
+window.onload = async () => {
+    const url = '../api/api_tags.php';
     const response = await fetch(url);
     const allTags = await response.json();
+    dbtags = allTags.map(tag => tag.name).filter(Boolean);
+};
 
-    const dbtags = new Array();
+if(input) {
+    let matchingTags = [];
+    let index = 0;
 
-    for(const tag of allTags) {
-        dbtags.push(tag.name);
-    }
+    input.addEventListener('input',  function (event) {
+        const tag = input.value.toUpperCase();
 
-    const tag = input.value;
-
-
-    for (const i=0; i<dbtags.length; i++) {
-        if (dbtags[i].toUpperCase().includes(tag.toUpperCase())) {
-            const p = document.createElement('p');
-            p.textContent = dbtags[i];
-            
-            //Attach click event to each paragraph
-            p.addEventListener('keydown', function() {
-                if (event.key === 'Tab')
-                    input.value = dbtags[i];
-            });
+        if (tag === '') {
+            return;
         }
-    }
-});
+
+        matchingTags = dbtags.filter(dbtag => dbtag && dbtag.toUpperCase().startsWith(tag)).filter(Boolean);
+    });
+
+    input.addEventListener('keydown', function(event) {
+        if (event.key === 'Tab') {
+            event.preventDefault();
+            
+            if (matchingTags.length > 0) {
+                input.value = matchingTags[index];
+                index = (index + 1) % matchingTags.length;
+            }
+        }
+    });
+}
+
+
+
+
+
+
 
