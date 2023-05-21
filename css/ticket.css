@@ -345,6 +345,17 @@
     margin-top: 1rem;
 }
 
+/************************************************ SMALL CHANGE ******************************************************/
+#show-button{
+    margin-top: 0.3rem;
+    border: none;
+    background-color: var(--dark-blue);
+    color: white;
+    padding: 0.2rem;
+    margin-left: 1.5rem;
+}
+/********************************************************************************************************************/
+
 @media only screen and (max-width: 1120px){
 
     #ticket-page {
