@@ -1,8 +1,6 @@
 PRAGMA foreign_keys = ON;
 
-
 /* DROP */
-
 
 DROP TABLE IF EXISTS TicketTag;
 DROP TABLE IF EXISTS AgentDepartment;
@@ -20,7 +18,6 @@ DROP TABLE IF EXISTS User;
 
 
 /* CREATE */
-
 
 CREATE TABLE User (
     idUser INTEGER NOT NULL,
@@ -145,7 +142,6 @@ CREATE TABLE TicketTag (
 
 /* TRIGGERS */
 
-
 DROP TRIGGER IF EXISTS AdminAgent;
 CREATE TRIGGER AdminAgent
     AFTER INSERT ON Admin
@@ -229,34 +225,35 @@ END;
 
 /* INSERT */
 
+INSERT INTO User VALUES(1, 'Joana', 'Marques', 'joanamarques', 'joanamarques@gmail.com', '$2y$12$VrJz37szQfuUJL6xqtW7AOTG8mo4P6MYS3ANzCfKjU1rptpMxT9fq', 'profile_default.png');
+INSERT INTO User VALUES(2, 'Matilde', 'Simões', 'matildesimoes', 'matildesimoes@gmail.com', '$2y$12$GQxH53nyzhC52/rjmxFsIO0U3.zPyXIMI4RwUIcI15XUWLHQgBNy2', 'profile_default.png');
+INSERT INTO User VALUES(3, 'Manel', 'Neto', 'manelneto', 'manelneto@gmail.com', '$2y$12$xTMVEOfoadee7NX5aV2.u.gSH5ZSHpenQOolQ.wT6vexkxS0bnhBi', 'profile_default.png');
 
-INSERT INTO User VALUES(1, 'Joana', 'Marques', 'joanamarques', 'joanamarques@gmail.com', '$2y$12$DFNpOjKTVVMhs5DNj54mZOpSsXohNXNaQG4M0nGI/AOa.a4PS84Vy', 'profile_default.png');
-INSERT INTO User VALUES(2, 'Matilde', 'Simões', 'matildesimoes', 'matildesimoes@gmail.com', '$2y$12$OeWSWAOPBapajMhswVhjDerSaOpGNC9iUo6v94uRvg/r.V4xjc.MW', 'profile_default.png');
-INSERT INTO User VALUES(3, 'Manel', 'Neto', 'manelneto', 'manelneto@gmail.com', '$2y$12$nfwMTXK25lqUeUdtSSWDze1ruvRv2igiQMdhrJrmNLxp7XvOhBziW', 'profile_default.png');
-INSERT INTO User VALUES(4, 'Client', 'Test', 'client', 'client@test.com', '$2y$12$zlEzCwPtpRRXdS12ob9ypeajSLmW94dUo5kOmItV791QMOe5Mf5x6', 'profile_default.png');
-INSERT INTO User VALUES(5, 'Agent', 'Test', 'agent', 'agent@test.com', '$2y$12$5TuVO22AK1v3fXUPFuAKVueYh7/lqB9eWm8xgftXVQvtLRMLTRmoC', 'profile_default.png');
-INSERT INTO User VALUES(6, 'Admin', 'Test', 'admin', 'admin@test.com', '$2y$12$MVxJYNX6egxRIQOm6LyGXuscEoF/SOCX7uwmnIGP8inDFncQap6jq', 'profile_default.png');
-
-INSERT INTO Agent VALUES(5);
 INSERT INTO Agent VALUES(2);
 
-INSERT INTO Admin VALUES(6);
-INSERT INTO Admin VALUES(1);
+INSERT INTO Admin VALUES(3);
 
-INSERT INTO Department VALUES(1, 'IT');
+INSERT INTO Department VALUES(1, 'Information Technology');
 INSERT INTO Department VALUES(2, 'Human Resources');
 INSERT INTO Department VALUES(3, 'Finances');
 INSERT INTO Department VALUES(4, 'Marketing');
+INSERT INTO Department VALUES(5, 'Logistics');
+INSERT INTO Department VALUES(6, 'Legal');
+INSERT INTO Department VALUES(7, 'Product Development');
 
 INSERT INTO Priority VALUES(1, 'Low');
 INSERT INTO Priority VALUES(2, 'Medium');
 INSERT INTO Priority VALUES(3, 'High');
 INSERT INTO Priority VALUES(4, 'Critical');
 
-INSERT INTO Tag VALUES(1, 'website');
-INSERT INTO Tag VALUES(2, 'password');
-INSERT INTO Tag VALUES(3, 'general');
-INSERT INTO Tag VALUES(4, 'other');
+INSERT INTO Tag VALUES(1, 'bug');
+INSERT INTO Tag VALUES(2, 'feature');
+INSERT INTO Tag VALUES(3, 'urgent');
+INSERT INTO Tag VALUES(4, 'performance');
+INSERT INTO Tag VALUES(5, 'billing');
+INSERT INTO Tag VALUES(6, 'issue');
+INSERT INTO Tag VALUES(7, 'recurring');
+INSERT INTO Tag VALUES(8, 'invalid');
 
 INSERT INTO Status VALUES(1, 'Open');
 INSERT INTO Status VALUES(2, 'Assigned');
@@ -294,7 +291,6 @@ INSERT INTO TicketTag VALUES(3, 3);
 
 
 /* TRIGGERS */
-
 
 DROP TRIGGER IF EXISTS TicketTagInsert;
 CREATE TRIGGER TicketTagInsert

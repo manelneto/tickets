@@ -20,11 +20,11 @@
 }
 
 .new-ticket select{
-    width: 20rem;
+    width: 30rem;
 }
 
 .new-ticket input, .new-ticket textarea{
-    width: 18.8rem;
+    width: 28.8rem;
 }
 
 #file-upload{
