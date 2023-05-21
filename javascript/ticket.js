@@ -182,7 +182,6 @@ if (showButton) {
     });
 }
 
-
 const messageInfo = document.querySelectorAll('#messages article.success');
 
 messageInfo.forEach(function(element) {

@@ -18,12 +18,7 @@
                     <?php } ?>
                 </select>
                 <label for="tags">Tags</label>
-                <input id="tags" type="email" name="tags" placeholder="#tags" list="tags-list" multiple autocomplete>
-                <datalist id="tags-list">
-                    <?php foreach ($tags as $tag) { ?>
-                    <option value="<?=$tag->getName()?>"><?=htmlentities($tag->getName())?></option>
-                    <?php } ?>
-                </datalist>
+                <input type="text" id="tags" name="tags">
                 <label for="description">Description</label>
                 <textarea id="description" name="description" placeholder="Describe your issue" required></textarea>
                 <input type="file" name="file-upload" id="file-upload">
