@@ -327,7 +327,7 @@
     display: none;
 }
 
-.delete-message button{
+.delete-message {
     margin-left: 0.5rem;
     margin-top: 1rem;
 }

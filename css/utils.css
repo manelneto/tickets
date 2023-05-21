@@ -9,7 +9,7 @@
 
 .logout button, .management button, .faq-buttons button, .add-faq button, .new-ticket button, #profile form button, 
 #profile-photo form button, #password form button, .properties button, .edit-ticket button, .messageBoard-form button,
-.delete-message button, .filters button{
+.delete-message, .filters button{
     background-color: var(--dark-blue);
     border: none;
     color: white;
