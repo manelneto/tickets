@@ -263,26 +263,43 @@ INSERT INTO FAQ VALUES(1, 'How long do I have to wait for an answer?', 'It depen
 INSERT INTO FAQ VALUES(2, 'Where can I see the current status of my ticket?', 'The client can check the ticket status in the Dashboard.');
 INSERT INTO FAQ VALUES(3, 'Where can I submit a new ticket?', 'On the tickets section.');
 INSERT INTO FAQ VALUES(4, 'Where can I change my email address?', 'On your profile section.');
+INSERT INTO FAQ VALUES(5, 'Can I add attachments to my ticket?', 'Yes, you can add attachments while submitting a ticket or later by updating the ticket.');
+INSERT INTO FAQ VALUES(6, 'How do I edit my submitted ticket?', 'You can edit your ticket by navigating to the ticket and selecting the edit option.');
+INSERT INTO FAQ VALUES(7, 'Can I reopen a closed ticket?', 'No, once a ticket is closed, it cannot be reopened.');
+INSERT INTO FAQ VALUES(8, 'What is the difference between departments?', 'Departments help to categorize the tickets. For example, the department "Information Technology" is used to indicate that the ticket is related to a problem with the system.');
+INSERT INTO FAQ VALUES(9, 'Who can see my tickets?', 'Only the assigned agent and the administrators.');
+INSERT INTO FAQ VALUES(10, 'What is the difference between priority levels?', 'Priority levels help to indicate the severity of the ticket. Critical priority tickets are treated with more urgency than low priority ones.');
+INSERT INTO FAQ VALUES(11, 'What is the difference between tags?', 'Tags help to categorize the tickets. For example, the tag "bug" is used to indicate that the ticket is related to a bug in the system.');
 
 INSERT INTO Ticket(idTicket, idUser, title, description, dateOpened) VALUES(1, 1, 'Received a broken TV', 'The television I ordered from your site was delivered with a cracked screen. I need some replacement.', '2023-05-07');
 INSERT INTO Ticket(idTicket, idUser, title, description, dateOpened) VALUES(2, 2, 'Payment failed', 'The payment of my purchase failed. What can I do?', '2023-05-06');
-INSERT INTO Ticket(idTicket, idUser, title, description, dateOpened) VALUES(3, 3, 'Email address change', 'Where can I change my email address?', '2023-05-05');
+INSERT INTO Ticket(idTicket, idUser, title, description, dateOpened) VALUES(3, 1, 'Email address change', 'Where can I change my email address?', '2023-05-05');
+INSERT INTO Ticket(idTicket, idUser, title, description, dateOpened) VALUES(4, 3, 'Login Issue', 'I cannot log into my account despite using the correct password.', '2023-05-09');
+INSERT INTO Ticket(idTicket, idUser, title, description, dateOpened) VALUES(5, 1, 'Incorrect order received', 'I received an item that I did not order.', '2023-05-09');
+INSERT INTO Ticket(idTicket, idUser, title, description, dateOpened) VALUES(6, 2, 'Order not yet delivered', 'My order was supposed to arrive last week but it has not arrived yet.', '2023-05-10');
+INSERT INTO Ticket(idTicket, idUser, title, description, dateOpened) VALUES(7, 1, 'Product return', 'I would like to return a product I purchased, but I am unsure of the process.', '2023-05-11');
+INSERT INTO Ticket(idTicket, idUser, title, description, dateOpened) VALUES(8, 3, 'Website Error', 'I am receiving a 404 error when trying to access my cart.', '2023-05-11');
+INSERT INTO Ticket(idTicket, idUser, title, description, dateOpened) VALUES(9, 3, 'Promotion code not working', 'The promotion code I am trying to use is not being accepted at checkout.', '2023-05-12');
+INSERT INTO Ticket(idTicket, idUser, title, description, dateOpened) VALUES(10, 1, 'Product Query', 'Does the product come with a warranty?', '2023-05-13');
+INSERT INTO Ticket(idTicket, idUser, title, description, dateOpened) VALUES(11, 1, 'Login Issue', 'I cannot log into my account despite using the correct password.', '2023-05-09');
+INSERT INTO Ticket(idTicket, idUser, title, description, dateOpened) VALUES(12, 1, 'Damaged Package', 'The package was damaged upon arrival, and I am concerned about the product inside.', '2023-05-15');
+INSERT INTO Ticket(idTicket, idUser, title, description, dateOpened) VALUES(13, 1, 'Payment Refund', 'I would like to request a refund for my last purchase.', '2023-05-17');
+INSERT INTO Ticket(idTicket, idUser, title, description, dateOpened) VALUES(14, 1, 'Technical Glitch', 'I am experiencing a technical issue with the website. It freezes every time I try to check out.', '2023-05-19');
+INSERT INTO Ticket(idTicket, idUser, title, description, dateOpened) VALUES(15, 1, 'Product Unavailability', 'The product I want to purchase is out of stock. When will it be available?', '2023-05-20');
+INSERT INTO Ticket(idTicket, idUser, title, description, dateOpened) VALUES(16, 1, 'Order Cancellation', 'I accidentally placed an order. I need to cancel it.', '2023-05-21');
+INSERT INTO Ticket(idTicket, idUser, title, description, dateOpened) VALUES(17, 1, 'Billing Discrepancy', 'I was charged twice for my last purchase. Please resolve.', '2023-05-22');
+INSERT INTO Ticket(idTicket, idUser, title, description, dateOpened) VALUES(18, 2, 'Website Navigation', 'I am having trouble finding a specific section on website. Can you assist?', '2023-05-21');
+INSERT INTO Ticket(idTicket, idUser, title, description, dateOpened) VALUES(19, 1, 'Account Deletion', 'I want to delete my account, but I am unable to find the option.', '2023-05-01');
 
-UPDATE Ticket SET idAgent = 6, idDepartment = 3, idPriority = 3 WHERE idTicket = 2;
+UPDATE Ticket SET idAgent = 2, idDepartment = 3, idPriority = 3 WHERE idTicket = 2;
 UPDATE Ticket SET idStatus = 3 WHERE idTicket = 2;
-UPDATE Ticket SET idAgent = 1, idDepartment = 1, idPriority = 1  WHERE idTicket = 3;
-UPDATE Ticket SET idFAQ = 4 WHERE idTicket = 3;
 
 INSERT INTO Message VALUES(1, '2023-05-15', 'Forget it. I fixed the screen myself!', 1, 1);
 INSERT INTO Message VALUES(2, '2023-05-07', 'What is the number of your purchase?', 2, 6);
 INSERT INTO Message VALUES(3, '2023-05-08', 'Purchase Number 123', 2, 2);
 
-INSERT INTO AgentDepartment VALUES(5, 2);
-INSERT INTO AgentDepartment VALUES(5, 4);
 INSERT INTO AgentDepartment VALUES(2, 2);
-INSERT INTO AgentDepartment VALUES(6, 1);
-INSERT INTO AgentDepartment VALUES(6, 3);
-INSERT INTO AgentDepartment VALUES(1, 1);
+INSERT INTO AgentDepartment VALUES(2, 4);
 
 INSERT INTO TicketTag VALUES(1, 4);
 INSERT INTO TicketTag VALUES(2, 4);
