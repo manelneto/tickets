@@ -18,13 +18,10 @@
         <link rel="stylesheet" href="../css/profile.css">
         <link rel="stylesheet" href="../css/tickets.css">   
         <link rel="stylesheet" href="../css/ticket.css">
-        
         <script src="../javascript/sidebar.js" defer></script>
-        <!--script src="../javascript/autocomplete.js"></script-->
-        <script src="../javascript/common.js"></script>
+        <script src="../javascript/common.js" defer></script>
         <script src="../javascript/filters.js" defer></script>
         <script src="../javascript/ticket.js" defer></script>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
         <script src="../javascript/tags.js" defer></script>
     </head>
     <body <?php if (!$session->isLoggedIn()) echo "id=\"authentication\""?>>

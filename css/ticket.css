@@ -120,14 +120,14 @@
     width: 5rem;
 }
 
-.edit-ticket button {
+.edit-ticket button, .delete-ticket button {
     padding: 0.2rem;
     width: 3rem;
     margin-right: 1rem;
     height: 2rem;
 }
 
-.edit-ticket h2 input {
+.edit-ticket h2 input, .delete-ticket h2 input {
     width: 35rem;
     border: none;
     font-size: 1.3rem;
@@ -161,14 +161,14 @@
     border-radius: 50%;
 }
 
-#author-edit {
+#author-edit, #author-delete {
     display: flex;
     flex-direction: row;
     margin-bottom: 1rem;
     justify-content: space-between;
 }
 
-.edit-ticket #description {
+.edit-ticket #description, .delete-ticket #description {
     border:none;
     width: 64rem;
     height: 3rem;  
@@ -432,9 +432,10 @@
     #all-messages{
         min-height: 14rem;
         height: 20rem;
+        margin-right:0;
     }
 
-    .edit-ticket #description {
+    .edit-ticket #description, .delete-ticket #description {
         width: 18rem;
         margin-left:1rem;
     }
@@ -443,12 +444,12 @@
         display: block;
     }
 
-    #author-edit {
+    #author-edit, #author-delete {
         display: flex;
         flex-direction: column;
     }
 
-    #author-edit-button{
+    #author-edit-button, #author-delete-button {
         height: 1.5rem;
         margin-left: 5rem;
     }
@@ -458,13 +459,22 @@
         margin-bottom: 0.5rem;
     }
 
-    .edit-ticket h2 input {
+    .edit-ticket h2 input, .delete-ticket h2 input {
         width: 16rem;
     }
 
     .delete-ticket, .edit-ticket a{
         display: flex;
         justify-content: space-between;
+    }
+
+    #delete-ticket-form{
+        display:flex;
+        flex-direction: column;
+    }
+
+    #menssageBoard{
+        width: 19rem;
     }
 }
 

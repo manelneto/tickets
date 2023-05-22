@@ -20,12 +20,7 @@
                                 <img class="upload-photo-ticket" src="<?php echo ('../profile_photos/' . $ticket->getAuthor()->getPhoto()) ?>" alt="Profile Photo">
                                 <h3><?=htmlentities($ticket->getAuthor()->getName())?></h3>
                             </div>
-                            <?php if ($session->getId() === $ticket->getAuthor()->id) { ?>
                             <button formaction="../actions/action_edit_ticket.php" id="author-edit-button">Edit</button>
-                            <?php } ?>
-                            <?php if ($session->isAgent()) { ?>
-                            <button formaction="../actions/action_delete_ticket.php">Delete</button>
-                            <?php } ?>
                         </div>
                         <textarea id="description" name="description"><?php foreach ($paragraphs as $paragraph) echo htmlentities($paragraph); ?></textarea>
                         <?php if (trim($ticket->getFilename() ?? '') !== '') { ?>
@@ -33,14 +28,21 @@
                         <?php } ?>
                     </form>
                 <?php } else { ?>
-                    <header id="ticket-header">
-                        <img src="../assets/message.png" alt="Ticket Icon">
-                        <h2><?=htmlentities($ticket->getTitle())?></h2>
-                    </header>
-                    <div id="author">
-                        <img class="upload-photo" src="<?php echo ('../profile_photos/' . $ticket->getAuthor()->getPhoto()) ?>" alt="Profile Photo">
-                            <h3><?=htmlentities($ticket->getAuthor()->getName())?></h3>
-                    </div>
+                    <form id="delete-ticket-form" method="post" class="delete-ticket">
+                        <input type="hidden" name="id" value="<?=$ticket->getId()?>">
+                        <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
+                        <header id="ticket-header">
+                            <img src="../assets/message.png" alt="Ticket Icon">
+                            <h2><?=htmlentities($ticket->getTitle())?></h2>
+                        </header>
+                        <div id="author-delete">
+                            <div id="author">
+                                <img class="upload-photo" src="<?php echo ('../profile_photos/' . $ticket->getAuthor()->getPhoto()) ?>" alt="Profile Photo">
+                                <h3><?=htmlentities($ticket->getAuthor()->getName())?></h3>
+                            </div>
+                            <button formaction="../actions/action_delete_ticket.php" id="author-delete-button">Delete</button>
+                        </div>
+                    </form>
                     <?php foreach ($paragraphs as $paragraph) { ?>
                     <p><?=htmlentities($paragraph)?></p>
                     <?php } ?>
@@ -144,7 +146,7 @@
         <?php if ($entity) { ?>
         <option value="<?=$entity->getId()?>"><?=htmlentities($entity->getName())?></option>
         <?php } else { ?>
-        <option value="0"></option>
+        <option value="0">None</option>
         <?php } ?>
         <?php if ($canEdit) {
             foreach ($entities as $e) {

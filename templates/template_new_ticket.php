@@ -10,9 +10,9 @@
                 <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
                 <label for="title">Title</label>
                 <input id="title" type="text" name="title" placeholder="title" required>
-                <label for="department">Department</label>
+                <label for="new-ticket-department">Department</label>
                 <select name="department" id="new-ticket-department">
-                    <option value="0"></option>
+                    <option value="0">None</option>
                     <?php foreach ($departments as $department) { ?>
                     <option value=<?=$department->getId()?>><?=htmlentities($department->getName())?></option>
                     <?php } ?>

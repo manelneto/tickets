@@ -11,7 +11,8 @@
                 <form action="../actions/action_upgrade_client.php" method="post" class="upgrade">
                     <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
                     <label for="client">Select a client</label>
-                    <select id="client" name="client" required>
+                    <select id="client" name="client">
+                        <option value="0">None</option>
                         <?php foreach ($clients as $client) { ?>
                         <option value="<?=$client->getId()?>"><?=htmlentities($client->getUsername())?></option>
                         <?php } ?>
@@ -30,7 +31,8 @@
                 <form action="../actions/action_add_entity.php" method="post" class="entity">
                     <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
                     <label for="entity">Select an entity</label>
-                    <select id="entity" name="entity" required>
+                    <select id="entity" name="entity">
+                        <option value="0">None</option>
                         <option value="department">Department</option>
                         <option value="status">Status</option>
                         <option value="priority">Priority</option>
@@ -48,14 +50,16 @@
                 <form action="../actions/action_assign_agent.php" method="post" class="assign">
                     <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
                     <label for="department">Select a department</label>
-                    <select id="department" name="department" required>
+                    <select id="department" name="department">
+                        <option value="0">None</option>
                         <?php foreach ($departments as $department) { ?>
                         <option value="<?=$department->getId()?>"><?=htmlentities($department->getName())?></option>
                         <?php } ?>
                     </select>
                     <div class="field">
-                        <label for="agent">Select an agent</label>
-                        <select id="agent" name="agent" required>
+                        <label for="agent-department">Select an agent</label>
+                        <select id="agent-department" name="agent">
+                            <option value="0">None</option>
                             <?php foreach ($agents as $agent) { ?>
                             <option value="<?=$agent->getId()?>"><?=htmlentities($agent->getUsername())?></option>
                             <?php } ?>
@@ -69,15 +73,16 @@
                 <form action="../actions/action_delete_entity.php" method="post" class="delete-entity">
                     <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
                     <label for="entity-delete">Select an entity</label>
-                    <select id="entity-delete" name="entity" required>
+                    <select id="entity-delete" name="entity">
+                        <option value="0">None</option>
                         <option value="department">Department</option>
                         <option value="status">Status</option>
                         <option value="priority">Priority</option>
                         <option value="tag">Tag</option>
                     </select>
                     <div class="field">
-                        <label for="name">Name</label>
-                        <input type="text" id="name" name="name" required>
+                        <label for="entity-name">Name</label>
+                        <input type="text" id="entity-name" name="name" required>
                     </div>
                     <button type="submit">Delete</button>
                 </form>
@@ -87,7 +92,8 @@
                 <form action="../actions/action_delete_user.php" method="post" class="delete-user">
                     <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
                     <label for="user">Select a user</label>
-                    <select id="user" name="user" required>
+                    <select id="user" name="user">
+                        <option value="0">None</option>
                         <?php foreach ($clients as $user) { ?>
                             <option value="<?=$user->getId()?>"><?=htmlentities($user->getUsername())?></option>
                         <?php } ?>

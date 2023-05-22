@@ -66,7 +66,7 @@
     color: var(--dark-blue);
 }
 
-#faq-arrow {
+.faq-arrow {
     list-style-type: none;
 }
 

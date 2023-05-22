@@ -22,6 +22,7 @@
             </form>
         </section>
         <section id="profile-photo">
+            <h2><?=$user->getName()?></h2>
             <form action="../actions/action_upload_photo.php" method="post" enctype="multipart/form-data" class="upload-photo">
                     <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
                     <img class="upload-photo" src="<?php echo htmlentities('../profile_photos/' . $user->getPhoto()) ?>" alt="Profile Photo">
@@ -50,6 +51,7 @@
             </form>
         </section>
         <section id="password-photo">
+            <h2><?=$user->getName()?></h2>
             <img class="upload-photo" src="<?php echo ('../profile_photos/' . $user->getPhoto()) ?>" alt="Profile Photo">
         </section>
     </main>
