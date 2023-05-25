@@ -25,7 +25,7 @@ __Password__ !Ltw2023@
 ```
 git clone git@github.com:FEUP-LTW-2023/project-ltw08g01.git
 cd project-ltw08g01
-git checkout final-delivery-v2-final
+git checkout final-delivery-v2-fixed
 sqlite3 database/database.db < database/database.sql
 php -S localhost:9000
 ```
