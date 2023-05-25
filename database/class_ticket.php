@@ -269,7 +269,7 @@
             }
 
             foreach ($tags as $tag)
-                $this->addTag($db, $tag);
+                $this->addTag($db, $tag->id);
 
             return true;
         }

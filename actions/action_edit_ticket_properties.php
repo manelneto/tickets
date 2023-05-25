@@ -23,7 +23,7 @@
     $tags = array();
     foreach ($names as $name) {
         $tag = Tag::getTagByName($db, $name);
-        if ($tag) $tags[] = $tag->id;
+        if ($tag) $tags[] = $tag;
     }
 
     $ticket = Ticket::getTicket($db, $id);

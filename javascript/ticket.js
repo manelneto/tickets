@@ -34,7 +34,6 @@ if (apply) {
 
             const details = document.querySelector('#changes');
             for (const change of changes) {
-                console.log(change);
                 h5 = document.createElement('h5');
                 h5.textContent = change.date;
                 details.appendChild(h5);

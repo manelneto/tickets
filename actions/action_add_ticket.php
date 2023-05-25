@@ -50,7 +50,7 @@
         }
     }
 
-    if (Ticket::addTicket($db, $session->getId(), $title, $description, $dateOpened, $department === 0 ? null : $department, (int) $tag, $filename)) {
+    if (Ticket::addTicket($db, $session->getId(), $title, $description, $dateOpened, $department === 0 ? null : $department, $tag->id, $filename)) {
         $session->addMessage(true, 'Ticket successfully added');
         header('Location: ../pages/tickets.php');
     } else {

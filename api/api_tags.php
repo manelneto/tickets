@@ -5,7 +5,6 @@
     $session = new Session();
 
     if (!$session->isLoggedIn()) die();
-    if (!$session->isAgent()) die();
 
     require_once(__DIR__ . '/../database/connection.php');
     $db = getDatabaseConnection();
