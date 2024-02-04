@@ -1,4 +1,4 @@
-# *Tickets Management*
+# *Management of Trouble Tickets*
 
 Este projeto foi desenvolvido no âmbito da Unidade Curricular **Linguagens e Tecnologias Web (LTW)** do 2º semestre do 2º ano da **Licenciatura em Engenharia Informática e Computação (LEIC)** da **Faculdade de Engenharia da Universidade do Porto (FEUP)**, no ano letivo 2022/2023.
 
