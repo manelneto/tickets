@@ -1,4 +1,8 @@
-# LTW Project - Tickets Management
+# *Tickets Management*
+
+Este projeto foi desenvolvido no âmbito da Unidade Curricular **Linguagens e Tecnologias Web (LTW)** do 2º semestre do 2º ano da **Licenciatura em Engenharia Informática e Computação (LEIC)** da **Faculdade de Engenharia da Universidade do Porto (FEUP)**, no ano letivo 2022/2023.
+
+## LTW Project - Tickets Management
 
 Joana Marques - up202103346
 
@@ -23,8 +27,7 @@ __Password__ !Ltw2023@
 
 
 ```
-git clone git@github.com:FEUP-LTW-2023/project-ltw08g01.git
-cd project-ltw08g01
+git clone git@github.com:manelneto/tickets.git
 git checkout final-delivery-v2-fixed
 sqlite3 database/database.db < database/database.sql
 php -S localhost:9000
